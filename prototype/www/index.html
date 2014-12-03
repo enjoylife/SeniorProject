@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html  ng-app="prototype">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
@@ -20,14 +20,35 @@
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
   </head>
-  <body ng-app="starter">
+<!--   <body ng-controller="MainMenuCtrl">
+    <ion-header-bar class="bar-positive">
+      <h1 class="title">Gearhead</h1>
+    </ion-header-bar>
+    <ion-content>
+      Center content
+      <ion-list>
+        <ion-item ng-repeat="item in menu">
+          {{item.title}}
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </body> -->
 
-    <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Gearhead</h1>
-      </ion-header-bar>
-      <ion-content>
+  <body>
 
+    <ion-nav-bar class="bar-calm" align-title="center">
+      <ion-nav-back-button class="button-icon ion-arrow-left-c">
+      </ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-nav-view class="slide-right">
+    </ion-nav-view> 
+      
+      
+  </body>
+</html>
+
+<!--
         <style>
           .scroll {
             min-height: 100%;
@@ -79,38 +100,9 @@
             background: blue;
           }
         </style>
-        <!-- We would like to have Two vertical columns. -->
-        <!-- <div class='row flex-item'>
-          <div class='col col-33 time-line button flex-item'>
-            <h3>TimeLine</h3>
-            
-          </div>
+        <!-- We would like to have Two vertical columns. 
+          
 
-          <div class='col scroll right-side'>
-            <div class='row flex-item'>
-              <div class='col col-100 button top-right'>
-                <h3>Career Binder</h3>
-              </div>
-            </div>
-
-            <div class-'row flex-item'>
-              <div class='col button book flex-item'>
-                <h3>BOOK</h3>
-              </div>
-              <div class='col button success flex-item'>
-                <h3>Success Stories</h3>
-              </div>
-            
-              <div class='col button flex-item science'>
-                <h3>Job Search as a Science</h3>
-              </div>
-              <div class='col button flex-item about'>
-                <h3>About Us</h3>
-              </div>
-            </div>
-
-          </div>
-        </div> -->
         <div class='row flex-item'>
           <div class='col col-50 flex-item time-line button'>
             <h3>Timeline</h3>
@@ -141,8 +133,4 @@
             </div>
           </div>
         </div>
-
-      </ion-content>
-    </ion-pane>
-  </body>
-</html>
+-->
