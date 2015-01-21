@@ -1,0 +1,166 @@
+<ion-view title="Motivated Skills Inventory" ng-controller="comsCtrl">
+	<ion-content has-header="true" align="center">
+		<h2>Communication Skills</h2>
+		<table style="width:100%; border:1px solid black;">
+			<tr>
+				<th style="width: 60%;">Question</th>
+				<th style="max-width: 20%;">Skill Level</th>
+				<th style="max-width: 20%;">Motivation</th>
+			</tr>
+			<!-- --------- -->
+			<!-- FIRST ROW -->
+			<!-- --------- -->
+			<tr>
+				<td> 
+					<b>{{comQuestions.writingHead}}</b>{{comQuestions.writingBody}}
+				</td>
+
+				<td>
+					<ion-radio name="writingSkills" ng-repeat="item in writingSkills" ng-value="item.value" ng-model="data.writingSVal">
+						{{ item.text }}
+					</ion-radio>
+				</td>
+
+				<td>
+					<ion-radio name="writingMotivation" ng-repeat="item in writingMotivation" ng-value="item.value" ng-model="data.writingMVal">
+						{{item.text}}
+					</ion-radio>
+					<!-- {{data.comMVal}} -->
+
+					<!-- Communication Total = {{data.comSVal + data.comMVal}} -->
+					<!-- {{data.comTotal(data.comSVal, data.comMVal)}} -->
+				</td>
+			</tr>
+			<!-- ---------- -->
+			<!-- SECOND ROW -->
+			<!-- ---------- -->
+			<tr>
+				<td>
+					<b>{{comQuestions.speakingHead}}</b>{{comQuestions.speakingBody}}
+				</td>
+
+				<td>
+					<ion-radio name="speakingSkills" ng-repeat="item in speakingSkills" ng-value="item.value" ng-model="data.speakingSVal">
+						{{item.text}}
+					</ion-radio>
+				</td>
+
+				<td>
+					<ion-radio name="speakingMotivation" ng-repeat="item in speakingMotivation" ng-value="item.value" ng-model="data.speakingMVal">
+						{{item.text}}
+					</ion-radio>
+					<!-- Speaking Total = {{data.speakingTotal(data.speakingSVal, data.speakingMVal)}} -->
+				</td>
+			</tr>
+
+			<!-- ---------- -->
+			<!-- THIRD ROW -->
+			<!-- ---------- -->
+			<tr>
+				<td>
+					<b>{{comQuestions.presentationHead}}</b>{{comQuestions.presentationBody}} 
+				</td>
+
+				<td>
+					<ion-radio name="presentationSkills" ng-repeat="item in presentationSkills" ng-value="item.value" ng-model="data.presentationSVal">
+						{{item.text}}
+					</ion-radio>
+				</td>
+				<td>
+					<ion-radio name="presentationMotivation" ng-repeat="item in presentationMotivation" ng-value="item.value" ng-model="data.presentationMVal">
+						{{item.text}}
+					</ion-radio>
+				</td>
+			</tr>
+
+			<!-- ---------- -->
+			<!-- FOURTH ROW -->
+			<!-- ---------- -->
+			<tr>
+				<td>
+					<b>{{comQuestions.persuasiveHead}}</b>{{comQuestions.persuasiveBody}}
+				</td>
+
+				<td>
+					<ion-radio name="persuasiveSkills" ng-repeat="item in persuasiveSkills" ng-value="item.value" ng-model="data.persuasiveSVal">
+						{{item.text}}
+					</ion-radio>
+				</td>
+				<td>
+					<ion-radio name="persuasiveMotivation" ng-repeat="item in persuasiveMotivation" ng-value="item.value" ng-model="data.persuasiveMVal">
+						{{item.text}}
+					</ion-radio>
+				</td>
+			</tr>
+
+			<!-- ---------- -->
+			<!-- FIFTH ROW -->
+			<!-- ---------- -->
+			<tr>
+				<td>
+					<b>{{comQuestions.saleHead}}</b> {{comQuestions.saleBody}}
+				</td>
+
+				<td>
+					<ion-radio name="saleSkills" ng-repeat="item in saleSkills" ng-value="item.value" ng-model="data.saleSVal">
+						{{item.text}}
+					</ion-radio>
+				</td>
+
+				<td>
+					<ion-radio name="saleMotivation" ng-repeat="item in saleMotivation" ng-value="item.value" ng-model="data.saleMVal">
+						{{item.text}}
+					</ion-radio>
+					
+				</td>
+			</tr>
+
+			<!-- ---------- -->
+			<!-- SIXTH ROW -->
+			<!-- ---------- -->
+			<tr>
+				<td>
+					<b>{{comQuestions.dramaHead}}</b> {{comQuestions.dramaBody}}
+				</td>
+
+				<td>
+					<ion-radio name="dramaSkills" ng-repeat="item in dramaSkills" ng-value="item.value" ng-model="data.dramaSVal">
+						{{item.text}}
+					</ion-radio>
+				</td>
+				<td>
+					<ion-radio name="dramaMotivation" ng-repeat="item in dramaMotivation" ng-value="item.value" ng-model="data.dramaMVal">
+						{{item.text}}
+					</ion-radio>
+				</td>
+			</tr>
+
+			<!-- ---------- -->
+			<!-- SEVENTH ROW -->
+			<!-- ---------- -->
+			<tr>
+				<td>
+					<b>{{ comQuestions.negotiatingHead }}</b> {{comQuestions.negotiatingBody}} 
+				</td>
+
+				<td>
+					<ion-radio name="negotiatingSkills" ng-repeat="item in negotiatingSkills" ng-value="item.value" ng-model="data.negotiatingSVal">
+						{{item.text}}
+					</ion-radio>
+				</td>
+				<td>
+					<ion-radio name="negotiatingMotivation" ng-repeat="item in negotiatingMotivation" ng-value="item.value" ng-model="data.negotiatingMVal">
+						{{item.text}}
+					</ion-radio>
+				</td>
+			</tr> 
+		</table>
+		<button class="button" ng-click="toResults(); commitVals(); getResults();">
+	  	See Results
+	  	</button>
+	  	<!-- When next is pressed, upload total vals to service -->
+	  	<button class="button" ng-click="toMSI_marketing(); commitVals();">
+	  	Next
+	  	</button>
+	</ion-content>
+</ion-view>
