@@ -108,10 +108,10 @@ app.controller('IdeaCtrl', function($scope, $ionicActionSheet, $ionicPopup, $tim
 app.controller('ToDoCtrl', function($scope, $ionicActionSheet, $ionicPopup, $timeout) {
   var d = new Date();
   $scope.toDoList = [
-    { title: 'Finish personality skills assessment', date: d.toDateString(), id:1 },
-    { title: 'Study for CSC 192', date: d.toDateString(), id:2 },
-    { title: 'Finish up reading', date: d.toDateString() ,id:3 },
-    { title: 'Research jobs', date: d.toDateString(), id:4 }
+    { title: 'Finish personality skills assessment', date: d.toDateString(), done: false, id:1 },
+    { title: 'Study for CSC 192', date: d.toDateString(), done: false, id:2 },
+    { title: 'Finish up reading', date: d.toDateString(), done: false, id:3 },
+    { title: 'Research jobs', date: d.toDateString(), done: false, id:4 }
   ];
   var count = $scope.toDoList.length;
 
@@ -165,7 +165,7 @@ app.controller('ToDoCtrl', function($scope, $ionicActionSheet, $ionicPopup, $tim
         text: '<b>Save</b>',
         type: 'button-positive',
 		onTap: function(e) {
-		  var obj = { title: item, date: $scope.list.date.toDateString(), id: count+1 };  
+		  var obj = { title: item, date: $scope.list.date.toDateString(), done: false, id: count+1 };  
 		  $scope.toDoList.push(obj);
 		  console.log( obj.id ); 
 		}
