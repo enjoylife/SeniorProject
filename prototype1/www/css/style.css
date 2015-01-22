@@ -7,3 +7,13 @@
 	background-size: cover;*/
 	/*background-color: black;*/
 }
+
+.done {
+  text-decoration: line-through;
+}
+
+.right{
+    position: absolute;
+    top: -5px;
+    right: 20px;
+}
