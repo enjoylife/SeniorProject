@@ -1,23 +1,9 @@
-/* Empty. Add your own CSS if you like */
-.right{
-    position: absolute;
-    top: -5px;
-    right: 20px;
-}
-
-.top-right{
-    position: absolute;
-	top: 0;
-	right: 0;
-	margin-right:5px;
-}
-
-.top{
-	position: absolute;
-	top: 45px;
-	
-}
-
-blockquote{
-	border-left: 0;
+.scroll-content{
+	background: url('../img/serious_logo_head.jpg') no-repeat center center fixed;
+	background-size: 130px 175px;
+	background-position: left bottom;
+	/*-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;*/
+	/*background-color: black;*/
 }
