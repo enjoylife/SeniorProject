@@ -1,4 +1,3 @@
-IonicModule
 .factory('$ionicActionSheet', [
   '$rootScope',
   '$compile',
