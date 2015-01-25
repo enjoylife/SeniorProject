@@ -203,9 +203,7 @@ app.controller('comsCtrl', ['$scope', 'scraper', function($scope, scraper){
 		}
 	};
 
-	/*$scope.comsTotals = function(){
 
-	}*/
 
 	$scope.commitVals = function(){
 		//call the total function for each set of questions and add them to

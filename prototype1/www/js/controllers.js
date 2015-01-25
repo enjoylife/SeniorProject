@@ -1,6 +1,6 @@
-var app = angular.module('starter.controllers', ['ionic'])
+//var app = angular.module('starter.controllers', ['ionic'])
 
-app.controller('MainCtrl', function($scope, $state) {
+/*app.controller('MainCtrl', function($scope, $state) {
   $scope.toHome = function ( ) {
     $state.go( 'app.home' );
   };
@@ -24,7 +24,7 @@ app.controller('MainCtrl', function($scope, $state) {
   $scope.toBinderIdeas = function ( ) {
     $state.go( 'app.binder-ideas' );
   };
-})
+})*/
 
 app.controller('HomeCtrl', function($scope, $location) {
   $scope.features = [
@@ -180,3 +180,26 @@ app.controller('ToDoCtrl', function($scope, $ionicActionSheet, $ionicPopup, $tim
   };
 
 });
+
+
+// JOB APPLICATION CONTROLLER
+app.controller('JobAppCtrl', ['$scope', '$ionicPopup', function($scope, $ionicPopup){
+
+  //command a popup window to be filled with job application data
+  $scope.addJobApp = function(){
+    var newJob = $ionicPopup.show({
+      title: 'New Job Application',
+      template: '<input type="text" style="border: 1px solid black;">',
+      templateUrl: '',
+      buttons: [
+        {
+          text:'Cancel',
+        },
+        {
+          text: 'Submit'
+        }
+      ]
+    });
+  };
+
+}]);
