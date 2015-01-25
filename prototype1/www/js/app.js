@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('prototype', ['ionic'])
 
-.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
   .state('/', {
@@ -20,23 +20,34 @@ var app = angular.module('prototype', ['ionic'])
     controller: 'MainCtrl'
   })
   
+
+  //BINDER STATES
   .state('binder', {
       url: '/binder',
-      templateUrl: 'templates/binder.html',
+      templateUrl: '/templates/binder.html',
+      controller: 'MainCtrl'
   })
 	
   .state('binder-toDo', {
       url: '/binder/toDo',
-      templateUrl: 'templates/binder-toDo.html',
+      templateUrl: '/templates/binder-toDo.html',
       controller: 'MainCtrl'
   })
 	
   .state('binder-ideas', {
       url: '/binder/ideas',
-      templateUrl: 'templates/binder-ideas.html',
+      templateUrl: '/templates/binder-ideas.html',
       controller: 'MainCtrl'
   })
+
+  .state('binder-jobApps', {
+      url: '/binder/jobApps',
+      templateUrl: '/templates/binder-jobApps.html',
+      controller: 'MainCtrl'  
+  })
   
+
+  //TIMELINE STATES
   .state('timeline', {
     url: '/Timeline',
     templateUrl: 'templates/Timeline.html',
@@ -66,56 +77,56 @@ var app = angular.module('prototype', ['ionic'])
 
 
   .state('msi_communication', {
-    url: '/msi_communication',
-    templateUrl: 'templates/msi_communication.html',
+    url: 'timeline/selfAsmnt/msi/msi_communication',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_communication.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_marketing', {
     url: '/msi_marketing',
-    templateUrl: 'templates/msi_marketing.html',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_marketing.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_qa', {
     url: '/msi_qa',
-    templateUrl: 'templates/msi_qa.html',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_qa.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_analytics', {
     url: '/msi_analytics',
-    templateUrl: 'templates/msi_analytics.html',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_analytics.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_technical', {
     url: '/msi_technical',
-    templateUrl: 'templates/msi_technical.html',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_technical.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_innovative', {
     url: '/msi_innovative',
-    templateUrl: 'templates/msi_innovative.html',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_innovative.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_teaching', {
     url: '/msi_teaching',
-    templateUrl: 'templates/msi_teaching.html',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_teaching.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_leadership', {
     url: '/msi_leadership',
-    templateUrl: 'templates/msi_leadership.html',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_leadership.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_results', {
     url: '/msi_results',
-    templateUrl: 'templates/msi_results.html',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_results.html',
     controller: 'MainCtrl'
   })
 
@@ -140,6 +151,10 @@ app.controller('MainCtrl', function($scope, $state) {
     $state.go('binder-ideas');
   }
 
+  $scope.toBinderJobs = function(){
+    $state.go('binder-jobApps');
+  }
+
   $scope.toTimeline = function(){
     $state.go('timeline');
   }
@@ -147,6 +162,22 @@ app.controller('MainCtrl', function($scope, $state) {
   $scope.toSelfAssess = function(){
     $state.go('selfAssess');
   }
+
+
+
+
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+            
+      //MSI PARTIALS
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
   $scope.toMSI_communication = function(){
     $state.go('msi_communication');
@@ -183,9 +214,10 @@ app.controller('MainCtrl', function($scope, $state) {
   $scope.toResults = function(){
     $state.go('msi_results');
   }
+
 })
 
-/* Idea list control */
+/*/* Idea list control 
 app.controller('IdeaCtrl', function($scope, $ionicActionSheet, $ionicPopup, $timeout) {
   var d = new Date();
   $scope.ideasList = [
@@ -253,7 +285,7 @@ app.controller('IdeaCtrl', function($scope, $ionicActionSheet, $ionicPopup, $tim
 
 })
 
-/* To-Do-List control */
+/* To-Do-List control 
 app.controller('ToDoCtrl', function($scope, $ionicActionSheet, $ionicPopup, $timeout) {
   var d = new Date();
   $scope.toDoList = [
@@ -328,7 +360,7 @@ app.controller('ToDoCtrl', function($scope, $ionicActionSheet, $ionicPopup, $tim
 
   };
 
-})
+})*/
 
 //service to collect user input values from surveys
 app.factory('scraper', function() {
