@@ -7,3 +7,10 @@
 	background-size: cover;*/
 	/*background-color: black;*/
 }
+
+.popupCss{
+	min-width: 500px;
+	height: 100px;
+}
+
+

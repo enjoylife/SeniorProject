@@ -181,25 +181,3 @@ app.controller('ToDoCtrl', function($scope, $ionicActionSheet, $ionicPopup, $tim
 
 });
 
-
-// JOB APPLICATION CONTROLLER
-app.controller('JobAppCtrl', ['$scope', '$ionicPopup', function($scope, $ionicPopup){
-
-  //command a popup window to be filled with job application data
-  $scope.addJobApp = function(){
-    var newJob = $ionicPopup.show({
-      title: 'New Job Application',
-      template: '<input type="text" style="border: 1px solid black;">',
-      templateUrl: '',
-      buttons: [
-        {
-          text:'Cancel',
-        },
-        {
-          text: 'Submit'
-        }
-      ]
-    });
-  };
-
-}]);
