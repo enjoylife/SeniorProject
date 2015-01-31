@@ -1,11 +1,6 @@
 //THIS FILE HOLDS THE CONTROLLERS FOR EACH SECTION OF QUESTIONS
 //IN THE MOTIVATED SKILLS ASSESSMENT
 
-app.factory('jobAppService', function(){
-
-});
-
-
 
 //Communication controller
 app.controller('comsCtrl', ['$scope', 'scraper', function($scope, scraper){
