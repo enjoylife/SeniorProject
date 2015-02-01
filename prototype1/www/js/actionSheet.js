@@ -1,4 +1,4 @@
-.factory('$ionicActionSheet', [
+app.factory('$ionicActionSheet', [
   '$rootScope',
   '$compile',
   '$animate',

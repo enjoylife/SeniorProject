@@ -16,7 +16,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
   .state('mainMenu', {
     url: '/MainMenu',
-    templateUrl: '/templates/MainMenu.html',
+    templateUrl: 'templates/MainMenu.html',
     controller: 'MainCtrl'
   })
   
@@ -24,25 +24,25 @@ app.config(function($stateProvider, $urlRouterProvider) {
   //BINDER STATES
   .state('binder', {
       url: '/binder',
-      templateUrl: '/templates/binder.html',
+      templateUrl: 'templates/binder.html',
       controller: 'MainCtrl'
   })
 	
   .state('binder-toDo', {
       url: '/binder/toDo',
-      templateUrl: '/templates/binder-toDo.html',
+      templateUrl: 'templates/binder-toDo.html',
       controller: 'MainCtrl'
   })
 	
   .state('binder-ideas', {
       url: '/binder/ideas',
-      templateUrl: '/templates/binder-ideas.html',
+      templateUrl: 'templates/binder-ideas.html',
       controller: 'MainCtrl'
   })
 
   .state('binder-jobApps', {
       url: '/binder/jobApps',
-      templateUrl: '/templates/binder-jobApps.html',
+      templateUrl: 'templates/binder-jobApps.html',
       controller: 'MainCtrl'  
   })
   
