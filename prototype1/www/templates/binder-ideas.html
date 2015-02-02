@@ -1,11 +1,12 @@
 <ion-view title="Ideas/Inspirations" ng-controller="IdeaCtrl">
   <ion-content has-header="true">
 	<ion-list>
-	  <div class="card" ng-repeat="ideas in ideasList">
+	  <div class="card" ng-repeat="ideas in output()">
 	    <div class="item item-divider">
           {{ ideas.date }}
 		  <div class="right">
-		    <a class="button button-icon ion-edit" ng-click="modifyAction()"></a>
+		    <a class="button button-icon ion-edit" ng-click="editIdea($index)"></a>
+		    <a class="button button-icon ion-close-round" ng-click="removeIdea($index)"></a>			
 		  </div>
 		</div>
 		<div class="item item-text-wrap">
