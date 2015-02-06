@@ -3,7 +3,13 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('prototype', ['ionic'])
+var app = angular.module('prototype', ['ionic', 'ngCordova'])
+
+app.run(function($ionicPlatform) {
+	$ionicPlatform.ready(function() {
+	  $cordovaPlugin.someFunction().then(success, error);
+	});
+});
 
 app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -25,6 +31,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('binder', {
       url: '/binder',
       templateUrl: 'templates/binder.html',
+      controller: 'MainCtrl'
+  })
+  
+  .state('binder-calendar', {
+      url: '/binder/calendar',
+      templateUrl: 'templates/binder-calendar.html',
       controller: 'MainCtrl'
   })
 	
@@ -145,6 +157,10 @@ app.controller('MainCtrl', function($scope, $state) {
   
   $scope.toBinderToDoList = function ( ) {
     $state.go('binder-toDo');
+  }
+  
+  $scope.toBinderCalendar = function ( ) {
+    $state.go('binder-calendar');
   }
   
   $scope.toBinderIdeas = function ( ) {
