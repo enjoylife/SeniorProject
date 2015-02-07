@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('prototype', ['ionic'])
+var app = angular.module('prototype', ['ionic', 'ngCordova'])
 
 app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -44,6 +44,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: '/binder/jobApps',
       templateUrl: 'templates/binder-jobApps.html',
       controller: 'MainCtrl'  
+  })
+
+  .state('binder-contacts', {
+    url:'binder/contacts',
+    templateUrl: 'templates/binder-contacts.html',
+    controller: 'MainCtrl'
   })
   
 
@@ -153,6 +159,10 @@ app.controller('MainCtrl', function($scope, $state) {
 
   $scope.toBinderJobs = function(){
     $state.go('binder-jobApps');
+  }
+
+  $scope.toBinderContacts = function(){
+    $state.go('binder-contacts');
   }
 
   $scope.toTimeline = function(){
