@@ -101,6 +101,8 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', 'jobAppService', function
     var newJobApplication = $scope.obj;
     $scope.jobAppRecord.push(newJobApplication);
 
+
+    //reset values to default after submit
     $scope.obj = {
       date: new Date(),
       company: '',
@@ -109,7 +111,7 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', 'jobAppService', function
       notes: ''
     };
 
-
+    //push each attribute of $scope.obj to the factory
     $scope.jobAppRecord.forEach( function(arrayItem){
       
       jobAppService.addJobApp(arrayItem);
@@ -119,8 +121,10 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', 'jobAppService', function
   }
 
 
+  //output array to place existing factory data
   $scope.output = [];
 
+  //return factory data
   $scope.getJobs = function(){
     $scope.output = jobAppService.getJobApp();
 
