@@ -1,5 +1,40 @@
 //THIS FILE HOLDS THE CONTROLLERS FOR EACH SECTION OF QUESTIONS
-//IN THE MOTIVATED SKILLS ASSESSMENT
+//IN THE MOTIVATED SKILLS ASSESSMENT AND THE SCRAPER FACTORY
+
+//service to collect user input values from surveys
+app.factory('scraper', function() {
+  //blank array to hold all values
+  var values = [];
+
+  function addTotal(val){
+    values.push(val);
+  }
+
+  //this loop will return the totals that are 6 or higher.
+  function output(){
+    var out = [];
+
+    values.forEach( function(object){
+      if(object.sum >= 6){
+        out.push(object);
+      }
+    });
+    //values = [];
+    return out;
+  }
+
+  function GetMaxVal(){
+    return Math.max.apply(Math, values);
+  }
+
+  return {
+    addTotal: addTotal,
+    GetMaxVal: GetMaxVal,
+    output: output
+  };
+
+});
+
 
 
 //Communication controller
