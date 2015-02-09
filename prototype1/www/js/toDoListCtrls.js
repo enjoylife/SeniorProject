@@ -1,5 +1,5 @@
 /* To-Do-List control */
-app.controller('ToDoCtrl', ['$scope', '$ionicActionSheet', '$ionicPopup', '$timeout', '$cordovaDatePicker', 'toDoService', function($scope, $ionicActionSheet, $ionicPopup, $timeout, $cordovaDatePicker, toDoService) {
+app.controller('ToDoCtrl', ['$scope', '$ionicActionSheet', '$ionicPopup', '$timeout', 'toDoService', function($scope, $ionicActionSheet, $ionicPopup, $timeout, toDoService) {
   var count = toDoService.getNumberOf();
 
   //Add to-do item
@@ -42,22 +42,28 @@ app.controller('ToDoCtrl', ['$scope', '$ionicActionSheet', '$ionicPopup', '$time
   //Add to-do item due date
   $scope.addToDoDate = function( item ) {
     $scope.list = {}
-	var options = {
-		date: new Date(),
-		mode: 'date',
-		minDate: new Date(),
-		allowOldDates: false,
-		allowFutureDates: true,
-		doneButtonLabel: 'Save',
-		doneButtonColor: '#F2F3F4',
-		cancelButtonLabel: 'Cancel',
-		cancelButtonColor: '#000000'
-	};
+  
+    var myPopup = $ionicPopup.show({
+      template: '<input type="date" ng-model="list.date">', 
+      title: 'Enter the due date for your item',
+      subTitle: 'Remember to be organized and keep track what you need to do',
+      scope: $scope,
+      buttons: [
+      { text: 'Cancel' },
+      {
+        text: '<b>Save</b>',
+        type: 'button-positive',
+		onTap: function(e) {
+		  var obj = { title: item, date: $scope.list.date.toDateString(), id: count };  
+		  toDoService.addToList(obj);
+		  console.log( obj.id ); 
+		}
+      }
+    ]
+    });
 	
-	$cordovaDatePicker.show(options).then(function(date){
-        var obj = { title: item, date: date.toDateString(), id: count };  
-		toDoService.addToList(obj);
-		console.log( obj.id ); 
+	myPopup.then(function(res) {
+      myPopup.close();
     });
 
   };
