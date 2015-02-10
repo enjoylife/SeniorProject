@@ -16,7 +16,10 @@
   },
   "cordovaPlugins": [
     "https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin.git",
-    "http://github.com/VitaliiBlagodir/cordova-plugin-datepicker",
+<<<<<<< HEAD
     "org.apache.cordova.contacts"
+=======
+    "http://github.com/VitaliiBlagodir/cordova-plugin-datepicker"
+>>>>>>> origin/test
   ]
 }

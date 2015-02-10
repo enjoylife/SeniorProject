@@ -9,7 +9,7 @@ var app = angular.module('prototype', ['ionic', 'ngCordova'])
 
 app.run(function($ionicPlatform) {
 	$ionicPlatform.ready(function() {
-	  $cordovaPlugin.save().then(success, error);
+	  //$cordovaContacts.save(contact).then(success, error);
 	});
 });
 //>>>>>>> origin/test
