@@ -1,4 +1,4 @@
-app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', 'uiCalendarConfig', 'calendarService', 'toDoService', function CalendarCtrl($scope, $compile, $ionicPopup, uiCalendarConfig, calendarService, toDoService) {
+app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCalendar', 'uiCalendarConfig', 'calendarService', 'toDoService', function CalendarCtrl($scope, $compile, $ionicPopup, $cordovaCalendar, uiCalendarConfig, calendarService, toDoService) {
 	  var date = new Date();
 	  //Event object
 	  $scope.obj = {
@@ -21,19 +21,32 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', 'uiCalendar
 			},
 			{
 			  text: 'Save',
-			  //Add to calendar and to-do
 			  onTap: function(e){
-				var item = $scope.obj;
-				calendarService.addToList(item);
-				toDoService.addToList(item);
+			  
+				//Add to calendar and to-do
+				calendarService.addToList($scope.obj);
+				toDoService.addToList($scope.obj);
+				
+				//Save to native calendar app
+				$cordovaCalendar.createEvent({
+					title: $scope.obj.title,
+					startDate: $scope.obj.start,
+					endDate: $scope.obj.end
+				}).then(function (result) {
+					// success
+					console.log(result);
+				}, function (err) {
+					// error
+				});
+				
+				//Reset object
 				$scope.obj = {
 					title: '',
 					start: date,
 					end: date
 
-			   };
-			   
-			   
+			   };   
+			   			   
 			  }
 			}
 		  ]
