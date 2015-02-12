@@ -23,7 +23,7 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', 'co
 	$scope.contactForm = function(){
 		var newContact = $ionicPopup.show({
 			title: 'New Professional Contact',
-			templateUrl: 'templates/binder-contact-popup.html', //create this template
+			templateUrl: 'templates/binder/binder-contact-popup.html', //create this template
 			scope: $scope,
 			buttons: [
 				{
@@ -52,7 +52,7 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', 'co
 
 		var editContact = $ionicPopup.show({
 			title: 'Edit Contact',
-			templateUrl: 'templates/binder-contact-popup.html',
+			templateUrl: 'templates/binder/binder-contact-popup.html',
 			scope: $scope,
 			buttons: [
 				{

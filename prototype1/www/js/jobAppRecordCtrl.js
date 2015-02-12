@@ -27,7 +27,7 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', 'jobAppService', function
   $scope.jobForm = function(){
     var newJob = $ionicPopup.show({
       title: 'New Job Application',
-      templateUrl: 'templates/binder-jobApps-popup.html',
+      templateUrl: 'templates/binder/binder-jobApps-popup.html',
       scope: $scope,
       buttons: [
         {
@@ -64,7 +64,7 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', 'jobAppService', function
 
     var editJob = $ionicPopup.show({
       title: 'Edit Job Application',
-      templateUrl: 'templates/binder-jobApps-popup.html',
+      templateUrl: 'templates/binder/binder-jobApps-popup.html',
       scope: $scope,
       buttons: [
         {

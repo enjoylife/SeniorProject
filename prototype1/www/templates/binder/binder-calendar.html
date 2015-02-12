@@ -1,0 +1,49 @@
+<ion-view title="Calendar" ng-controller="CalendarCtrl">
+  <ion-content has-header="true">
+  <ion-scroll zooming="true" direction="xy">
+	<div class="container">
+			<section id="directives-calendar" ng-controller="CalendarCtrl">
+				<div class="well">
+					<div class="row-fluid">
+						<div class="span8">
+			
+							<tabset>
+								  <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
+									<h4>{{alertMessage}}</h4>
+								  </div>
+								  <div class="btn-toolbar">
+
+									<div class="btn-group">
+										<button class="btn btn-success" ng-click="changeView('agendaDay', 'myCalendar1')">AgendaDay</button>
+										<button class="btn btn-success" ng-click="changeView('agendaWeek', 'myCalendar1')">AgendaWeek</button>
+										<button class="btn btn-success" ng-click="changeView('month', 'myCalendar1')">Month</button>
+										<button class="btn btn-primary" ng-click="addEvent()">Add Event</button>
+									  </button>
+									</div>
+									
+								  </div>
+								<div id ="calendar" class="calendar" ng-model="eventSources" calendar="myCalendar1" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>                       
+							</tabset>
+						</div>
+						<div class="span4">
+											   
+							
+
+							<ul class="unstyled">
+								<li ng-repeat="e in output()">
+									<div class="alert alert-info">
+										<a class="close" ng-click="remove($index)"><i class="icon-remove"></i></a>
+										<b> <input ng-model="e.title"></b> 
+										{{e.start | date:"MMM dd"}} - {{e.end | date:"MMM dd"}}
+									</div>
+								</li>
+							</ul>
+
+						</div>
+
+					</div>
+				</div>
+				</div>
+				</ion-scroll>
+  </ion-content>
+</ion-view>

@@ -5,6 +5,8 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title>Prototype</title>
 
+	<link href="lib/bootstrap-css/css/bootstrap.css" rel="stylesheet">
+    <link href="lib/fullcalendar/dist/fullcalendar.css" rel="stylesheet">
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
@@ -14,21 +16,26 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-
     <script src="lib/ngCordova/dist/ng-cordova.min.js"></script> 
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
-
-
 	<script src="cordova.js"></script>
+
+	<!-- library -->
+	<script src="lib/jquery/dist/jquery.js"></script>
+    <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="lib/moment/moment.js"></script>
+    <script src="lib/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="lib/fullcalendar/dist/gcal.js"></script>
+	<script src="lib/fullcalendar/dist/calendar.js"></script>
+	
     <!-- your app's js -->
      <script src="js/app.js"></script>
-  	 <script src="js/actionSheet.js"></script>
   	 <script src="js/msiCtrls.js"></script>
-	   <script src="js/calendarCtrls.js"></script>
+	 <script src="js/calendarCtrls.js"></script>
      <script src="js/toDoListCtrls.js"></script>
-	   <script src="js/ideaCtrls.js"></script>
+	 <script src="js/ideaCtrls.js"></script>
      <script src="js/contactsCtrl.js"></script>
      <script src="js/jobAppRecordCtrl.js"></script>
   </head>
