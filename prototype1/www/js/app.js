@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('prototype', ['ionic', 'ngCordova'])
+var app = angular.module('prototype', ['ionic', 'ngCordova', 'ui.calendar', 'ui.bootstrap'])
 //<<<<<<< HEAD
 //=======
 
@@ -33,37 +33,37 @@ app.config(function($stateProvider, $urlRouterProvider) {
   //BINDER STATES
   .state('binder', {
       url: '/binder',
-      templateUrl: 'templates/binder.html',
+      templateUrl: 'templates/binder/binder.html',
       controller: 'MainCtrl'
   })
   
   .state('binder-calendar', {
       url: '/binder/calendar',
-      templateUrl: 'templates/binder-calendar.html',
+      templateUrl: 'templates/binder/binder-calendar.html',
       controller: 'MainCtrl'
   })
 	
   .state('binder-toDo', {
       url: '/binder/toDo',
-      templateUrl: 'templates/binder-toDo.html',
+      templateUrl: 'templates/binder/binder-toDo.html',
       controller: 'MainCtrl'
   })
 	
   .state('binder-ideas', {
       url: '/binder/ideas',
-      templateUrl: 'templates/binder-ideas.html',
+      templateUrl: 'templates/binder/binder-ideas.html',
       controller: 'MainCtrl'
   })
 
   .state('binder-jobApps', {
       url: '/binder/jobApps',
-      templateUrl: 'templates/binder-jobApps.html',
+      templateUrl: 'templates/binder/binder-jobApps.html',
       controller: 'MainCtrl'  
   })
 
   .state('binder-contacts', {
-    url:'binder/contacts',
-    templateUrl: 'templates/binder-contacts.html',
+    url: '/binder/contacts',
+    templateUrl: 'templates/binder/binder-contacts.html',
     controller: 'MainCtrl'
   })
   
