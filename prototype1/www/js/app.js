@@ -8,8 +8,8 @@ var app = angular.module('prototype', ['ionic', 'ngCordova', 'ui.calendar', 'ui.
 //=======
 
 app.run(function($ionicPlatform) {
+
 	$ionicPlatform.ready(function() {
-	  //$cordovaContacts.save(contact).then(success, error);
 	});
 });
 //>>>>>>> origin/test
