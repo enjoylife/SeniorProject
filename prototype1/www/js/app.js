@@ -6,8 +6,8 @@
 var app = angular.module('prototype', ['ionic', 'ngCordova'])
 
 app.run(function($ionicPlatform) {
+
 	$ionicPlatform.ready(function() {
-	  $cordovaPlugin.someFunction().then(success, error);
 	});
 });
 
