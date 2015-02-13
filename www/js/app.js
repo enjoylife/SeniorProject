@@ -25,6 +25,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'templates/MainMenu.html',
     controller: 'MainCtrl'
   })
+
+  .state('profile', {
+    url: '/profile',
+    templateUrl: 'templates/profile.html',
+    controller:'profile'
+  })
   
 
   //BINDER STATES
@@ -205,6 +211,8 @@ app.controller('MainCtrl', function($scope, $state) {
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
+
+// TODO, remove all these to____. they can be replaced by ui-sref="__"
   $scope.toMSI_communication = function(){
     $state.go('msi_communication');
   }
