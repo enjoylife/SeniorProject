@@ -4,15 +4,12 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('prototype', ['ionic', 'ngCordova', 'ui.calendar', 'ui.bootstrap'])
-//<<<<<<< HEAD
-//=======
 
 app.run(function($ionicPlatform) {
 
 	$ionicPlatform.ready(function() {
 	});
 });
-//>>>>>>> origin/test
 
 app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
