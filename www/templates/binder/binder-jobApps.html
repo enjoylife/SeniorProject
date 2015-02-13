@@ -1,0 +1,26 @@
+<ion-view title="Job Applications/Resumes Sent" ng-controller="JobAppCtrl"> 
+  <ion-content has-header="true">
+	<!-- <h1>Hello, World!</h1>   -->
+	  <table style="margin:auto; margin-bottom:10px; border:1px solid black;" ng-repeat="item in getJobs() track by $index">	
+		  <tr>
+		  	<td><b>Company:</b> {{item.company}}</td>
+		  </tr>
+		  <tr>
+		  	<td><b>Job Title:</b> {{item.jobTitle}}</td>
+		  </tr>
+		  <tr>
+		  	<td><b>Date applied:</b> {{item.date.toDateString()}}</td>
+		  </tr>
+		  <tr align="center">	
+		  	<td class="button button-clear button-balanced" ng-click="editJobForm(item)">Edit</td>
+		  
+		  	<td class="button button-clear button-assertive" ng-click="getJobs().splice($index, 1)">Delete</td>
+		  </tr>
+	  </table>
+
+
+	  <div class="button-bar">
+		<a class="button button-icon icon ion-plus-circled" ng-click="jobForm()"></a>
+	  </div>
+  </ion-content>
+</ion-view>

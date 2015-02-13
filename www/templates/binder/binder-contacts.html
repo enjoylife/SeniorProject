@@ -1,0 +1,35 @@
+<ion-view title="Professional Contacts" ng-controller="contactsCtrl">
+	<ion-content>
+		<table style="margin: auto; margin-bottom: 10px;" ng-repeat="contact in getContacts() track by $index">
+			<tr>
+				<td><b>Name:</b> {{contact.displayName}}</td>
+			</tr>
+
+			<tr>
+				<td><b>Phone Number:</b> {{contact.phoneNumbers[0].value}}</td>
+			</tr>
+
+			<tr>
+				<td><b>Email:</b> {{contact.emails[0].value}}</td>
+			</tr>
+
+			<tr>
+				<td><b>Organization:</b> {{contact.organizations[0].name}}</td>
+			</tr>
+
+			<tr>
+				<td><b>Note:</b> {{contact.note}}</td>
+			</tr>						
+
+		  <tr align="center">	
+		  	<td class="button button-clear button-balanced" ng-click="editContactForm(contact)">Edit</td>
+		  
+		  	<td class="button button-clear button-assertive" ng-click="getContacts().splice($index, 1)">Delete</td>
+		  </tr>			
+		</table>
+
+		<div class="button-bar">
+		<a class="button button-icon icon ion-plus-circled" ng-click="contactForm()"></a>
+	  	</div>
+	</ion-content>
+</ion-view>
