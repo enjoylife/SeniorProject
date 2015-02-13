@@ -1,1 +1,19 @@
-/* Empty. Add your own CSS if you like */
+.scroll-content{
+	background: url('../img/serious_logo_head.jpg') no-repeat center center fixed;
+	background-size: 130px 175px;
+	background-position: left bottom;
+	/*-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;*/
+	/*background-color: black;*/
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+.right{
+    position: absolute;
+    top: -5px;
+    right: 20px;
+}
