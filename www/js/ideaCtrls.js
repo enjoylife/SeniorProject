@@ -5,7 +5,6 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', 'ideaService', 
 
    //Add idea 
    $scope.addIdea = function() {
-    $scope.list = {}
 	
     var myPopup = $ionicPopup.show({
       template: '<input type="text" ng-model="list.idea">',
@@ -18,7 +17,10 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', 'ideaService', 
         text: '<b>Save</b>',
         type: 'button-positive',
 		onTap: function(e) {
+		
+		  /* Empty input */
 		  if (!$scope.list.idea) {
+			e.preventDefault();
 			var alertPopup = $ionicPopup.alert({
 			  title: 'Input is empty',
 			  template: 'Please input an item'
@@ -29,23 +31,23 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', 'ideaService', 
 		  } else {
 		    var obj = { title: $scope.list.idea, date: d.toDateString(), id: count+1 };  
 			ideaService.addToList(obj);
+			$scope.list.idea = '';
 		  }
 		}
       }
     ]
     });
-	myPopup.then(function(res) {
-		myPopup.close();
-    });
+
 
   };
   
   //Edit idea
   $scope.editIdea = function(index) {
-    $scope.list = {}
-	
+	$scope.edit = {
+		idea: ideaService.getTitle(index)
+	};
     var myPopup = $ionicPopup.show({
-      template: '<input type="text" ng-model="list.idea">',
+      template: '<input type="text" ng-model="edit.idea">',
       title: 'Change of idea? That is fine',
       scope: $scope,
       buttons: [
@@ -54,9 +56,22 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', 'ideaService', 
         text: '<b>Save</b>',
         type: 'button-positive',
 		onTap: function(e) {
-		  var newDate = new Date();
-		  var obj = { title: $scope.list.idea, date: newDate.toDateString(), id: index };
-		  ideaService.editItem( obj, index );
+		
+		  /* Empty input alert */
+		  if (!$scope.edit.idea) {
+			e.preventDefault();
+			var alertPopup = $ionicPopup.alert({
+			  title: 'Input is empty',
+			  template: 'Please input an item'
+		    });
+			alertPopup.then(function(res) {
+			  alertPopup.close();  
+			});
+		  } else {
+			var newDate = new Date();
+			var obj = { title: $scope.edit.idea, date: newDate.toDateString(), id: index };
+			ideaService.editItem( obj, index );
+		  }
 		}
       }
     ]
