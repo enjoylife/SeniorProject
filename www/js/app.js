@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('prototype', ['ionic', 'ngCordova', 'ui.calendar', 'ui.bootstrap'])
+var app = angular.module('prototype', ['ionic', 'ngCordova','ngMaterial', 'ui.calendar', 'ui.bootstrap'])
 
 app.run(function($ionicPlatform) {
 
@@ -12,34 +12,34 @@ app.run(function($ionicPlatform) {
 });
 
 app.config(function($stateProvider, $urlRouterProvider) {
+
+  $urlRouterProvider.otherwise('profile');
+
+/**
+ * Profile, Binder, and Content is connected up into a fully connected state machine
+ */
+
   $stateProvider
-
-  .state('/', {
-    url: '/',
-    templateUrl: '/',
-    controller: 'MainCtrl'
-  })
-
-  .state('mainMenu', {
-    url: '/MainMenu',
-    templateUrl: 'templates/MainMenu.html',
-    controller: 'MainCtrl'
-  })
 
   .state('profile', {
     url: '/profile',
     templateUrl: 'templates/profile.html',
-    controller:'profile'
+    controller: 'profile'
   })
-  
 
-  //BINDER STATES
+  .state('content', {
+    url: '/content',
+    templateUrl: 'templates/content.html',
+    controller: 'MainCtrl'
+  })
+
   .state('binder', {
       url: '/binder',
       templateUrl: 'templates/binder/binder.html',
       controller: 'MainCtrl'
   })
-  
+  // Old State are below
+  // TODO: Remove and consolidate them into sub states of main three
   .state('binder-calendar', {
       url: '/binder/calendar',
       templateUrl: 'templates/binder/binder-calendar.html',
@@ -83,21 +83,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'templates/SelfAssessment.html',
     controller: 'MainCtrl'
   })
-
-
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-            
-      //MSI PARTIALS
-
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-
 
 
   .state('msi_communication', {
@@ -154,50 +139,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
     controller: 'MainCtrl'
   })
 
-  $urlRouterProvider.otherwise('/MainMenu');
+  
 })
 
 
 app.controller('MainCtrl', function($scope, $state) {
-  $scope.toMainMenu = function(){
-    $state.go('mainMenu');
-  }
-  
-  $scope.toBinder = function ( ) {
-    $state.go('binder');
-  }
-  
-  $scope.toBinderToDoList = function ( ) {
-    $state.go('binder-toDo');
-  }
-  
-  $scope.toBinderCalendar = function ( ) {
-    $state.go('binder-calendar');
-  }
-  
-  $scope.toBinderIdeas = function ( ) {
-    $state.go('binder-ideas');
-  }
-
-  $scope.toBinderJobs = function(){
-    $state.go('binder-jobApps');
-  }
-
-  $scope.toBinderContacts = function(){
-    $state.go('binder-contacts');
-  }
-
-  $scope.toTimeline = function(){
-    $state.go('timeline');
-  }
-
-  $scope.toSelfAssess = function(){
-    $state.go('selfAssess');
-  }
-
-
-
-
 
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
