@@ -13,24 +13,27 @@ app.run(function($ionicPlatform) {
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
-  
-/**
- * Profile, Binder, and Content is connected up into a fully connected state machine
- */
-
   $stateProvider
-
   .state('profile', {
     url: '/profile',
     templateUrl: 'templates/profile.html',
     controller: 'profile'
   })
+
+  /**
+   * content is the top level view, cant be actually rendered,
+   * only is used to create a wrapper around all section content
+   */
   .state('content', {
     abstract:true,
     url:'/content',
     templateUrl:'templates/content.html'
   })
 
+  /**
+   * content.sections are dynamically generated routes which render into
+   * the ui-view in the content.html template
+   */
   .state('content.sections', {
     url: '/:sec/:sub',
     templateUrl: function($stateParams){
