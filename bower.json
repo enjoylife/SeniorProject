@@ -2,7 +2,8 @@
   "name": "prototype",
   "private": "true",
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.0.0-beta.14"
+    "ionic": "driftyco/ionic-bower#1.0.0-beta.14",
+    "ionic-ion-header-shrink": "https://github.com/driftyco/ionic-ion-header-shrink"
   },
   "dependencies": {
     "angular-material": "~0.7.1"

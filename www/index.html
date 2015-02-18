@@ -10,7 +10,6 @@
 	  <link href="lib/bootstrap-css/css/bootstrap.css" rel="stylesheet">
     <link href="lib/fullcalendar/dist/fullcalendar.css" rel="stylesheet">
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link rel="stylesheet" href="lib/angular-material/angular-material.css">
     <!-- Our Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
 
@@ -28,10 +27,7 @@
     <script src="lib/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="lib/fullcalendar/dist/gcal.js"></script>
 	  <script src="lib/fullcalendar/dist/calendar.js"></script>
-
-    <script src="lib/angular-aria/angular-aria.js"></script>
-    <script src="lib/angular-animate/angular-animate.js"></script>
-    <script src="lib/angular-material/angular-material.js"></script>
+    <script src="lib/ionic-ion-header-shrink/ionic.headerShrink.js"></script>
 
     <!-- app's js -->
     <script src="js/dist/all.js"></script>
@@ -41,23 +37,24 @@
 
   <ion-side-menus>
   <!-- Center content -->
-  <ion-side-menu-content>
-  <div layout="column" layout-fill>
-  <md-toolbar>
-      <div class="md-toolbar-tools">
-        <md-button alt="content" on-tap="toggleSideNav()" ><i class="icon ion-document-text i48"></i></md-button>
-
-        <span flex style="text-align:center;">Serious Job Seeker</span>
-
-        <md-button alt="profile" ui-sref="profile"><i class="icon ion-record i48"></i></md-button>
-        <md-button alt="binder"  ui-sref="binder"><i class="icon ion-stop i48"></i></md-button>
-    </div>
-  </md-toolbar>
-  <md-content>
+  <ion-side-menu-content drag-content="false">
+  <ion-header-bar class="bar-positive">
+  <div class="buttons">
+  <button alt="content" on-tap="toggleSideNav()" 
+      class="button button-icon ion-document-text i48" ></button>
+  </div>
+  <h1 class="title">Serious Job Seeker</h1>
+  <div class="buttons">
+  <button alt="profile" ui-sref="profile" 
+      class="button button-icon ion-record i48"></button>
+        <button alt="binder"  ui-sref="binder" class="button button-icon ion-stop i48"></button>
+        </div>
+</ion-header-bar>
+  <ion-content header-shrink>
      <!-- Ionic and Material agnostic ui-view's (not using ion-nav-view) -->
   <div ui-view></div>
-  </md-content>
-</div>
+  </ion-content>
+
   </ion-side-menu-content>  
 
   <!-- Left menu -->
