@@ -25,17 +25,20 @@ app.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'templates/profile.html',
     controller: 'profile'
   })
-
   .state('content', {
-    url: '/content/:sec/:sub',
+    abstract:true,
+    url:'/content',
+    templateUrl:'templates/content.html'
+  })
+
+  .state('content.sections', {
+    url: '/:sec/:sub',
     templateUrl: function($stateParams){
       console.log($stateParams);
       return 'templates/sections/' + $stateParams.sub + '.html';
     },
-    
   })
   
-
   .state('binder', {
       url: '/binder',
       templateUrl: 'templates/binder/binder.html',
@@ -120,7 +123,7 @@ app.directive('timeLine',[function(){
           throw new Error("Missing required parameter for jumping into sections.")
         }
         console.log('Routing to content/'+params.sec +'/'+ params.sub)
-        $state.go('content',params);
+        $state.go('content.sections',params);
         // Using parent scope
         $scope.toggleSideNav(false);
 
