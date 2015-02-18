@@ -41,14 +41,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
       return 'templates/sections/' + $stateParams.sub + '.html';
     },
   })
-  
+
   .state('binder', {
       url: '/binder',
       templateUrl: 'templates/binder/binder.html',
       controller: 'MainCtrl'
   })
 
-  
+
   // Old State are below
   // TODO: Remove and consolidate them into sub states of main three
   .state('binder-calendar', {
@@ -56,13 +56,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: 'templates/binder/binder-calendar.html',
       controller: 'MainCtrl'
   })
-	
+
   .state('binder-toDo', {
       url: '/binder/toDo',
       templateUrl: 'templates/binder/binder-toDo.html',
       controller: 'MainCtrl'
   })
-	
+
   .state('binder-ideas', {
       url: '/binder/ideas',
       templateUrl: 'templates/binder/binder-ideas.html',
@@ -72,7 +72,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('binder-jobApps', {
       url: '/binder/jobApps',
       templateUrl: 'templates/binder/binder-jobApps.html',
-      controller: 'MainCtrl'  
+      controller: 'MainCtrl'
   })
 
   .state('binder-contacts', {
@@ -80,7 +80,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'templates/binder/binder-contacts.html',
     controller: 'MainCtrl'
   })
-  
+
 
 
   .state('selfAssess', {
