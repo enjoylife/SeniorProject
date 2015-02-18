@@ -11,62 +11,60 @@
     <link href="lib/fullcalendar/dist/fullcalendar.css" rel="stylesheet">
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link rel="stylesheet" href="lib/angular-material/angular-material.css">
-
     <!-- Our Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/ngCordova/dist/ng-cordova.min.js"></script> 
-
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
 	  <script src="cordova.js"></script>
 
-	<!-- library -->
-	<script src="lib/jquery/dist/jquery.js"></script>
+	 <!-- library -->
+	  <script src="lib/jquery/dist/jquery.js"></script>
     <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="lib/moment/moment.js"></script>
     <script src="lib/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="lib/fullcalendar/dist/gcal.js"></script>
-	<script src="lib/fullcalendar/dist/calendar.js"></script>
+	  <script src="lib/fullcalendar/dist/calendar.js"></script>
 
     <script src="lib/angular-aria/angular-aria.js"></script>
     <script src="lib/angular-animate/angular-animate.js"></script>
     <script src="lib/angular-material/angular-material.js"></script>
 
-    <!-- your app's js -->
-    <!-- TODO: Gulp Hook to compress into single file -->
-     <script src="js/app.js"></script>
-  	 <script src="js/msiCtrls.js"></script>
-	   <script src="js/calendarCtrls.js"></script>
-     <script src="js/toDoListCtrls.js"></script>
-	   <script src="js/ideaCtrls.js"></script>
-     <script src="js/contactsCtrl.js"></script>
-     <script src="js/jobAppRecordCtrl.js"></script>
-     <script src="js/notifyFactory.js"></script>
-     <script src="js/profileCtrl.js"></script>
+    <!-- app's js -->
+    <script src="js/dist/all.js"></script>
   </head>
 
   <body ng-controller="MainCtrl">
-  <!-- TODO: Class hightlight is dynamic and based on state -->
-    <md-toolbar>
+
+  <ion-side-menus>
+  <!-- Center content -->
+  <ion-side-menu-content>
+  <div layout="column" layout-fill>
+  <md-toolbar>
       <div class="md-toolbar-tools">
-        <md-button alt="content" ui-sref="content"><i class="icon ion-document-text i48"></i></md-button>
+        <md-button alt="content" on-tap="toggleSideNav()" ><i class="icon ion-document-text i48"></i></md-button>
 
         <span flex style="text-align:center;">Serious Job Seeker</span>
 
-        <md-button alt="profile" ui-sref="profile"><i class="icon ion-record i48 highlight"></i></md-button>
+        <md-button alt="profile" ui-sref="profile"><i class="icon ion-record i48"></i></md-button>
         <md-button alt="binder"  ui-sref="binder"><i class="icon ion-stop i48"></i></md-button>
     </div>
   </md-toolbar>
-<md-content class="md-padding">
-  <!-- Ionic and Material agnostic ui-view's (not using ion-nav-view) -->
+  <md-content>
+     <!-- Ionic and Material agnostic ui-view's (not using ion-nav-view) -->
   <div ui-view></div>
-</md-content>
+  </md-content>
+</div>
+  </ion-side-menu-content>  
+
+  <!-- Left menu -->
+  <ion-side-menu side="left">
+    <time-line></time-line>
+  </ion-side-menu>
+</ion-side-menus>
+
 	</body>
 </html>
