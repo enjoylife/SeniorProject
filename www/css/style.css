@@ -1,12 +1,4 @@
-.scroll-content{
-	background: url('../img/serious_logo_head.jpg') no-repeat center center fixed;
-	background-size: 130px 175px;
-	background-position: left bottom;
-	/*-webkit-background-size: cover;
-	-moz-background-size: cover;
-	background-size: cover;*/
-	/*background-color: black;*/
-}
+
 
 .done {
   text-decoration: line-through;
@@ -17,3 +9,18 @@
     top: -5px;
     right: 20px;
 }
+i.icon {
+	color: white;
+	pointer-events:none;
+}
+i.icon.highlight {
+	color:grey;
+}
+.i24 {
+	font-size: 24px;
+}
+
+.i48 {
+	font-size: 48px;
+}
+
