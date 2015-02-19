@@ -1,15 +1,30 @@
-<ion-view ng-controller="MainCtrl">
+<ion-content class="md-padding">
+<div layout="column" layout-fill>
+    <!-- Profile Pic and Quote of the day -->
+<div class="row">
+  <div class="col">
+    <img  class='profile-pic' src="/img/ionic.png" width='100px' height='100px' alt="">
+  </div>
+  <div class="col">
+    <h3 class='quote'>Lorum Ipsum</h3>
+  </div>
+</div>  
 
-<ion-nav-bar class="bar-calm" align-title="center">
-      <ion-nav-back-button class="button-icon ion-arrow-left-c">
-      </ion-nav-back-button>
-      <ion-nav-buttons side="right">
-        <button class="button button-icon ion-home" ng-click="toMainMenu()">
-        </button>
-      </ion-nav-buttons>
-    </ion-nav-bar>
-	<ion-nav-view name="HomeView"></ion-nav-view>
-    <ion-nav-view class="slide-right">
-      
-    </ion-nav-view> 
-</ion-view>
+<!-- Desired career and points -->
+<div class="row">
+  <div class="col"> <!-- Desired Career --> </div>
+  <div class="col"> <!-- Accumlated Points --> </div>
+</div>  
+
+
+<div class="row">
+  <div class="col"> <!-- Fulfillment Deadline --> </div>
+  <div class="col"> <!-- Task Streak --> </div>
+</div>
+
+<div class="row">
+  <div class="col"><!--Task? --></div>
+  <div class="col"><!--Check boxes --></div>
+</div>
+</div>
+</ion-content>

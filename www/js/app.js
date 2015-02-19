@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('prototype', ['ionic', 'ngCordova', 'ui.calendar', 'ui.bootstrap'])
+var app = angular.module('prototype', ['ionic', 'ngCordova','ionic.ion.headerShrink', 'ui.calendar', 'ui.bootstrap'])
 
 app.run(function($ionicPlatform) {
 
@@ -12,46 +12,57 @@ app.run(function($ionicPlatform) {
 });
 
 app.config(function($stateProvider, $urlRouterProvider) {
+
   $stateProvider
-
-  .state('/', {
-    url: '/',
-    templateUrl: '/',
-    controller: 'MainCtrl'
-  })
-
-  .state('mainMenu', {
-    url: '/MainMenu',
-    templateUrl: 'templates/MainMenu.html',
-    controller: 'MainCtrl'
-  })
-
   .state('profile', {
     url: '/profile',
     templateUrl: 'templates/profile.html',
-    controller:'profile'
+    controller: 'profile'
   })
-  
 
-  //BINDER STATES
+  /**
+   * content is the top level view, cant be actually rendered,
+   * only is used to create a wrapper around all section content
+   */
+  .state('content', {
+    abstract:true,
+    url:'/content',
+    templateUrl:'templates/content.html'
+  })
+
+  /**
+   * content.sections are dynamically generated routes which render into
+   * the ui-view in the content.html template
+   */
+  .state('content.sections', {
+    url: '/:sec/:sub',
+    templateUrl: function($stateParams){
+      console.log($stateParams);
+      return 'templates/sections/' + $stateParams.sub + '.html';
+    },
+  })
+
   .state('binder', {
       url: '/binder',
       templateUrl: 'templates/binder/binder.html',
       controller: 'MainCtrl'
   })
-  
+
+
+  // Old State are below
+  // TODO: Remove and consolidate them into sub states of main three
   .state('binder-calendar', {
       url: '/binder/calendar',
       templateUrl: 'templates/binder/binder-calendar.html',
       controller: 'MainCtrl'
   })
-	
+
   .state('binder-toDo', {
       url: '/binder/toDo',
       templateUrl: 'templates/binder/binder-toDo.html',
       controller: 'MainCtrl'
   })
-	
+
   .state('binder-ideas', {
       url: '/binder/ideas',
       templateUrl: 'templates/binder/binder-ideas.html',
@@ -61,7 +72,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('binder-jobApps', {
       url: '/binder/jobApps',
       templateUrl: 'templates/binder/binder-jobApps.html',
-      controller: 'MainCtrl'  
+      controller: 'MainCtrl'
   })
 
   .state('binder-contacts', {
@@ -69,14 +80,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'templates/binder/binder-contacts.html',
     controller: 'MainCtrl'
   })
-  
 
-  //TIMELINE STATES
-  .state('timeline', {
-    url: '/Timeline',
-    templateUrl: 'templates/Timeline.html',
-    controller: 'MainCtrl'  
-  })
+
 
   .state('selfAssess', {
     url: '/selfAssess',
@@ -85,168 +90,77 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
 
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-            
-      //MSI PARTIALS
-
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-
-
-
-  .state('msi_communication', {
-    url: 'timeline/selfAsmnt/msi/msi_communication',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_communication.html',
-    controller: 'MainCtrl'
-  })
-
-  .state('msi_marketing', {
-    url: '/msi_marketing',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_marketing.html',
-    controller: 'MainCtrl'
-  })
-
-  .state('msi_qa', {
-    url: '/msi_qa',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_qa.html',
-    controller: 'MainCtrl'
-  })
-
-  .state('msi_analytics', {
-    url: '/msi_analytics',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_analytics.html',
-    controller: 'MainCtrl'
-  })
-
-  .state('msi_technical', {
-    url: '/msi_technical',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_technical.html',
-    controller: 'MainCtrl'
-  })
-
-  .state('msi_innovative', {
-    url: '/msi_innovative',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_innovative.html',
-    controller: 'MainCtrl'
-  })
-
-  .state('msi_teaching', {
-    url: '/msi_teaching',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_teaching.html',
-    controller: 'MainCtrl'
-  })
-
-  .state('msi_leadership', {
-    url: '/msi_leadership',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_leadership.html',
-    controller: 'MainCtrl'
-  })
-
-  .state('msi_results', {
-    url: '/msi_results',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_results.html',
-    controller: 'MainCtrl'
-  })
-
-  $urlRouterProvider.otherwise('/MainMenu');
+  $urlRouterProvider.otherwise('/');
 })
 
 
-app.controller('MainCtrl', function($scope, $state) {
-  $scope.toMainMenu = function(){
-    $state.go('mainMenu');
-  }
-  
-  $scope.toBinder = function ( ) {
-    $state.go('binder');
-  }
-  
-  $scope.toBinderToDoList = function ( ) {
-    $state.go('binder-toDo');
-  }
-  
-  $scope.toBinderCalendar = function ( ) {
-    $state.go('binder-calendar');
-  }
-  
-  $scope.toBinderIdeas = function ( ) {
-    $state.go('binder-ideas');
-  }
-
-  $scope.toBinderJobs = function(){
-    $state.go('binder-jobApps');
-  }
-
-  $scope.toBinderContacts = function(){
-    $state.go('binder-contacts');
-  }
-
-  $scope.toTimeline = function(){
-    $state.go('timeline');
-  }
-
-  $scope.toSelfAssess = function(){
-    $state.go('selfAssess');
-  }
-
-
-
-
-
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-            
-      //MSI PARTIALS
-
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-
-// TODO, remove all these to____. they can be replaced by ui-sref="__"
-  $scope.toMSI_communication = function(){
-    $state.go('msi_communication');
-  }
-
-  $scope.toMSI_marketing = function(){
-    $state.go('msi_marketing');
-  }
-
-  $scope.toMSI_qa = function(){
-    $state.go('msi_qa');
-  }
-
-  $scope.toMSI_analytics = function(){
-    $state.go('msi_analytics');
-  }
-
-  $scope.toMSI_technical = function(){
-    $state.go('msi_technical');
-  }
-
-  $scope.toMSI_innovative = function(){
-    $state.go('msi_innovative');
-  }
-
-  $scope.toMSI_teaching = function(){
-    $state.go('msi_teaching');
-  }
-
-  $scope.toMSI_leadership = function(){
-    $state.go('msi_leadership');
-  }
-
-  $scope.toResults = function(){
-    $state.go('msi_results');
-  }
-
+app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate) {
+  // Provide an optional true or false
+  // to force specific open or close state
+  $scope.toggleSideNav = function(bool) {
+    if(bool == undefined){
+      $ionicSideMenuDelegate.toggleLeft();
+      return
+    }
+    $ionicSideMenuDelegate.toggleLeft(bool);
+  };
 })
+
+/**
+ * Simple TimeLine to direct the content page to sections of book
+ */
+app.directive('timeLine',[function(){
+  return {
+    transclude: true,
+    templateUrl: 'templates/timeline.html',
+    controller: (function($scope, $state){
+
+      $scope.contentOutline = contentOutline;
+
+      $scope.getSubsection = function(section){
+        return contentOutline[section].sectionOrder;
+      }
+
+      $scope.jumpToSection = function(params){
+        if(!('sec' in params && 'sub' in params)){
+          throw new Error("Missing required parameter for jumping into sections.")
+        }
+        console.log('Routing to content/'+params.sec +'/'+ params.sub)
+        $state.go('content.sections',params);
+        // Using parent scope
+        $scope.toggleSideNav(false);
+
+        // TODO Scroll to position using lastLocation
+      };
+
+      $scope.getHistory = function(){
+        var hist = localStorage.getItem('hist');
+        // We havent entered history before, set defaults
+        // TODO test and handle inital setup or defaults regarding user data
+        if(hist == null){
+          return populateDefaults()
+        }
+        return hist;
+      }
+
+      // Helper to create inital required data
+      // using the contentOutline object as a seed
+      function populateDefaults(){
+        // Iterate over each major section
+        contentOutline.ordering.map(function(sec){
+          // Iterate over each minor subsection
+          var section = contentOutline[sec]
+          section.sectionOrder.map(function(sub){
+            // create the required objects for handling reading state
+            var subsection = section[sub] = {
+              isComplete:false,
+              lastRead:null,
+              lastLocation:0
+            };
+          })
+        }) // end maps
+        return contentOutline;
+      }
+    })
+  }
+}])
