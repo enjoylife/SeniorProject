@@ -36,31 +36,31 @@
   <body ng-controller="MainCtrl">
 
   <ion-side-menus>
-  <!-- Center content -->
-  <ion-side-menu-content drag-content="false">
-  <ion-header-bar class="bar-positive">
-  <div class="buttons">
-  <button alt="content" on-tap="toggleSideNav()" 
-      class="button button-icon ion-document-text i48" ></button>
-  </div>
-  <h1 class="title">Serious Job Seeker</h1>
-  <div class="buttons">
-  <button alt="profile" ui-sref="profile" 
-      class="button button-icon ion-record i48"></button>
+    <!-- Center content -->
+    <ion-side-menu-content drag-content="false">
+    <ion-header-bar class="bar-positive">
+      <div class="buttons">
+        <button alt="content" on-tap="toggleSideNav()" 
+            class="button button-icon ion-document-text i48" ></button>
+      </div>
+      <h1 class="title">Serious Job Seeker</h1>
+      <div class="buttons">
+        <button alt="profile" ui-sref="profile" 
+            class="button button-icon ion-record i48"></button>
         <button alt="binder"  ui-sref="binder" class="button button-icon ion-stop i48"></button>
-        </div>
-</ion-header-bar>
-  <ion-content header-shrink>
-     <!-- Ionic and Material agnostic ui-view's (not using ion-nav-view) -->
-  <div ui-view></div>
-  </ion-content>
+      </div>
+    </ion-header-bar>
+    <ion-content header-shrink>
+      <!-- Ionic and Material agnostic ui-view's (not using ion-nav-view) -->
+      <div ui-view></div>
+    </ion-content>
 
-  </ion-side-menu-content>  
+    </ion-side-menu-content>  
 
-  <!-- Left menu -->
-  <ion-side-menu side="left">
-    <time-line></time-line>
-  </ion-side-menu>
+    <!-- Left menu -->
+    <ion-side-menu side="left">
+      <time-line></time-line>
+    </ion-side-menu>
 </ion-side-menus>
 
 	</body>
