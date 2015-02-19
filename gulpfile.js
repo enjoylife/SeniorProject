@@ -12,7 +12,7 @@ var paths = {
   js:['www/js/*.js']
 };
 
-gulp.task('default', ['sass']);
+
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
