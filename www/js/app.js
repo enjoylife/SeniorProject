@@ -136,16 +136,22 @@ app.controller('contentCtrl',function($scope, $state){
   currentContent,
   isComplete;
 
-  console.log($state)
+  
 
-  var section = $state.params.sec;
-  var subSection = $state.params.sub;
-  $scope.leadIn = contentOutline[section][subSection].title;
+
+  $scope.leadIn = function(){
+    var section = $state.params.sec;
+    var subSection = $state.params.sub;
+    console.log(section,subSection)
+    return contentOutline[section][subSection].title;
+  }
 
 
   // Returns null if no more sections and subections
   // otherwise it will return an obejct with the next section and subsection for the router
   var nextSubSection = function(){
+    var section = $state.params.sec;
+    var subSection = $state.params.sub;
     
     var
       secNum        = contentOutline.ordering.indexOf(section),
