@@ -3,7 +3,7 @@
 var contentOutline = {
 	// Total Order for main Sections, each index corresponds to two things:
 	// a main section object defined below and sub folder inside the template/sections directory
-	ordering: ["intro","assessment", "search", "resume","interview"],
+	ordering: ["intro","assessment"],
 
 	// Each section needs:
 	// title, leadIn, sectionOrder and a number of objects defining the subsections

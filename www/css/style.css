@@ -1,14 +1,26 @@
-
-
-.done {
-  text-decoration: line-through;
+.scroll-content{
+	background: url('../img/serious_logo_head.jpg') no-repeat center center fixed;
+	background-size: 130px 175px;
+	background-position: left bottom;
+	/*-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;*/
+	/*background-color: black;*/
 }
 
+body {
+	font-family: 'Montserrat', sans-serif;
+}
 .right{
     position: absolute;
     top: -5px;
     right: 20px;
 }
+
+.done {
+  text-decoration: line-through;
+}
+
 i.icon {
 	color: white;
 	pointer-events:none;
@@ -16,11 +28,78 @@ i.icon {
 i.icon.highlight {
 	color:grey;
 }
+
 .i24 {
 	font-size: 24px;
 }
 
 .i48 {
 	font-size: 48px;
+}
+
+.dark-grey {
+color: #2b2b2b;
+}
+.light-gray {
+	color: #989898;
+}
+
+.accent-blue {
+	color: #264556;
+}
+
+.accent-green {
+	color: #043f2e;
+}
+
+.accent-yellow {
+	color: #efaf20;
+}
+
+.right{
+    position: absolute;
+    top: -5px;
+    right: 20px;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Montserrat-Regular'), url(fonts/Montserrat/Montserrat-Regular.ttf) format('truetype');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Montserrat-Bold'), url(fonts/Montserrat/Montserrat-Bold.ttf) format('truetype');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Tinos';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Tinos'), url(fonts/Tinos/Tinos-Regular.ttf) format('truetype');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+
+@font-face {
+  font-family: 'Tinos';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Tinos Italic'), local('Tinos-Italic'), url(fonts/Tinos/Tinos-Italic.ttf) format('truetype');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+@font-face {
+  font-family: 'Tinos';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Tinos Bold'), local('Tinos-Bold'), url(fonts/Tinos/Tinos-Bold.ttf) format('truetype');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
