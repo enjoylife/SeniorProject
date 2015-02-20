@@ -5,7 +5,7 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', 'ideaService', 
 
    //Add idea 
    $scope.addIdea = function() {
-	
+	console.log('test')
     var myPopup = $ionicPopup.show({
       template: '<input type="text" ng-model="list.idea">',
       title: 'Enter your ideas or inspirations',
