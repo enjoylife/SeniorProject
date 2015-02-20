@@ -135,16 +135,45 @@ app.controller('contentCtrl',function($scope, $state){
   var subSection = $state.params.sub;
   $scope.leadIn = contentOutline[section][subSection].title;
 
-  // TODO
-  $scope.nexSubSection = function(){
-    // If end of all sections and subsections bail
 
-    // Find out next subsection
+  // Returns null if no more sections and subections
+  // otherwise it will return an obejct with the next section and subsection for the router
+  var nextSubSection = function(){
+    
+    var
+      secNum        = contentOutline.ordering.indexOf(section),
+      subNum        = contentOutline[section].sectionOrder.indexOf(subSection),
+      sectionLen    = contentOutline.ordering.length -1,
+      subsectionLen = contentOutline[section].sectionOrder.length -1,
+      isSecEnd = (secNum == sectionLen),
+      isSubEnd = (subNum == subsectionLen) ;
 
-    // If no more subsections in this section
-    // jump to next section
+     // If end of all sections and subsections bail
+    if(isSecEnd && isSubEnd){
+      return null;
+    }
 
-    return;
+    // More subsections show next subsection, stay on this section
+    if(!isSubEnd) {
+      return {
+        sec: section,
+        sub: contentOutline[section].sectionOrder[subNum+1]
+      }
+    }
+    // Final condition...
+    var nextSec = contentOutline.ordering[secNum+1];
+    return {
+      sec:nextSec,
+      // First subsection
+      sub:nextSec.sectionOrder[0]
+    }
+
+    // If we reached here some logic went wrong...
+    throw new Error("Bad Logic in nextSubSection")
+  }
+    $scope.goNext = function(){
+    var next = nextSubSection();
+    $state.go('content.sections', next)
   }
 
 })
@@ -161,6 +190,10 @@ app.directive('timeLine',[function(){
 
       $scope.getSubsection = function(section){
         return contentOutline[section].sectionOrder;
+      }
+
+      $scope.getTitle = function(section, subsection){
+        return contentOutline[section][subsection].title;
       }
 
       $scope.jumpToSection = function(params){
