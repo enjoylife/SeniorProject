@@ -9,6 +9,22 @@ app.run(function($ionicPlatform) {
 
 	$ionicPlatform.ready(function() {
 	});
+	
+	
+	//window.localStorage.clear();
+	
+	
+	/* Check app launch count */
+	var appLaunchCount = window.localStorage.getItem('launchCount');
+	if(appLaunchCount){
+	   //If it exists then it is not the first time app launched
+	   console.log("NOT first time");
+	}else{
+	  //First time launch. Set the local storage item
+	  window.localStorage.setItem('launchCount',1);
+	  console.log("FIRST TIME USER");
+
+	}
 });
 
 app.config(function($stateProvider, $urlRouterProvider) {
@@ -190,3 +206,30 @@ app.directive('timeLine',[function(){
     })
   }
 }])
+
+//Used for storing objects and converting to and from JSON
+app.factory('$localstorage', ['$window', function($window) {
+  
+  function set(key, value) {
+      $window.localStorage[key] = value;
+  }
+  
+  function get(key, defaultValue) {
+      return $window.localStorage[key] || defaultValue;
+  }
+  
+  function setObject(key, value) {
+      $window.localStorage[key] = JSON.stringify(value);
+  }
+  
+  function getObject(key) {
+      return JSON.parse($window.localStorage[key] || '{}');
+  }
+  
+  return {
+    set: set,
+    get: get,
+    setObject: setObject,
+    getObject: getObject
+  }
+}]);
