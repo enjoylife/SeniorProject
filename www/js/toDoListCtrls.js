@@ -5,7 +5,7 @@ app.controller('ToDoCtrl', ['$scope', '$ionicActionSheet', '$ionicPopup', '$time
   //Add to-do item
   $scope.addToDo = function() {
     $scope.list = {}
-  
+  console.log("added Todo")
     var myPopup = $ionicPopup.show({
       template: '<input type="text" ng-model="list.item">', 
       title: 'Enter your to-do item',
