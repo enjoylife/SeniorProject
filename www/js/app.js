@@ -106,6 +106,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
     controller: 'MainCtrl'
   })
 
+// Holland Assessment
+  .state('hollandAssesment', {
+    url:'/holland',
+    templateUrl: 'templates/holland/info.html',
+    controller:'holland'
+  })
+
 
   $urlRouterProvider.otherwise('/');
 })
