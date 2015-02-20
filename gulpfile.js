@@ -34,6 +34,7 @@ gulp.task('js', function(done){
 })
 
 gulp.task('default', function(){
+  gulp.start('js');
   //gulp.watch(paths.sass, ['sass']);
   gulp.watch(paths.js,['js']);
 });
