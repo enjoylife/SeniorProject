@@ -27,7 +27,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('content', {
     abstract:true,
     url:'/content',
-    templateUrl:'templates/content.html'
+    templateUrl:'templates/content.html',
+    controller :'contentCtrl'
   })
 
   /**
@@ -38,7 +39,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/:sec/:sub',
     templateUrl: function($stateParams){
       console.log($stateParams);
-      return 'templates/sections/' + $stateParams.sub + '.html';
+      return 'templates/sections/' + $stateParams.sec +'/'   + $stateParams.sub + '.html';
     },
   })
 
@@ -106,6 +107,31 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate) {
   };
 })
 
+app.controller('contentCtrl',function($scope, $state){
+  var
+  currentPosition,
+  currentContent,
+  isComplete;
+
+  console.log($state)
+
+  var section = $state.params.sec;
+  var subSection = $state.params.sub;
+  $scope.leadIn = contentOutline[section][subSection].title;
+
+  // TODO
+  $scope.nexSubSection = function(){
+    // If end of all sections and subsections bail
+
+    // Find out next subsection
+
+    // If no more subsections in this section
+    // jump to next section
+
+    return;
+  }
+
+})
 /**
  * Simple TimeLine to direct the content page to sections of book
  */
@@ -511,36 +537,66 @@ app.factory('contactService', function() {
 	}
 
 })
-app.controller('ContentCtrl', [function() {
-  var
-  currentPosition,
-  currentContent,
-  isComplete;
-
-
-}])
-
 // Main properties of objects must correspond with sub-folders inside the template folder
 // Strings defined in section order per those main objects define files within those sub-folders.
 var contentOutline = {
-	ordering: ["intro","assement", "search", "resume","interview"],
+	// Total Order for main Sections, each index corresponds to two things:
+	// a main section object defined below and sub folder inside the template/sections directory
+	ordering: ["intro","assessment", "search", "resume","interview"],
 
+	// Each section needs:
+	// title, leadIn, sectionOrder and a number of objects defining the subsections
 	"intro":{
-		// TItle to display in timeline
-		title:"",
-		//  String to show in timeline
+
+		// TItle to display in timeline (short and Simple)
+		title:"Introduction",
+
+		//  Title when section is selected in timeline (longer and )
 		leadIn:"Test paragraph which gives user an idea of whats in the section",
-		sectionOrder :['intro','intro2','intro3','intro4'],
+
+		// What order are the subsections to be shown. Each index corresponds to
+		// a file within the section's folder.
+		sectionOrder :['intro','picture','awareness','organize'],
+
 		intro: {
-			// TItle to display in timeline
-			title:"",
+			title:"Introduction to job seeking",
+		},
+		picture: {
+			title:"The Big Picture",
+		},
+		awareness: {
+			title:"Awareness you need to know who's hiring!:",
+		},
+		organize: {
+			title:"Getting Organized with your Career Binder",
 		}
 	},
 
-	"assement": {
+	"assessment": {
 		title:"",
 		leadIn:"Test paragraph which gives user an idea of whats in the section",
-		sectionOrder :['section1','section2','section3','section4']
+		sectionOrder :['personality','skills','values','knowledge','interests', 'environment','goals'],
+		personality :{
+			title:'career Personality Type'
+		},
+		skills :{
+			title: 'Motivated Skills Assessment'
+		},
+		values :{
+			title: 'Work Values and Priorities'
+		},
+		knowledge :{
+			title : "Key Knowledge Areas"
+		},
+		interests : {
+			title: "Life Interests and Passions"
+		},
+		environment : {
+			title: "Your Ideal Life/Work Environment"
+		},
+		goals : {
+			title: 'Your Goals and Priorities'
+		}
 	},
 
 	"search": {
@@ -568,7 +624,6 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', 'ideaService', 
 
    //Add idea 
    $scope.addIdea = function() {
-    $scope.list = {}
 	
     var myPopup = $ionicPopup.show({
       template: '<input type="text" ng-model="list.idea">',
@@ -581,7 +636,10 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', 'ideaService', 
         text: '<b>Save</b>',
         type: 'button-positive',
 		onTap: function(e) {
+		
+		  /* Empty input */
 		  if (!$scope.list.idea) {
+			e.preventDefault();
 			var alertPopup = $ionicPopup.alert({
 			  title: 'Input is empty',
 			  template: 'Please input an item'
@@ -592,23 +650,23 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', 'ideaService', 
 		  } else {
 		    var obj = { title: $scope.list.idea, date: d.toDateString(), id: count+1 };  
 			ideaService.addToList(obj);
+			$scope.list.idea = '';
 		  }
 		}
       }
     ]
     });
-	myPopup.then(function(res) {
-		myPopup.close();
-    });
+
 
   };
   
   //Edit idea
   $scope.editIdea = function(index) {
-    $scope.list = {}
-	
+	$scope.edit = {
+		idea: ideaService.getTitle(index)
+	};
     var myPopup = $ionicPopup.show({
-      template: '<input type="text" ng-model="list.idea">',
+      template: '<input type="text" ng-model="edit.idea">',
       title: 'Change of idea? That is fine',
       scope: $scope,
       buttons: [
@@ -617,9 +675,22 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', 'ideaService', 
         text: '<b>Save</b>',
         type: 'button-positive',
 		onTap: function(e) {
-		  var newDate = new Date();
-		  var obj = { title: $scope.list.idea, date: newDate.toDateString(), id: index };
-		  ideaService.editItem( obj, index );
+		
+		  /* Empty input alert */
+		  if (!$scope.edit.idea) {
+			e.preventDefault();
+			var alertPopup = $ionicPopup.alert({
+			  title: 'Input is empty',
+			  template: 'Please input an item'
+		    });
+			alertPopup.then(function(res) {
+			  alertPopup.close();  
+			});
+		  } else {
+			var newDate = new Date();
+			var obj = { title: $scope.edit.idea, date: newDate.toDateString(), id: index };
+			ideaService.editItem( obj, index );
+		  }
 		}
       }
     ]

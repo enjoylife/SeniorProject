@@ -27,7 +27,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('content', {
     abstract:true,
     url:'/content',
-    templateUrl:'templates/content.html'
+    templateUrl:'templates/content.html',
+    controller :'contentCtrl'
   })
 
   /**
@@ -38,7 +39,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/:sec/:sub',
     templateUrl: function($stateParams){
       console.log($stateParams);
-      return 'templates/sections/' + $stateParams.sub + '.html';
+      return 'templates/sections/' + $stateParams.sec +'/'   + $stateParams.sub + '.html';
     },
   })
 
@@ -106,6 +107,31 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate) {
   };
 })
 
+app.controller('contentCtrl',function($scope, $state){
+  var
+  currentPosition,
+  currentContent,
+  isComplete;
+
+  console.log($state)
+
+  var section = $state.params.sec;
+  var subSection = $state.params.sub;
+  $scope.leadIn = contentOutline[section][subSection].title;
+
+  // TODO
+  $scope.nexSubSection = function(){
+    // If end of all sections and subsections bail
+
+    // Find out next subsection
+
+    // If no more subsections in this section
+    // jump to next section
+
+    return;
+  }
+
+})
 /**
  * Simple TimeLine to direct the content page to sections of book
  */
