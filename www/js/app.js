@@ -133,7 +133,9 @@ app.controller('contentCtrl',function($scope, $state){
 
   var section = $state.params.sec;
   var subSection = $state.params.sub;
-  $scope.leadIn = contentOutline[section][subSection].title;
+  $scope.leadIn = function(){
+    return contentOutline[section][subSection].title;
+  } 
 
 
   // Returns null if no more sections and subections
