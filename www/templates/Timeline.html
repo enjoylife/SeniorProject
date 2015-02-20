@@ -5,8 +5,8 @@
         <section class="main-section">
             <h3>{{content}}</h3>
         </section>
-        <ul class='sub-section'ng-repeat="subsec in getSubsection(content)  track by $index">
-            <li ng-class="{selected: subsec.isComplete}"on-touch="jumpToSection({sec:content,sub:subsec})">{{subsec}}</li>
+        <ul class='sub-section' ng-repeat="subsec in getSubsection(content) track by $index">
+            <li ng-class="{selected: subsec.isComplete}" on-touch="jumpToSection({sec:content,sub:subsec})">{{getTitle(content, subsec)}}</li>
         </ul>
     </nav>
 </ion-content>

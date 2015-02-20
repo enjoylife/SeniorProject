@@ -9,6 +9,22 @@ app.run(function($ionicPlatform) {
 
 	$ionicPlatform.ready(function() {
 	});
+	
+	
+	//window.localStorage.clear();
+	
+	
+	/* Check app launch count */
+	var appLaunchCount = window.localStorage.getItem('launchCount');
+	if(appLaunchCount){
+	   //If it exists then it is not the first time app launched
+	   console.log("NOT first time");
+	}else{
+	  //First time launch. Set the local storage item
+	  window.localStorage.setItem('launchCount',1);
+	  console.log("FIRST TIME USER");
+
+	}
 });
 
 app.config(function($stateProvider, $urlRouterProvider) {
@@ -119,16 +135,45 @@ app.controller('contentCtrl',function($scope, $state){
   var subSection = $state.params.sub;
   $scope.leadIn = contentOutline[section][subSection].title;
 
-  // TODO
-  $scope.nexSubSection = function(){
-    // If end of all sections and subsections bail
 
-    // Find out next subsection
+  // Returns null if no more sections and subections
+  // otherwise it will return an obejct with the next section and subsection for the router
+  var nextSubSection = function(){
+    
+    var
+      secNum        = contentOutline.ordering.indexOf(section),
+      subNum        = contentOutline[section].sectionOrder.indexOf(subSection),
+      sectionLen    = contentOutline.ordering.length -1,
+      subsectionLen = contentOutline[section].sectionOrder.length -1,
+      isSecEnd = (secNum == sectionLen),
+      isSubEnd = (subNum == subsectionLen) ;
 
-    // If no more subsections in this section
-    // jump to next section
+     // If end of all sections and subsections bail
+    if(isSecEnd && isSubEnd){
+      return null;
+    }
 
-    return;
+    // More subsections show next subsection, stay on this section
+    if(!isSubEnd) {
+      return {
+        sec: section,
+        sub: contentOutline[section].sectionOrder[subNum+1]
+      }
+    }
+    // Final condition...
+    var nextSec = contentOutline.ordering[secNum+1];
+    return {
+      sec:nextSec,
+      // First subsection
+      sub:nextSec.sectionOrder[0]
+    }
+
+    // If we reached here some logic went wrong...
+    throw new Error("Bad Logic in nextSubSection")
+  }
+    $scope.goNext = function(){
+    var next = nextSubSection();
+    $state.go('content.sections', next)
   }
 
 })
@@ -145,6 +190,10 @@ app.directive('timeLine',[function(){
 
       $scope.getSubsection = function(section){
         return contentOutline[section].sectionOrder;
+      }
+
+      $scope.getTitle = function(section, subsection){
+        return contentOutline[section][subsection].title;
       }
 
       $scope.jumpToSection = function(params){
@@ -191,6 +240,32 @@ app.directive('timeLine',[function(){
   }
 }])
 
+//Used for storing objects and converting to and from JSON
+app.factory('$localstorage', ['$window', function($window) {
+  
+  function set(key, value) {
+      $window.localStorage[key] = value;
+  }
+  
+  function get(key, defaultValue) {
+      return $window.localStorage[key] || defaultValue;
+  }
+  
+  function setObject(key, value) {
+      $window.localStorage[key] = JSON.stringify(value);
+  }
+  
+  function getObject(key) {
+      return JSON.parse($window.localStorage[key] || '{}');
+  }
+  
+  return {
+    set: set,
+    get: get,
+    setObject: setObject,
+    getObject: getObject
+  }
+}]);
 app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCalendar', 'uiCalendarConfig', 'calendarService', 'toDoService', function CalendarCtrl($scope, $compile, $ionicPopup, $cordovaCalendar, uiCalendarConfig, calendarService, toDoService) {
 	  var date = new Date();
 	  //Event object
@@ -542,7 +617,7 @@ app.factory('contactService', function() {
 var contentOutline = {
 	// Total Order for main Sections, each index corresponds to two things:
 	// a main section object defined below and sub folder inside the template/sections directory
-	ordering: ["intro","assessment", "search", "resume","interview"],
+	ordering: ["intro","assessment"],
 
 	// Each section needs:
 	// title, leadIn, sectionOrder and a number of objects defining the subsections
@@ -599,23 +674,6 @@ var contentOutline = {
 		}
 	},
 
-	"search": {
-		title:"",
-		leadIn:"Test paragraph which gives user an idea of whats in the section",
-		sectionOrder :['section1','section2','section3','section4']
-	},
-
-	"resume" : {
-		title:"",
-		leadIn:"Test paragraph which gives user an idea of whats in the section",
-		sectionOrder :['section1','section2','section3','section4']
-},
-
-	"interview" : {
-		title:"",
-		leadIn:"Test paragraph which gives user an idea of whats in the section",
-		sectionOrder :['section1','section2','section3','section4']
-	}
 }
 /* Idea list control */
 app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', 'ideaService', function($scope, $ionicPopup, $timeout, ideaService) {
