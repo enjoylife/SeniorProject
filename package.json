@@ -18,6 +18,7 @@
     "https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin.git",
     "http://github.com/VitaliiBlagodir/cordova-plugin-datepicker",
     "org.apache.cordova.contacts",
-    "https://github.com/katzer/cordova-plugin-local-notifications.git"
+    "https://github.com/katzer/cordova-plugin-local-notifications.git",
+    "org.apache.cordova.camera"
   ]
 }
