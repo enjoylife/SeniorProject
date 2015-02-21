@@ -1,12 +1,13 @@
 <!-- TODO Build This out and style -->
 <!-- TODO Highlight current section and sub section -->
 <ion-content>
-    <nav class="timeline" ng-repeat="content in contentOutline.ordering">
+    <nav class="timeline" ng-repeat="content in contentOutline">
         <section class="main-section">
-            <h3>{{content}}</h3>
+            <h3>{{content.leadIn}}</h3>
         </section>
-        <ul class='sub-section' ng-repeat="subsec in getSubsection(content) track by $index">
-            <li ng-class="{selected: subsec.isComplete}" on-touch="jumpToSection({sec:content,sub:subsec})">{{getTitle(content, subsec)}}</li>
+        <ul class='sub-section' ng-repeat="section in content.sections track by $index">
+            <li ng-class="{selected: section.isComplete}" 
+            on-touch="jumpToSection({folder:content.folder,file:section.file})">{{section.title}}</li>
         </ul>
     </nav>
 </ion-content>
