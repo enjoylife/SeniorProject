@@ -26,7 +26,7 @@ var contentOutline = [
 				title:"The Big Picture",
 			},
 			{
-				file:'sjs-1-4.html',
+				file:'sjs1-4.html',
 				title:"Career Planning Challenges: the tasks that lie ahead...",
 			}
 		]
