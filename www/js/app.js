@@ -147,6 +147,7 @@ app.controller('contentCtrl',function($scope, $state){
   }
 
 
+
   // Returns null if no more sections and subections
   // otherwise it will return an obejct with the next section and subsection for the router
   var nextSubSection = function(){
