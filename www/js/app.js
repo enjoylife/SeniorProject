@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('prototype', ['ionic', 'ngCordova','ionic.ion.headerShrink', 'ui.calendar', 'ui.bootstrap'])
+var app = angular.module('prototype', [ 'ionic', 'ngCordova','ionic.ion.headerShrink', 'ui.calendar', 'ui.bootstrap'])
 
 app.run(function($ionicPlatform) {
 
@@ -52,10 +52,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
    * the ui-view in the content.html template
    */
   .state('content.sections', {
-    url: '/:sec/:sub',
+    url: '/:folder/:file',
     templateUrl: function($stateParams){
       console.log($stateParams);
-      return 'templates/sections/' + $stateParams.sec +'/'   + $stateParams.sub + '.html';
+      return 'templates/sections/' + $stateParams.folder +'/'   + $stateParams.file;
     },
   })
 
@@ -136,14 +136,17 @@ app.controller('contentCtrl',function($scope, $state){
   currentContent,
   isComplete;
 
-  
-
 
   $scope.leadIn = function(){
-    var section = $state.params.sec;
-    var subSection = $state.params.sub;
-    console.log(section,subSection)
-    return contentOutline[section][subSection].title;
+    var section = _.find(contentOutline, function(obj){
+      return obj.folder == $state.params.folder;
+    })
+
+     var subsection = _.find(section.sections, function(obj){
+      return obj.file == $state.params.file;
+    })
+
+    return subsection.title
   }
 
 
@@ -211,10 +214,11 @@ app.directive('timeLine',[function(){
       }
 
       $scope.jumpToSection = function(params){
-        if(!('sec' in params && 'sub' in params)){
+        if(!('file' in params && 'folder' in params)){
           throw new Error("Missing required parameter for jumping into sections.")
         }
-        console.log('Routing to content/'+params.sec +'/'+ params.sub)
+        console.log(params)
+        console.log('Routing to content/'+params.folder +'/'+ params.file)
         $state.go('content.sections',params);
         // Using parent scope
         $scope.toggleSideNav(false);
