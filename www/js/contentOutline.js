@@ -3,7 +3,9 @@
 var contentOutline = {
 	// Total Order for main Sections, each index corresponds to two things:
 	// a main section object defined below and sub folder inside the template/sections directory
+
 	ordering: ["intro","assessment"],
+
 
 	// Each section needs:
 	// title, leadIn, sectionOrder and a number of objects defining the subsections
@@ -17,19 +19,19 @@ var contentOutline = {
 
 		// What order are the subsections to be shown. Each index corresponds to
 		// a file within the section's folder.
-		sectionOrder :['intro','picture','awareness','organize'],
+		sectionOrder :['intro','sjs1-2','sjs1-3','sjs1-4'],
 
 		intro: {
 			title:"Introduction to job seeking",
 		},
-		picture: {
+		'sjs1-2': {
+			title:"Job Seeking and Career Planning is a Journey. This is the path you will follow",
+		},
+		'sjs1-3': {
 			title:"The Big Picture",
 		},
-		awareness: {
-			title:"Awareness you need to know who's hiring!:",
-		},
-		organize: {
-			title:"Getting Organized with your Career Binder",
+		'sjs1-4': {
+			title:"Career Planning Challenges: the tasks that lie ahead...",
 		}
 	},
 
@@ -60,7 +62,7 @@ var contentOutline = {
 		}
 	},
 
-	"search": {
+	/*"search": {
 		title:"",
 		leadIn:"Test paragraph which gives user an idea of whats in the section",
 		sectionOrder :['section1','section2','section3','section4']
@@ -70,11 +72,11 @@ var contentOutline = {
 		title:"",
 		leadIn:"Test paragraph which gives user an idea of whats in the section",
 		sectionOrder :['section1','section2','section3','section4']
-},
+	},
 
 	"interview" : {
 		title:"",
 		leadIn:"Test paragraph which gives user an idea of whats in the section",
 		sectionOrder :['section1','section2','section3','section4']
-	}
+	}*/
 }
