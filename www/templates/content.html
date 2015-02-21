@@ -1,12 +1,13 @@
-<content class="md-padding">
+<content  >
 	<section class="lead-in">
 	<h3>{{leadIn()}}</h3>
 	</section>
-
 	<!-- Section Content is compilied and injected into this div -->
-	<div ui-view></div>
+	<div class="content-wrapper" ui-view></div>
 
-	<button on-touch="goNext()">Next</button>
+	<div class="next-section">
+		<button class="button button-stable" on-touch="goNext()">Next</button>	
+	</div>
 </content>
 
 

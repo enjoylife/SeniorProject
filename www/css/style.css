@@ -1,16 +1,71 @@
-.scroll-content{
-	background: url('../img/serious_logo_head.jpg') no-repeat center center fixed;
-	background-size: 130px 175px;
-	background-position: left bottom;
-	/*-webkit-background-size: cover;
-	-moz-background-size: cover;
-	background-size: cover;*/
-	/*background-color: black;*/
-}
+
 
 body {
+
+}
+section.lead-in h3{
+		font-family: 'Montserrat', sans-serif;
+		font-weight: 400;
+		text-align: start;
+		font-size: 48px;
+		padding:30px 20px 30px 20px;
+}
+
+.timeline {
 	font-family: 'Montserrat', sans-serif;
 }
+
+.timeline h3 {
+	padding: 30px 10px 5px 10px;
+	color:white;
+	text-transform: capitalize;
+	margin-bottom:30px;
+}
+
+
+.timeline section {
+background: grey;
+}
+
+.timeline ul.sub-section li {
+	padding-left: 45px;
+	padding-bottom:30px;
+}
+
+/*Wraps all sections and subsections
+!Does not include Header section
+*/
+
+.content-wrapper {
+	text-align: justify;
+	padding: 0px 20px 0px 20px;
+}
+
+.content-wrapper p {
+	font-family: 'Tinos',sans-serif;
+	font-size: 18px;
+	vertical-align: baseline;
+	line-height: 1.6em
+}
+
+div.next-section {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+div.next-section button{
+	font-family: 'Montserrat', sans-serif;
+	margin:10px;
+	margin-bottom: 20px;
+}
+
 .right{
     position: absolute;
     top: -5px;
