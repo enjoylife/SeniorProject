@@ -154,14 +154,25 @@ app.controller('contentCtrl',function($scope, $state){
   // Returns null if no more sections and subections
   // otherwise it will return an obejct with the next section and subsection for the router
   var nextSubSection = function(){
-    var section = $state.params.sec;
-    var subSection = $state.params.sub;
-    
-    var
-      secNum        = contentOutline.ordering.indexOf(section),
-      subNum        = contentOutline[section].sectionOrder.indexOf(subSection),
-      sectionLen    = contentOutline.ordering.length -1,
-      subsectionLen = contentOutline[section].sectionOrder.length -1,
+
+    // Total number of folders of content
+    var sectionLen    = contentOutline.length -1;
+
+    // Which folder are we in
+    var secNum = _.findIndex(contentOutline, function(obj){
+      return obj.folder == $state.params.folder;
+    })
+    var section = contentOutline[secNum];
+
+    // Total number of subsections
+    var subsectionLen = section.sections.length - 1;
+
+    // Which file are we in
+    var subNum = _.findIndex(section.sections, function(obj){
+      return obj.file == $state.params.file;
+    })
+
+      var 
       isSecEnd = (secNum == sectionLen),
       isSubEnd = (subNum == subsectionLen) ;
 
@@ -173,16 +184,16 @@ app.controller('contentCtrl',function($scope, $state){
     // More subsections show next subsection, stay on this section
     if(!isSubEnd) {
       return {
-        sec: section,
-        sub: contentOutline[section].sectionOrder[subNum+1]
+        folder: $state.params.folder,
+        file: section.sections[subNum+1].file
       }
     }
     // Final condition...
-    var nextSec = contentOutline.ordering[secNum+1];
+    var nextSec = contentOutline[secNum+1];
     return {
-      sec:nextSec,
+      folder:nextSec.folder,
       // First subsection
-      sub:nextSec.sectionOrder[0]
+      file:nextSec.sections[0].file
     }
 
     // If we reached here some logic went wrong...
@@ -240,16 +251,13 @@ app.directive('timeLine',[function(){
       // using the contentOutline object as a seed
       function populateDefaults(){
         // Iterate over each major section
-        contentOutline.ordering.map(function(sec){
+        contentOutline.map(function(section){
           // Iterate over each minor subsection
-          var section = contentOutline[sec]
-          section.sectionOrder.map(function(sub){
+          section.sections.map(function(sub){
             // create the required objects for handling reading state
-            var subsection = section[sub] = {
-              isComplete:false,
-              lastRead:null,
-              lastLocation:0
-            };
+            sub['isComplete'] = false;
+            sub['lastRead'] = null;
+            sub['lastLocation'] = 0;
           })
         }) // end maps
         return contentOutline;
