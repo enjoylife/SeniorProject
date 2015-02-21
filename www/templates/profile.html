@@ -1,32 +1,48 @@
 
-<div layout="column" layout-fill>
-    <!-- Profile Pic and Quote of the day -->
+
 <div class="row">
-  <div class="col">
-    <img  class='profile-pic' src="/img/ionic.png" width='100px' height='100px' alt="">
-  </div>
-  <div class="col">
-    <h3 class='quote'>Lorum Ipsum</h3>
-  </div>
-</div>  
+
+<div class="col">
+  <img src="" ng-show="picture" alt="" id="profilePic">
+  <i ng-hide="picture" on-touch="getPhoto()" class="user-profile-blank icon ion-person"></i>
+</div>
+<div class="col">
+     <blockquote>
+  <p>{{quoteObj.quote}}</p>
+  <footer>{{quoteObj.cite}}</footer>
+</blockquote>
+</div>
+</div>
+
 
 <!-- Desired career and points -->
-<div class="row">
-  <div class="col"> <!-- Desired Career --> </div>
-  <div class="col"> <!-- Accumlated Points --> </div>
-</div>  
+ <!-- Desired Career -->
+<div class="list">
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Desired Career</span>
+    <input type="text" placeholder="Desired Career">
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Set Fulfillment Deadline</span>
+    <input type="text" placeholder="Set Fulfillment Deadline">
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Email</span>
+    <input type="text" placeholder="Email">
+  </label>
+</div>
+ 
 
 
-<div class="row">
-  <div class="col"> <!-- Fulfillment Deadline --> </div>
-  <div class="col"> <!-- Task Streak --> </div>
-</div>
 
-<div class="row">
-  <div class="col"><!--Task? --></div>
-  <div class="col"><!--Check boxes --></div>
-</div>
-</div>
+ <!-- Fulfillment Deadline -->
+ <!-- Task Streak --> 
+
+
+
+<!--Task? -->
+<!--Check boxes -->
+
 
 
 
