@@ -1,14 +1,24 @@
 /* To-Do-List control */
-app.controller('ToDoCtrl', ['$scope', '$ionicActionSheet', '$ionicPopup', '$timeout', 'toDoService', function($scope, $ionicActionSheet, $ionicPopup, $timeout, toDoService) {
-  var count = toDoService.getNumberOf();
-
+app.controller('ToDoCtrl', ['$scope', '$ionicActionSheet', '$ionicPopup', '$timeout', '$localstorage', 'toDoService', function($scope, $ionicActionSheet, $ionicPopup, $timeout, $localstorage, toDoService) {
+  
+  /* Load from local storage */
+  var load = $localstorage.getObject( 'toDoList' );
+  if (Object.keys(load).length !== 0) {
+    toDoService.loadList( load );
+  }
+  
   //Add to-do item
   $scope.addToDo = function() {
-    $scope.list = {}
-  console.log("added Todo")
+    //toDo object
+	$scope.obj = {
+	  title: '',
+	  end: '',
+	  id: toDoService.getNumberOf()
+	};
+  
     var myPopup = $ionicPopup.show({
-      template: '<input type="text" ng-model="list.item">', 
       title: 'Enter your to-do item',
+	  templateUrl: 'templates/binder/binder-toDo-popup.html',
       subTitle: 'Remember to be organized and keep track what you need to do',
       scope: $scope,
       buttons: [
@@ -17,7 +27,8 @@ app.controller('ToDoCtrl', ['$scope', '$ionicActionSheet', '$ionicPopup', '$time
         text: '<b>Next</b>',
         type: 'button-positive',
 		onTap: function(e) {
-		  if (!$scope.list.item) {
+		  if (!$scope.obj.title) {
+			e.preventDefault();
 		    var alertPopup = $ionicPopup.alert({
 			  title: 'Input is empty',
 			  template: 'Please input an item'
@@ -26,7 +37,28 @@ app.controller('ToDoCtrl', ['$scope', '$ionicActionSheet', '$ionicPopup', '$time
 			  alertPopup.close();
 			});
 		  } else {
-		    $scope.addToDoDate($scope.list.item);
+		    console.log($scope.obj.end);
+			var d = chrono.parseDate($scope.obj.end);
+			console.log($scope.obj.end);
+			if (d === null) {
+				e.preventDefault();
+				var alertPopup = $ionicPopup.alert({
+				  title: 'Date is not correct',
+				  template: 'Try using month/date/year'
+				});
+				alertPopup.then(function(res) {
+				  alertPopup.close();
+				});
+			} else {
+			    $scope.obj.end = d.toDateString();
+				toDoService.addToList($scope.obj);
+				$localstorage.setObject( 'toDoList', toDoService.output() );
+			}
+			$scope.obj = {
+			  title: '',
+			  date: '',
+			  id: toDoService.getNumberOf()
+			};
 		  }
 		}
       }
@@ -39,36 +71,21 @@ app.controller('ToDoCtrl', ['$scope', '$ionicActionSheet', '$ionicPopup', '$time
 
   };
   
-  //Add to-do item due date
-  $scope.addToDoDate = function( item ) {
-    $scope.list = {}
-  
-    var myPopup = $ionicPopup.show({
-      template: '<input type="date" ng-model="list.date">', 
-      title: 'Enter the due date for your item',
-      subTitle: 'Remember to be organized and keep track what you need to do',
-      scope: $scope,
-      buttons: [
-      { text: 'Cancel' },
-      {
-        text: '<b>Save</b>',
-        type: 'button-positive',
-		onTap: function(e) {
-		  var obj = { title: item, date: $scope.list.date.toDateString(), id: count };  
-		  toDoService.addToList(obj);
-		  console.log( obj.id ); 
-		}
-      }
-    ]
-    });
-	
-	myPopup.then(function(res) {
-      myPopup.close();
-    });
-
-  };
-  
-  $scope.list = [];
+    // Remove item
+  $scope.removeItem = function(index) {
+   var confirmPopup = $ionicPopup.confirm({
+     title: 'To-Do',
+     template: 'Are you sure you want to delete this?'
+   });
+   confirmPopup.then(function(res) {
+     if(res) {
+       toDoService.removeItem( index );
+	   $localstorage.setObject( 'toDoList', toDoService.output() );
+     } else {
+       
+     }
+   });
+ };
   
   $scope.output = function () {
 	$scope.list = toDoService.output();
@@ -77,11 +94,19 @@ app.controller('ToDoCtrl', ['$scope', '$ionicActionSheet', '$ionicPopup', '$time
 
 }])
 
-app.factory('toDoService', function() {
+app.factory('toDoService', ['$localstorage', function($localstorage) {
   var list = [];
+  
+  function loadList( load ) {
+	list = load;
+  }
   
   function addToList(item) {
 	list.push(item);
+  }
+  
+  function removeItem( index ) {
+	list.splice(index, 1);
   }
   
   function getNumberOf() {
@@ -93,8 +118,10 @@ app.factory('toDoService', function() {
   }
   
   return {
+    loadList: loadList,
 	addToList: addToList,
+	removeItem: removeItem,
 	getNumberOf: getNumberOf,
 	output: output
   };
-});
+}]); 
