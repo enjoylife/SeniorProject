@@ -1,6 +1,6 @@
 <div title="Ideas/Inspirations" ng-controller="IdeaCtrl">
 	<ion-list>
-	  <div class="card" ng-repeat="ideas in output()">
+	  <div class="card" ng-repeat="ideas in output() track by $index">
 	    <div class="item item-divider">
           {{ ideas.date }}
 		  <div class="right">
