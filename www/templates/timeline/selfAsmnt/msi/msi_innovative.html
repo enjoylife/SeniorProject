@@ -1,5 +1,5 @@
-<ion-view title="Motivated Skills Inventory" ng-controller="innovationCtrl">
-	<ion-content has-header="true" align="center">
+<div title="Motivated Skills Inventory" ng-controller="comsCtrl">
+	<div ng-controller="innovationCtrl">
 		<h2>Creativity and Innovation</h2>
 		<table style="width:100%; border:1px solid black;">
 			<tr>
@@ -17,12 +17,12 @@
 				</td>
 
 				<td>
-					<ion-radio name="artSkills" ng-repeat="item in artSkills" ng-value="item.value" ng-model="data.artSVal">
+					<ion-radio name="artSkills" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.artSVal">
 						{{ item.text }}
 					</ion-radio>
 				</td>				
 				<td>
-					<ion-radio name="artMotivation" ng-repeat="item in artMotivation" ng-value="item.value" ng-model="data.artMVal">
+					<ion-radio name="artMotivation" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.artMVal">
 						{{ item.text }}
 					</ion-radio>
 				</td>
@@ -37,12 +37,12 @@
 				</td>
 
 				<td>
-					<ion-radio name="creativeSkills" ng-repeat="item in creativeSkills" ng-value="item.value" ng-model="data.creativeSVal">
+					<ion-radio name="creativeSkills" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.creativeSVal">
 						{{ item.text }}
 					</ion-radio>
 				</td>				
 				<td>
-					<ion-radio name="creativeMotivation" ng-repeat="item in creativeMotivation" ng-value="item.value" ng-model="data.creativeMVal">
+					<ion-radio name="creativeMotivation" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.creativeMVal">
 						{{ item.text }}
 					</ion-radio>
 				</td>
@@ -52,8 +52,8 @@
 		<button class="button" ng-click="toMainMenu()">
 	  	Menu
 	  	</button>
-	  	<button class="button" ng-click="toMSI_teaching(); commitVals();">
+	  	<button class="button" ng-click="commitVals()" ui-sref="msi_teaching">
 	  	Next
 	  	</button>
-	</ion-content>
-</ion-view>
+	</div>
+</div>
