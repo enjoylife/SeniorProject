@@ -19,6 +19,10 @@
                         {
                             "xml": "<feature name=\"Contacts\"><param name=\"android-package\" value=\"org.apache.cordova.contacts.ContactManager\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Calendar\"><param name=\"android-package\" value=\"nl.xservices.plugins.Calendar\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -38,6 +42,16 @@
                             "xml": "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />",
                             "count": 1
                         }
+                    ],
+                    "/manifest": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_CALENDAR\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_CALENDAR\" />",
+                            "count": 1
+                        }
                     ]
                 }
             }
@@ -48,6 +62,9 @@
             "PACKAGE_NAME": "com.ionicframework.prototype611949"
         },
         "org.apache.cordova.contacts": {
+            "PACKAGE_NAME": "com.ionicframework.prototype611949"
+        },
+        "nl.x-services.plugins.calendar": {
             "PACKAGE_NAME": "com.ionicframework.prototype611949"
         }
     },
