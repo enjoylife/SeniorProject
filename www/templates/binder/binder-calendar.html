@@ -1,7 +1,7 @@
 <div title="Calendar" ng-controller="CalendarCtrl">
-	  <link href="lib/bootstrap-css/css/bootstrap.css" rel="stylesheet">
+	<link href="lib/bootstrap-css/css/bootstrap.css" rel="stylesheet">
     <link href="lib/fullcalendar/dist/fullcalendar.css" rel="stylesheet">
-
+ <ion-scroll zooming="true" direction="xy" style="width: 600px; height: 500px">
 	<div class="container">
 			<section id="directives-calendar" ng-controller="CalendarCtrl">
 				<div class="well">
@@ -23,7 +23,7 @@
 									</div>
 									
 								  </div>
-								  <ion-scroll zooming="true" direction="xy" style="width: 600px; height: 500px">
+
 								<div id ="calendar" class="calendar" ng-model="eventSources" calendar="myCalendar1" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>                       
 							</tabset>
 						</div>

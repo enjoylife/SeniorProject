@@ -1,6 +1,6 @@
 //binder contacts controller
 
-app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', 'contactService', function($scope, $cordovaContacts, $ionicPopup, contactService) {
+app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', '$localstorage', 'contactService', function($scope, $cordovaContacts, $ionicPopup, $localstorage, contactService) {
 	$scope.contactObj = {
 		displayName: '',
 		phoneNumbers: [
@@ -17,6 +17,12 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', 'co
 		],
 		note: '',
 	};
+	
+	  /* Load from local storage */
+	  var load = $localstorage.getObject( 'contacts' );
+	  if (Object.keys(load).length !== 0) {
+		contactService.loadList( load );
+	  }
 
 
 	//command a popup to open when user wants to add a new contact
@@ -41,15 +47,15 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', 'co
 
 
 	//command popup to open for edit function
-	$scope.editContactForm = function(item){
-		var tmp = item;
-
+	$scope.editContactForm = function( tmp, index ){
+		var item = tmp
+		
 		$scope.contactObj.displayName = item.displayName;
 		$scope.contactObj.phoneNumbers[0].value = item.phoneNumbers[0].value;
 		$scope.contactObj.emails[0].value = item.emails[0].value;
 		$scope.contactObj.organizations[0].name = item.organizations[0].name;
 		$scope.contactObj.note = item.note;
-
+		
 		var editContact = $ionicPopup.show({
 			title: 'Edit Contact',
 			templateUrl: 'templates/binder/binder-contact-popup.html',
@@ -62,13 +68,10 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', 'co
 				{
 					text: 'Update',
 
-					onTap: function(){
-						//get correct contact from the factory using our tmp var
+					onTap: function(e){
 						var editIndex = contactService.getContactsService().indexOf(tmp);
-						//cal the edit contact factory function and pass in our new editIndex 
-						//and $scope.contactObj
-						contactService.editContactsService(editIndex, $scope.contactObj);
-
+						contactService.editContactsService( $scope.contactObj, index);
+						$localstorage.setObject( 'contacts', contactService.getContactsService() );
 
 						$scope.contactObj = {
 							displayName: '',
@@ -103,6 +106,7 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', 'co
 
 		//$scope.useContactService = function(contact){
 		contactService.addContactService($scope.contactObj);
+		$localstorage.setObject( 'contacts', contactService.getContactsService() );
 		
 
 
@@ -129,9 +133,24 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', 'co
 			],
 			note: '',
 		};
+		
 	};
 
-
+	  // Remove Contact
+	  $scope.removeContact = function(index) {
+	   var confirmPopup = $ionicPopup.confirm({
+		 title: 'Contacts',
+		 template: 'Are you sure you want to delete this contact?'
+	   });
+	   confirmPopup.then(function(res) {
+		 if(res) {
+		   contactService.removeContactsService( index );
+		   $localstorage.setObject( 'contacts', contactService.getContactsService() );
+		 } else {
+		   
+		 }
+	   });
+	 };
 
 	//create new array to attach factory list to $scope
 	$scope.output = [];
@@ -147,7 +166,11 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', 'co
 //contacts factory
 app.factory('contactService', function() {
 	var contactsArray = [];
-
+	
+	function loadList(load) {
+		contactsArray = load;
+	}
+	
 	//add contact
 	function addContactService(contact) {
 		contactsArray.push(contact);
@@ -157,15 +180,25 @@ app.factory('contactService', function() {
 		return contactsArray;
 	}
 
-	function editContactsService(index, item){
-    	contactsArray[index] = item;
+	function editContactsService( item, index ){
+    	removeContactsService( index );
+		contactsArray.splice( index, 0, item );
   	}
-
+	
+	function removeContactsService( index ) {
+		contactsArray.splice(index, 1);
+	}
+	
+	function getContactIndex( index ) {
+		return contactsArray[index];
+	}
 
 	return {
+		loadList: loadList,
 		addContactService: addContactService,
 		getContactsService: getContactsService,
 		editContactsService: editContactsService,
+		removeContactsService: removeContactsService
 	}
 
 })

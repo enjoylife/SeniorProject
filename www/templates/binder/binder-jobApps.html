@@ -9,12 +9,12 @@
 		  	<td><b>Job Title:</b> {{item.jobTitle}}</td>
 		  </tr>
 		  <tr>
-		  	<td><b>Date applied:</b> {{item.date.toDateString()}}</td>
+		  	<td><b>Date applied:</b> {{item.date}}</td>
 		  </tr>
 		  <tr align="center">	
-		  	<td class="button button-clear button-balanced" ng-click="editJobForm(item)">Edit</td>
+		  	<td class="button button-clear button-balanced" ng-click="editJobForm(item,$index)">Edit</td>
 		  
-		  	<td class="button button-clear button-assertive" ng-click="getJobs().splice($index, 1)">Delete</td>
+		  	<td class="button button-clear button-assertive" ng-click="removeJob($index)">Delete</td>
 		  </tr>
 	  </table>
 

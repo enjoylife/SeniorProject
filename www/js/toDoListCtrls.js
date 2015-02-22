@@ -24,7 +24,7 @@ app.controller('ToDoCtrl', ['$scope', '$ionicActionSheet', '$ionicPopup', '$time
       buttons: [
       { text: 'Cancel' },
       {
-        text: '<b>Next</b>',
+        text: '<b>Save</b>',
         type: 'button-positive',
 		onTap: function(e) {
 		  if (!$scope.obj.title) {
