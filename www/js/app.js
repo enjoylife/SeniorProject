@@ -114,6 +114,74 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
 
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+            
+      //MSI PARTIALS
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+  .state('msi_communication', {
+    url: 'timeline/selfAsmnt/msi/msi_communication',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_communication.html',
+    controller: 'MainCtrl'
+  })
+
+  .state('msi_marketing', {
+    url: '/msi_marketing',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_marketing.html',
+    controller: 'MainCtrl'
+  })
+
+  .state('msi_qa', {
+    url: '/msi_qa',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_qa.html',
+    controller: 'MainCtrl'
+  })
+
+  .state('msi_analytics', {
+    url: '/msi_analytics',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_analytics.html',
+    controller: 'MainCtrl'
+  })
+
+  .state('msi_technical', {
+    url: '/msi_technical',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_technical.html',
+    controller: 'MainCtrl'
+  })
+
+  .state('msi_innovative', {
+    url: '/msi_innovative',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_innovative.html',
+    controller: 'MainCtrl'
+  })
+
+  .state('msi_teaching', {
+    url: '/msi_teaching',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_teaching.html',
+    controller: 'MainCtrl'
+  })
+
+  .state('msi_leadership', {
+    url: '/msi_leadership',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_leadership.html',
+    controller: 'MainCtrl'
+  })
+
+  .state('msi_results', {
+    url: '/msi_results',
+    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_results.html',
+    controller: 'MainCtrl'
+  })
+
+
   $urlRouterProvider.otherwise('/');
 })
 

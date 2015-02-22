@@ -1,5 +1,5 @@
-<ion-view title="Motivated Skills Inventory" ng-controller="comsCtrl">
-	<ion-content has-header="true" align="center">
+<div title="Motivated Skills Inventory" ng-controller="comsCtrl">
+	<!-- <ion-content has-header="true" align="center"> -->
 		<h2>Communication Skills</h2>
 		<table style="width:100%; border:1px solid black;">
 			<tr>
@@ -16,13 +16,13 @@
 				</td>
 
 				<td>
-					<ion-radio name="writingSkills" ng-repeat="item in writingSkills" ng-value="item.value" ng-model="data.writingSVal">
+					<ion-radio name="writingSkills" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.writingSVal">
 						{{ item.text }}
 					</ion-radio>
 				</td>
 
 				<td>
-					<ion-radio name="writingMotivation" ng-repeat="item in writingMotivation" ng-value="item.value" ng-model="data.writingMVal">
+					<ion-radio name="writingMotivation" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.writingMVal">
 						{{item.text}}
 					</ion-radio>
 					<!-- {{data.comMVal}} -->
@@ -40,13 +40,13 @@
 				</td>
 
 				<td>
-					<ion-radio name="speakingSkills" ng-repeat="item in speakingSkills" ng-value="item.value" ng-model="data.speakingSVal">
+					<ion-radio name="speakingSkills" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.speakingSVal">
 						{{item.text}}
 					</ion-radio>
 				</td>
 
 				<td>
-					<ion-radio name="speakingMotivation" ng-repeat="item in speakingMotivation" ng-value="item.value" ng-model="data.speakingMVal">
+					<ion-radio name="speakingMotivation" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.speakingMVal">
 						{{item.text}}
 					</ion-radio>
 					<!-- Speaking Total = {{data.speakingTotal(data.speakingSVal, data.speakingMVal)}} -->
@@ -62,12 +62,12 @@
 				</td>
 
 				<td>
-					<ion-radio name="presentationSkills" ng-repeat="item in presentationSkills" ng-value="item.value" ng-model="data.presentationSVal">
+					<ion-radio name="presentationSkills" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.presentationSVal">
 						{{item.text}}
 					</ion-radio>
 				</td>
 				<td>
-					<ion-radio name="presentationMotivation" ng-repeat="item in presentationMotivation" ng-value="item.value" ng-model="data.presentationMVal">
+					<ion-radio name="presentationMotivation" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.presentationMVal">
 						{{item.text}}
 					</ion-radio>
 				</td>
@@ -82,12 +82,12 @@
 				</td>
 
 				<td>
-					<ion-radio name="persuasiveSkills" ng-repeat="item in persuasiveSkills" ng-value="item.value" ng-model="data.persuasiveSVal">
+					<ion-radio name="persuasiveSkills" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.persuasiveSVal">
 						{{item.text}}
 					</ion-radio>
 				</td>
 				<td>
-					<ion-radio name="persuasiveMotivation" ng-repeat="item in persuasiveMotivation" ng-value="item.value" ng-model="data.persuasiveMVal">
+					<ion-radio name="persuasiveMotivation" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.persuasiveMVal">
 						{{item.text}}
 					</ion-radio>
 				</td>
@@ -102,13 +102,13 @@
 				</td>
 
 				<td>
-					<ion-radio name="saleSkills" ng-repeat="item in saleSkills" ng-value="item.value" ng-model="data.saleSVal">
+					<ion-radio name="saleSkills" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.saleSVal">
 						{{item.text}}
 					</ion-radio>
 				</td>
 
 				<td>
-					<ion-radio name="saleMotivation" ng-repeat="item in saleMotivation" ng-value="item.value" ng-model="data.saleMVal">
+					<ion-radio name="saleMotivation" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.saleMVal">
 						{{item.text}}
 					</ion-radio>
 					
@@ -124,12 +124,12 @@
 				</td>
 
 				<td>
-					<ion-radio name="dramaSkills" ng-repeat="item in dramaSkills" ng-value="item.value" ng-model="data.dramaSVal">
+					<ion-radio name="dramaSkills" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.dramaSVal">
 						{{item.text}}
 					</ion-radio>
 				</td>
 				<td>
-					<ion-radio name="dramaMotivation" ng-repeat="item in dramaMotivation" ng-value="item.value" ng-model="data.dramaMVal">
+					<ion-radio name="dramaMotivation" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.dramaMVal">
 						{{item.text}}
 					</ion-radio>
 				</td>
@@ -144,23 +144,23 @@
 				</td>
 
 				<td>
-					<ion-radio name="negotiatingSkills" ng-repeat="item in negotiatingSkills" ng-value="item.value" ng-model="data.negotiatingSVal">
+					<ion-radio name="negotiatingSkills" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.negotiatingSVal">
 						{{item.text}}
 					</ion-radio>
 				</td>
 				<td>
-					<ion-radio name="negotiatingMotivation" ng-repeat="item in negotiatingMotivation" ng-value="item.value" ng-model="data.negotiatingMVal">
+					<ion-radio name="negotiatingMotivation" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.negotiatingMVal">
 						{{item.text}}
 					</ion-radio>
 				</td>
 			</tr> 
 		</table>
-		<button class="button" ng-click="toResults(); commitVals(); getResults();">
+		<button class="button" ng-click="commitVals();" ui-sref="msi_results">
 	  	See Results
 	  	</button>
 	  	<!-- When next is pressed, upload total vals to service -->
-	  	<button class="button" ng-click="toMSI_marketing(); commitVals();">
+	  	<button class="button" ng-click="commitVals()" ui-sref="msi_marketing">
 	  	Next
 	  	</button>
-	</ion-content>
-</ion-view>
+	<!-- </ion-content> -->
+</div>

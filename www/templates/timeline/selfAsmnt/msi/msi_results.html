@@ -1,15 +1,16 @@
-<ion-view title="Motivated Skills Inventory" ng-controller="marketCtrl">
-	<ion-content has-header="true" align="center">
+<div ng-controller="comsCtrl">
+	<!-- <ion-content has-header="true" align="center"> -->
 		<h2>Results</h2>
 		<h3>Scores Displayed Were Given a Six or Higher</h3>
 		<!-- Call function to output values with 6 or higher -->
 		<!-- {{getResults()}} -->
+		<span ng-init="getResults()"></span>
 		<table>
-			<tr ng-repeat="result in getResults()">
+			<tr ng-repeat="result in results track by $index">
 				<td><b>{{result.h}}</b>{{result.b}}</td>
 				<td style="width: 25%;">{{result.sum}}</td>
 			</tr>
 		</table>
 
-	</ion-content>
-</ion-view>
+	<!-- </ion-content> -->
+</div>
