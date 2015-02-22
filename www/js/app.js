@@ -137,7 +137,7 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
   $scope.count = contactService.getContactsService().length;
 })
 
-app.controller('contentCtrl',function($scope, $state){
+app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate){
   var
   currentPosition,
   currentContent,
@@ -208,7 +208,10 @@ app.controller('contentCtrl',function($scope, $state){
   }
     $scope.goNext = function(){
     var next = nextSubSection();
+    $ionicScrollDelegate.scrollTop();
     $state.go('content.sections', next)
+ 
+    // $uiViewScroll($(".content-wrapper"));
   }
 
 })
@@ -239,6 +242,7 @@ app.directive('timeLine',[function(){
         console.log('Routing to content/'+params.folder +'/'+ params.file)
         $state.go('content.sections',params);
         // Using parent scope
+        
         $scope.toggleSideNav(false);
 
         // TODO Scroll to position using lastLocation
