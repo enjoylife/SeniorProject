@@ -1,15 +1,30 @@
+function saveUser (user){
+  localStorage.setItem('user', JSON.stringify(user));
+}
+
+function loadUser(){
+  return JSON.parse(localStorage.getItem('user'))
+}
+
 app.controller('profile',function($scope){
   var quoteArray = [{quote:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.", cite:"Someone famous"}];
   $scope.quoteObj = quoteArray[0];
+
+  // I do not set within user
   $scope.picture = localStorage.getItem('userProfilePicture');
+  $scope.user = loadUser();
 
   $scope.randQuote = function(){
     var i = _.random(0, quoteArray.length -1);
     $scope.quoteObj = quoteArray[i];
   }
 
+  $scope.saveLocal = function(str){
+    saveUser($scope.user);
+  }
 
   function onSuccess(imageURI) {
+    $scope.picture = imageURI;
     var image = document.getElementById('profileImage');
     image.src = imageURI;
   }
