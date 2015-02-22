@@ -23,8 +23,7 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', '$l
 	  if (Object.keys(load).length !== 0) {
 		contactService.loadList( load );
 	  }
-
-
+	  
 	//command a popup to open when user wants to add a new contact
 	$scope.contactForm = function(){
 		var newContact = $ionicPopup.show({
@@ -47,8 +46,8 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', '$l
 
 
 	//command popup to open for edit function
-	$scope.editContactForm = function( tmp, index ){
-		var item = tmp
+	$scope.editContactForm = function( item, index ){
+		var tmp = item;
 		
 		$scope.contactObj.displayName = item.displayName;
 		$scope.contactObj.phoneNumbers[0].value = item.phoneNumbers[0].value;
@@ -104,17 +103,15 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', '$l
 
 	$scope.addContact = function() {
 
-		//$scope.useContactService = function(contact){
-		contactService.addContactService($scope.contactObj);
-		$localstorage.setObject( 'contacts', contactService.getContactsService() );
-		
-
-
+	
 		$cordovaContacts.save($scope.contactObj).then(function(result) {
 			console.log("CONTACT ADDED");
 		}, function(err){
 			console.log("ERROR");
 		});
+		//$scope.useContactService = function(contact){
+		contactService.addContactService($scope.contactObj);
+		$localstorage.setObject( 'contacts', contactService.getContactsService() );
 
 
 		$scope.contactObj = {

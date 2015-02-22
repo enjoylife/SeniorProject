@@ -118,7 +118,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 })
 
 
-app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate) {
+app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $localstorage, contactService) {
   // Provide an optional true or false
   // to force specific open or close state
   $scope.toggleSideNav = function(bool) {
@@ -128,6 +128,13 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate) {
     }
     $ionicSideMenuDelegate.toggleLeft(bool);
   };
+  
+  /* Get count of contacts for display */
+  var load = $localstorage.getObject( 'contacts' );
+	if (Object.keys(load).length !== 0) {
+		contactService.loadList( load );
+	}
+  $scope.count = contactService.getContactsService().length;
 })
 
 app.controller('contentCtrl',function($scope, $state){
