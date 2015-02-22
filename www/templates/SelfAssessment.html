@@ -1,5 +1,5 @@
-<ion-view title="Motivated Skills Inventory">
-	<ion-content has-header="true" align="center">
+<div ng-controller="comsCtrl">
+	<!-- <ion-content has-header="true" align="center"> -->
 	  <!-- <h2>Motivated Skills Inventory</h2>
 	  <p>
 	  	We are going to find the job which fits YOU best! To do this, we need to clearly define your goals, interests, values and &nbsp;<b>motivated skills</b>.
@@ -36,8 +36,8 @@
 	  <button class="button" ng-click="toMainMenu()">
 	  	Menu
 	  </button>
-	  <button class="button" ng-click="toMSI_communication()">
+	  <button class="button" ng-click="reset()" ui-sref="msi_communication">
 	  	Let's Begin!
 	  </button>
-	</ion-content>
-</ion-view>
+	<!-- </ion-content> -->
+</div>

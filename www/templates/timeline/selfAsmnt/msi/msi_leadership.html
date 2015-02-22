@@ -1,5 +1,5 @@
-<ion-view title="Motivated Skills Inventory" ng-controller="leadershipCtrl">
-	<ion-content has-header="true" align="center">
+<div title="Motivated Skills Inventory" ng-controller="comsCtrl">
+	<div ng-controller="leadershipCtrl">
 		<h2>Project Management - Leadership</h2>
 		<table style="width:100%; border:1px solid black;">
 			<tr>
@@ -17,12 +17,12 @@
 				</td>
 
 				<td>
-					<ion-radio name="mgmtSkills" ng-repeat="item in mgmtSkills" ng-value="item.value" ng-model="data.mgmtSVal">
+					<ion-radio name="mgmtSkills" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.mgmtSVal">
 						{{ item.text }}
 					</ion-radio>
 				</td>				
 				<td>
-					<ion-radio name="mgmtMotivation" ng-repeat="item in mgmtMotivation" ng-value="item.value" ng-model="data.mgmtMVal">
+					<ion-radio name="mgmtMotivation" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.mgmtMVal">
 						{{ item.text }}
 					</ion-radio>
 				</td>
@@ -37,12 +37,12 @@
 				</td>
 
 				<td>
-					<ion-radio name="planningSkills" ng-repeat="item in planningSkills" ng-value="item.value" ng-model="data.planningSVal">
+					<ion-radio name="planningSkills" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.planningSVal">
 						{{ item.text }}
 					</ion-radio>
 				</td>				
 				<td>
-					<ion-radio name="planningMotivation" ng-repeat="item in planningMotivation" ng-value="item.value" ng-model="data.planningMVal">
+					<ion-radio name="planningMotivation" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.planningMVal">
 						{{ item.text }}
 					</ion-radio>
 				</td>
@@ -58,12 +58,12 @@
 				</td>
 
 				<td>
-					<ion-radio name="organizationSkills" ng-repeat="item in organizationSkills" ng-value="item.value" ng-model="data.organizationSVal">
+					<ion-radio name="organizationSkills" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.organizationSVal">
 						{{ item.text }}
 					</ion-radio>
 				</td>				
 				<td>
-					<ion-radio name="organizationMotivation" ng-repeat="item in organizationMotivation" ng-value="item.value" ng-model="data.organizationMVal">
+					<ion-radio name="organizationMotivation" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.organizationMVal">
 						{{ item.text }}
 					</ion-radio>
 				</td>
@@ -79,12 +79,12 @@
 				</td>
 
 				<td>
-					<ion-radio name="detailmgmtSkills" ng-repeat="item in detailmgmtSkills" ng-value="item.value" ng-model="data.detailmgmtSVal">
+					<ion-radio name="detailmgmtSkills" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.detailmgmtSVal">
 						{{ item.text }}
 					</ion-radio>
 				</td>				
 				<td>
-					<ion-radio name="detailmgmtMotivation" ng-repeat="item in detailmgmtMotivation" ng-value="item.value" ng-model="data.detailmgmtMVal">
+					<ion-radio name="detailmgmtMotivation" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.detailmgmtMVal">
 						{{ item.text }}
 					</ion-radio>
 				</td>
@@ -100,12 +100,12 @@
 				</td>
 
 				<td>
-					<ion-radio name="decisionSkills" ng-repeat="item in decisionSkills" ng-value="item.value" ng-model="data.decisionSVal">
+					<ion-radio name="decisionSkills" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.decisionSVal">
 						{{ item.text }}
 					</ion-radio>
 				</td>				
 				<td>
-					<ion-radio name="decisionMotivation" ng-repeat="item in decisionMotivation" ng-value="item.value" ng-model="data.decisionMVal">
+					<ion-radio name="decisionMotivation" ng-repeat="item in buttons" ng-value="item.value" ng-model="data.decisionMVal">
 						{{ item.text }}
 					</ion-radio>
 				</td>
@@ -115,8 +115,8 @@
 		<button class="button" ng-click="toMainMenu()">
 	  	Menu
 	  	</button>
-	  	<button class="button" ng-click="toResults(); commitVals();">
+	  	<button class="button" ng-click="commitVals()" ui-sref="msi_results">
 	  	See Results
 	  	</button>
-	</ion-content>
-</ion-view>
+	</div>
+</div>
