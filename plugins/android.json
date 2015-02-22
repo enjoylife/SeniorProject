@@ -17,11 +17,15 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"Calendar\"><param name=\"android-package\" value=\"nl.xservices.plugins.Calendar\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Contacts\"><param name=\"android-package\" value=\"org.apache.cordova.contacts.ContactManager\" /></feature>",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Calendar\"><param name=\"android-package\" value=\"nl.xservices.plugins.Calendar\" /></feature>",
+                            "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -29,6 +33,16 @@
             },
             "AndroidManifest.xml": {
                 "parents": {
+                    "/manifest": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_CALENDAR\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_CALENDAR\" />",
+                            "count": 1
+                        }
+                    ],
                     "/*": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.READ_CONTACTS\" />",
@@ -41,15 +55,9 @@
                         {
                             "xml": "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />",
                             "count": 1
-                        }
-                    ],
-                    "/manifest": [
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.READ_CALENDAR\" />",
-                            "count": 1
                         },
                         {
-                            "xml": "<uses-permission android:name=\"android.permission.WRITE_CALENDAR\" />",
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
                             "count": 1
                         }
                     ]
@@ -61,10 +69,13 @@
         "com.plugin.datepicker": {
             "PACKAGE_NAME": "com.ionicframework.prototype611949"
         },
+        "nl.x-services.plugins.calendar": {
+            "PACKAGE_NAME": "com.ionicframework.prototype611949"
+        },
         "org.apache.cordova.contacts": {
             "PACKAGE_NAME": "com.ionicframework.prototype611949"
         },
-        "nl.x-services.plugins.calendar": {
+        "org.apache.cordova.camera": {
             "PACKAGE_NAME": "com.ionicframework.prototype611949"
         }
     },
