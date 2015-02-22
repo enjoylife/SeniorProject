@@ -23,6 +23,10 @@ app.factory('scraper', function() {
     return out;
   }
 
+  function resetVals(){
+  	values = [];
+  }
+
   function GetMaxVal(){
     return Math.max.apply(Math, values);
   }
@@ -30,7 +34,8 @@ app.factory('scraper', function() {
   return {
     addTotal: addTotal,
     GetMaxVal: GetMaxVal,
-    output: output
+    output: output,
+    resetVals: resetVals
   };
 
 });
@@ -39,6 +44,8 @@ app.factory('scraper', function() {
 
 //Communication controller
 app.controller('comsCtrl', ['$scope', 'scraper', function($scope, scraper){
+	//array to hold result values
+	//$scope.results = [];	
 
 	//Place the questions into a scope object and separates them into attributes of header and body
 	$scope.comQuestions = {
@@ -56,232 +63,95 @@ app.controller('comsCtrl', ['$scope', 'scraper', function($scope, scraper){
 		dramaBody: " Enjoy delivering information, ideas or stories dramatically.",
 		negotiatingHead: "Negotiating: ",
 		negotiatingBody: " Capable of bargaining with others to reach a desired agreement."
+
 	}
 
 	//collection of scope arrays of objects for each set of radio buttons
-	$scope.writingSkills = [
+	$scope.buttons = [
 		{text: "1", value: 1},
 		{text: "2", value: 2},
 		{text: "3", value: 3},
 		{text: "4", value: 4}
 	];
 
-	$scope.writingMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.speakingSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4},
-	];
-
-	$scope.speakingMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4},
-	];
-
-	$scope.presentationSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4},
-	];
-
-	$scope.presentationMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4},
-	];
-
-	$scope.persuasiveSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4},
-	];
-
-	$scope.persuasiveMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4},
-	];
-
-	$scope.saleSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4},
-	];
-
-	$scope.saleMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4},
-	];
-
-	$scope.dramaSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4},
-	];
-
-	$scope.dramaMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4},
-	];
-
-	$scope.negotiatingSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4},
-	];
-
-	$scope.negotiatingMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4},
-	];
-
-	//array to hold totals
-	$scope.comsTotals = [];
-
-
-	//the object which contains most of the important chunks of data in the app
+	//contains necessary placeholders
 	$scope.data = { 
+		//array to hold all totals
+		comsTotals: [],
 
+		//values to store user input
 		writingSVal: 0, 
 		writingMVal: 0,
-		writingTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.comQuestions.writingHead,
-				b: $scope.comQuestions.writingBody,
-				sum: s+m
-			};
-			$scope.comsTotals.push(t);
-		},
 		speakingSVal: 0,
 		speakingMVal: 0,
-		speakingTotal: function(s, m){
-			t = {
-				h: $scope.comQuestions.speakingHead,
-				b: $scope.comQuestions.speakingBody,
-				sum: s+m
-			};
-			$scope.comsTotals.push(t);
-		},
 		presentationSVal: 0,
 		presentationMVal: 0,
-		presentationTotal: function(s, m){
-			t = {
-				h: $scope.comQuestions.presentationHead,
-				b: $scope.comQuestions.presentationBody,
-				sum: s+m
-			};
-
-			$scope.comsTotals.push(t);
-		},
 		persuasiveSVal: 0,
 		persuasiveMVal: 0,
-		persuasiveTotal: function(s, m){
-			var t = {
-				h: $scope.comQuestions.persuasiveHead,
-				b: $scope.comQuestions.persuasiveBody,
-				sum: s+m
-			};
-			
-			$scope.comsTotals.push(t);
-		},
 		saleSVal: 0,
 		saleMVal: 0,
-		saleTotal: function(s, m){
-			t = {
-				h: $scope.comQuestions.saleHead,
-				b: $scope.comQuestions.saleBody,
-				sum: s+m
-			};
-			$scope.comsTotals.push(t);
-		},
 		dramaSVal: 0,
 		dramaMVal: 0,
-		dramaTotal: function(s, m){
-			t = {
-				h: $scope.comQuestions.dramaHead,
-				b: $scope.comQuestions.dramaBody,
-				sum: s+m
-			};
-			$scope.comsTotals.push(t);
-		},
 		negotiatingSVal: 0,
 		negotiatingMVal: 0,
-		negotiatingTotal: function(s, m){
-			t = {
-				h: $scope.comQuestions.negotiatingHead,
-				b: $scope.comQuestions.negotiatingBody,
-				sum: s+m
-			};
-			$scope.comsTotals.push(t);
-		}
 	};
 
-	/*$scope.comsTotals = function(){
+	//the function that will be called to carry over questions and sum values
+	$scope.total = function(head, body, s, m){
+			t= {
+				h: head,
+				b: body,
+				sum: s+m
+			}
+			$scope.data.comsTotals.push(t);
+	}
 
-	}*/
 
 	$scope.commitVals = function(){
 		//call the total function for each set of questions and add them to
 		//the total for the communication section which is done individually within each function
-		$scope.data.writingTotal($scope.data.writingSVal, $scope.data.writingMVal);
-		$scope.data.speakingTotal($scope.data.speakingSVal, $scope.data.speakingMVal);
-		$scope.data.presentationTotal($scope.data.presentationSVal, $scope.data.presentationMVal);
-		$scope.data.persuasiveTotal($scope.data.persuasiveSVal, $scope.data.persuasiveMVal);
-		$scope.data.saleTotal($scope.data.saleSVal, $scope.data.saleMVal);
-		$scope.data.dramaTotal($scope.data.dramaSVal, $scope.data.dramaMVal);
-		$scope.data.negotiatingTotal($scope.data.negotiatingSVal, $scope.data.negotiatingMVal);
+		$scope.total($scope.comQuestions.writingHead, $scope.comQuestions.writingBody, $scope.data.writingSVal, $scope.data.writingMVal);
+		$scope.total($scope.comQuestions.speakingHead, $scope.comQuestions.speakingBody, $scope.data.speakingSVal, $scope.data.speakingMVal);
+		$scope.total($scope.comQuestions.presentationHead, $scope.comQuestions.presentationBody, $scope.data.presentationSVal, $scope.data.presentationMVal);
+		$scope.total($scope.comQuestions.persuasiveHead, $scope.comQuestions.persuasiveBody, $scope.data.persuasiveSVal, $scope.data.persuasiveMVal);
+		$scope.total($scope.comQuestions.saleHead, $scope.comQuestions.saleBody, $scope.data.saleSVal, $scope.data.saleMVal);
+		$scope.total($scope.comQuestions.dramaHead, $scope.comQuestions.dramaBody, $scope.data.dramaSVal, $scope.data.dramaMVal);
+		$scope.total($scope.comQuestions.negotiatingHead, $scope.comQuestions.negotiatingBody, $scope.data.negotiatingSVal, $scope.data.negotiatingMVal);
 
 		//Loop through the Totals array which now contains the questions and summed values
 		//for each question and send them to the scraper service using a service function 
 		//called addTotal
-		$scope.comsTotals.forEach( function(arrayItem){
-			//alert(arrayItem.q);
-			//alert(arrayItem.sum);
+		$scope.data.comsTotals.forEach( function(arrayItem){
+			console.log("inside forEach");
 			scraper.addTotal(arrayItem);
 			//alert('Array values added to scraper');
 
 		});
 
+		$scope.data.comsTotals = [];
+
 	}
 
-	//array to hold result values
-	$scope.results = [];
+
+
+	$scope.reset = function(){
+		console.log("inside reset() results = " + $scope.results);
+		scraper.resetVals();
+		$scope.results = [];
+		console.log("After reset() results = " + $scope.results);
+	}
 
 	$scope.getResults = function(){
 		//alert($scope.results);
 		$scope.results = scraper.output();
-		//alert($scope.results);
-		return  $scope.results;
+		console.log("getResults() results = " + $scope.results);
+	}		
 
-	}
 
 	$scope.maximumval = function(){
 		return scraper.GetMaxVal();
 	}
-	
+
 }]);
 
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -323,14 +193,7 @@ app.controller('marketCtrl', ['$scope', 'scraper', function($scope, scraper){
 
 
 	//collection of scope arrays of objects for each set of radio buttons
-	$scope.socialSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.socialMotivation = [
+	$scope.buttons = [
 		{text: "1", value: 1},
 		{text: "2", value: 2},
 		{text: "3", value: 3},
@@ -338,161 +201,34 @@ app.controller('marketCtrl', ['$scope', 'scraper', function($scope, scraper){
 	];
 
 
-	$scope.PRSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.PRMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.custservSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.custservMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.marketsalesSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.marketsalesMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.profSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.profMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.improvementSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.improvementMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-
-	//array to hold all market value sums and question objects
-	$scope.marketTotals = [];
 
 	//the object which contains most of the important chunks of data in the app
 	$scope.data = { 
+		marketTotals: [],
 
 		socialSVal: 0, 
 		socialMVal: 0,
-		socialTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.marketQuestions.socialHead,
-				b: $scope.marketQuestions.socialBody,
-				sum: s+m
-			};
-
-			$scope.marketTotals.push(t);
-		},
 		PRSVal: 0, 
 		PRMVal: 0,
-		PRTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.marketQuestions.PRHead,
-				b: $scope.marketQuestions.PRBody,
-				sum: s+m
-			};
-			
-			$scope.marketTotals.push(t);
-		},
 		custservSVal: 0, 
 		custservMVal: 0,
-		custservTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.marketQuestions.custservHead,
-				b: $scope.marketQuestions.custservBody,
-				sum: s+m
-			};
-			
-			$scope.marketTotals.push(t);
-		},
 		marketsalesSVal: 0, 
 		marketsalesMVal: 0,
-		marketsalesTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.marketQuestions.marketsalesHead,
-				b: $scope.marketQuestions.marketsalesBody,
-				sum: s+m
-			};
-			
-			$scope.marketTotals.push(t);
-		},
 		profSVal: 0, 
 		profMVal: 0,
-		profTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.marketQuestions.profHead,
-				b: $scope.marketQuestions.profBody,
-				sum: s+m
-			};
-			
-			$scope.marketTotals.push(t);
-		},
 		improvementSVal: 0, 
 		improvementMVal: 0,
-		improvementTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.marketQuestions.improvementHead,
-				b: $scope.marketQuestions.improvementBody,
-				sum: s+m
-			};
-			
-			$scope.marketTotals.push(t);
-		},
+
 	};
+
+	$scope.total = function(head, body, s, m){
+		t= {
+			h: head,
+			b: body,
+			sum: s+m
+		}
+		$scope.data.marketTotals.push(t);
+	}
 
 
 
@@ -500,37 +236,25 @@ app.controller('marketCtrl', ['$scope', 'scraper', function($scope, scraper){
 		//call the total function for each set of questions and add them to
 		//the total for the communication section which is done individually within each function
 		
-		$scope.data.socialTotal($scope.data.socialSVal, $scope.data.socialMVal);
-		$scope.data.PRTotal($scope.data.PRSVal, $scope.data.PRMVal);
-		$scope.data.custservTotal($scope.data.custservSVal, $scope.data.custservMVal);
-		$scope.data.marketsalesTotal($scope.data.marketsalesSVal, $scope.data.marketsalesMVal);
-		$scope.data.profTotal($scope.data.profSVal, $scope.data.profMVal);
-		$scope.data.improvementTotal($scope.data.improvementSVal, $scope.data.improvementMVal);
+		$scope.total($scope.marketQuestions.socialHead, $scope.marketQuestions.socialBody, $scope.data.socialSVal, $scope.data.socialMVal);
+		$scope.total($scope.marketQuestions.PRHead, $scope.marketQuestions.PRBody, $scope.data.PRSVal, $scope.data.PRMVal);
+		$scope.total($scope.marketQuestions.custservBody, $scope.marketQuestions.custservHead, $scope.data.custservSVal, $scope.data.custservMVal);
+		$scope.total($scope.marketQuestions.marketsalesHead, $scope.marketQuestions.marketsalesBody, $scope.data.marketsalesSVal, $scope.data.marketsalesMVal);
+		$scope.total($scope.marketQuestions.profHead, $scope.marketQuestions.profBody, $scope.data.profSVal, $scope.data.profMVal);
+		$scope.total($scope.marketQuestions.improvementHead, $scope.marketQuestions.improvementBody, $scope.data.improvementSVal, $scope.data.improvementMVal);
 
 		//Loop through the Totals array which now contains the questions and summed values
 		//for each question and send them to the scraper service using a service function 
 		//called addTotal
-		$scope.marketTotals.forEach( function(arrayItem){
+		$scope.data.marketTotals.forEach( function(arrayItem){
 			
 			scraper.addTotal(arrayItem);
 			//alert('Array values added to scraper');
 
 		});
 
+		$scope.data.marketTotals = [];
 	}
-
-
-	//array to hold result values
-	$scope.results = [];
-
-	$scope.getResults = function(){
-		//alert($scope.results);
-		$scope.results = scraper.output();
-		//alert($scope.results);
-		return  $scope.results;
-
-	}
-
 
 }]);
 
@@ -538,9 +262,6 @@ app.controller('marketCtrl', ['$scope', 'scraper', function($scope, scraper){
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 
 //			Quantitative Analysis Controller
@@ -548,9 +269,6 @@ app.controller('marketCtrl', ['$scope', 'scraper', function($scope, scraper){
 //			Quantitative Analysis Controller
 
 
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -570,59 +288,7 @@ app.controller('qaCtrl', ['$scope', 'scraper', function($scope, scraper){
 	};
 
 	//collection of scope arrays of objects for each set of radio buttons
-	$scope.compspeedSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.compspeedMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.numcrunchSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.numcrunchMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.probsolvSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.probsolvMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.computerSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.computerMotivation = [
+	$scope.buttons = [
 		{text: "1", value: 1},
 		{text: "2", value: 2},
 		{text: "3", value: 3},
@@ -635,76 +301,48 @@ app.controller('qaCtrl', ['$scope', 'scraper', function($scope, scraper){
 
 	//the object which contains most of the important chunks of data in the app
 	$scope.data = { 
+		qaTotals: [],
 
 		compspeedSVal: 0, 
 		compspeedMVal: 0,
-		compspeedTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.qaQuestions.compspeedHead,
-				b: $scope.qaQuestions.compspeedBody,
-				sum: s+m
-			};
-
-			$scope.qaTotals.push(t);
-		},
 		numcrunchSVal: 0, 
 		numcrunchMVal: 0,
-		numcrunchTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.qaQuestions.numcrunchHead,
-				b: $scope.qaQuestions.numcrunchBody,
-				sum: s+m
-			};
-
-			$scope.qaTotals.push(t);
-		},
 		probsolvSVal: 0, 
 		probsolvMVal: 0,
-		probsolvTotal: function(s, m){
-			
-			t = {
-				h: $scope.qaQuestions.probsolvHead,
-				b: $scope.qaQuestions.probsolvBody,
-				sum: s+m
-			};
-
-			$scope.qaTotals.push(t);
-		},
 		computerSVal: 0, 
 		computerMVal: 0,
-		computerTotal: function(s, m){
-			
-			t = {
-				h: $scope.qaQuestions.computerHead,
-				b: $scope.qaQuestions.computerBody,
-				sum: s+m
-			};
-
-			$scope.qaTotals.push(t);
-		},
 	};
+
+	$scope.total = function(head, body, s, m){
+		t= {
+			h: head,
+			b: body,
+			sum: s+m
+		}
+		$scope.data.qaTotals.push(t);
+	}
 
 
 	$scope.commitVals = function(){
 		//call the total function for each set of questions and add them to
 		//the total for the communication section which is done individually within each function
 		
-		$scope.data.compspeedTotal($scope.data.compspeedSVal, $scope.data.compspeedMVal);
-		$scope.data.numcrunchTotal($scope.data.numcrunchSVal, $scope.data.numcrunchMVal);
-		$scope.data.probsolvTotal($scope.data.probsolvSVal, $scope.data.probsolvMVal);
-		$scope.data.computerTotal($scope.data.computerSVal, $scope.data.computerMVal);
+		$scope.total($scope.qaQuestions.compspeedHead, $scope.qaQuestions.compspeedBody, $scope.data.compspeedSVal, $scope.data.compspeedMVal);
+		$scope.total($scope.qaQuestions.numcrunchHead, $scope.qaQuestions.numcrunchBody, $scope.data.numcrunchSVal, $scope.data.numcrunchMVal);
+		$scope.total($scope.qaQuestions.Head, $scope.qaQuestions.probsolvBody, $scope.data.probsolvSVal, $scope.data.probsolvMVal);
+		$scope.total($scope.qaQuestions.computerHead, $scope.qaQuestions.computerBody, $scope.data.computerSVal, $scope.data.computerMVal);
 
 		//Loop through the Totals array which now contains the questions and summed values
 		//for each question and send them to the scraper service using a service function 
 		//called addTotal
-		$scope.qaTotals.forEach( function(arrayItem){
+		$scope.data.qaTotals.forEach( function(arrayItem){
 			
 			scraper.addTotal(arrayItem);
 			//alert('Array values added to scraper');
 
 		});
+
+		$scope.data.qaTotals = [];
 	};
 
 }]);
@@ -713,9 +351,6 @@ app.controller('qaCtrl', ['$scope', 'scraper', function($scope, scraper){
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 
 //			Analytics Controller
@@ -723,9 +358,6 @@ app.controller('qaCtrl', ['$scope', 'scraper', function($scope, scraper){
 //			Analytics Controller
 
 
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -744,44 +376,7 @@ app.controller('analyticsCtrl', ['$scope', 'scraper', function($scope, scraper){
 
 
 	//collection of scope arrays of objects for each set of radio buttons
-	$scope.scienceSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.scienceMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.researchSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.researchMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.techworkSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.techworkMotivation = [
+	$scope.buttons = [
 		{text: "1", value: 1},
 		{text: "2", value: 2},
 		{text: "3", value: 3},
@@ -794,63 +389,45 @@ app.controller('analyticsCtrl', ['$scope', 'scraper', function($scope, scraper){
 
 	//the object which contains most of the important chunks of data in the app
 	$scope.data = { 
+		analyticsTotals: [],
 
 		scienceSVal: 0, 
 		scienceMVal: 0,
-		scienceTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.analyticsQuestions.scienceHead,
-				b: $scope.analyticsQuestions.scienceBody,
-				sum: s+m
-			};
-
-			$scope.analyticsTotals.push(t);
-		},
 		researchSVal: 0, 
 		researchMVal: 0,
-		researchTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.analyticsQuestions.researchHead,
-				b: $scope.analyticsQuestions.researchBody,
-				sum: s+m
-			};
-
-			$scope.analyticsTotals.push(t);
-		},
 		techworkSVal: 0, 
 		techworkMVal: 0,
-		techworkTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.analyticsQuestions.techworkHead,
-				b: $scope.analyticsQuestions.techworkBody,
-				sum: s+m
-			};
-
-			$scope.analyticsTotals.push(t);
-		}
 	};
+
+	$scope.total = function(head, body, s, m){
+		t= {
+			h: head,
+			b: body,
+			sum: s+m
+		}
+		$scope.data.analyticsTotals.push(t);
+	}
 
 
 	$scope.commitVals = function(){
 		//call the total function for each set of questions and add them to
 		//the total for the communication section which is done individually within each function
 		
-		$scope.data.scienceTotal($scope.data.scienceSVal, $scope.data.scienceMVal);
-		$scope.data.researchTotal($scope.data.researchSVal, $scope.data.researchMVal);
-		$scope.data.techworkTotal($scope.data.techworkSVal, $scope.data.techworkMVal);
+		$scope.total($scope.analyticsQuestions.scienceHead, $scope.analyticsQuestions.scienceBody, $scope.data.scienceSVal, $scope.data.scienceMVal);
+		$scope.total($scope.analyticsQuestions.researchHead, $scope.analyticsQuestions.researchBody, $scope.data.researchSVal, $scope.data.researchMVal);
+		$scope.total($scope.analyticsQuestions.techworkHead, $scope.analyticsQuestions.techworkBody,  $scope.data.techworkSVal, $scope.data.techworkMVal);
 
 		//Loop through the Totals array which now contains the questions and summed values
 		//for each question and send them to the scraper service using a service function 
 		//called addTotal
-		$scope.analyticsTotals.forEach( function(arrayItem){
+		$scope.data.analyticsTotals.forEach( function(arrayItem){
 			
 			scraper.addTotal(arrayItem);
 			//alert('Array values added to scraper');
 
 		});
+
+		$scope.data.analyticsTotals = [];
 	};
 
 
@@ -895,151 +472,63 @@ app.controller('techReasonCtrl', ['$scope', 'scraper', function($scope, scraper)
 	};
 
 	//collection of scope arrays of objects for each set of radio buttons
-	$scope.mechanicalSkills = [
+	$scope.buttons = [
 		{text: "1", value: 1},
 		{text: "2", value: 2},
 		{text: "3", value: 3},
 		{text: "4", value: 4}
 	];
-
-	$scope.mechanicalMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.spatialSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.spatialMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.outdoorSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.outdoorMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.tspbSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.tspbMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	//
-	$scope.techReasonTotals = [];
 
 	//the object which contains most of the important chunks of data in the app
 	$scope.data = { 
+		techReasonTotals: [],
 
 		mechanicalSVal: 0, 
 		mechanicalMVal: 0,
-		mechanicalTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.techReasonQuestions.mechanicalHead,
-				b: $scope.techReasonQuestions.mechanicalBody,
-				sum: s+m
-			};
-
-			$scope.techReasonTotals.push(t);
-		},
 		spatialSVal: 0, 
 		spatialMVal: 0,
-		spatialTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.techReasonQuestions.spatialHead,
-				b: $scope.techReasonQuestions.spatialBody,
-				sum: s+m
-			};
-
-			$scope.techReasonTotals.push(t);
-		},
 		outdoorSVal: 0, 
 		outdoorMVal: 0,
-		outdoorTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.techReasonQuestions.outdoorHead,
-				b: $scope.techReasonQuestions.outdoorBody,
-				sum: s+m
-			};
-
-			$scope.techReasonTotals.push(t);
-		},
 		tspbSVal: 0, 
 		tspbMVal: 0,
-		tspbTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.techReasonQuestions.tspbHead,
-				b: $scope.techReasonQuestions.tspbBody,
-				sum: s+m
-			};
-
-			$scope.techReasonTotals.push(t);
-		},
 	};
+
+	$scope.total = function(head, body, s, m){
+		t= {
+			h: head,
+			b: body,
+			sum: s+m
+		}
+		$scope.data.techReasonTotals.push(t);
+	}	
 
 
 	$scope.commitVals = function(){
 		//call the total function for each set of questions and add them to
 		//the total for the communication section which is done individually within each function
 		
-		$scope.data.mechanicalTotal($scope.data.mechanicalSVal, $scope.data.mechanicalMVal);
-		$scope.data.spatialTotal($scope.data.spatialSVal, $scope.data.spatialMVal);
-		$scope.data.outdoorTotal($scope.data.outdoorSVal, $scope.data.outdoorMVal);
-		$scope.data.tspbTotal($scope.data.tspbSVal, $scope.data.tspbMVal);
+		$scope.total($scope.techReasonQuestions.mechanicalHead, $scope.techReasonQuestions.mechanicalBody, $scope.data.mechanicalSVal, $scope.data.mechanicalMVal);
+		$scope.total($scope.techReasonQuestions.spatialHead, $scope.techReasonQuestions.spatialBody, $scope.data.spatialSVal, $scope.data.spatialMVal);
+		$scope.total($scope.techReasonQuestions.outdoorHead, $scope.techReasonQuestions.outdoorBody, $scope.data.outdoorSVal, $scope.data.outdoorMVal);
+		$scope.total($scope.techReasonQuestions.tspbHead, $scope.techReasonQuestions.tspbBody, $scope.data.tspbSVal, $scope.data.tspbMVal);
 
 		//Loop through the Totals array which now contains the questions and summed values
 		//for each question and send them to the scraper service using a service function 
 		//called addTotal
-		$scope.techReasonTotals.forEach( function(arrayItem){
+		$scope.data.techReasonTotals.forEach( function(arrayItem){
 			
 			scraper.addTotal(arrayItem);
 			//alert('Array values added to scraper');
 
 		});
+
+		$scope.data.techReasonTotals = [];
 	};
 
 }]);
 
 
 
-
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -1050,9 +539,6 @@ app.controller('techReasonCtrl', ['$scope', 'scraper', function($scope, scraper)
 //			Innovation Controller
 
 
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -1068,84 +554,54 @@ app.controller('innovationCtrl', ['$scope', 'scraper', function($scope, scraper)
 	}; 
 
 	//collection of scope arrays of objects for each set of radio buttons
-	$scope.artSkills = [
+	$scope.buttons = [
 		{text: "1", value: 1},
 		{text: "2", value: 2},
 		{text: "3", value: 3},
 		{text: "4", value: 4}
 	];
 
-	$scope.artMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.creativeSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.creativeMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	//
-	$scope.innovationTotals = [];
 
 	//the object which contains most of the important chunks of data in the app
 	$scope.data = { 
+		innovationTotals: [],
+
 		artSVal: 0, 
 		artMVal: 0,
-		artTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.innovationQuestions.artHead,
-				b: $scope.innovationQuestions.artBody,
-				sum: s+m
-			};
-
-			$scope.innovationTotals.push(t);
-		},
-
 		creativeSVal: 0, 
 		creativeMVal: 0,
-		creativeTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.innovationQuestions.creativeHead,
-				b: $scope.innovationQuestions.creativeBody,
-				sum: s+m
-			};
 
-			$scope.innovationTotals.push(t);
-		},
 	};
+
+
+	$scope.total = function(head, body, s, m){
+		t= {
+			h: head,
+			b: body,
+			sum: s+m
+		}
+		$scope.data.innovationTotals.push(t);
+	}
 
 
 	$scope.commitVals = function(){
 		//call the total function for each set of questions and add them to
 		//the total for the communication section which is done individually within each function
 		
-		$scope.data.artTotal($scope.data.artSVal, $scope.data.artMVal);
-		$scope.data.creativeTotal($scope.data.creativeSVal, $scope.data.creativeMVal);
+		$scope.total($scope.innovationQuestions.artHead, $scope.innovationQuestions.artBody, $scope.data.artSVal, $scope.data.artMVal);
+		$scope.total($scope.innovationQuestions.creativeHead, $scope.innovationQuestions.creativeBody, $scope.data.creativeSVal, $scope.data.creativeMVal);
 
 		//Loop through the Totals array which now contains the questions and summed values
 		//for each question and send them to the scraper service using a service function 
 		//called addTotal
-		$scope.innovationTotals.forEach( function(arrayItem){
+		$scope.data.innovationTotals.forEach( function(arrayItem){
 			
 			scraper.addTotal(arrayItem);
 			//alert('Array values added to scraper');
 
 		});
+
+		$scope.data.innovationTotals = [];
 	};
 
 }]);
@@ -1186,112 +642,56 @@ app.controller('teachingCtrl', ['$scope', 'scraper', function($scope, scraper){
 	}; 
 
 	//collection of scope arrays of objects for each set of radio buttons
-	$scope.teachingSkills = [
+	$scope.buttons = [
 		{text: "1", value: 1},
 		{text: "2", value: 2},
 		{text: "3", value: 3},
 		{text: "4", value: 4}
 	];
 
-	$scope.teachingMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.coachingSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.coachingMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.counselingSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.counselingMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	//
-	$scope.teachingTotals = [];
 
 	//the object which contains most of the important chunks of data in the app
 	$scope.data = { 
+		teachingTotals: [],
+
 		teachingSVal: 0, 
 		teachingMVal: 0,
-		teachingTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.teachingQuestions.teachingHead,
-				b: $scope.teachingQuestions.teachingBody,
-				sum: s+m
-			};
-
-			$scope.teachingTotals.push(t);
-		},
 		coachingSVal: 0, 
 		coachingMVal: 0,
-		coachingTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.teachingQuestions.coachingHead,
-				b: $scope.teachingQuestions.coachingBody,
-				sum: s+m
-			};
-
-			$scope.teachingTotals.push(t);
-		},
 		counselingSVal: 0, 
 		counselingMVal: 0,
-		counselingTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.teachingQuestions.counselingHead,
-				b: $scope.teachingQuestions.counselingBody,
-				sum: s+m
-			};
-
-			$scope.teachingTotals.push(t);
-		},
 	};
+
+	$scope.total = function(head, body, s, m){
+		t= {
+			h: head,
+			b: body,
+			sum: s+m
+		}
+		$scope.data.teachingTotals.push(t);
+	}	
 
 
 	$scope.commitVals = function(){
 		//call the total function for each set of questions and add them to
 		//the total for the communication section which is done individually within each function
 		
-		$scope.data.teachingTotal($scope.data.teachingSVal, $scope.data.teachingMVal);
-		$scope.data.coachingTotal($scope.data.coachingSVal, $scope.data.coachingMVal);
-		$scope.data.counselingTotal($scope.data.counselingSVal, $scope.data.counselingMVal);
+		$scope.total($scope.teachingQuestions.teachingHead, $scope.teachingQuestions.teachingBody, $scope.data.teachingSVal, $scope.data.teachingMVal);
+		$scope.total($scope.teachingQuestions.coachingHead, $scope.teachingQuestions.coachingBody, $scope.data.coachingSVal, $scope.data.coachingMVal);
+		$scope.total($scope.teachingQuestions.counselingHead, $scope.teachingQuestions.counselingBody, $scope.data.counselingSVal, $scope.data.counselingMVal);
 
 
 		//Loop through the Totals array which now contains the questions and summed values
 		//for each question and send them to the scraper service using a service function 
 		//called addTotal
-		$scope.teachingTotals.forEach( function(arrayItem){
+		$scope.data.teachingTotals.forEach( function(arrayItem){
 			
 			scraper.addTotal(arrayItem);
 			//alert('Array values added to scraper');
 
 		});
+
+		$scope.data.teachingTotals = [];
 	};
 
 }]);
@@ -1334,169 +734,61 @@ app.controller('leadershipCtrl', ['$scope', 'scraper', function($scope, scraper)
 	}; 
 
 	//collection of scope arrays of objects for each set of radio buttons
-	$scope.mgmtSkills = [
+	$scope.buttons = [
 		{text: "1", value: 1},
 		{text: "2", value: 2},
 		{text: "3", value: 3},
 		{text: "4", value: 4}
 	];
-
-	$scope.mgmtMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.planningSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.planningMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.organizationSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.organizationMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.detailmgmtSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.detailmgmtMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-	$scope.decisionSkills = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-	$scope.decisionMotivation = [
-		{text: "1", value: 1},
-		{text: "2", value: 2},
-		{text: "3", value: 3},
-		{text: "4", value: 4}
-	];
-
-
-
-	//
-	$scope.leadershipTotals = [];
 
 	//the object which contains most of the important chunks of data in the app
 	$scope.data = { 
+		leadershipTotals: [],
+
 		mgmtSVal: 0, 
 		mgmtMVal: 0,
-		mgmtTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.leadershipQuestions.mgmtHead,
-				b: $scope.leadershipQuestions.mgmtBody,
-				sum: s+m
-			};
-
-			$scope.leadershipTotals.push(t);
-		},
 		planningSVal: 0, 
 		planningMVal: 0,
-		planningTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.leadershipQuestions.planningHead,
-				b: $scope.leadershipQuestions.planningBody,
-				sum: s+m
-			};
-
-			$scope.leadershipTotals.push(t);
-		},
 		organizationSVal: 0, 
 		organizationMVal: 0,
-		organizationTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.leadershipQuestions.organizationHead,
-				b: $scope.leadershipQuestions.organizationBody,
-				sum: s+m
-			};
-
-			$scope.leadershipTotals.push(t);
-		},
 		detailmgmtSVal: 0, 
 		detailmgmtMVal: 0,
-		detailmgmtTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.leadershipQuestions.detailmgmtHead,
-				b: $scope.leadershipQuestions.detailmgmtBody,
-				sum: s+m
-			};
-
-			$scope.leadershipTotals.push(t);
-		},
 		decisionSVal: 0, 
 		decisionMVal: 0,
-		decisionTotal: function(s, m){
-			//alert('inside comTotal function()');
-			t = {
-				h: $scope.leadershipQuestions.decisionHead,
-				b: $scope.leadershipQuestions.decisionBody,
-				sum: s+m
-			};
-
-			$scope.leadershipTotals.push(t);
-		},
 	};
+
+	$scope.total = function(head, body, s, m){
+		t= {
+			h: head,
+			b: body,
+			sum: s+m
+		}
+		$scope.data.leadershipTotals.push(t);
+	}	
+
 
 
 	$scope.commitVals = function(){
 		//call the total function for each set of questions and add them to
 		//the total for the communication section which is done individually within each function
 		
-		$scope.data.mgmtTotal($scope.data.mgmtSVal, $scope.data.mgmtMVal);
-		$scope.data.planningTotal($scope.data.planningSVal, $scope.data.planningMVal);
-		$scope.data.organizationTotal($scope.data.organizationSVal, $scope.data.organizationMVal);
-		$scope.data.detailmgmtTotal($scope.data.detailmgmtSVal, $scope.data.detailmgmtMVal);
-		$scope.data.decisionTotal($scope.data.decisionSVal, $scope.data.decisionMVal);
+		$scope.total($scope.leadershipQuestions.mgmtHead, $scope.leadershipQuestions.mgmtBody, $scope.data.mgmtSVal, $scope.data.mgmtMVal);
+		$scope.total($scope.leadershipQuestions.planningHead, $scope.leadershipQuestions.planningBody, $scope.data.planningSVal, $scope.data.planningMVal);
+		$scope.total($scope.leadershipQuestions.organizationHead, $scope.leadershipQuestions.organizationBody, $scope.data.organizationSVal, $scope.data.organizationMVal);
+		$scope.total($scope.leadershipQuestions.detailmgmtHead, $scope.leadershipQuestions.detailmgmtBody, $scope.data.detailmgmtSVal, $scope.data.detailmgmtMVal);
+		$scope.total($scope.leadershipQuestions.decisionHead, $scope.leadershipQuestions.decisionBody, $scope.data.decisionSVal, $scope.data.decisionMVal);
 
 		//Loop through the Totals array which now contains the questions and summed values
 		//for each question and send them to the scraper service using a service function 
 		//called addTotal
-		$scope.leadershipTotals.forEach( function(arrayItem){
+		$scope.data.leadershipTotals.forEach( function(arrayItem){
 			
 			scraper.addTotal(arrayItem);
 			//alert('Array values added to scraper');
 
 		});
+
+		$scope.data.leadershipTotals = [];
 	};
 
 }]);
