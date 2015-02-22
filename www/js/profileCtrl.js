@@ -6,7 +6,7 @@ function loadUser(){
   return JSON.parse(localStorage.getItem('user'))
 }
 
-app.controller('profile',function($scope){
+app.controller('profile',function($scope,  Camera){
   var quoteArray = [{quote:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.", cite:"Someone famous"}];
   $scope.quoteObj = quoteArray[0];
 
@@ -41,9 +41,9 @@ app.controller('profile',function($scope){
       console.err(err);
     },
     {
-      sourceType:Camera.PictureSourceType.PHOTOLIBRARY,
+      sourceType:navigator.camera.PictureSourceType.PHOTOLIBRARY,
       quality: 50,
-      destinationType: Camera.DestinationType.FILE_URI,
+      destinationType: navigator.camera.DestinationType.FILE_URI,
       targetWidth: 320,
       targetHeight: 320,
       saveToPhotoAlbum: false
