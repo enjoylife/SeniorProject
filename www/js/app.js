@@ -211,7 +211,7 @@ app.controller('contentCtrl',function($scope, $state){
 app.directive('timeLine',[function(){
   return {
     transclude: true,
-    templateUrl: 'templates/timeline.html',
+	templateUrl: 'templates/timeline.html',
     controller: (function($scope, $state){
 
       $scope.contentOutline = contentOutline;
