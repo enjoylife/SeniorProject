@@ -107,8 +107,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
 // Holland Assessment
-  .state('hollandAssesment', {
-    url:'/holland',
+  .state('content.sections.hollandAssess', {
+    // url:'/holland',
     templateUrl: 'templates/holland/info.html',
     controller:'holland'
   })

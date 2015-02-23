@@ -1,18 +1,15 @@
 <div class='compare'>
 		<!-- First Choice -->
-		<div class="row"><div class="col">
-		 	<h3 class="personality" on-touch="nextPair(pairs[index][0])">{{pairs[index][0]}}</h3>
-			<span class="personality-info"></span>
-		</div></div>
-	
-		<!-- OR -->
-		<div class="row"><div class="col">
-			<h2 >OR</h2>
-		</div></div>
-	
-		<!-- Second Choice -->
-		<div class="row"><div class="col">
-			<h3 class="personality" on-touch="nextPair(pairs[index][1])">{{pairs[index][1]}}</h3>
-			<span class="personality-info"></span>
-		</div></div>
+			<div class="row">
+			 	<button class="personality button button-full button-positive" on-touch="nextPair(pairs[index][0])">{{pairs[index][0]}}</button>
+				<span class="personality-info"></span>
+			</div>
+			<div class="compare-or">
+				<h6>OR</h6>
+			</div>
+			<div class="row">
+				<button class="personality button  button-full button-positive" on-touch="nextPair(pairs[index][1])">{{pairs[index][1]}}</button>
+				<span class="personality-info"></span>
+			</div>
+
 </div>

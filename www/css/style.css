@@ -47,6 +47,16 @@ background: grey;
 	vertical-align: baseline;
 	line-height: 1.6em
 }
+.content-wrapper ul {
+  font-family: 'Tinos',sans-serif;
+font-size: 18px;
+margin: 10px;
+margin-left:30px;
+list-style: circle;
+}
+.content-wrapper ul li {
+  padding-top:10px;
+}
 
 div.next-section {
   display: -webkit-flex;
@@ -171,4 +181,18 @@ User Profile Page Specific Styles
 span.input-label.has-input{
   font-size: 12px;
 
+}
+
+/*Holland assessment*/
+
+#radar-chart {
+
+   width: 100% !important;
+    max-width: 800px;
+        height: auto !important;
+
+}
+
+.compare-or {
+  text-align: center;
 }
