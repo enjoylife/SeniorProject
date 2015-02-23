@@ -2,6 +2,22 @@
 
 body {
 
+
+}
+
+
+.header-bar {
+  background-color: #2b2b2b;
+  
+
+}
+
+.header-bar h1.title {
+  color:white;
+  font-weight: 300;
+}
+.header-bar button {
+  color:white;
 }
 section.lead-in h3{
 		font-family: 'Montserrat', sans-serif;
@@ -105,6 +121,16 @@ i.icon.highlight {
 .dark-grey {
 color: #2b2b2b;
 }
+
+.button.button-positive {
+  background-color: #2b2b2b;
+    border:none;  
+}
+
+.button.button-positive.active, .button.button-positive.activated {
+  background-color: #989898;
+  border:none;
+}
 .light-gray {
 	color: #989898;
 }
@@ -116,6 +142,7 @@ color: #2b2b2b;
 .accent-green {
 	color: #043f2e;
 }
+
 
 .accent-yellow {
 	color: #efaf20;
@@ -195,4 +222,48 @@ span.input-label.has-input{
 
 .compare-or {
   text-align: center;
+}
+
+/*
+Binder
+ */
+
+.row.binder {
+  padding:0px;
+}
+
+.binder i  {
+font-size: 30px;
+display: block;
+text-align: center;
+}
+.binder button {
+  border:none;
+  color:white;
+  padding-bottom: 15px;
+}
+
+
+.b-1 {
+background-color:rgb(35,128,99);
+}
+
+.b-2 {
+  background-color:rgb(72,193,153);
+}
+.b-3{
+    background-color:rgb(4,63,46);
+
+}
+.b-4{
+    background-color:rgb(84,140,122);
+
+}
+.b-5 {
+    background-color:rgb(72,193,153);
+
+}
+.b-6 {
+    background-color:rgb(29,130,99);
+
 }
