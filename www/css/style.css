@@ -15,8 +15,12 @@ body {
 .scroll{height: 100%;}
 
 [ui-view] {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-flex-direction: column;
+-webkit-flex-direction: column;
+    -ms-flex-direction: column;
+        flex-direction: column;
 height: 100%;
 }
 .header-bar h1.title {
@@ -27,22 +31,22 @@ height: 100%;
   color:white;
 }
 section.lead-in h3{
-		font-family: 'Montserrat', sans-serif;
-		font-weight: 400;
-		text-align: start;
-		font-size: 48px;
-		padding:30px 20px 30px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    text-align: start;
+    font-size: 48px;
+    padding:30px 20px 30px 20px;
 }
 
 .timeline {
-	font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .timeline h3 {
-	padding: 30px 10px 5px 10px;
-	color:white;
-	text-transform: capitalize;
-	margin-bottom:30px;
+  padding: 30px 10px 5px 10px;
+  color:white;
+  text-transform: capitalize;
+  margin-bottom:30px;
 }
 
 
@@ -51,8 +55,8 @@ background: grey;
 }
 
 .timeline ul.sub-section li {
-	padding-left: 45px;
-	padding-bottom:30px;
+  padding-left: 45px;
+  padding-bottom:30px;
 }
 
 /*Wraps all sections and subsections
@@ -60,15 +64,15 @@ background: grey;
 */
 
 .content-wrapper {
-	text-align: justify;
-	padding: 0px 20px 0px 20px;
+  text-align: justify;
+  padding: 0px 20px 0px 20px;
 }
 
 .content-wrapper p {
-	font-family: 'Tinos',sans-serif;
-	font-size: 18px;
-	vertical-align: baseline;
-	line-height: 1.6em
+  font-family: 'Tinos',sans-serif;
+  font-size: 18px;
+  vertical-align: baseline;
+  line-height: 1.6em
 }
 .content-wrapper ul {
   font-family: 'Tinos',sans-serif;
@@ -94,9 +98,9 @@ div.next-section {
 }
 
 div.next-section button{
-	font-family: 'Montserrat', sans-serif;
-	margin:10px;
-	margin-bottom: 20px;
+  font-family: 'Montserrat', sans-serif;
+  margin:10px;
+  margin-bottom: 20px;
 }
 
 .right{
@@ -110,19 +114,19 @@ div.next-section button{
 }
 
 i.icon.header {
-	color: white;
-	pointer-events:none;
+  color: white;
+  pointer-events:none;
 }
 i.icon.highlight {
-	color:grey;
+  color:grey;
 }
 
 .i24 {
-	font-size: 24px;
+  font-size: 24px;
 }
 
 .i48 {
-	font-size: 48px;
+  font-size: 48px;
 }
 
 .dark-grey {
@@ -139,20 +143,20 @@ color: #2b2b2b;
   border:none;
 }
 .light-gray {
-	color: #989898;
+  color: #989898;
 }
 
 .accent-blue {
-	color: #264556;
+  color: #264556;
 }
 
 .accent-green {
-	color: #043f2e;
+  color: #043f2e;
 }
 
 
 .accent-yellow {
-	color: #efaf20;
+  color: #efaf20;
 }
 
 .right{
@@ -237,7 +241,9 @@ Binder
 
 .row.binder {
   padding:0px;
-  flex:1;
+  -webkit-flex:1;
+      -ms-flex:1;
+          flex:1;
 }
 
 .binder i  {
