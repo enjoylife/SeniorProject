@@ -12,6 +12,13 @@ body {
 
 }
 
+.scroll{height: 100%;}
+
+[ui-view] {
+  display: flex;
+flex-direction: column;
+height: 100%;
+}
 .header-bar h1.title {
   color:white;
   font-weight: 300;
@@ -230,6 +237,7 @@ Binder
 
 .row.binder {
   padding:0px;
+  flex:1;
 }
 
 .binder i  {
