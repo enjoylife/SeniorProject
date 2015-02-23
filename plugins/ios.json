@@ -25,15 +25,19 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Contacts\"><param name=\"ios-package\" value=\"CDVContacts\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>",
                             "count": 1
                         },
                         {
                             "xml": "<preference name=\"CameraUsesGeolocation\" value=\"false\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Contacts\"><param name=\"ios-package\" value=\"CDVContacts\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -53,24 +57,6 @@
                             "count": 1
                         }
                     ],
-                    "AddressBook.framework": [
-                        {
-                            "xml": "true",
-                            "count": 1
-                        }
-                    ],
-                    "AddressBookUI.framework": [
-                        {
-                            "xml": "true",
-                            "count": 1
-                        }
-                    ],
-                    "CoreGraphics.framework": [
-                        {
-                            "xml": "false",
-                            "count": 3
-                        }
-                    ],
                     "ImageIO.framework": [
                         {
                             "xml": "true",
@@ -83,6 +69,12 @@
                             "count": 1
                         }
                     ],
+                    "CoreGraphics.framework": [
+                        {
+                            "xml": "false",
+                            "count": 3
+                        }
+                    ],
                     "AssetsLibrary.framework": [
                         {
                             "xml": "false",
@@ -92,6 +84,18 @@
                     "MobileCoreServices.framework": [
                         {
                             "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "AddressBook.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
+                    ],
+                    "AddressBookUI.framework": [
+                        {
+                            "xml": "true",
                             "count": 1
                         }
                     ]
@@ -119,10 +123,13 @@
         "nl.x-services.plugins.calendar": {
             "PACKAGE_NAME": "com.ionicframework.prototype611949"
         },
-        "org.apache.cordova.contacts": {
+        "org.apache.cordova.camera": {
             "PACKAGE_NAME": "com.ionicframework.prototype611949"
         },
-        "org.apache.cordova.camera": {
+        "org.apache.cordova.console": {
+            "PACKAGE_NAME": "com.ionicframework.prototype611949"
+        },
+        "org.apache.cordova.contacts": {
             "PACKAGE_NAME": "com.ionicframework.prototype611949"
         }
     },
