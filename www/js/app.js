@@ -98,6 +98,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
     controller: 'MainCtrl'
   })
 
+  .state('binder-asmntResults', {
+    url: '/binder/asmntResults',
+    templateUrl: 'templates/binder/binder-asmntResults.html',
+  
+  })
+
+  .state('binder-individualAsmntResults', {
+    url: '/binder/asmntResults/individualAsmntResults',
+    templateUrl: 'templates/binder/binder-individualAsmntResults.html'
+  })
+
 
 
   .state('selfAssess', {

@@ -43,9 +43,13 @@ app.factory('scraper', function() {
 
 
 //Communication controller
-app.controller('comsCtrl', ['$scope', 'scraper', function($scope, scraper){
+app.controller('comsCtrl', ['$scope', 'scraper', '$ionicScrollDelegate', 'asmntResultService',  function($scope, scraper, $ionicScrollDelegate, asmntResultService){
 	//array to hold result values
 	//$scope.results = [];	
+
+	$scope.setScreen = function(){
+		$ionicScrollDelegate.scrollTop();
+	}
 
 	//Place the questions into a scope object and separates them into attributes of header and body
 	$scope.comQuestions = {
@@ -145,6 +149,16 @@ app.controller('comsCtrl', ['$scope', 'scraper', function($scope, scraper){
 		//alert($scope.results);
 		$scope.results = scraper.output();
 		console.log("getResults() results = " + $scope.results);
+		$ionicScrollDelegate.scrollTop();
+
+		d = new Date();
+		curday = d.getDate();
+		curmonth = d.getMonth();
+		curyear = d.getFullYear();
+		var datestring = curmonth + "/" + curday + "/" + curyear;
+		
+		//send results to asmnt results factory
+		asmntResultService.addAsmntResult($scope.results, 'MSI Assessment', datestring);
 	}		
 
 
@@ -175,7 +189,7 @@ app.controller('comsCtrl', ['$scope', 'scraper', function($scope, scraper){
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 app.controller('marketCtrl', ['$scope', 'scraper', function($scope, scraper){
-	//Place the questions into a scope object and separates them into attributes of header and body
+	//Place the questions into a scope object and separates them into attributes of head and body
 	$scope.marketQuestions = {
 		socialHead: "Social Ease: ",
 		socialBody: " Effective in social situations; comfortable meeting new people and establish rapport easily.",
@@ -192,7 +206,7 @@ app.controller('marketCtrl', ['$scope', 'scraper', function($scope, scraper){
 	}
 
 
-	//collection of scope arrays of objects for each set of radio buttons
+	//radio buttons
 	$scope.buttons = [
 		{text: "1", value: 1},
 		{text: "2", value: 2},
@@ -202,7 +216,7 @@ app.controller('marketCtrl', ['$scope', 'scraper', function($scope, scraper){
 
 
 
-	//the object which contains most of the important chunks of data in the app
+	//holds all user input values
 	$scope.data = { 
 		marketTotals: [],
 
