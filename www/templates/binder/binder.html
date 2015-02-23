@@ -1,42 +1,43 @@
-<md-content class="md-padding">
-<div layout="column" layout-fill>
-   <div class="list">
-
-	  <a class="item item-icon-left" ui-sref="binder-ideas">
-		<i class="icon ion-ios7-lightbulb-outline"></i>
-		Ideas and Inspirations
-	  </a>
-
-	  <a class="item item-icon-left" ui-sref="binder-calendar">
-		<i class="icon ion-calendar"></i>
-		Calendar
-	  </a>
-
-	  <a class="item item-icon-left" ui-sref="binder-toDo">
-		<i class="icon ion-clipboard"></i>
-		To-Do-List
-	  </a>
-	  
-	  <a class="item item-icon-left" href="#">
-		<i class="icon ion-map"></i>
-		Self-Assessment Results
-	  </a>
-	  
-	  <a class="item item-icon-left" ui-sref="binder-contacts">
+<div class="col"><div class="row binder">
+		<button class="col b-1" ui-sref="binder-ideas">
+		    <i class="icon ion-ios7-lightbulb-outline"></i>
+			<span>Ideas & Inspiration</span>
+		</button>
+	
+		<button class="col b-2" ui-sref="binder-calendar">
+			<i class="icon ion-calendar"></i>
+			<span>Calendar</span>
+		</button>
+	</div>
+	
+	<div class="row binder">
+		<button class="col b-3" ui-sref="binder-toDo">
+			<i class="icon ion-clipboard"></i>
+			<span>To-Do-List <span class="badge badge-assertive">{{count}}</span></span>
+		</button>
+		<button class="col b-4" href="#">
+			<i class="icon ion-map"></i>
+			<span>Self-Assessment Results</span>	
+		</button>
+	</div>
+	
+	<div class="row binder">
+		<button class="col b-5" ui-sref="binder-contacts">
 		<i class="icon ion-person-stalker"></i>
-		Professional Contacts
-		<span class="badge badge-assertive">{{count}}</span>
-	  </a>
-	  
-	  <a class="item item-icon-left" ui-sref="binder-jobApps">
+			<span>Professional Contacts</span>
+		  </a>
+		</button>
+		<button class="col b-6" ui-sref="binder-jobApps">
 		<i class="icon ion-document-text"></i>
-		Job Applications/Resumes Sent
-	  </a>
-
-	  <a class="item item-icon-left" ui-sref="selfAssess">
-	  	Self-Assessments
-	  </a>
-
-   </div>
-  </md-content>
-</div >
+			<span>Job Applications/Resumes Sent</span>
+		</button>
+	</div>
+	
+	<div class="row binder">
+		<button class="col" ui-sref="selfAssess">
+			<span>Self Assesments Retake</span>	
+		</button>
+	
+	</div>
+	
+	</div>
