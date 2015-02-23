@@ -7,7 +7,7 @@
         </section>
         <ul class='sub-section' ng-repeat="section in content.sections track by $index">
             <li ng-class="{selected: section.isComplete}" 
-            on-touch="jumpToSection({folder:content.folder,file:section.file})">{{section.title}}</li>
+            on-tap="jumpToSection({folder:content.folder,file:section.file})">{{section.title}}</li>
         </ul>
     </nav>
 </ion-content>
