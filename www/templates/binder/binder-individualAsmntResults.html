@@ -1,0 +1,8 @@
+<div ng-controller="asmntResultCtrl">
+	<h2 align="center">Results</h2>
+	<table>	
+		<tr ng-repeat="ro in resultObjects track by $index">
+			<td>{{ ro.sum }}</td>
+		</tr>
+	</table>
+</div>
