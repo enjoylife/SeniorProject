@@ -8,6 +8,9 @@ var app = angular.module('prototype', [ 'ionic', 'ngCordova','ionic.ion.headerSh
 app.run(function($ionicPlatform) {
 
 	$ionicPlatform.ready(function() {
+     if(window.cordova && window.cordova.plugins.Keyboard) {
+          window.cordova.plugins.Keyboard.disableScroll(true);
+      }
 	});
 	
 	
