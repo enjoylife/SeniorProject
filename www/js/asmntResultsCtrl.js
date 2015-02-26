@@ -30,18 +30,22 @@ app.factory('asmntResultService', [ '$localstorage', function($localstorage){
 		return asmntResults;
 	}
 
+	function deleteAsmnt(index){
+		asmntResults.splice(index, 1);
+	}
+
 	return {
 		loadList: loadList,
 		addAsmntResult: addAsmntResult,
 		getAsmntResult: getAsmntResult,
-		
+		deleteAsmnt: deleteAsmnt,
 	}
 
 }]);
 
 
 //assessment results controller
-app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup', '$localstorage', function($scope, asmntResultService, $ionicPopup, $localstorage){
+app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup', '$localstorage', '$state', function($scope, asmntResultService, $ionicPopup, $localstorage, $state){
     /* Load from local storage */
     var load = $localstorage.getObject( 'assessments' );
     if (Object.keys(load).length !== 0) {
@@ -77,6 +81,27 @@ app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup'
 	$scope.back = function(){
 		document.getElementById("showAsmntResults").style.display = "none";
 		document.getElementById("showAsmnts").style.display = "block";	
+	}
+
+	$scope.stateChange = function(){
+		$state.go('templates/binder/binder-asmntResults.html');
+	}
+
+	$scope.delete = function(index){
+		var confirmPopup = $ionicPopup.confirm({
+		 title: 'Are you sure you want to delete this result?',
+		 /*template: 'Are you sure you want to delete this job application record?'*/
+	   });
+	   confirmPopup.then(function(res) {
+		 if(res) {
+		   asmntResultService.deleteAsmnt( index );
+		   $localstorage.setObject( 'assessments', asmntResultService.getAsmntResult() );
+		   $scope.back();
+		 } else {
+		   
+		 }
+	   });
+
 	}
 
 }]);
