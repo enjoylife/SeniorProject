@@ -6,6 +6,10 @@ app.factory('scraper', function() {
   //blank array to hold all values
   var values = [];
 
+  function loadlist(load){
+	values = load;
+  }  
+
   function addTotal(val){
     values.push(val);
   }
@@ -32,6 +36,7 @@ app.factory('scraper', function() {
   }
 
   return {
+  	loadlist: loadlist,
     addTotal: addTotal,
     GetMaxVal: GetMaxVal,
     output: output,
@@ -43,7 +48,7 @@ app.factory('scraper', function() {
 
 
 //Communication controller
-app.controller('comsCtrl', ['$scope', 'scraper', '$ionicScrollDelegate', 'asmntResultService',  function($scope, scraper, $ionicScrollDelegate, asmntResultService){
+app.controller('comsCtrl', ['$scope', 'scraper', '$ionicScrollDelegate', 'asmntResultService', "$localstorage", function($scope, scraper, $ionicScrollDelegate, asmntResultService, $localstorage){
 	//array to hold result values
 	//$scope.results = [];	
 
@@ -158,7 +163,8 @@ app.controller('comsCtrl', ['$scope', 'scraper', '$ionicScrollDelegate', 'asmntR
 		var datestring = curmonth + "/" + curday + "/" + curyear;
 		
 		//send results to asmnt results factory
-		asmntResultService.addAsmntResult($scope.results, 'MSI Assessment', datestring);
+		asmntResultService.addAsmntResult(scraper.output(), 'MSI Assessment', datestring);
+		$localstorage.setObject( 'assessments', asmntResultService.getAsmntResult() );
 	}		
 
 
@@ -313,7 +319,7 @@ app.controller('qaCtrl', ['$scope', 'scraper', function($scope, scraper){
 	//
 	$scope.qaTotals = [];
 
-	//the object which contains most of the important chunks of data in the app
+	//the object which contains most of the important chunks of data
 	$scope.data = { 
 		qaTotals: [],
 
@@ -401,7 +407,7 @@ app.controller('analyticsCtrl', ['$scope', 'scraper', function($scope, scraper){
 	$scope.analyticsTotals = [];
 
 
-	//the object which contains most of the important chunks of data in the app
+	//the object which contains most of the important chunks of data
 	$scope.data = { 
 		analyticsTotals: [],
 
@@ -493,7 +499,7 @@ app.controller('techReasonCtrl', ['$scope', 'scraper', function($scope, scraper)
 		{text: "4", value: 4}
 	];
 
-	//the object which contains most of the important chunks of data in the app
+	//the object which contains most of the important chunks of data
 	$scope.data = { 
 		techReasonTotals: [],
 
@@ -576,7 +582,7 @@ app.controller('innovationCtrl', ['$scope', 'scraper', function($scope, scraper)
 	];
 
 
-	//the object which contains most of the important chunks of data in the app
+	//the object which contains most of the important chunks of data
 	$scope.data = { 
 		innovationTotals: [],
 
@@ -664,7 +670,7 @@ app.controller('teachingCtrl', ['$scope', 'scraper', function($scope, scraper){
 	];
 
 
-	//the object which contains most of the important chunks of data in the app
+	//the object which contains most of the important chunks of data
 	$scope.data = { 
 		teachingTotals: [],
 
@@ -755,7 +761,7 @@ app.controller('leadershipCtrl', ['$scope', 'scraper', function($scope, scraper)
 		{text: "4", value: 4}
 	];
 
-	//the object which contains most of the important chunks of data in the app
+	//the object which contains most of the important chunks of data
 	$scope.data = { 
 		leadershipTotals: [],
 
