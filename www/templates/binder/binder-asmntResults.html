@@ -24,8 +24,13 @@
 				<td>{{ro.b}}</td>
 				<td>{{ro.sum}}</td>
 			</tr>
-			<tr class="button button-small button-full button-calm" ng-click="back()">
-				<td colspan="3">Back</td>
+			<tr>
+				<td class="button button-small button-calm" ng-click="back()">
+					Back
+				</td>
+				<td class="button button-small button-assertive" ng-click="delete($index)">
+					Delete
+				</td>
 			</tr>
 		</table>
 	</div>
