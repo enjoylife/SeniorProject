@@ -1,8 +1,17 @@
-<div ng-controller="asmntResultCtrl">
+<div><!--  ng-controller="comsCtrl"> -->
+	<div ng-controller="asmntResultCtrl" ng-init="getResults()">
 	<h2 align="center">Results</h2>
-	<table>	
+	<table style="margin:auto;">	
 		<tr ng-repeat="ro in resultObjects track by $index">
 			<td>{{ ro.sum }}</td>
 		</tr>
 	</table>
+
+	<table style="margin:auto;">	
+		<tr ng-repeat="s in sample track by $index">
+			<td>{{ s.title }}</td>
+			<td>{{ s.price }}</td>
+		</tr>
+	</table>
+	</div>
 </div>
