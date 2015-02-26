@@ -1,14 +1,32 @@
 <div ng-controller="asmntResultCtrl" ng-init="getResults();">
 	<h2 align="center">Assessment Results</h2>
 
-	<table style="margin:auto;">
-		<tr class="list" 
-			ng-repeat="asmnt in asmntResults track by $index" 
-			ng-click="showResults(asmnt, $index);"
-			ui-sref="binder-individualAsmntResults"
-		>
-			<td>{{ asmnt.title }}</td>
-			<td>{{ asmnt.date }}</td>
-		</tr>
-	</table>
+	<div id="showAsmnts">
+		<table style="margin:auto;">
+			<tr class="list" 
+				ng-repeat="asmnt in asmntResults track by $index" 
+				ng-click="showResults(asmnt, $index)"
+			>
+				<!-- ui-sref="binder-individualAsmntResults" -->
+				<td>{{asmnt.title}}</td>
+				<td>{{asmnt.date}}</td>
+			</tr>
+		</table>
+	</div>
+
+	<div  id="showAsmntResults" hidden="true">
+		<table style="margin:auto;">
+			<tr>
+				<td><h4>{{header}}</h4></td>
+			</tr>
+			<tr ng-repeat="ro in resultObjects track by $index">
+				<td><b>{{ro.h}}</b></td>
+				<td>{{ro.b}}</td>
+				<td>{{ro.sum}}</td>
+			</tr>
+			<tr class="button button-small button-full button-calm" ng-click="back()">
+				<td colspan="3">Back</td>
+			</tr>
+		</table>
+	</div>
 </div>
