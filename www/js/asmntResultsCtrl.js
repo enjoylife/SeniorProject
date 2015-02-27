@@ -45,7 +45,7 @@ app.factory('asmntResultService', [ '$localstorage', function($localstorage){
 
 
 //assessment results controller
-app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup', '$localstorage', '$state', function($scope, asmntResultService, $ionicPopup, $localstorage, $state){
+app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup', '$localstorage', function($scope, asmntResultService, $ionicPopup, $localstorage){
     /* Load from local storage */
     var load = $localstorage.getObject( 'assessments' );
     if (Object.keys(load).length !== 0) {
@@ -83,9 +83,6 @@ app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup'
 		document.getElementById("showAsmnts").style.display = "block";	
 	}
 
-	$scope.stateChange = function(){
-		$state.go('templates/binder/binder-asmntResults.html');
-	}
 
 	$scope.delete = function(index){
 		var confirmPopup = $ionicPopup.confirm({
