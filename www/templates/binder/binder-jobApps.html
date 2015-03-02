@@ -1,15 +1,26 @@
 <div title="Job Applications/Resumes Sent" ng-controller="JobAppCtrl"> 
 
-	<!-- <h1>Hello, World!</h1>   -->
-	  <table style="margin:auto; margin-bottom:10px; border:1px solid black;" ng-repeat="item in getJobs() track by $index">	
+	<h2 align="center" style="padding:10px;">Applications Sent</h2>  
+
+	  <table 
+	  	style="margin:auto; margin-bottom:10px; border:20px solid white;
+	  			font-size:25px; font-family: 'Montserrat';" 
+	  	ng-repeat="item in getJobs() track by $index"
+	  >	
 		  <tr>
-		  	<td><b>Company:</b> {{item.company}}</td>
+		  	<td style="padding-bottom:10px;"><b>Company:</b> {{item.company}}</td>
 		  </tr>
 		  <tr>
-		  	<td><b>Job Title:</b> {{item.jobTitle}}</td>
+		  	<td style="padding-bottom:10px;"><b>Job Title:</b> {{item.jobTitle}}</td>
 		  </tr>
 		  <tr>
-		  	<td><b>Date applied:</b> {{item.date}}</td>
+		  	<td style="padding-bottom:10px;"><b>Description:</b> {{item.posDesc}}</td>
+		  </tr>
+		  <tr>
+		  	<td style="padding-bottom:10px;"><b>Notes:</b> {{item.notes}}</td>
+		  </tr>
+		  <tr>
+		  	<td style="padding-bottom:10px;"><b>Date applied:</b> {{item.date}}</td>
 		  </tr>
 		  <tr align="center">	
 		  	<td class="button button-clear button-balanced" ng-click="editJobForm(item,$index)">Edit</td>
