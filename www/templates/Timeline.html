@@ -1,13 +1,24 @@
 <!-- TODO Build This out and style -->
 <!-- TODO Highlight current section and sub section -->
 <ion-content>
-    <nav class="timeline" ng-repeat="content in contentOutline">
+    <div class="timeline" ng-repeat="content in contentOutline">
         <section class="main-section">
             <h3>{{content.leadIn}}</h3>
+            <div class="row info">
+	            <div class="col">
+	            	<span class="title">Completed</span>
+	            	<span class="data">{{content.numComplete}} / {{content.sections.length}}</span>
+	            </div>
+	            <div class="col">
+	            	<span class="title">Last Read</span>
+	            	<span class="data">{{getLastRead(content)}}</span>
+	            </div>
+
+            </div>
         </section>
         <ul class='sub-section' ng-repeat="section in content.sections track by $index">
             <li ng-class="{selected: section.isComplete}" 
             on-tap="jumpToSection({folder:content.folder,file:section.file})">{{section.title}}</li>
         </ul>
-    </nav>
+    </div>
 </ion-content>
