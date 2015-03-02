@@ -6,7 +6,16 @@
 var app = angular.module('prototype', [ 'ionic', 'ngCordova','ionic.ion.headerShrink', 'ui.calendar', 'ui.bootstrap'])
 
 app.run(function($ionicPlatform) {
-
+      (function getHistory(){
+        var hist = JSON.parse(localStorage.getItem('hist'));
+        // We havent entered history before, set defaults
+        // TODO test and handle inital setup or defaults regarding user data
+        if(hist == null){
+           populateDefaults()
+        } else {
+            contentOutline = hist;
+        }
+      })()
 	$ionicPlatform.ready(function() {
      if(window.cordova && window.cordova.plugins.Keyboard) {
           window.cordova.plugins.Keyboard.disableScroll(true);
@@ -196,7 +205,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
 
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/profile');
 })
 
 
@@ -297,6 +306,28 @@ app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate){
   }
 
 })
+
+
+
+
+// Helper to create inital required data
+// using the contentOutline object as a seed
+function populateDefaults(){
+  // Iterate over each major section
+  contentOutline.map(function(section){
+    // Iterate over each minor subsection
+    section['numComplete'] = 0;
+    section['lastRead'] = null;
+    section.sections.map(function(sub){
+      // create the required objects for handling reading state
+      sub['complete'] = false;
+      sub['lastRead'] = null;
+      sub['lastLocation'] = 0;
+    })
+  }) // end maps
+  return contentOutline;
+}
+
 /**
  * Simple TimeLine to direct the content page to sections of book
  */
@@ -320,40 +351,29 @@ app.directive('timeLine',[function(){
         if(!('file' in params && 'folder' in params)){
           throw new Error("Missing required parameter for jumping into sections.")
         }
-        console.log(params)
         console.log('Routing to content/'+params.folder +'/'+ params.file)
         $state.go('content.sections',params);
-        // Using parent scope
-        
+
+        var section = _.find(contentOutline, function(obj){
+          return obj.folder == $state.params.folder;
+        })
+
+        var subsection = _.find(section.sections, function(obj){
+          return obj.file == $state.params.file;
+        })
+
+        section.lastRead = new Date();
+        $scope.setHistory();
+        // set last read to now
         $scope.toggleSideNav(false);
 
         // TODO Scroll to position using lastLocation
       };
 
-      $scope.getHistory = function(){
-        var hist = localStorage.getItem('hist');
-        // We havent entered history before, set defaults
-        // TODO test and handle inital setup or defaults regarding user data
-        if(hist == null){
-          return populateDefaults()
-        }
-        return hist;
-      }
 
-      // Helper to create inital required data
-      // using the contentOutline object as a seed
-      function populateDefaults(){
-        // Iterate over each major section
-        contentOutline.map(function(section){
-          // Iterate over each minor subsection
-          section.sections.map(function(sub){
-            // create the required objects for handling reading state
-            sub['isComplete'] = false;
-            sub['lastRead'] = null;
-            sub['lastLocation'] = 0;
-          })
-        }) // end maps
-        return contentOutline;
+
+      $scope.setHistory = function(){
+        localStorage.setItem('hist', JSON.stringify(contentOutline));
       }
     })
   }
