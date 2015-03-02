@@ -20,6 +20,7 @@
     "org.apache.cordova.contacts",
     "https://github.com/katzer/cordova-plugin-local-notifications.git",
     "org.apache.cordova.camera",
-    "org.apache.cordova.console"
+    "org.apache.cordova.console",
+    "com.ionic.keyboard"
   ]
 }
