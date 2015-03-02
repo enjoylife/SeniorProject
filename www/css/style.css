@@ -206,6 +206,15 @@ color: #2b2b2b;
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
+/* latin */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Light'), local('OpenSans-Light'), url(fonts/Open_Sans/OpenSans-Light.ttf) format('truetype');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
 
 /*
 User Profile Page Specific Styles
@@ -325,3 +334,49 @@ background-color:rgb(35,128,99);
     background-color:rgb(29,130,99);
 
 }
+
+/* Ideas */
+
+.ideas-folder {
+  background-color: rgb(233,182,74);
+  font-family: Montserrat;
+}
+
+.idea-card {
+  padding-left:30px;
+  padding-right: 30px;
+  margin-top:20px;
+  margin-bottom:20px;
+}
+
+.idea-card .header {
+ 
+  background-color: rgb(201,151,45);
+  color:white;
+  height:50px;
+}
+.idea-date {
+   float:left;
+  line-height: 50px;
+  padding-left: 10px;
+  text-align: left;
+}
+
+.idea-edit {
+  float:right;
+}
+
+.idea-content {
+  background-color: white;
+  padding: 30px;
+font-family: 'Open Sans';
+  font-weight: 300;
+}
+.ideas-folder a.idea-add {
+  color:white;
+}
+
+.idea-card .header .idea-edit a {
+  color:white;
+}
+
