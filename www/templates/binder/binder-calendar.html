@@ -1,51 +1,15 @@
+<ion-content class="calendar" scroll="true" zoom="xy">
 <div title="Calendar" ng-controller="CalendarCtrl">
 	<link href="lib/bootstrap-css/css/bootstrap.css" rel="stylesheet">
-    <link href="lib/fullcalendar/dist/fullcalendar.css" rel="stylesheet"> 
- <ion-scroll zooming="true" direction="xy" style="width: 600px; height: 500px">
-	<div class="container">
-			<section id="directives-calendar" ng-controller="CalendarCtrl">
-				<div class="well">
-					<div class="row-fluid">
-						<div class="span8">
-			
-							<tabset>
-								  <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
-									<h4>{{alertMessage}}</h4>
-								  </div>
-								  <div class="btn-toolbar">
-
-									<div class="btn-group">
-										<button class="btn btn-success" ng-click="changeView('agendaDay', 'myCalendar1')">AgendaDay</button>
-										<button class="btn btn-success" ng-click="changeView('agendaWeek', 'myCalendar1')">AgendaWeek</button>
-										<button class="btn btn-success" ng-click="changeView('month', 'myCalendar1')">Month</button>
-										<button class="btn btn-primary" ng-click="addEvent()">Add Event</button>
-									  </button>
-									</div>
-									
-								  </div>
-
-								<div id ="calendar" class="calendar" ng-model="eventSources" calendar="myCalendar1" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>                       
-							</tabset>
-						</div>
-						<div class="span4">
-											   
-							
-
-							<ul class="unstyled">
-								<li ng-repeat="e in output() track by $index">
-									<div class="alert alert-info">
-										<a class="close" ng-click="remove($index)"><i class="icon-remove"></i></a>
-										<b> <input ng-model="e.title"></b> 
-										{{e.start | date:"MMM dd"}} - {{e.end | date:"MMM dd"}}
-									</div>
-								</li>
-							</ul>
-
-						</div>
-
-					</div>
-				</div>
-				</div>
-				</ion-scroll>
-
+    <link href="lib/fullcalendar/dist/fullcalendar.css" rel="stylesheet">
+	<link href="lib/fullcalendar/dist/jquery-ui.theme.css" rel="stylesheet">
+	<div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
+		<h4>{{alertMessage}}</h4>
+	</div>
+		<div class="row calendar">
+			<button class="button b-1 full-width" ng-click="changeView('agendaDay', 'myCalendar1')">Day Agenda</button>
+			<button class="button b-2 full-width" ng-click="changeView('month', 'myCalendar1')">Month Agenda</button>
+		</div>
+		<div ng-model="eventSources" calendar="myCalendar1" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>                       
 </div>
+</ion-content>

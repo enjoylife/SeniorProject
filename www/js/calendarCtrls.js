@@ -115,7 +115,14 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
 	
     /* Change View */
     $scope.changeView = function(view,calendar) {
-      uiCalendarConfig.calendars[calendar].fullCalendar('changeView',view);
+	  if (view.name == 'agendaDay')
+	  {
+		uiCalendarConfig.calendars['myCalendar1'].fullCalendar('option','contentHeight', 1050);
+		uiCalendarConfig.calendars[calendar].fullCalendar('changeView',view);
+	  }else{
+		uiCalendarConfig.calendars['myCalendar1'].fullCalendar('option','contentHeight', 'auto');
+		uiCalendarConfig.calendars[calendar].fullCalendar('changeView',view);
+	  }
     };
 	
     /* Change View */
@@ -130,14 +137,34 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
 	};
 
      /* Render Tooltip */
-    $scope.eventRender = function( event, element, view ) { 
+    $scope.eventRender = function( event, element, view ) {
+		$(element).selectable();
         $compile(element)($scope);
     };
+	
+	$scope.dayClick = function( date, allDay, jsEvent, view){
+          $scope.alertMessage = ('Day Clicked ' + date.format());
+		  $scope.changeView('agendaDay', 'myCalendar1');
+		  uiCalendarConfig.calendars['myCalendar1'].fullCalendar('gotoDate',date);
+    };
+	
+	$scope.dayRender = function( date, cell) {
+		cell.selectable();
+
+	};
+	
+	$scope.select = function( start, end, jsEvent, view ) {
+		$scope.changeView('agendaDay', 'myCalendar1');
+		uiCalendarConfig.calendars['myCalendar1'].fullCalendar('gotoDate',start);
+
+	};
 	
     /* config object */
     $scope.uiConfig = {
       calendar:{
-		aspectRatio: 0.5,
+		height: $(window).height()-100,
+		theme: true,
+		themeButtonIcons: false,
         editable: true,
 		timezone: 'local',
 		ignoreTimezone: false,
@@ -146,11 +173,20 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
         header:{
           left: 'title',
           center: '',
-          right: 'today prev,next'
+          right: 'today, prev,next'
         },
+		views: {
+			day: { // name of view
+				// other view-specific options here
+			}
+		},
 		events: calendarService.output(),
+		eventColor: 'rgb(35,128,99)',
 		fixedWeekCount: false,
-		eventLimit: true, 
+		eventLimit: true,
+		selectable: true,
+		select: $scope.select,
+		dayRender: $scope.dayRender,
         eventClick: $scope.alertOnEventClick,
         eventDrop: $scope.alertOnDrop,
         eventResize: $scope.alertOnResize,
