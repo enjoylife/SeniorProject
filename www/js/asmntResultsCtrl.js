@@ -45,7 +45,11 @@ app.factory('asmntResultService', [ '$localstorage', function($localstorage){
 
 
 //assessment results controller
-app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup', '$localstorage', function($scope, asmntResultService, $ionicPopup, $localstorage){
+app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup', '$localstorage', '$ionicScrollDelegate', function($scope, asmntResultService, $ionicPopup, $localstorage, $ionicScrollDelegate){
+	$scope.setScreen = function(){
+		$ionicScrollDelegate.scrollTop();
+	}
+
 
     /* Load from local storage */
     var load = $localstorage.getObject( 'assessments' );
@@ -82,6 +86,7 @@ app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup'
 	$scope.back = function(){
 		document.getElementById("showAsmntResults").style.display = "none";
 		document.getElementById("showAsmnts").style.display = "block";	
+		$scope.setScreen();
 	}
 
 <<<<<<< HEAD
