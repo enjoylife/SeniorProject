@@ -89,12 +89,6 @@ app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup'
 		$scope.setScreen();
 	}
 
-<<<<<<< HEAD
-	$scope.stateChange = function(){
-		$state.go('templates/binder/binder-asmntResults.html');
-	}
-=======
->>>>>>> adamsBranchFromMaster
 
 	$scope.delete = function(index){
 		var confirmPopup = $ionicPopup.confirm({
