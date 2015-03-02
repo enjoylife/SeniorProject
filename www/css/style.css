@@ -211,6 +211,23 @@ color: #2b2b2b;
 User Profile Page Specific Styles
  */
 
+.profile {
+   background-color: #989898;
+   color:white;
+}
+
+.profile blockquote {
+  border:none;
+  display:block;
+  margin:auto;
+  padding-left:30px;
+  padding-right:30px;
+
+}
+.profile blockquote p {
+    text-align: justify;
+}
+
 .user-profile-blank {
   color:black;
   font-size: 200px;
@@ -221,6 +238,31 @@ span.input-label.has-input{
 
 }
 
+#profilePic {
+  max-width: 300px;
+  max-height: 300px;
+  height:auto;
+   display:block;
+    margin:auto;
+}
+
+.edit-photo {
+ display:block;
+    margin:auto;
+}
+
+.profile .list {
+  padding-left:30px;
+  padding-right:30px;
+
+}
+.list .item {
+    background-color: white;
+    margin-bottom: 20px;
+}
+.list input {
+  font-family: Montserrat;
+}
 /*Holland assessment*/
 
 #radar-chart {
@@ -234,6 +276,8 @@ span.input-label.has-input{
 .compare-or {
   text-align: center;
 }
+
+
 
 /*
 Binder
