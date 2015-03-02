@@ -1,37 +1,48 @@
-<div ng-controller="asmntResultCtrl" ng-init="getResults();">
+<div ng-controller="asmntResultCtrl" ng-init="getResults();setScreen();"
+	style="background-color:#C0C0C0;
+			padding-bottom:100%;"
+>
 	<h2 align="center">Assessment Results</h2>
 
 	<div id="showAsmnts">
-		<table style="margin:auto;">
-			<tr class="list" 
-				ng-repeat="asmnt in asmntResults track by $index" 
-				ng-click="showResults(asmnt, $index)"
-			>
-				<!-- ui-sref="binder-individualAsmntResults" -->
-				<td>{{asmnt.title}}</td>
-				<td>{{asmnt.date}}</td>
-			</tr>
-		</table>
+
+		<div class="asmntResults-row"
+			align="center"
+			ng-repeat="asmnt in asmntResults track by $index" 
+			ng-click="showResults(asmnt, $index)"
+
+		>
+			{{asmnt.title}} {{asmnt.date}}
+		</div>
+
 	</div>
 
-	<div  id="showAsmntResults" hidden="true">
-		<table style="margin:auto;">
+	<div  id="showAsmntResults" hidden="true" style="padding:20px;">
+
+		<table style="margin:auto; background-color:white; border:15px solid white;">
 			<tr>
-				<td><h4>{{header}}</h4></td>
+				<td colspan="3"><h4 style="font-family: 'Montserrat'; padding-bottom:10px;">{{header}}</h4></td>
 			</tr>
 			<tr ng-repeat="ro in resultObjects track by $index">
-				<td><b>{{ro.h}}</b></td>
-				<td>{{ro.b}}</td>
-				<td>{{ro.sum}}</td>
-			</tr>
-			<tr>
-				<td class="button button-small button-calm" ng-click="back()">
-					Back
+				<td align="center" style="width:15%;">
+					<span class="circleAsmntResults">
+						{{ro.sum}}
+					</span>
 				</td>
-				<td class="button button-small button-assertive" ng-click="delete($index)">
-					Delete
+				<td>
+					<span style="font-style:italic;">{{ro.h}}</span>
+					{{ro.b}} <p>&nbsp;</p>
 				</td>
 			</tr>
 		</table>
+
+		<span style="float:right;">
+			<button class="button" ng-click="back()">
+				<i class="icon ion-chevron-left"></i>
+			</button>			
+			<button class="button" ng-click="delete($index)">
+				<i class="icon ion-close"></i>
+			</button>
+		</span>
 	</div>
 </div>

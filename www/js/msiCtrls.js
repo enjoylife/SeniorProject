@@ -163,7 +163,7 @@ app.controller('comsCtrl', ['$scope', 'scraper', '$ionicScrollDelegate', 'asmntR
 		var datestring = curmonth + "/" + curday + "/" + curyear;
 		
 		//send results to asmnt results factory
-		asmntResultService.addAsmntResult(scraper.output(), 'MSI Assessment', datestring);
+		asmntResultService.addAsmntResult(scraper.output(), 'MSI Results', datestring);
 		$localstorage.setObject( 'assessments', asmntResultService.getAsmntResult() );
 	}		
 
