@@ -2,15 +2,22 @@
 // Strings defined in section order per those main objects define files within those sub-folders.
 var contentOutline = [
 
+	{
+		folder:'interview',
+		title:'Interview',
+		sections: [
+		{
+			file:'intro.html',
+			title:'Interviews - the essentials of your presentation'
+		}
+		]
+	},
 	// Each section needs:
 	// title, leadIn, sectionOrder and a number of objects defining the subsections
 	{
 		folder:'intro',
 		// TItle to display in timeline (short and Simple)
 		title:"Introduction",
-
-		//  Title when section is selected in timeline (longer and )
-		leadIn:"Introduction to The Serious Job Seeker",
 
 		sections:[
 			{
@@ -34,10 +41,8 @@ var contentOutline = [
 
 	{
 		folder:'assessment',
-
 		title: "Assessments",
 
-		leadIn:"Test paragraph which gives user an idea of whats in the section",
 		sections :[
 			{
 				file:'personality.html',
