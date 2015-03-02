@@ -228,6 +228,49 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
   $scope.count = contactService.getContactsService().length;
 })
 
+app.controller('timelineCtrl', (function($scope, $state){
+
+      $scope.contentOutline = contentOutline;
+
+      $scope.getSubsection = function(section){
+        return contentOutline[section].sectionOrder;
+      }
+
+      $scope.getTitle = function(section, subsection){
+        return contentOutline[section][subsection].title;
+      }
+
+      $scope.jumpToSection = function(params){
+        if(!('file' in params && 'folder' in params)){
+          throw new Error("Missing required parameter for jumping into sections.")
+        }
+        console.log('Routing to content/'+params.folder +'/'+ params.file)
+        $state.go('content.sections',params);
+
+        var section = _.find(contentOutline, function(obj){
+          return obj.folder == $state.params.folder;
+        })
+
+        console.log(section)
+        var subsection = _.find(section.sections, function(obj){
+          return obj.file == $state.params.file;
+        })
+
+        section.lastRead = new Date();
+        $scope.setHistory();
+        // set last read to now
+        $scope.toggleSideNav(false);
+
+        // TODO Scroll to position using lastLocation
+      };
+
+
+
+      $scope.setHistory = function(){
+        localStorage.setItem('hist', JSON.stringify(contentOutline));
+      }
+    }))
+
 app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate){
   var
   currentPosition,
@@ -339,48 +382,8 @@ function populateDefaults(){
 app.directive('timeLine',[function(){
   return {
     transclude: true,
-	templateUrl: 'templates/timeline.html',
-    controller: (function($scope, $state){
-
-      $scope.contentOutline = contentOutline;
-
-      $scope.getSubsection = function(section){
-        return contentOutline[section].sectionOrder;
-      }
-
-      $scope.getTitle = function(section, subsection){
-        return contentOutline[section][subsection].title;
-      }
-
-      $scope.jumpToSection = function(params){
-        if(!('file' in params && 'folder' in params)){
-          throw new Error("Missing required parameter for jumping into sections.")
-        }
-        console.log('Routing to content/'+params.folder +'/'+ params.file)
-        $state.go('content.sections',params);
-
-        var section = _.find(contentOutline, function(obj){
-          return obj.folder == $state.params.folder;
-        })
-
-        var subsection = _.find(section.sections, function(obj){
-          return obj.file == $state.params.file;
-        })
-
-        section.lastRead = new Date();
-        $scope.setHistory();
-        // set last read to now
-        $scope.toggleSideNav(false);
-
-        // TODO Scroll to position using lastLocation
-      };
-
-
-
-      $scope.setHistory = function(){
-        localStorage.setItem('hist', JSON.stringify(contentOutline));
-      }
-    })
+	templateUrl: 'templates/Timeline.html',
+    controller: (function(){})
   }
 }])
 
