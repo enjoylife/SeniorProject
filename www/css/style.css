@@ -281,3 +281,27 @@ background-color:rgb(35,128,99);
     background-color:rgb(29,130,99);
 
 }
+
+
+
+
+
+
+.asmntResults-row {
+  width:75%;
+  margin:auto;
+  margin-bottom:1em;
+  
+  background-color:white;
+  padding:20px;
+  font-size:25px;
+  font-family:'Montserrat';
+}
+
+.circleAsmntResults {
+  border-radius: 50%;
+  border: 1px solid black;
+  width:12px;
+  height:12px;
+  padding:10px;
+}
