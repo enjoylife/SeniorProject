@@ -315,9 +315,14 @@ app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate){
 function populateDefaults(){
   // Iterate over each major section
   contentOutline.map(function(section){
+    if(!('title' in section)){
+      throw new Error("Missing Title for section");
+    }
     // Iterate over each minor subsection
     section['numComplete'] = 0;
     section['lastRead'] = null;
+    if(!('sections' in section)){ 
+      throw new Error("Missing sections array")}
     section.sections.map(function(sub){
       // create the required objects for handling reading state
       sub['complete'] = false;
