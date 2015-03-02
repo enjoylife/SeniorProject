@@ -34,7 +34,9 @@ var contentOutline = [
 
 	{
 		folder:'assessment',
-		title:"",
+
+		title: "Assessments",
+
 		leadIn:"Test paragraph which gives user an idea of whats in the section",
 		sections :[
 			{
