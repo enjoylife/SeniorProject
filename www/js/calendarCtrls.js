@@ -1,5 +1,14 @@
 app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCalendar', '$localstorage', 'uiCalendarConfig', 'calendarService', 'toDoService', function CalendarCtrl($scope, $compile, $ionicPopup, $cordovaCalendar, $localstorage, uiCalendarConfig, calendarService, toDoService) {
+	  //Global variables to be updated
 	  var date = new Date();
+	  var year = date.getFullYear();
+	  var month = date.getMonth();
+	  var day = date.getDate();
+	  var startHour = 0;
+	  var startMin = 0;
+	  var endHour = 0;
+	  var endMin = 0;
+	  
 	  //Event object
 	  $scope.obj = {
 		title: '',
@@ -8,14 +17,32 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
 
 	  };
 	  
+	  //Save time
+	  $scope.event = {
+		timeStart: new Date(),
+		timeEnd: new Date()
+	  }
+		
+	  //Used for hiding buttons
+	  $scope.isDay = false;
+	  
 	  /* Load from local storage */
 	  var load = $localstorage.getObject( 'calendar' );
 	  if (Object.keys(load).length !== 0) {
 		calendarService.loadList( load );
 	  }
 	  
+	  $scope.changeStart = function () {
+		console.log($scope.event.timeStart);
+	  };
+	  
+	  $scope.changeEnd = function () {
+		console.log($scope.event.timeEnd);
+	  };
+	  
 	  //Add event popup
 	  $scope.addEvent = function(){
+
 		var myPopup = $ionicPopup.show({
 		  title: 'Add an event',
 		  templateUrl: 'templates/binder/binder-calendar-popup.html',
@@ -28,13 +55,25 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
 			{
 			  text: 'Save',
 			  onTap: function(e){
-				$scope.obj.start = chrono.parseDate($scope.obj.start);
-				$scope.obj.end = chrono.parseDate($scope.obj.end);
+				//Get start date
+				//startTime = chrono.parseDate($scope.obj.start);
+				startHour = $scope.event.timeStart.getHours();
+				startMin = $scope.event.timeStart.getMinutes();
+				var startDate = moment({ y: year, M: month, d: day, h: startHour, m: startMin, s: 0, ms:0 });
+				$scope.obj.start = startDate.toDate()
+				
+				//Get end date
+				//endTime = chrono.parseDate($scope.obj.end);
+				endHour = $scope.event.timeEnd.getHours();
+				endMin = $scope.event.timeEnd.getMinutes();
+				var endDate = moment({ y: year, M: month, d: day, h: endHour, m: endMin, s: 0, ms:0 });
+				$scope.obj.end = endDate.toDate();
+				
 				if ( $scope.obj.start === null || $scope.obj.end === null) {
 					e.preventDefault();
 					var alertPopup = $ionicPopup.alert({
-					  title: 'Date is not correct',
-					  template: 'Try using month/date/year'
+					  title: 'Time is not correct',
+					  template: 'Try using numbers and a.m. or p.m.'
 					});
 					alertPopup.then(function(res) {
 					  alertPopup.close();
@@ -44,7 +83,7 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
 					console.log($scope.obj.end);
 					var toDo = {
 					  title: $scope.obj.title,
-					  end: $scope.obj.end.toDateString()
+					  end: ($scope.obj.end).toDateString()
 					};
 					//Add to calendar and to-do
 					calendarService.addToList($scope.obj);
@@ -64,6 +103,8 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
 						// error
 					});
 				}
+				
+				$scope.isDay = false;
 					
 					//Reset object
 					$scope.obj = {
@@ -72,6 +113,11 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
 						end: ''
 
 				   };   
+				   
+				   $scope.event = {
+						timeStart: new Date(),
+						timeEnd: new Date()
+				   }
 			   			   
 			  }
 			}
@@ -115,11 +161,13 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
 	
     /* Change View */
     $scope.changeView = function(view,calendar) {
-	  if (view.name == 'agendaDay')
+	  if (view == 'agendaDay')
 	  {
+		$scope.isDay = true;
 		uiCalendarConfig.calendars['myCalendar1'].fullCalendar('option','contentHeight', 1050);
 		uiCalendarConfig.calendars[calendar].fullCalendar('changeView',view);
 	  }else{
+		$scope.isDay = false;
 		uiCalendarConfig.calendars['myCalendar1'].fullCalendar('option','contentHeight', 'auto');
 		uiCalendarConfig.calendars[calendar].fullCalendar('changeView',view);
 	  }
@@ -154,6 +202,13 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
 	};
 	
 	$scope.select = function( start, end, jsEvent, view ) {
+		$scope.isDay = true;
+		date = end.toDate();
+		console.log(date);
+		year = date.getFullYear();
+		month = date.getMonth();
+		day = date.getDate();
+		console.log(day);
 		$scope.changeView('agendaDay', 'myCalendar1');
 		uiCalendarConfig.calendars['myCalendar1'].fullCalendar('gotoDate',start);
 
