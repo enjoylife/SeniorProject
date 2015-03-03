@@ -11,18 +11,18 @@
 	</tr>
 
 	<tr>
-		<td>Start Date:</td>
+		<td>Start Time:</td>
 	</tr>
 	<tr>
-		<td><input type="text" ng-model="obj.start"></td>
-	</tr>
-
-	<tr>
-		<td>End Date:</td>
+		<td> <timepicker ng-model="event.timeStart" ng-change="changeStart()" hour-step="1" minute-step="1" show-meridian="true"></timepicker></td>
 	</tr>
 
 	<tr>
-		<td><input type="text" ng-model="obj.end"></td>
+		<td>End Time:</td>
+	</tr>
+
+	<tr>
+		<td><timepicker ng-model="event.timeEnd" ng-change="changeEnd()" hour-step="1" minute-step="1" show-meridian="true"></timepicker></td>
 	</tr>
 
 </table>

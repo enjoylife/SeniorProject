@@ -1,14 +1,15 @@
 <ion-content class="calendar" scroll="true" zoom="xy">
 <div title="Calendar" ng-controller="CalendarCtrl">
-	<link href="lib/bootstrap-css/css/bootstrap.css" rel="stylesheet">
+	<link href="lib/bootstrap-css/css/bootstrap.min.css" rel="stylesheet">
     <link href="lib/fullcalendar/dist/fullcalendar.css" rel="stylesheet">
 	<link href="lib/fullcalendar/dist/jquery-ui.theme.css" rel="stylesheet">
 	<div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
 		<h4>{{alertMessage}}</h4>
 	</div>
 		<div class="row calendar">
-			<button class="button b-1 full-width" ng-click="changeView('agendaDay', 'myCalendar1')">Day Agenda</button>
 			<button class="button b-2 full-width" ng-click="changeView('month', 'myCalendar1')">Month Agenda</button>
+			<button class="button b-1 full-width" ng-hide="isDay" ng-click="changeView('agendaDay', 'myCalendar1')">Day Agenda</button>
+			<button class="button button-icon icon ion-plus-circled b-1 full-width" ng-show="isDay" ng-click="addEvent()"></button>
 		</div>
 		<div ng-model="eventSources" calendar="myCalendar1" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>                       
 </div>
