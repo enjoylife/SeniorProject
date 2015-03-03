@@ -1,40 +1,36 @@
 
+<ion-content class="profile">
+  <div class="row">
+    <img src="css/sjs-logo.png"   alt="" id="profilePic">
+  </div>
+  <div class="row">
+        <small class="edit-photo" on-touch="getPhoto()">Change Photo</small>
 
-<div class="row">
+  </div>
+ <div class="row">
+       <blockquote>
+       <p>{{quoteObj.quote}}</p>
+       <footer>{{quoteObj.cite}}</footer>
+          </blockquote>
+  </div>
 
-<div class="col">
-  <img src="" ng-show="picture" alt="" id="profilePic">
-  <i ng-hide="picture" on-touch="getPhoto()" class="user-profile-blank icon ion-person"></i>
-</div>
-<div class="col">
-     <blockquote>
-  <p>{{quoteObj.quote}}</p>
-  <footer>{{quoteObj.cite}}</footer>
-</blockquote>
-</div>
-</div>
-
-
-<!-- Desired career and points -->
- <!-- Desired Career -->
-<div class="list">
-  <label class="item item-input item-floating-label">
-    <span class="input-label">Desired Career</span>
-    <input type="text" placeholder="Desired Career" 
-      ng-model="user.career" ng-change="saveLocal('career')">
-  </label>
-  <label class="item item-input item-floating-label">
-    <span class="input-label">Set Fulfillment Deadline</span>
-    <input type="text" placeholder="Set Fulfillment Deadline"
-    ng-model="user.deadline" ng-change="saveLocal('deadline')">
-  </label>
-  <label class="item item-input item-floating-label">
-    <span class="input-label">Email</span>
-    <input type="text" placeholder="Email"
-    ng-model="user.email" ng-change="saveLocal('email')">
-  </label>
-</div>
- 
+  <!-- Desired career and points -->
+   <!-- Desired Career -->
+  <div class="list">
+    <label class="item item-input">
+      <input type="text" placeholder="Desired Career" 
+        ng-model="user.career" ng-change="saveLocal('career')">
+    </label>
+    <label class="item item-input ">
+      <input type="text" placeholder="Set Fulfillment Deadline"
+      ng-model="user.deadline" ng-change="saveLocal('deadline')">
+    </label>
+    <label class="item item-input">
+      <input type="text" placeholder="Email"
+      ng-model="user.email" ng-change="saveLocal('email')">
+    </label>
+  </div>
+   </ion-content>
 
 
 

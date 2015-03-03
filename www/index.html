@@ -20,7 +20,9 @@
 	  <script src="cordova.js"></script>
 
 	 <!-- library -->
-	  <script src="lib/jquery/dist/jquery.js"></script>
+	  <script src="lib/jquery/dist/jquery.min.js"></script>
+	 <script src="lib/jquery-ui-touch-punch/jquery-ui.min.js"></script>
+	  <script src="lib/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
     <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="lib/moment/moment.js"></script>
     <script src="lib/fullcalendar/dist/fullcalendar.min.js"></script>
@@ -43,7 +45,7 @@
     <ion-header-bar class="header-bar">
       <div class="buttons">
         <button alt="content" on-tap="toggleSideNav()" 
-            class="button button-icon ion-document-text i48" ></button>
+            class="button button-icon ion-navicon i48" ></button>
       </div>
       <h1 class="title">Serious Job Seeker</h1>
       <div class="buttons">
@@ -62,7 +64,35 @@
 
     <!-- Left menu -->
     <ion-side-menu side="left">
-      <time-line></time-line>
+      <!-- <time-line></time-line> -->
+      <ion-content ng-controller="timelineCtrl">
+        <div  class="time-line-section" ng-repeat="content in contentOutline">
+          <div class="header">    
+            <div class="circle"></div>
+            <h1> {{content.title}}</h1>
+            <div class="details">
+              <h3>Completed</h3>
+              <span>{{content.numComplete}} / {{content.sections.length}}</span>
+            </div>
+             <div class="details">
+              <h3>Last Read</h3>
+              <span>{{getLastRead(content)}}</span>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="content"  ng-repeat="section in content.sections track by $index" >
+
+            <div class="object" on-tap="jumpToSection({folder:content.folder,file:section.file})" >
+              <div class="date">   
+                {{$index}}
+              </div>
+              <div class="context" >
+                {{section.title}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-content>
     </ion-side-menu>
 </ion-side-menus>
 
