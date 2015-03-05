@@ -152,7 +152,8 @@ app.controller('comsCtrl', ['$scope', 'scraper', '$ionicScrollDelegate', 'asmntR
 
 	$scope.getResults = function(){
 		//alert($scope.results);
-		$scope.results = scraper.output();
+		$scope.results = scraper.output().sort(function(a, b){ return b.sum-a.sum });
+		//$scope.results.sort(function(a, b){ return(b-a) });
 		console.log("getResults() results = " + $scope.results);
 		$ionicScrollDelegate.scrollTop();
 
@@ -163,7 +164,7 @@ app.controller('comsCtrl', ['$scope', 'scraper', '$ionicScrollDelegate', 'asmntR
 		var datestring = curmonth + "/" + curday + "/" + curyear;
 		
 		//send results to asmnt results factory
-		asmntResultService.addAsmntResult(scraper.output(), 'MSI Results', datestring);
+		asmntResultService.addAsmntResult($scope.results, 'MSI Results', datestring);
 		$localstorage.setObject( 'assessments', asmntResultService.getAsmntResult() );
 	}		
 
