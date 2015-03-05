@@ -70,22 +70,35 @@ app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup'
 		$scope.asmntResults = asmntResultService.getAsmntResult();
 	}
 
+	//showResults will check the asmnt.title and show display the corresponding assessment
+	//accordingly
 	$scope.showResults = function(asmnt, index){
-		//pass in array of assessment results for a particular assessment to scope variable
+		if(asmnt.title === 'MSI Results'){
+			//document.getElementById("showAsmnts").style.display = "none";
+			//document.getElementById("showAsmntResults").style.display = "block";
+			$scope.toggle("showAsmnts", "showAsmntResults");
+			$scope.header = asmnt.title + " taken " + asmnt.date;
+			//pass in array of assessment results for a particular assessment to scope variable
+			$scope.resultObjects = asmnt.results;
 
-		document.getElementById("showAsmnts").style.display = "none";
-		document.getElementById("showAsmntResults").style.display = "block";
-		$scope.header = asmnt.title + " taken " + asmnt.date;
-		$scope.resultObjects = asmnt.results;
+			console.log($scope.header);
+			console.log($scope.resultObjects);
+		}
 
-		console.log($scope.header);
-		console.log($scope.resultObjects);
+		if(asmnt.title === 'Career Personality Results'){
+		
+			$scope.toggle("showAsmnts", "showPersonalityResults");
+			$scope.header = asmnt.title + " taken " + asmnt.date;
+			$scope.resultObjects = asmnt.results;
+			console.log($scope.resultObjects);
+
+		}
 
 	}
 
-	$scope.back = function(){
-		document.getElementById("showAsmntResults").style.display = "none";
-		document.getElementById("showAsmnts").style.display = "block";	
+	$scope.toggle = function(one, two){
+		document.getElementById(one).style.display = "none";
+		document.getElementById(two).style.display = "block";	
 		$scope.setScreen();
 	}
 
@@ -93,13 +106,11 @@ app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup'
 	$scope.delete = function(index){
 		var confirmPopup = $ionicPopup.confirm({
 		 title: 'Are you sure you want to delete this result?',
-		 /*template: 'Are you sure you want to delete this job application record?'*/
 	   });
 	   confirmPopup.then(function(res) {
 		 if(res) {
 		   asmntResultService.deleteAsmnt( index );
 		   $localstorage.setObject( 'assessments', asmntResultService.getAsmntResult() );
-		   $scope.back();
 		 } else {
 		   
 		 }
