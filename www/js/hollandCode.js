@@ -1,4 +1,4 @@
-app.controller('holland',['$scope',function($scope){
+app.controller('holland',['$scope', '$localstorage', 'asmntResultService', function($scope, $localstorage, asmntResultService){
 
   var personalities = {
             'realistic'   :0,  'investigative':0, 
@@ -11,7 +11,8 @@ $scope.index =  $scope.isComplete = 0;
 
 $scope.nextPair = function(personality){
   $scope.index++; personalities[personality]++
-  if($scope.index == $scope.pairs.length){
+  console.log(personalities);
+  if($scope.index == $scope.pairs.length){ //if user is finished with asmnt...
     $scope.isComplete = true;
     $scope.results = {
       labels: Object.keys(personalities),
@@ -27,6 +28,17 @@ $scope.nextPair = function(personality){
         }
       ]
     }
+
+    //code to send career personality asmnt results to career binder asmnt results
+    d = new Date();
+    curday = d.getDate();
+    curmonth = d.getMonth();
+    curyear = d.getFullYear();
+    var datestring = curmonth + "/" + curday + "/" + curyear;
+
+    asmntResultService.addAsmntResult(personalities, 'Career Personality Results', datestring);
+    $localstorage.setObject( 'assessments', asmntResultService.getAsmntResult() );
+
   } 
 };
 
@@ -52,7 +64,6 @@ $scope.nextPair = function(personality){
           console.log(scope.results);
           var ctx = document.getElementById("radar-chart").getContext("2d")
           var myRadarChart = new Chart(ctx).Radar(scope.results);
-
         }
       })
     }

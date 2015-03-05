@@ -3,19 +3,23 @@
 >
 	<h3 align="center" style="padding-top:20px; color:white;">Assessment Results</h3>
 
-	<div id="showAsmnts" style="padding-top:15px;">
+	<div id="showAsmnts" style="padding:15px;">
 
 		<div class="asmntResults-row"
 			align="center"
 			ng-repeat="asmnt in asmntResults track by $index" 
-			ng-click="showResults(asmnt, $index)"
+		>	
 
-		>
-			{{asmnt.title}} {{asmnt.date}}
+			<span ng-click="showResults(asmnt, $index)" style="float:left;">{{asmnt.title}} - {{asmnt.date}}</span>			
+			<br><br>
+			<span>
+				<i class="icon ion-close" ng-click="delete($index)"></i>
+			</span>
 		</div>
 
 	</div>
 
+	<!-- MSI RESULTS -->
 	<div  id="showAsmntResults" hidden="true" style="padding:20px;">
 
 		<table style="margin:auto; background-color:white; border:15px solid white;">
@@ -34,14 +38,40 @@
 				</td>
 			</tr>
 		</table>
-
-		<span style="float:right;">
-			<button class="button" ng-click="back()">
+		<br>
+		<span style="float:left;">
+			<button class="button" ng-click="toggle('showAsmntResults', 'showAsmnts')">
 				<i class="icon ion-chevron-left"></i>
 			</button>			
-			<button class="button" ng-click="delete($index)">
-				<i class="icon ion-close"></i>
-			</button>
-		</span>
+		</span>		
+	</div>
+
+
+	<!-- CAREER PERSONALITY RESULTS -->
+	<div id="showPersonalityResults" hidden="true" style="padding:20px;">
+
+		<table style="margin:auto; background-color:white; border:15px solid white;">
+			<tr>
+				<td colspan="3"><h4 style="font-family: 'Montserrat'; padding-bottom:10px;">{{header}}</h4></td>				
+			</tr>
+			<tr ng-repeat="(key, val) in resultObjects track by $index">
+				<td align="center" style="width:15%;">
+					<span class="circleAsmntResults">
+						{{val}}
+					</span>
+				</td>
+				<td>
+					<span style="font-style:italic;">{{key}}</span>
+					<p>&nbsp;</p>
+					<!-- {{ro.b}} <p>&nbsp;</p> -->
+				</td>
+			</tr>
+		</table>
+		<br>
+		<span style="float:left;">
+			<button class="button" ng-click="toggle('showPersonalityResults', 'showAsmnts')">
+				<i class="icon ion-chevron-left"></i>
+			</button>			
+		</span>		
 	</div>
 </ion-content>
