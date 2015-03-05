@@ -6,12 +6,18 @@ function loadUser(){
   return JSON.parse(localStorage.getItem('user'))
 }
 
-app.controller('profile',function($scope,  Camera){
+
+
+
+app.controller('profile',function($scope){
   var quoteArray = [{quote:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.", cite:"Someone famous"}];
   $scope.quoteObj = quoteArray[0];
-
+  $scope.imageSrc = 'css/sjs-logo.png';
   // I do not set within user
-  $scope.picture = localStorage.getItem('userProfilePicture');
+   $scope.picture = JSON.parse(localStorage.getItem('userProfilePicture'));
+   $scope.imageSrc = $scope.picture;
+
+
   $scope.user = loadUser();
 
   $scope.randQuote = function(){
@@ -33,41 +39,55 @@ app.controller('profile',function($scope,  Camera){
       alert('Failed because: ' + message);
   }
 
-  $scope.getPhoto = function() {
-    Camera.getPicture().then(function(imageURI) {
-      console.log(imageURI);
-      localStorage.setItem('userProfilePicture',imageURI )
-    }, function(err) {
-      console.err(err);
-    },
-    {
-      sourceType:navigator.camera.PictureSourceType.PHOTOLIBRARY,
-      quality: 50,
-      destinationType: navigator.camera.DestinationType.FILE_URI,
-      targetWidth: 320,
-      targetHeight: 320,
-      saveToPhotoAlbum: false
-    });
-  }
+var pictureSource;   // picture source
+var destinationType; // sets the format of returned value
+
+// Wait for device API libraries to load
+//
+document.addEventListener("deviceready",onDeviceReady,false);
+
+// device APIs are available
+//
+function onDeviceReady() {
+    pictureSource=navigator.camera.PictureSourceType;
+    destinationType=navigator.camera.DestinationType;
+}
+
+
+// Called if something bad happens.
+//
+function onFail(message) {
+  alert('Failed because: ' + message);
+}
+
+$scope.$watch('imageSrc', function(){
+  
+
+  // img.src = $scope.imageSrc;
+})
+  // Called when a photo is successfully retrieved
+//
+function onPhotoURISuccess(imageURI) {
+  // Uncomment to view the image file URI
+   console.log(typeof(imageURI) != 'undefined');
+
+  // Get image handle
+  var data = "data:image/jpeg;base64," + imageURI;
+  $scope.imageSrc = data;
+  localStorage.setItem('userProfilePicture', JSON.stringify(data));
+  var img = document.getElementById('profilePic');
+  img.src = data;
+
+}
+
+  // A button will call this function
+  $scope.getPhoto = function () {
+      // Retrieve image file location from specified source
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+        destinationType: destinationType.DATA_URL ,
+        sourceType: pictureSource.SAVEDPHOTOALBUM });
+    }
 
 $scope.randQuote()
 
 })
-
-app.factory('Camera', ['$q', function($q) {
-
-  return {
-    getPicture: function(options) {
-      var q = $q.defer();
-
-      navigator.camera.getPicture(function(result) {
-        // Do any magic you need
-        q.resolve(result);
-      }, function(err) {
-        q.reject(err);
-      }, options);
-
-      return q.promise;
-    }
-  }
-}]);
