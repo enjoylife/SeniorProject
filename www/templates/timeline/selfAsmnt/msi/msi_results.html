@@ -1,11 +1,21 @@
 <div ng-controller="comsCtrl" ng-init="getResults()">
-	<h2>Results</h2>
-	<h3>Scores Displayed Were Given a Six or Higher</h3>
+	<div class="resultFormat">
+		<h3>Motivated Skills Inventory Results</h3>
 
-	<table>
+		<p>The ratings are a combination of motivation plus skill level. <b><u>These results are important!</u></b> They can be referenced anytime from your Career Binder.</p>
+
+		<p>A skill rating of 8 means you are highly skilled and highly motivated. A score of 7 means you are slightly lacking in motivation or skill, etc.</p>
+
+		<p>Skills you rate below a 6 will not be considered.</p>
+		
+		<h4><b>Focus on your 8s!</b></h4>
+		<p>&nbsp;</p>
+	
+	<table style="width:90%;">
 		<tr ng-repeat="result in results">
 			<td><b>{{result.h}}</b>{{result.b}}</td>
 			<td style="width: 25%;">{{result.sum}}</td>
 		</tr>
 	</table>
+	</div>
 </div>

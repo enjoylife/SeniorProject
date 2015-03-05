@@ -5,17 +5,19 @@
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('prototype', [ 'ionic', 'ngCordova','ionic.ion.headerShrink', 'ui.calendar', 'ui.bootstrap'])
 
-app.run(function($ionicPlatform) {
+app.run(function($ionicPlatform, $localstorage) {
       (function getHistory(){
         var hist = JSON.parse(localStorage.getItem('hist'));
         // We havent entered history before, set defaults
         // TODO test and handle inital setup or defaults regarding user data
         if(hist == null){
-           populateDefaults()
+           populateDefaults();
+           console.log("populateDefaults");
         } else {
             contentOutline = hist;
+            console.log("hist");
         }
-      })()
+      })
 	$ionicPlatform.ready(function() {
      if(window.cordova && window.cordova.plugins.Keyboard) {
           window.cordova.plugins.Keyboard.disableScroll(true);
@@ -228,19 +230,21 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
   $scope.count = contactService.getContactsService().length;
 })
 
-app.controller('timelineCtrl', (function($scope, $state){
-
+app.controller('timelineCtrl', ['$scope', '$state', function($scope, $state){
       $scope.contentOutline = contentOutline;
 
       $scope.getSubsection = function(section){
+
         return contentOutline[section].sectionOrder;
       }
 
       $scope.getTitle = function(section, subsection){
+
         return contentOutline[section][subsection].title;
       }
 
       $scope.jumpToSection = function(params){
+
         if(!('file' in params && 'folder' in params)){
           throw new Error("Missing required parameter for jumping into sections.")
         }
@@ -267,9 +271,10 @@ app.controller('timelineCtrl', (function($scope, $state){
 
 
       $scope.setHistory = function(){
+
         localStorage.setItem('hist', JSON.stringify(contentOutline));
       }
-    }))
+    }])
 
 app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate){
   var
@@ -280,6 +285,7 @@ app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate){
 
   $scope.leadIn = function(){
     var section = _.find(contentOutline, function(obj){
+
       return obj.folder == $state.params.folder;
     })
 
@@ -287,7 +293,7 @@ app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate){
       return obj.file == $state.params.file;
     })
 
-    return subsection.title
+    return subsection.title;
   }
 
 

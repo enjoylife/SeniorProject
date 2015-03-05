@@ -43,10 +43,10 @@ var contentOutline = [
 		folder:'assessment',
 		title: "Assessments",
 
-		sections :[
+		sections:[
 			{
 				file:'personality.html',
-				title:'career Personality Type'
+				title:'Career Personality Type'
 			},
 			{
 				file:'skills.html',
@@ -103,4 +103,4 @@ var contentOutline = [
 
 		]
 	}
-]
+];

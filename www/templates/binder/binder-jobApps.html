@@ -1,20 +1,40 @@
-<div title="Job Applications/Resumes Sent" ng-controller="JobAppCtrl"> 
+<ion-content title="Job Applications/Resumes Sent" 
+			ng-controller="JobAppCtrl"
+			style="background-color:#C0C0C0;"
+> 
 
-	<!-- <h1>Hello, World!</h1>   -->
-	  <table style="margin:auto; margin-bottom:10px; border:1px solid black;" ng-repeat="item in getJobs() track by $index">	
+	<h3 align="center" style="padding-top:20px; color:white;">Applications Sent</h3>  
+
+	  <table class="jobApps" 
+	  	ng-repeat="item in getJobs() track by $index"
+	  >	
 		  <tr>
-		  	<td><b>Company:</b> {{item.company}}</td>
+		  	<td style="padding-bottom:10px;"><b>Company:</b></td> 
+		  	<td style="padding-bottom:10px;">{{item.company}}</td>
 		  </tr>
 		  <tr>
-		  	<td><b>Job Title:</b> {{item.jobTitle}}</td>
+		  	<td style="padding-bottom:10px;"><b>Job Title:</b></td>
+		  	<td style="padding-bottom:10px;">{{item.jobTitle}}</td>
 		  </tr>
 		  <tr>
-		  	<td><b>Date applied:</b> {{item.date}}</td>
+		  	<td style="padding-bottom:10px;"><b>Description:</b></td>
+		  	<td style="padding-bottom:10px;">{{item.posDesc}}</td>
 		  </tr>
-		  <tr align="center">	
-		  	<td class="button button-clear button-balanced" ng-click="editJobForm(item,$index)">Edit</td>
-		  
-		  	<td class="button button-clear button-assertive" ng-click="removeJob($index)">Delete</td>
+		  <tr>
+		  	<td style="padding-bottom:10px;"><b>Notes:</b></td>
+		  	<td style="padding-bottom:10px;">{{item.notes}}</td>
+		  </tr>
+		  <tr>
+		  	<td style="padding-bottom:10px;"><b>Date applied:</b></td>
+		  	<td style="padding-bottom:10px;">{{item.date}}</td>
+		  </tr>
+		  <tr>	
+		  	<td colspan="2">
+		  		<span style="float:right;">
+			  		<i class="icon ion-edit" style="padding-right:10px;" ng-click="editJobForm(item,$index)"></i>
+			  		<i class="icon ion-close" ng-click="removeJob($index)"></i>
+		  		</span>
+		  	</td>
 		  </tr>
 	  </table>
 
@@ -23,4 +43,4 @@
 		<a class="button button-icon icon ion-plus-circled" ng-click="jobForm()"></a>
 	  </div>
 
-</div>
+</ion-content>
