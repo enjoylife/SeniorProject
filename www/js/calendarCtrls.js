@@ -59,15 +59,17 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
 				//startTime = chrono.parseDate($scope.obj.start);
 				startHour = $scope.event.timeStart.getHours();
 				startMin = $scope.event.timeStart.getMinutes();
-				var startDate = moment({ y: year, M: month, d: day, h: startHour, m: startMin, s: 0, ms:0 });
-				$scope.obj.start = startDate.toDate()
+				//var startDate = moment({ y: year, M: month, d: day, h: startHour, m: startMin, s: 0, ms:0 });
+				var startDate = new Date( year, month, day, startHour, startMin, 0 , 0 );
+				$scope.obj.start = startDate;
 				
 				//Get end date
 				//endTime = chrono.parseDate($scope.obj.end);
 				endHour = $scope.event.timeEnd.getHours();
 				endMin = $scope.event.timeEnd.getMinutes();
-				var endDate = moment({ y: year, M: month, d: day, h: endHour, m: endMin, s: 0, ms:0 });
-				$scope.obj.end = endDate.toDate();
+				//var endDate = moment({ y: year, M: month, d: day, h: endHour, m: endMin, s: 0, ms:0 });
+				var endDate = new Date( year, month, day, endHour, endMin, 0, 0 )
+				$scope.obj.end = endDate;
 				
 				if ( $scope.obj.start === null || $scope.obj.end === null) {
 					e.preventDefault();
@@ -101,6 +103,7 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
 						console.log(result);
 					}, function (err) {
 						// error
+                        console.log(err);
 					});
 				}
 				
