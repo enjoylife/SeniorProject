@@ -87,30 +87,57 @@ var contentOutline = [
 	},
 
 	{
-		folder:'searchStrategy',
-		title: "Job Search Strategy",
+		folder:'interviews',
+		title: "Interviews",
 		//leadIn: "TODO",
 		sections :[
 			 {
-				file:'sjs8-0.html',
-				title:"Networking to Your Perfect Job"
+				file:'sjs10-1.html',
+				title:"What to do before you start interviewing"
 			},
 			{
-				file:'sjs8-4.html' ,
-				title:"TODO"
+				file:'sjs10-2.html' ,
+				title:"Typical Questions Asked During Interviews"
 			},
 			 {
-				file:'sjs8-5.html',
-				title:"TODO"
+				file:'sjs10-3.html',
+				title:"Quick Guide to Phases of a Successful Job Interview"
 			},
 			{
-				file:'sjs8-6.html',
-				title:"TODO"
+				file:'sjs10-4.html',
+				title:"Asking the interviewer Questions Gets the Job!"
 			},
 			{
-				file:'sjs8-10.html',
-				title:"TODO"
+				file:'sjs10-5.html',
+				title:"Phone Interviews Done Right!"
 			},
+			{
+				file:'sjs10-6.html',
+				title:"Interview and Dining Etiquette: You are being judged!!"
+			},
+			{
+				file:'sjs10-7.html',
+				title:"Costly Errors That Kill Job Offers"
+			},
+			{
+				file:'sjs10-8.html',
+				title:"Youthful indiscretions"
+			},
+			{
+				file:'sjs10-9.html',
+				title:"Does the handshake matter?"
+			},
+			{
+				file:'sjs10-10.html',
+				title:"Polishing Your Interviewing Skills: A Word to ESL Candidates"
+			},
+			{
+				file:'sjs10-11.html',
+				title:"Practical Strategies for Optimal English Communication During Interviews"
+			},
+
+
+
 
 		]
 	}
