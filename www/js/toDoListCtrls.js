@@ -1,5 +1,5 @@
 /* To-Do-List control */
-app.controller('ToDoCtrl', ['$scope', '$ionicActionSheet', '$ionicPopup', '$timeout', '$localstorage', 'toDoService', function($scope, $ionicActionSheet, $ionicPopup, $timeout, $localstorage, toDoService) {
+app.controller('ToDoCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage', 'toDoService', function($scope, $ionicPopup, $timeout, $localstorage, toDoService) {
   
   /* Load from local storage */
   var load = $localstorage.getObject( 'toDoList' );
@@ -37,7 +37,6 @@ app.controller('ToDoCtrl', ['$scope', '$ionicActionSheet', '$ionicPopup', '$time
 			  alertPopup.close();
 			});
 		  } else {
-		    console.log($scope.obj.end);
 			var d = chrono.parseDate($scope.obj.end);
 			console.log($scope.obj.end);
 			if (d === null) {
@@ -71,6 +70,69 @@ app.controller('ToDoCtrl', ['$scope', '$ionicActionSheet', '$ionicPopup', '$time
 
   };
   
+  //Edit to-do
+  $scope.editToDo = function(index) {
+	var temp = toDoService.getItem(index);
+	$scope.obj = {
+		title: temp.title,
+		end: temp.end,
+		id: temp.id
+	};
+    var myPopup = $ionicPopup.show({
+      title: 'Edit your to-do item',
+	  templateUrl: 'templates/binder/binder-toDo-popup.html',
+      scope: $scope,
+      buttons: [
+      { text: 'Cancel' },
+      {
+        text: '<b>Save</b>',
+        type: 'button-positive',
+		onTap: function(e) {
+	
+		  /* Empty input alert */
+		  if (!$scope.obj.title) {
+			e.preventDefault();
+			var alertPopup = $ionicPopup.alert({
+			  title: 'Input is empty',
+			  template: 'Please input an item'
+		    });
+			alertPopup.then(function(res) {
+			  alertPopup.close();  
+			});
+		  } else {
+			var d = chrono.parseDate($scope.obj.end);
+			console.log($scope.obj.end);
+			if (d === null) {
+				e.preventDefault();
+				var alertPopup = $ionicPopup.alert({
+				  title: 'Date is not correct',
+				  template: 'Try using month/date/year'
+				});
+				alertPopup.then(function(res) {
+				  alertPopup.close();
+				});
+			} else {
+			    $scope.obj.end = d.toDateString();
+				//var obj = { title: $scope.edit.title, date: $scope.obj.end, id: index };
+				toDoService.editItem( $scope.obj, index );
+				$localstorage.setObject( 'toDoList', toDoService.output() );
+			}
+			$scope.obj = {
+			  title: '',
+			  date: '',
+			  id: toDoService.getNumberOf()
+			};
+		  }
+		}
+      }
+    ]
+    });
+	myPopup.then(function(res) {
+		myPopup.close();
+    });
+
+  };
+  
     // Remove item
   $scope.removeItem = function(index) {
    var confirmPopup = $ionicPopup.confirm({
@@ -86,6 +148,10 @@ app.controller('ToDoCtrl', ['$scope', '$ionicActionSheet', '$ionicPopup', '$time
      }
    });
  };
+ 
+ $scope.removeAll = function() {
+	toDoService.removeAll();
+ }
   
   $scope.output = function () {
 	$scope.list = toDoService.output();
@@ -105,12 +171,39 @@ app.factory('toDoService', ['$localstorage', function($localstorage) {
 	list.push(item);
   }
   
+  function editItem( item, index ) {
+	removeItem( index );
+	list.splice(index,0,item);
+  }
+  
   function removeItem( index ) {
 	list.splice(index, 1);
   }
   
+  function removeAll() {
+	var oldList = list;
+    list = [];
+    angular.forEach(oldList, function(item) {
+      //add any non-done items to todo list
+        if (!item.done) {
+			list.push(item);
+		}
+    });
+    //update local storage
+    $localstorage.setObject('toDoList', list );
+  
+  }
+  
   function getNumberOf() {
 	return list.length;
+  }
+  
+  function getItem( index ) {
+	return list[index];
+  }
+  
+  function getTitle( index ) {
+	return list[index].title;
   }
   
   function output() {
@@ -120,8 +213,12 @@ app.factory('toDoService', ['$localstorage', function($localstorage) {
   return {
     loadList: loadList,
 	addToList: addToList,
+	editItem: editItem,
 	removeItem: removeItem,
+	removeAll: removeAll,
 	getNumberOf: getNumberOf,
+	getItem: getItem,
+	getTitle: getTitle,
 	output: output
   };
 }]); 

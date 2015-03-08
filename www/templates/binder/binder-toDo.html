@@ -1,15 +1,28 @@
-<div ng-controller="ToDoCtrl">
+<ion-content class="toDo-folder" ng-controller="ToDoCtrl">
 
 	<ion-list>
-       <ion-checkbox ng-repeat="list in output() track by $index" ng-model="list.done">
-        <span ng-class="{done: list.done}">{{list.title}}</span>
-		<div class="top-right">
-		<span ng-class="{done: list.done}">{{ " Due by " + list.end}}</span>
-		</div>
-      </ion-checkbox>
+	   <ion-item class="item-icon-right" ng-repeat="list in output() track by $index">
+            <div class="item-checkbox">
+                <label class="checkbox circle">
+                    <input type="checkbox"
+                           ng-model="list.done">
+                </label>
+				<div class="toDo-content">
+                <span ng-class="{done: list.done}">{{list.title}}</span>
+				<div class="top-right">
+				<span ng-class="{done: list.done}">{{ " Due by " + list.end}}</span>
+				</div>
+				</div>
+            </div>
+            <i class="icon ion-ios7-arrow-left"></i>
+            <ion-option-button class="button button-icon ion-edit" ng-click="editToDo($index)"></ion-option-button>
+            <ion-option-button class="button button-icon ion-close-round" ng-click="removeItem($index)"></ion-option-button>
+        </ion-item>
     </ion-list>
-
-	  <div class="button-bar">
-		<a class="button button-icon icon ion-plus-circled" ng-click="addToDo()"></a>
-	  </div>
-  </div>
+	
+	
+	<div class="button-bar">
+		<a class="button button-icon icon ion-plus-circled toDo-add" ng-click="addToDo()"></a>
+	</div>
+	
+</ion-content>

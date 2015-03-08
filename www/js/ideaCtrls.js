@@ -1,5 +1,5 @@
 /* Idea list control */
-app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage', 'ideaService', function($scope, $ionicPopup, $timeout, $localstorage, ideaService) {
+app.controller('IdeaCtrl', ['$scope', '$ionicPlatform', '$ionicPopup', '$timeout', '$localstorage', 'ideaService', function($scope, $ionicPlatform, $ionicPopup, $timeout, $localstorage, ideaService) {
   var d = new Date();
   var count = ideaService.getNumberOf();
   
@@ -13,7 +13,7 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
    $scope.addIdea = function() {
 	$scope.list = {}
     var myPopup = $ionicPopup.show({
-      template: '<input type="text" ng-model="list.idea">',
+      template: '<textarea rows="4" cols="50" ng-model="list.idea"></textarea>',
       title: 'Enter your ideas or inspirations',
       subTitle: 'Remember this could trigger motivation',
       scope: $scope,
@@ -54,7 +54,7 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
 		idea: ideaService.getTitle(index)
 	};
     var myPopup = $ionicPopup.show({
-      template: '<input type="text" ng-model="edit.idea">',
+      template: '<textarea rows="4" cols="50" ng-model="edit.idea"></textarea>',
       title: 'Change of idea? That is fine',
       scope: $scope,
       buttons: [
@@ -79,6 +79,7 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
 			var obj = { title: $scope.edit.idea, date: newDate.toDateString(), id: index };
 			ideaService.editItem( obj, index );
 			$localstorage.setObject( 'ideaList', ideaService.output() );
+			return $scope.obj;
 		  }
 		}
       }
@@ -112,6 +113,14 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
 	$scope.list = ideaService.output();
 	return $scope.list;
   }
+  
+  var closePopup = $ionicPlatform.registerBackButtonAction(
+	function () {
+		console.log("Back");
+		myPopup.close();
+    }, 100
+  );
+  $scope.$on('$destroy', closePopup)
 
 }])
 

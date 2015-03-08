@@ -563,3 +563,39 @@ section.lead-in h3{
 .calendar h2 {
   color: white;
 }
+
+/* To-Do-List */
+
+.toDo-folder {
+  background-color: rgb(42,97,139);
+  font-family: Montserrat;
+}
+
+.toDo-content {
+  color: rgb(42,97,139);
+  background-color: white;
+  padding: 10px;
+  font-family: 'Open Sans';
+  font-weight: 300;
+}
+
+.toDo-folder a.toDo-add {
+  color: white;
+}
+
+.circle input:checked:before, .checkbox input:checked + .checkbox-icon:before {
+	background: rgb(42,97,139);
+    border: none;
+}
+
+/* Contacts */
+
+.contacts-folder {
+  background-color: rgb(192,192,192);
+  font-family: Montserrat;
+}
+
+.contacts-folder a.contacts-add {
+  color: white;
+}
+
