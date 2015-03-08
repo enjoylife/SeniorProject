@@ -259,7 +259,7 @@ app.controller('marketCtrl', ['$scope', 'scraper', function($scope, scraper){
 		
 		$scope.total($scope.marketQuestions.socialHead, $scope.marketQuestions.socialBody, $scope.data.socialSVal, $scope.data.socialMVal);
 		$scope.total($scope.marketQuestions.PRHead, $scope.marketQuestions.PRBody, $scope.data.PRSVal, $scope.data.PRMVal);
-		$scope.total($scope.marketQuestions.custservBody, $scope.marketQuestions.custservHead, $scope.data.custservSVal, $scope.data.custservMVal);
+		$scope.total($scope.marketQuestions.custservHead, $scope.marketQuestions.custservBody, $scope.data.custservSVal, $scope.data.custservMVal);
 		$scope.total($scope.marketQuestions.marketsalesHead, $scope.marketQuestions.marketsalesBody, $scope.data.marketsalesSVal, $scope.data.marketsalesMVal);
 		$scope.total($scope.marketQuestions.profHead, $scope.marketQuestions.profBody, $scope.data.profSVal, $scope.data.profMVal);
 		$scope.total($scope.marketQuestions.improvementHead, $scope.marketQuestions.improvementBody, $scope.data.improvementSVal, $scope.data.improvementMVal);
@@ -691,7 +691,6 @@ app.controller('teachingCtrl', ['$scope', 'scraper', function($scope, scraper){
 		}
 		$scope.data.teachingTotals.push(t);
 	}	
-
 
 	$scope.commitVals = function(){
 		//call the total function for each set of questions and add them to

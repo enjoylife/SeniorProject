@@ -2,7 +2,7 @@
 // Strings defined in section order per those main objects define files within those sub-folders.
 var contentOutline = [
 
-	{
+	/*{
 		folder:'interview',
 		title:'Interview',
 		sections: [
@@ -11,7 +11,7 @@ var contentOutline = [
 			title:'Interviews - the essentials of your presentation'
 		}
 		]
-	},
+	},*/
 	// Each section needs:
 	// title, leadIn, sectionOrder and a number of objects defining the subsections
 	{
@@ -40,6 +40,17 @@ var contentOutline = [
 	},
 
 	{
+		folder: 'careerbinder_text',
+		title: 'Staying Organized',
+		sections: [
+			{
+				file: 'sjs2-0.html',
+				title: 'Your Career Binder ... absolutely essential!'
+			},
+		]
+	},
+
+	{
 		folder:'assessment',
 		title: "Assessments",
 
@@ -50,54 +61,54 @@ var contentOutline = [
 			},
 			{
 				file:'skills.html',
-				title: 'Motivated Skills Assessment'
+				title: 'Motivated Skills Inventory'
 			},
-			{
-				file:'values.html',
-				title: 'Work Values and Priorities'
-			},
-			{
-				file:'knowledge.html',
-				title : "Key Knowledge Areas"
-			},
-			{
-				file:'interests.html',
-				title: "Life Interests and Passions"
-			},
-			{
-				file: 'environment.html',
-				title: "Your Ideal Life/Work Environment"
-			},
-			{
-				file:'goals.html',
-				title: 'Your Goals and Priorities'
-			}
+			// {
+			// 	file:'values.html',
+			// 	title: 'Work Values and Priorities'
+			// },
+			// {
+			// 	file:'knowledge.html',
+			// 	title : "Key Knowledge Areas"
+			// },
+			// {
+			// 	file:'interests.html',
+			// 	title: "Life Interests and Passions"
+			// },
+			// {
+			// 	file: 'environment.html',
+			// 	title: "Your Ideal Life/Work Environment"
+			// },
+			// {
+			// 	file:'goals.html',
+			// 	title: 'Your Goals and Priorities'
+			// }
 		],
 	},
 
 	{
 		folder:'searchStrategy',
 		title: "Job Search Strategy",
-		leadIn: "TODO",
+		//leadIn: "TODO",
 		sections :[
 			 {
-				file:'sj8-0.html',
-				title:"TODO"
+				file:'sjs8-0.html',
+				title:"Networking to Your Perfect Job"
 			},
 			{
-				file:'sj8-4.html' ,
+				file:'sjs8-4.html' ,
 				title:"TODO"
 			},
 			 {
-				file:'sj8-5.html',
+				file:'sjs8-5.html',
 				title:"TODO"
 			},
 			{
-				file:'sj8-6.html',
+				file:'sjs8-6.html',
 				title:"TODO"
 			},
 			{
-				file:'sj8-10.html',
+				file:'sjs8-10.html',
 				title:"TODO"
 			},
 
