@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.prototype611949" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Serious Job Seeker</name>
-  <description>
-        App to help you find the career that fits you best
+  <name>SeriousJobSeeker</name>
+  <description>
+
+
+
+        App to help you find the career that fits you best
+
+
+
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+  <author email="hi@ionicframework" href="http://ionicframework.com/">
+
+
+
+      Ionic Framework Team
+
+
+
     </author>
   <icon src="logo/sjs-logo.png"/>
   <platform name="android">
