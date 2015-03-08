@@ -1,4 +1,6 @@
-<div title="Professional Contacts" ng-controller="contactsCtrl">
+<ion-content class="contacts-folder"
+			 title="Professional Contacts"
+			 ng-controller="contactsCtrl">
 		<table style="margin: auto; margin-bottom: 10px;" ng-repeat="contact in getContacts() track by $index">
 			<tr>
 				<td><b>Name:</b> {{contact.displayName}}</td>
@@ -28,6 +30,6 @@
 		</table>
 
 		<div class="button-bar">
-		<a class="button button-icon icon ion-plus-circled" ng-click="contactForm()"></a>
+		<a class="button button-icon icon ion-plus-circled contacts-add" ng-click="contactForm()"></a>
 	  	</div>
-</div>
+</ion-content>
