@@ -85,6 +85,26 @@ var contentOutline = [
 			// }
 		],
 	},
+	
+	{
+		folder:'resume',
+		title: "Resumes",
+
+		sections :[
+			 {
+				file:'sjs9-0.html',
+				title:"Resume Explained"
+			},
+			{
+				file:'sjs9-1.html' ,
+				title:"Resume Samples"
+			},
+			 {
+				file:'sjs9-2.html',
+				title:"Portfolio Construction"
+			},
+		]
+	},
 
 	{
 		folder:'interviews',
@@ -140,34 +160,6 @@ var contentOutline = [
 
 
 		]
-	},
-	
-	{
-		folder:'resume',
-		title: "Resumes",
-
-		sections :[
-			 {
-				file:'sjs9-0.html',
-				title:"Resume Explained"
-			},
-			{
-				file:'sjs9-1.html' ,
-				title:"Resume Samples"
-			},
-			 {
-				file:'sjs9-2.html',
-				title:"Portfolio Construction"
-			},
-			{
-				file:'sj8-6.html',
-				title:"TODO"
-			},
-			{
-				file:'sj8-10.html',
-				title:"TODO"
-			},
-
-		]
 	}
+	
 ];
