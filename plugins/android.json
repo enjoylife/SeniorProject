@@ -13,6 +13,10 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"DatePickerPlugin\"><param name=\"android-package\" value=\"com.plugin.datepicker.DatePickerPlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
                             "count": 1
                         }
@@ -23,6 +27,9 @@
     },
     "installed_plugins": {
         "com.ionic.keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.prototype611949"
+        },
+        "com.plugin.datepicker": {
             "PACKAGE_NAME": "com.ionicframework.prototype611949"
         }
     },

@@ -90,26 +90,27 @@ var contentOutline = [
 		folder:'searchStrategy',
 		title: "Job Search Strategy",
 		//leadIn: "TODO",
+		//this is the order Cici would like text to be displayed in job search strategy
 		sections :[
 			 {
 				file:'sjs8-0.html',
-				title:"Networking to Your Perfect Job"
+				title:"Intro: Networking to Your Perfect Job"
 			},
 			{
-				file:'sjs8-4.html' ,
-				title:"TODO"
+				file:'sjs8-10.html' ,
+				title:"Networking is a Contact Sport!"
 			},
 			 {
+				file:'sjs8-4.html',
+				title:"How to Arrange an Informational Interview"
+			},
+			{
 				file:'sjs8-5.html',
-				title:"TODO"
+				title:"How to Approach an Informational Interview"
 			},
 			{
 				file:'sjs8-6.html',
-				title:"TODO"
-			},
-			{
-				file:'sjs8-10.html',
-				title:"TODO"
+				title:"After the Informational Interview"
 			},
 
 		]
