@@ -246,7 +246,6 @@ app.controller('timelineCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', fu
           return obj.folder == $state.params.folder;
         })
 
-        console.log(section)
         var subsection = _.find(section.sections, function(obj){
           return obj.file == $state.params.file;
         })
