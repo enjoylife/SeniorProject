@@ -438,6 +438,8 @@ section.lead-in h3{
   background-color: #2e2e2e;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
   overflow: hidden;
+  position: relative;
+  z-index: 3;
 }
 
 .header .circle {
@@ -453,35 +455,31 @@ section.lead-in h3{
 }
 
 .header h1 {
-  width:160px;
-  position: relative;
-  top: 10px;
-  left: 70px;
+  padding:20px 20px 5px 20px;
   font-size: 1.9em;
+  margin:0px;
   color: #fff;
   /*border-bottom: 1px solid #999999;*/
   text-decoration: underline;
+  text-underline-position:under;
   text-decoration-color : #999999;
 }
 
 .header .details {
-  float: left;
-  padding-left: 0px;
-  margin-right: 20px;
+  text-align: left;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
 }
 
 .header .details h3 {
-  position: relative;
-  margin-top: 0px;
-  margin-bottom: 5px;
-  left: 70px;
+  display: inline;
+ padding:0px 20px 5px 20px;
   font-size: 0.8em;
   color: #fff;
 }
 
 .header .details span {
-  position: relative;
-  left: 70px;
   opacity: 0.7;
   font-size: 0.8em;
   color: #fff;
@@ -599,3 +597,31 @@ section.lead-in h3{
   color: white;
 }
 
+/* Animations between pages */
+[ui-view].ng-enter, [ui-view].ng-leave {
+
+  -webkit-transition:all .5s ease-in-out;
+    -moz-transition:all .5s ease-in-out;
+    -o-transition:all .5s ease-in-out;
+    transition:all .5s ease-in-out;
+}
+
+[ui-view].ng-enter {
+  opacity: 0;
+
+}
+
+[ui-view].ng-enter-active {
+  opacity: 1;
+
+}
+
+[ui-view].ng-leave {
+  opacity: 1; 
+
+}
+
+[ui-view].ng-leave-active {
+  opacity: 0;
+
+}

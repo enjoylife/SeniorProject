@@ -50,8 +50,8 @@
       <h1 class="title">Serious Job Seeker</h1>
       <div class="buttons">
         <button alt="profile" ui-sref="profile" 
-            class="button button-icon ion-record i48"></button>
-        <button alt="binder"  ui-sref="binder" class="button button-icon ion-stop i48"></button>
+            class="button button-icon ion-person i48"></button>
+        <button alt="binder"  ui-sref="binder" class="button button-icon ion-ios-briefcase i48"></button>
       </div>
     </ion-header-bar>
 <!--     <ion-content header-shrink> -->
@@ -68,15 +68,15 @@
       <ion-content ng-controller="timelineCtrl">
         <div  class="time-line-section" ng-repeat="content in contentOutline">
           <div class="header">    
-            <div class="circle"></div>
+            <!-- <div class="circle"></div> -->
             <h1> {{content.title}}</h1>
             <div class="details">
-              <h3>Completed</h3>
-              <span>{{content.numComplete}} / {{content.sections.length}}</span>
+              <h3>Completed:</h3>
+              <span>{{content.numComplete || 0}} / {{content.sections.length}}</span>
             </div>
              <div class="details">
-              <h3>Last Read</h3>
-              <span>{{getLastRead(content)}}</span>
+              <h3>Last Read:</h3>
+              <span>{{getLastRead(content) || "unread"}}</span>
             </div>
           </div>
           <div class="line"></div>
