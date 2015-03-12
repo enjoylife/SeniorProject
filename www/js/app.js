@@ -240,18 +240,20 @@ app.controller('timelineCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', fu
           throw new Error("Missing required parameter for jumping into sections.")
         }
         console.log('Routing to content/'+params.folder +'/'+ params.file)
-       
+        $state.go('content.sections',params);
 
         var section = _.find(contentOutline, function(obj){
           return obj.folder == $state.params.folder;
         })
+
+        console.dir(section);
 
         var subsection = _.find(section.sections, function(obj){
           return obj.file == $state.params.file;
         })
 
         section.lastRead = subsection.lastRead = moment().startOf('minute').fromNow();
-        $state.go('content.sections',params);
+        
         $scope.setHistory();
       };
 
