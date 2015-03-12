@@ -212,15 +212,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 
 app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $localstorage, contactService) {
-  // Provide an optional true or false
-  // to force specific open or close state
-  $scope.toggleSideNav = function(bool) {
-    if(bool == undefined){
-      $ionicSideMenuDelegate.toggleLeft();
-      return
-    }
-    $ionicSideMenuDelegate.toggleLeft(bool);
-  };
   
   /* Get count of contacts for display */
   var load = $localstorage.getObject( 'contacts' );
@@ -230,7 +221,7 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
   $scope.count = contactService.getContactsService().length;
 })
 
-app.controller('timelineCtrl', ['$scope', '$state', function($scope, $state){
+app.controller('timelineCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', function($scope, $state, $ionicSideMenuDelegate){
       $scope.contentOutline = contentOutline;
 
       $scope.getSubsection = function(section){
@@ -263,7 +254,7 @@ app.controller('timelineCtrl', ['$scope', '$state', function($scope, $state){
         section.lastRead = new Date();
         $scope.setHistory();
         // set last read to now
-        $scope.toggleSideNav(false);
+        // $ionicSideMenuDelegate.toggleLeft(false);
 
         // TODO Scroll to position using lastLocation
       };

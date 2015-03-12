@@ -44,7 +44,7 @@
     <ion-side-menu-content drag-content="false">
     <ion-header-bar class="header-bar">
       <div class="buttons">
-        <button alt="content" on-tap="toggleSideNav()" 
+        <button alt="content" menu-toggle 
             class="button button-icon ion-navicon i48" ></button>
       </div>
       <h1 class="title">Serious Job Seeker</h1>
@@ -82,7 +82,7 @@
           <div class="line"></div>
           <div class="content"  ng-repeat="section in content.sections track by $index" >
 
-            <div class="object" on-tap="jumpToSection({folder:content.folder,file:section.file})" >
+            <div class="object" menu-close on-tap="jumpToSection({folder:content.folder,file:section.file})" >
               <div class="date">   
                 {{$index}}
               </div>
