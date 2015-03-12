@@ -240,7 +240,7 @@ app.controller('timelineCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', fu
           throw new Error("Missing required parameter for jumping into sections.")
         }
         console.log('Routing to content/'+params.folder +'/'+ params.file)
-        $state.go('content.sections',params);
+       
 
         var section = _.find(contentOutline, function(obj){
           return obj.folder == $state.params.folder;
@@ -250,12 +250,9 @@ app.controller('timelineCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', fu
           return obj.file == $state.params.file;
         })
 
-        section.lastRead = new Date();
+        section.lastRead = subsection.lastRead = moment().startOf('minute').fromNow();
+        $state.go('content.sections',params);
         $scope.setHistory();
-        // set last read to now
-        // $ionicSideMenuDelegate.toggleLeft(false);
-
-        // TODO Scroll to position using lastLocation
       };
 
 

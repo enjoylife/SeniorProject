@@ -49,9 +49,8 @@
       </div>
       <h1 class="title">Serious Job Seeker</h1>
       <div class="buttons">
-        <button alt="profile" ui-sref="profile" 
-            class="button button-icon ion-person i48"></button>
-        <button alt="binder"  ui-sref="binder" class="button button-icon ion-ios-briefcase i48"></button>
+        <button alt="profile" ui-sref="profile" class="button button-icon ion-person i48"        ui-sref-active="active"></button>
+        <button alt="binder"  ui-sref="binder"  class="button button-icon ion-ios-briefcase i48" ui-sref-active="active"></button>
       </div>
     </ion-header-bar>
 <!--     <ion-content header-shrink> -->
@@ -76,7 +75,7 @@
             </div>
              <div class="details">
               <h3>Last Read:</h3>
-              <span>{{getLastRead(content) || "unread"}}</span>
+              <span>{{ content.lastRead || "unread"}}</span>
             </div>
           </div>
           <div class="line"></div>
