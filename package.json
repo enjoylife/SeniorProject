@@ -23,6 +23,7 @@
     "com.ionic.keyboard",
     "org.apache.cordova.device",
     "com.plugin.datepicker",
-    "org.apache.cordova.contacts"
+    "org.apache.cordova.contacts",
+    "https://github.com/katzer/cordova-plugin-local-notifications"
   ]
 }
