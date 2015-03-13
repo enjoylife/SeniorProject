@@ -10,15 +10,8 @@
 
 
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-
-
-
-      Ionic Framework Team
-
-
-
-    </author>
+  <author email="" href="">Serious Job Seeker</author>
+  <preference name="orientation" value="portrait" />
   <icon src="logo/sjs-logo.png"/>
   <platform name="android">
     <splash src="logo/resources/splash/android/splash-land-hdpi.png" density="land-hdpi"/>
