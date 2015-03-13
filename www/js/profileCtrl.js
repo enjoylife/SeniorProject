@@ -9,7 +9,41 @@ function loadUser(){
 
 
 
-app.controller('profile',function($scope){
+app.controller('profile',function($scope, $localstorage, $ionicPopup){
+
+  //introPopup function. This function will be called if the localstorage launchCount value is 0
+  //which will signify first time users.
+  var load = localStorage.getItem('launchCount');
+  //var load = $localstorage.get( 'isChecked' );
+
+//POPUP CODE 
+//POPUP CODE 
+//POPUP CODE 
+/*  $scope.desiredCareer = "Serious Job Seeker";
+  $scope.deadline = "";
+  $scope.isChecked = false;
+
+  if(load){
+    var introPopup = $ionicPopup.show({
+      title: 'Welcome!',
+      //subTitle: "Congratulations on beginning your journey as a Serious Job Seeker. To get started, let's set up your landing page with some immediate goals.",
+      templateUrl: "templates/introPopup.html",
+      scope: $scope,
+      buttons: [
+        {
+          text:'Submit',
+          onTap: function(e){
+            //save Desired Career in localStorage
+            $localstorage.set( 'Desired_Career' , $scope.DesiredCareer );
+            $localstorage.set( 'Deadline' , $scope.deadline );
+            $localstorage.set( 'isChecked' , $scope.isChecked );
+            $localstorage.set( 'isChecked' , true );
+          }
+        },
+      ]
+    });
+  }*/
+
   var quoteArray = [{quote:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.", cite:"Someone famous"}];
   $scope.quoteObj = quoteArray[0];
   $scope.imageSrc = 'css/sjs-logo.png';

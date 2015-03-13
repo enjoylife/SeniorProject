@@ -2,16 +2,6 @@
 // Strings defined in section order per those main objects define files within those sub-folders.
 var contentOutline = [
 
-	/*{
-		folder:'interview',
-		title:'Interview',
-		sections: [
-		{
-			file:'intro.html',
-			title:'Interviews - the essentials of your presentation'
-		}
-		]
-	},*/
 	// Each section needs:
 	// title, leadIn, sectionOrder and a number of objects defining the subsections
 	{

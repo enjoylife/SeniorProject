@@ -21,6 +21,7 @@ app.run(function($ionicPlatform, $localstorage) {
 	$ionicPlatform.ready(function() {
      if(window.cordova && window.cordova.plugins.Keyboard) {
           window.cordova.plugins.Keyboard.disableScroll(true);
+
       }
 	});
 	
@@ -37,8 +38,7 @@ app.run(function($ionicPlatform, $localstorage) {
 	  //First time launch. Set the local storage item
 	  window.localStorage.setItem('launchCount',1);
 	  console.log("FIRST TIME USER");
-
-	}
+	 }
 });
 
 app.config(function($stateProvider, $urlRouterProvider) {
@@ -47,7 +47,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('profile', {
     url: '/profile',
     templateUrl: 'templates/profile.html',
-    controller: 'profile'
+    //controller: 'profile'
   })
 
   /**
