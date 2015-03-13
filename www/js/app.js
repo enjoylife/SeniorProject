@@ -5,11 +5,12 @@
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('prototype', [ 'ionic', 'ngCordova','ionic.ion.headerShrink', 'ui.calendar', 'ui.bootstrap'])
 
-app.run(function($ionicPlatform, $localstorage) {
+app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope) {
       (function getHistory(){
         var hist = JSON.parse(localStorage.getItem('hist'));
         // We havent entered history before, set defaults
         // TODO test and handle inital setup or defaults regarding user data
+     
         if(hist == null){
            populateDefaults();
            console.log("populateDefaults");
@@ -17,12 +18,24 @@ app.run(function($ionicPlatform, $localstorage) {
             contentOutline = hist;
             console.log("hist");
         }
-      })
+      })()
 	$ionicPlatform.ready(function() {
+       // TESTING and DEMO purposes!!
+        populateDefaults(); // Always Populate Defaults
      if(window.cordova && window.cordova.plugins.Keyboard) {
           window.cordova.plugins.Keyboard.disableScroll(true);
 
       }
+
+   $rootScope.$on('$viewContentLoaded', 
+    function(event){ 
+      $ionicScrollDelegate.freezeScroll(true); 
+      window.setTimeout(function(){
+        $ionicScrollDelegate.freezeScroll(false); 
+        $ionicScrollDelegate.resize(); 
+        console.log($ionicScrollDelegate.getScrollView().__contentHeight);
+      },1000)
+   });
 	});
 	
 	
@@ -219,6 +232,9 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
 		contactService.loadList( load );
 	}
   $scope.count = contactService.getContactsService().length;
+
+  
+  
 })
 
 app.controller('timelineCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', function($scope, $state, $ionicSideMenuDelegate){
@@ -241,20 +257,22 @@ app.controller('timelineCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', fu
         }
         console.log('Routing to content/'+params.folder +'/'+ params.file)
         $state.go('content.sections',params);
+        $scope.setHistory();
+        console.log(params);
 
         var section = _.find(contentOutline, function(obj){
-          return obj.folder == $state.params.folder;
+          return obj.folder == params.folder;
         })
 
-        console.dir(section);
+
 
         var subsection = _.find(section.sections, function(obj){
-          return obj.file == $state.params.file;
+          return obj.file == params.file;
         })
 
         section.lastRead = subsection.lastRead = moment().startOf('minute').fromNow();
         
-        $scope.setHistory();
+       
       };
 
 
@@ -339,6 +357,7 @@ app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate){
     var next = nextSubSection();
     $ionicScrollDelegate.scrollTop();
     $state.go('content.sections', next)
+    $ionicScrollDelegate.resize();
  
     // $uiViewScroll($(".content-wrapper"));
   }
