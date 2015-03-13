@@ -11,7 +11,11 @@
 
     </description>
   <author email="" href="">Serious Job Seeker</author>
-  <preference name="orientation" value="portrait" />
+  <preference name="orientation" value="portrait"/>
+  <preference name="webviewbounce" value="false"/>
+  <preference name="UIWebViewBounce" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="BackupWebStorage" value="none"/>
   <icon src="logo/sjs-logo.png"/>
   <platform name="android">
     <splash src="logo/resources/splash/android/splash-land-hdpi.png" density="land-hdpi"/>
@@ -37,10 +41,6 @@
   </platform>
   <content src="index.html"/>
   <access origin="*"/>
-  <preference name="webviewbounce" value="false"/>
-  <preference name="UIWebViewBounce" value="false"/>
-  <preference name="DisallowOverscroll" value="true"/>
-  <preference name="BackupWebStorage" value="none"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
