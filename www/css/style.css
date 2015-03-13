@@ -275,6 +275,7 @@ Binder
 
 .row.binder {
   padding:0px;
+  height:34%;
   -webkit-flex:1;
       -ms-flex:1;
           flex:1;
