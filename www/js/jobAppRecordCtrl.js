@@ -30,30 +30,27 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', '$localstorage', 'jobAppS
   if (Object.keys(load).length !== 0) {
 	jobAppService.loadList( load );
   }
-  
-  //command a popup window to be filled with job application data
-  $scope.jobForm = function(){
-    var newJob = $ionicPopup.show({
-      title: 'New Job Application',
-      templateUrl: 'templates/binder/binder-jobApps-popup.html',
-      scope: $scope,
-      buttons: [
-        {
-          text:'Cancel',
-          
-        },
-        {
-          text: 'Submit',
-          //type: '',
-          onTap: function(e){
-            //console.log("Hello");
-            $scope.addRecord(e);
-            //newJob.close();
-          }
-        }
-      ]
-    });
-  };
+
+
+  //JQuery for popups
+  $("#jobButton").click(function(){
+    $("#update").hide();
+    $("#submit").show();
+    $("#popup").fadeIn("slow");
+  });
+
+  $("#cancel").click(function(){
+    $("#popup").fadeOut("slow");
+  });
+
+  $("#submit").click(function(){
+    if($scope.addRecord()){
+      $("#popup").fadeOut("fast"); 
+      //update our scope after we've successfully added a new record
+      $scope.$apply();
+    }
+  });
+
 
   //EDIT WINDOW
   //EDIT WINDOW
@@ -69,49 +66,41 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', '$localstorage', 'jobAppS
     $scope.obj.notes=item.notes;
 
     //$scope.obj = item;
+    $("#update").show();
+    $("#submit").hide();
+    $("#popup").fadeIn("slow");
 
-    var editJob = $ionicPopup.show({
-      title: 'Edit Job Application',
-      templateUrl: 'templates/binder/binder-jobApps-popup.html',
-      scope: $scope,
-      buttons: [
-        {
-          text:'Cancel',
-        },
-        {
-          text: 'Update',
-          //type: '',
-          onTap: function(e){
-            var d = chrono.parseDate($scope.obj.date);
-			console.log(d);
-			if (d === null) {
-				e.preventDefault();
-				var alertPopup = $ionicPopup.alert({
-				title: 'Date is not correct',
-				template: 'Try using month/date/year'
-			});
-				alertPopup.then(function(res) {
-				alertPopup.close();
-			});
-			} else {
-				$scope.obj.date = d.toDateString();
-				var editIndex = jobAppService.getJobApp().indexOf(tmp);
-				console.log(editIndex);
-				jobAppService.editJobApp(editIndex, $scope.obj);
-				$localstorage.setObject( 'jobRecords', jobAppService.getJobApp() );
 
-				$scope.obj = {
-				  date: '',
-				  company: '',
-				  jobTitle: '',
-				  posDesc: '',
-				  notes: ''
-				}
-			
-			}
-          }
+    $("#update").click(function(){
+      var d = chrono.parseDate($scope.obj.date);
+      console.log(d);
+      if (d === null) {
+        //e.preventDefault();
+        var alertPopup = $ionicPopup.alert({
+        title: 'Date is not correct',
+        template: 'Try using month/date/year'
+      });
+        alertPopup.then(function(res) {
+        alertPopup.close();
+      });
+      } else {
+        $scope.obj.date = d.toDateString();
+        var editIndex = jobAppService.getJobApp().indexOf(tmp);
+        console.log(editIndex);
+        jobAppService.editJobApp(editIndex, $scope.obj);
+        $localstorage.setObject( 'jobRecords', jobAppService.getJobApp() );
+
+        $scope.obj = {
+          date: '',
+          company: '',
+          jobTitle: '',
+          posDesc: '',
+          notes: ''
         }
-      ]
+        $("#popup").fadeOut("slow"); 
+        $scope.$apply();
+
+      }
     })
   }
 
@@ -121,12 +110,12 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', '$localstorage', 'jobAppS
   //ADD RECORD FUNCTION
   //ADD RECORD FUNCTION
   //ADD RECORD FUNCTION
-  $scope.addRecord = function(e){
+  $scope.addRecord = function(){
   
   	var d = chrono.parseDate($scope.obj.date);
 	console.log(d);
 	if (d === null) {
-		e.preventDefault();
+		//e.preventDefault();
 		var alertPopup = $ionicPopup.alert({
 		title: 'Date is not correct',
 		template: 'Try using month/date/year'
@@ -157,9 +146,10 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', '$localstorage', 'jobAppS
 		});
 		
 		$localstorage.setObject( 'jobRecords', jobAppService.getJobApp() );
+    return true;
 	}
     
-  }
+  }//end addRecord()
 
 	  // Remove Job App
 	  $scope.removeJob = function(index) {
