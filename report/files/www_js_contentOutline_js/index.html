@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - www/js/contentOutline.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>www/js/contentOutline.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">41.00</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">183</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">6.21</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.59</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">// Main properties of objects must correspond with sub-folders inside the template folder
+// Strings defined in section order per those main objects define files within those sub-folders.
+var contentOutline = [
+
+	// Each section needs:
+	// title, leadIn, sectionOrder and a number of objects defining the subsections
+	{
+		folder:&#039;intro&#039;,
+		// TItle to display in timeline (short and Simple)
+		title:&quot;Introduction&quot;,
+
+		sections:[
+			{
+				file:&#039;sjs1-0.html&#039;,
+				title:&quot;Introduction to job seeking&quot;,
+			},
+			{
+				file:&#039;sjs1-2.html&#039;,
+				title:&quot;Job Seeking and Career Planning is a Journey. This is the path you will follow&quot;,
+			},
+			{
+				file:&#039;sjs1-3.html&#039;,
+				title:&quot;The Big Picture&quot;,
+			},
+			{
+				file:&#039;sjs1-4.html&#039;,
+				title:&quot;Career Planning Challenges: the tasks that lie ahead...&quot;,
+			}
+		]
+	},
+
+	{
+		folder: &#039;careerbinder_text&#039;,
+		title: &#039;Staying Organized&#039;,
+		sections: [
+			{
+				file: &#039;sjs2-0.html&#039;,
+				title: &#039;Your Career Binder ... absolutely essential!&#039;
+			},
+		]
+	},
+
+	{
+		folder:&#039;assessment&#039;,
+		title: &quot;Assessments&quot;,
+
+		sections:[
+			{
+				file:&#039;personality.html&#039;,
+				title:&#039;Career Personality Type&#039;
+			},
+			{
+				file:&#039;skills.html&#039;,
+				title: &#039;Motivated Skills Inventory&#039;
+			},
+			// {
+			// 	file:&#039;values.html&#039;,
+			// 	title: &#039;Work Values and Priorities&#039;
+			// },
+			// {
+			// 	file:&#039;knowledge.html&#039;,
+			// 	title : &quot;Key Knowledge Areas&quot;
+			// },
+			// {
+			// 	file:&#039;interests.html&#039;,
+			// 	title: &quot;Life Interests and Passions&quot;
+			// },
+			// {
+			// 	file: &#039;environment.html&#039;,
+			// 	title: &quot;Your Ideal Life/Work Environment&quot;
+			// },
+			// {
+			// 	file:&#039;goals.html&#039;,
+			// 	title: &#039;Your Goals and Priorities&#039;
+			// }
+		],
+	},
+
+	{
+		folder:&#039;searchStrategy&#039;,
+		title: &quot;Job Search Strategy&quot;,
+		//leadIn: &quot;TODO&quot;,
+		//this is the order Cici would like text to be displayed in job search strategy
+		sections :[
+			 {
+				file:&#039;sjs8-0.html&#039;,
+				title:&quot;Intro: Networking to Your Perfect Job&quot;
+			},
+			{
+				file:&#039;sjs8-10.html&#039; ,
+				title:&quot;Networking is a Contact Sport!&quot;
+			},
+			 {
+				file:&#039;sjs8-4.html&#039;,
+				title:&quot;How to Arrange an Informational Interview&quot;
+			},
+			{
+				file:&#039;sjs8-5.html&#039;,
+				title:&quot;How to Approach an Informational Interview&quot;
+			},
+			{
+				file:&#039;sjs8-6.html&#039;,
+				title:&quot;After the Informational Interview&quot;
+			},
+
+		]
+	},
+	
+	{
+		folder:&#039;resume&#039;,
+		title: &quot;Resumes&quot;,
+
+		sections :[
+			 {
+				file:&#039;sjs9-0.html&#039;,
+				title:&quot;Resume Explained&quot;
+			},
+			{
+				file:&#039;sjs9-1.html&#039; ,
+				title:&quot;Resume Samples&quot;
+			},
+			 {
+				file:&#039;sjs9-2.html&#039;,
+				title:&quot;Portfolio Construction&quot;
+			},
+		]
+	},
+
+	{
+		folder:&#039;interviews&#039;,
+		title: &quot;Interviews&quot;,
+		//leadIn: &quot;TODO&quot;,
+		sections :[
+			 {
+				file:&#039;sjs10-1.html&#039;,
+				title:&quot;What to do before you start interviewing&quot;
+			},
+			{
+				file:&#039;sjs10-2.html&#039; ,
+				title:&quot;Typical Questions Asked During Interviews&quot;
+			},
+			 {
+				file:&#039;sjs10-3.html&#039;,
+				title:&quot;Quick Guide to Phases of a Successful Job Interview&quot;
+			},
+			{
+				file:&#039;sjs10-4.html&#039;,
+				title:&quot;Asking the interviewer Questions Gets the Job!&quot;
+			},
+			{
+				file:&#039;sjs10-5.html&#039;,
+				title:&quot;Phone Interviews Done Right!&quot;
+			},
+			{
+				file:&#039;sjs10-6.html&#039;,
+				title:&quot;Interview and Dining Etiquette: You are being judged!!&quot;
+			},
+			{
+				file:&#039;sjs10-7.html&#039;,
+				title:&quot;Costly Errors That Kill Job Offers&quot;
+			},
+			{
+				file:&#039;sjs10-8.html&#039;,
+				title:&quot;Youthful indiscretions&quot;
+			},
+			{
+				file:&#039;sjs10-9.html&#039;,
+				title:&quot;Does the handshake matter?&quot;
+			},
+			{
+				file:&#039;sjs10-10.html&#039;,
+				title:&quot;Polishing Your Interviewing Skills: A Word to ESL Candidates&quot;
+			},
+			{
+				file:&#039;sjs10-11.html&#039;,
+				title:&quot;Practical Strategies for Optimal English Communication During Interviews&quot;
+			},
+
+
+
+
+		]
+	}
+	
+];</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

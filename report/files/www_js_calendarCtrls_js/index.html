@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - www/js/calendarCtrls.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>www/js/calendarCtrls.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">68.00</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">306</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">30.63</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.70</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">app.controller(&#039;CalendarCtrl&#039;, [&#039;$scope&#039;, &#039;$compile&#039;, &#039;$ionicPopup&#039;, &#039;$cordovaCalendar&#039;, &#039;$localstorage&#039;, &#039;uiCalendarConfig&#039;, &#039;calendarService&#039;, &#039;toDoService&#039;, function CalendarCtrl($scope, $compile, $ionicPopup, $cordovaCalendar, $localstorage, uiCalendarConfig, calendarService, toDoService) {
+	  //Global variables to be updated
+	  var date = new Date();
+	  var year = date.getFullYear();
+	  var month = date.getMonth();
+	  var day = date.getDate();
+	  var startHour = 0;
+	  var startMin = 0;
+	  var endHour = 0;
+	  var endMin = 0;
+	  
+	  //Event object
+	  $scope.obj = {
+		title: &#039;&#039;,
+		start: &#039;&#039;,
+		end: &#039;&#039;
+
+	  };
+	  
+	  //Save time
+	  $scope.event = {
+		timeStart: new Date(),
+		timeEnd: new Date()
+	  }
+		
+	  //Used for hiding buttons
+	  $scope.isDay = false;
+	  
+	  /* Load from local storage */
+	  var load = $localstorage.getObject( &#039;calendar&#039; );
+	  if (Object.keys(load).length !== 0) {
+		calendarService.loadList( load );
+	  }
+	  
+	  $scope.changeStart = function () {
+		console.log($scope.event.timeStart);
+	  };
+	  
+	  $scope.changeEnd = function () {
+		console.log($scope.event.timeEnd);
+	  };
+	  
+	  //Add event popup
+	  $scope.addEvent = function(){
+
+		var myPopup = $ionicPopup.show({
+		  title: &#039;Add an event&#039;,
+		  templateUrl: &#039;templates/binder/binder-calendar-popup.html&#039;,
+		  scope: $scope,
+		  buttons: [
+			{
+			  text:&#039;Cancel&#039;,
+			  
+			},
+			{
+			  text: &#039;Save&#039;,
+			  onTap: function(e){
+				//Get start date
+				//startTime = chrono.parseDate($scope.obj.start);
+				startHour = $scope.event.timeStart.getHours();
+				startMin = $scope.event.timeStart.getMinutes();
+				//var startDate = moment({ y: year, M: month, d: day, h: startHour, m: startMin, s: 0, ms:0 });
+				var startDate = new Date( year, month, day, startHour, startMin, 0 , 0 );
+				$scope.obj.start = startDate;
+				
+				//Get end date
+				//endTime = chrono.parseDate($scope.obj.end);
+				endHour = $scope.event.timeEnd.getHours();
+				endMin = $scope.event.timeEnd.getMinutes();
+				//var endDate = moment({ y: year, M: month, d: day, h: endHour, m: endMin, s: 0, ms:0 });
+				var endDate = new Date( year, month, day, endHour, endMin, 0, 0 )
+				$scope.obj.end = endDate;
+				
+				if ( $scope.obj.start === null || $scope.obj.end === null) {
+					e.preventDefault();
+					var alertPopup = $ionicPopup.alert({
+					  title: &#039;Time is not correct&#039;,
+					  template: &#039;Try using numbers and a.m. or p.m.&#039;
+					});
+					alertPopup.then(function(res) {
+					  alertPopup.close();
+					});
+				} else {
+					console.log($scope.obj.start);
+					console.log($scope.obj.end);
+					var toDo = {
+					  title: $scope.obj.title,
+					  end: ($scope.obj.end).toDateString()
+					};
+					//Add to calendar and to-do
+					calendarService.addToList($scope.obj);
+					toDoService.addToList(toDo);
+					$localstorage.setObject( &#039;calendar&#039;, calendarService.output() );
+					$localstorage.setObject( &#039;toDoList&#039;, toDoService.output() );
+					
+					//Save to native calendar app
+					$cordovaCalendar.createEvent({
+						title: $scope.obj.title,
+						startDate: $scope.obj.start,
+						endDate: $scope.obj.end
+					}).then(function (result) {
+						// success
+						console.log(result);
+					}, function (err) {
+						// error
+                        console.log(err);
+					});
+				}
+				
+				$scope.isDay = false;
+					
+					//Reset object
+					$scope.obj = {
+						title: &#039;&#039;,
+						start: &#039;&#039;,
+						end: &#039;&#039;
+
+				   };   
+				   
+				   $scope.event = {
+						timeStart: new Date(),
+						timeEnd: new Date()
+				   }
+			   			   
+			  }
+			}
+		  ]
+		});
+	  };
+
+    /* alert on eventClick */
+    $scope.alertOnEventClick = function( date, jsEvent, view){
+        $scope.alertMessage = (date.title + &#039; was clicked &#039;);
+    };
+    /* alert on Drop */
+    $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
+       $scope.alertMessage = (&#039;Event Droped to make dayDelta &#039; + delta);
+    };
+    /* alert on Resize */
+    $scope.alertOnResize = function(event, delta, revertFunc, jsEvent, ui, view ){
+       $scope.alertMessage = (&#039;Event Resized to make dayDelta &#039; + delta);
+    };
+    /* add and removes an event source of choice */
+    $scope.addRemoveEventSource = function(sources,source) {
+      var canAdd = 0;
+      angular.forEach(sources,function(value, key){
+        if(sources[key] === source){
+          sources.splice(key,1);
+          canAdd = 1;
+        }
+      });
+      if(canAdd === 0){
+        sources.push(source);
+      }
+    };
+	
+    /* remove event */
+    $scope.remove = function(index) {
+      calendarService.removeItem(index);
+	  toDoService.removeItem(index);
+	  $localstorage.setObject( &#039;calendar&#039;, calendarService.output() );
+	  $localstorage.setObject( &#039;toDoList&#039;, toDoService.output() );
+    };
+	
+    /* Change View */
+    $scope.changeView = function(view,calendar) {
+	  if (view == &#039;agendaDay&#039;)
+	  {
+		$scope.isDay = true;
+		uiCalendarConfig.calendars[&#039;myCalendar1&#039;].fullCalendar(&#039;option&#039;,&#039;contentHeight&#039;, 1050);
+		uiCalendarConfig.calendars[calendar].fullCalendar(&#039;changeView&#039;,view);
+	  }else{
+		$scope.isDay = false;
+		uiCalendarConfig.calendars[&#039;myCalendar1&#039;].fullCalendar(&#039;option&#039;,&#039;contentHeight&#039;, &#039;auto&#039;);
+		uiCalendarConfig.calendars[calendar].fullCalendar(&#039;changeView&#039;,view);
+	  }
+    };
+	
+    /* Change View */
+    $scope.renderCalender = function(calendar) {
+	  if(uiCalendarConfig.calendars[calendar]){
+        uiCalendarConfig.calendars[calendar].fullCalendar(&#039;render&#039;);
+      }
+    };
+	
+	$scope.render = function () {
+		console.log(&quot;Hi&quot;);
+	};
+
+     /* Render Tooltip */
+    $scope.eventRender = function( event, element, view ) {
+		$(element).selectable();
+        $compile(element)($scope);
+    };
+	
+	$scope.dayClick = function( date, allDay, jsEvent, view){
+          $scope.alertMessage = (&#039;Day Clicked &#039; + date.format());
+		  $scope.changeView(&#039;agendaDay&#039;, &#039;myCalendar1&#039;);
+		  uiCalendarConfig.calendars[&#039;myCalendar1&#039;].fullCalendar(&#039;gotoDate&#039;,date);
+    };
+	
+	$scope.dayRender = function( date, cell) {
+		cell.selectable();
+
+	};
+	
+	$scope.select = function( start, end, jsEvent, view ) {
+		$scope.isDay = true;
+		date = end.toDate();
+		console.log(date);
+		year = date.getFullYear();
+		month = date.getMonth();
+		day = date.getDate();
+		console.log(day);
+		$scope.changeView(&#039;agendaDay&#039;, &#039;myCalendar1&#039;);
+		uiCalendarConfig.calendars[&#039;myCalendar1&#039;].fullCalendar(&#039;gotoDate&#039;,start);
+
+	};
+	
+    /* config object */
+    $scope.uiConfig = {
+      calendar:{
+		height: $(window).height()-100,
+		theme: true,
+		themeButtonIcons: false,
+        editable: true,
+		timezone: &#039;local&#039;,
+		ignoreTimezone: false,
+		scrollTime: &#039;00:00:00&#039;,       
+		allDaySlot: false,
+        header:{
+          left: &#039;title&#039;,
+          center: &#039;&#039;,
+          right: &#039;today, prev,next&#039;
+        },
+		views: {
+			day: { // name of view
+				// other view-specific options here
+			}
+		},
+		events: calendarService.output(),
+		eventColor: &#039;rgb(35,128,99)&#039;,
+		fixedWeekCount: false,
+		eventLimit: true,
+		selectable: true,
+		select: $scope.select,
+		dayRender: $scope.dayRender,
+        eventClick: $scope.alertOnEventClick,
+        eventDrop: $scope.alertOnDrop,
+        eventResize: $scope.alertOnResize,
+        eventRender: $scope.eventRender
+      }
+    };
+	
+	/* Output events */
+	$scope.output = function () {
+		return calendarService.output();
+	}
+	
+    /* event sources array*/
+    $scope.eventSources = [];
+	    
+}]);
+
+app.factory(&#039;calendarService&#039;, [&#039;$localstorage&#039;, function($localstorage) {
+  var list = [];
+  
+  function loadList(load) {
+    list = load;
+  }
+  
+  function addToList(item) {
+	list.push(item);
+  }
+  
+  function editItem( item, index ) {
+	removeItem( index );
+	list.splice(index,0,item);
+  }
+  
+  function removeItem( index ) {
+	list.splice(index, 1);
+  }
+  
+  function getNumberOf() {
+	return list.length;
+  }
+  
+  function getTitle( index ) {
+	return list[index].title;
+  }
+  
+  function output() {
+	return list;
+  }
+  
+  return {
+    loadList: loadList,
+	addToList: addToList,
+	editItem: editItem,
+	removeItem: removeItem,
+	getNumberOf: getNumberOf,
+	getTitle: getTitle,
+	output: output
+  };
+}]);</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>
