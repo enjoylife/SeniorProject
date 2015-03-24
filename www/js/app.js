@@ -237,7 +237,7 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
   
 })
 
-app.controller('timelineCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', function($scope, $state, $ionicSideMenuDelegate){
+app.controller('timelineCtrl', ['$scope', '$state', '$ionicScrollDelegate', function($scope, $state, $ionicScrollDelegate){
       $scope.contentOutline = contentOutline;
 
       $scope.getSubsection = function(section){
@@ -272,7 +272,8 @@ app.controller('timelineCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', fu
 
         section.lastRead = subsection.lastRead = moment().startOf('minute').fromNow();
         
-       
+        $ionicScrollDelegate.scrollTop();
+        $ionicScrollDelegate.resize();
       };
 
 
