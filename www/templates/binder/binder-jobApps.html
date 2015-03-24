@@ -39,65 +39,8 @@
 	  </table>
 
 
-	  <div id="jobButton" class="button-bar">
-		<a class="button button-icon icon ion-plus-circled"></a>
+	  <div class="button-bar">
+		<a class="button button-icon icon ion-plus-circled" ng-click="jobForm()"></a>
 	  </div>
-
-
-	  				<!-- POP UP WINDOW -->
-
-
-	  <div id="popup" hidden="true" class="popup">
-	  		
-		  <table style="margin:auto; color:white;">
-		  	<tr>
-		  		<td style="padding-bottom:15px;">
-		  			<h3 style="color:white;">Career Application</h3>
-		  		</td>
-		  	</tr>
-			<tr>
-				<td>Date Applied:</td>
-			</tr>
-			<tr>
-				<td><input type="text" ng-model="obj.date"></td>
-			</tr>
-
-			<tr>
-				<td>Company:</td>
-			</tr>
-			<tr>
-				<td><input type="text" ng-model="obj.company"></td>
-			</tr>
-
-			<tr>
-				<td>Position Title:</td>
-			</tr>
-
-			<tr>
-				<td><input type="text" ng-model="obj.jobTitle"></td>
-			</tr>
-
-			<tr>
-				<td>Position Description:</td>
-			</tr>
-			<tr>
-				<td><input type="text" ng-model="obj.posDesc"></td>
-			</tr>
-			<tr>
-				<td>Notes:</td>
-			</tr>
-			<tr>
-				<td><input type="text" ng-model="obj.notes"></td>
-			</tr>
-			<tr>
-				<td>
-					<input class="button" id="submit" type="button" style="margin-top:20px;" value="Submit">
-					<input class="button" id="update" type="button" style="margin-top:20px;" value="Update">
-					<input class="button" id="cancel" type="button" style="margin:20px;" value="Cancel">
-				</td>
-			</tr>
-		</table>
-	</div>
-
 
 </ion-content>

@@ -607,20 +607,6 @@ section.lead-in h3{
   color: white;
 }
 
-
-/* CSS for popup window */
-.popup {
-  font-family: 'Montserrat';
-  position:absolute; 
-  top:10%; 
-  left:20%; 
-  z-index:1; 
-  padding:10px; 
-  width:60%; 
-  background-color:black; 
-  border-radius:10px;
-}
-
 /* Animations between pages */
 [ui-view].ng-enter, [ui-view].ng-leave {
 
