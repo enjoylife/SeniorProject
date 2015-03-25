@@ -1,5 +1,5 @@
 /* Idea list control */
-app.controller('IdeaCtrl', ['$scope', '$ionicPlatform', '$ionicPopup', '$timeout', '$localstorage', 'ideaService', function($scope, $ionicPlatform, $ionicPopup, $timeout, $localstorage, ideaService) {
+app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage', 'ideaService', function($scope, $ionicPopup, $timeout, $localstorage, ideaService) {
   var d = new Date();
   var count = ideaService.getNumberOf();
   
@@ -114,13 +114,13 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPlatform', '$ionicPopup', '$timeout
 	return $scope.list;
   }
   
-  var closePopup = $ionicPlatform.registerBackButtonAction(
+  /*var closePopup = $ionicPlatform.registerBackButtonAction(
 	function () {
 		console.log("Back");
 		myPopup.close();
     }, 100
-  );
-  $scope.$on('$destroy', closePopup)
+  );*/
+  //$scope.$on('$destroy', closePopup)
 
 }])
 
