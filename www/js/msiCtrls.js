@@ -48,10 +48,24 @@ app.factory('scraper', function() {
 
 
 //Communication controller
-app.controller('comsCtrl', ['$scope', 'scraper', '$ionicScrollDelegate', 'asmntResultService', "$localstorage", function($scope, scraper, $ionicScrollDelegate, asmntResultService, $localstorage){
+app.controller('comsCtrl', ['$scope', '$ionicLoading', '$timeout', '$state', 'scraper', '$ionicScrollDelegate', 'asmntResultService', "$localstorage", function($scope, $ionicLoading, $timeout, $state, scraper, $ionicScrollDelegate, asmntResultService, $localstorage){
 	//array to hold result values
 	//$scope.results = [];	
 
+	$scope.show = function () {
+		return $ionicLoading.show({
+			content: 'Loading Calendar'
+		});
+	};
+
+	$scope.loadCalendar = function () {
+		var loading = $scope.show();
+		$timeout(function(){
+		  $state.go('binder-calendar');
+		  loading.hide();
+		}, 3000);
+	  };
+	
 	$scope.setScreen = function(){
 		$ionicScrollDelegate.scrollTop();
 	}
