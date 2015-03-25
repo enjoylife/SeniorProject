@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('prototype', [ 'ionic', 'ngCordova','ionic.ion.headerShrink', 'ui.calendar', 'ui.bootstrap'])
 
-app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope) {
+app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope, $state, $ionicHistory) {
       (function getHistory(){
         var hist = JSON.parse(localStorage.getItem('hist'));
         // We havent entered history before, set defaults
@@ -39,9 +39,6 @@ app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope
 	});
 	
 	
-	//window.localStorage.clear();
-	
-	
 	/* Check app launch count */
 	var appLaunchCount = window.localStorage.getItem('launchCount');
 	if(appLaunchCount){
@@ -54,12 +51,14 @@ app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope
 	 }
 });
 
+
 app.config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
   .state('profile', {
     url: '/profile',
     templateUrl: 'templates/profile.html',
+    controller: 'MainCtrl',
     //controller: 'profile'
   })
 
@@ -128,12 +127,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('binder-asmntResults', {
     url: '/binder/asmntResults',
     templateUrl: 'templates/binder/binder-asmntResults.html',
-  
+    controller: 'MainCtrl'
   })
 
   .state('binder-individualAsmntResults', {
     url: '/binder/asmntResults/individualAsmntResults',
-    templateUrl: 'templates/binder/binder-individualAsmntResults.html'
+    templateUrl: 'templates/binder/binder-individualAsmntResults.html',
+    controller: 'MainCtrl'
   })
 
 
@@ -223,8 +223,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/profile');
 })
 
-
-app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $localstorage, contactService) {
+//MAIN CONTROLLER
+app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$localstorage", "contactService", "$ionicPlatform", "$ionicPopup", "$ionicHistory", function($scope, $state, $ionicSideMenuDelegate, $localstorage, contactService, $ionicPlatform, $ionicPopup, $ionicHistory) {
   
   /* Get count of contacts for display */
   var load = $localstorage.getObject( 'contacts' );
@@ -233,9 +233,19 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
 	}
   $scope.count = contactService.getContactsService().length;
 
-  
-  
-})
+  //Android hardware backbutton
+  var deregister = $ionicPlatform.registerBackButtonAction(function(e) { 
+    /*e.preventDefault();
+    e.stopPropagation();*/
+    if($state.current.name=="profile"){
+      navigator.app.exitApp();
+    }
+    else {
+      navigator.app.backHistory();
+    }
+  }, 100);
+  $scope.$on('$destroy', deregister);
+}]);
 
 app.controller('timelineCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', function($scope, $state, $ionicSideMenuDelegate){
       $scope.contentOutline = contentOutline;
@@ -427,3 +437,16 @@ app.factory('$localstorage', ['$window', function($window) {
     getObject: getObject
   }
 }]);
+
+/*document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady(){
+  document.addEventListener("backbutton", onBackButton, false);
+}
+
+function onBackButton(){
+  if($state.current.name == "profile"){
+    navigator.app.exitApp();
+  }else{
+    navigator.app.backHistory();
+  }
+}*/
