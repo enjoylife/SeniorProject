@@ -34,7 +34,7 @@ app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope
         $ionicScrollDelegate.freezeScroll(false); 
         $ionicScrollDelegate.resize(); 
         console.log($ionicScrollDelegate.getScrollView().__contentHeight);
-      },1000)
+      },1500)
    });
 	});
 	
@@ -172,7 +172,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
   .state('msi_marketing', {
-    url: '/msi_marketing',
+    url: 'timeline/selfAsmnt/msi/msi_marketing',
     templateUrl: 'templates/timeline/selfAsmnt/msi/msi_marketing.html',
     controller: 'MainCtrl'
   })
