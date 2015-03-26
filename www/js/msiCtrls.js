@@ -14,10 +14,22 @@ app.factory('scraper', function() {
     values.push(val);
   }
 
-  //this loop will return the totals that are 6 or higher.
+  
   function output(){
     var out = [];
 
+    //remove dupes
+    for(i=0; i<values.length-1; i++){
+    	for(j=i+1; j<values.length; j++){
+    		//if header is the same, then remove that object
+    		if(values[i].h === values[j].h){    	
+    			values.splice(j, 1);
+    			j--;
+    		}
+    	}
+    }
+
+    //this loop will return the totals that are 6 or higher.
     values.forEach( function(object){
       if(object.sum >= 6){
         out.push(object);
@@ -63,7 +75,7 @@ app.controller('comsCtrl', ['$scope', '$ionicLoading', '$timeout', '$state', 'sc
 		$timeout(function(){
 		  $state.go('binder-calendar');
 		  loading.hide();
-		}, 3000);
+		}, 1500);
 	  };
 	
 	$scope.setScreen = function(){
@@ -156,7 +168,7 @@ app.controller('comsCtrl', ['$scope', '$ionicLoading', '$timeout', '$state', 'sc
 	}
 
 
-
+	//this function is called everytime a user begins a new msi assessment.
 	$scope.reset = function(){
 		console.log("inside reset() results = " + $scope.results);
 		scraper.resetVals();
@@ -166,6 +178,7 @@ app.controller('comsCtrl', ['$scope', '$ionicLoading', '$timeout', '$state', 'sc
 
 	$scope.getResults = function(){
 		//alert($scope.results);
+		//return results from the factory in descending order
 		$scope.results = scraper.output().sort(function(a, b){ return b.sum-a.sum });
 		//$scope.results.sort(function(a, b){ return(b-a) });
 		console.log("getResults() results = " + $scope.results);
@@ -364,7 +377,7 @@ app.controller('qaCtrl', ['$scope', 'scraper', function($scope, scraper){
 		
 		$scope.total($scope.qaQuestions.compspeedHead, $scope.qaQuestions.compspeedBody, $scope.data.compspeedSVal, $scope.data.compspeedMVal);
 		$scope.total($scope.qaQuestions.numcrunchHead, $scope.qaQuestions.numcrunchBody, $scope.data.numcrunchSVal, $scope.data.numcrunchMVal);
-		$scope.total($scope.qaQuestions.Head, $scope.qaQuestions.probsolvBody, $scope.data.probsolvSVal, $scope.data.probsolvMVal);
+		$scope.total($scope.qaQuestions.probsolvHead, $scope.qaQuestions.probsolvBody, $scope.data.probsolvSVal, $scope.data.probsolvMVal);
 		$scope.total($scope.qaQuestions.computerHead, $scope.qaQuestions.computerBody, $scope.data.computerSVal, $scope.data.computerMVal);
 
 		//Loop through the Totals array which now contains the questions and summed values
@@ -497,7 +510,7 @@ app.controller('techReasonCtrl', ['$scope', 'scraper', function($scope, scraper)
 
 	$scope.techReasonQuestions = {
 		mechanicalHead: "Mechanical Reasoning: ",
-		mechanicalBody: " Mechanical Reasoning: Able to understand the ways that hardware, machinery or tools operate and the relationships between mechanical operations.",
+		mechanicalBody: "Able to understand the ways that hardware, machinery or tools operate and the relationships between mechanical operations.",
 		spatialHead: "Spatial Reasoning: ",
 		spatialBody: " Possess excellent spatial reasoning, able to judge the relationship of objects in space. Able to judge shapes and sizes of objects and manipulate them digitally or mentally and analyze the effects.",
 		outdoorHead: "Outdoor Work: ",
