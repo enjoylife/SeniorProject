@@ -7,7 +7,7 @@ var app = angular.module('prototype', [ 'ionic', 'ngCordova','ionic.ion.headerSh
 
 app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope, $state, $ionicHistory) {
       (function getHistory(){
-        var hist = JSON.parse(localStorage.getItem('hist'));
+        var hist = JSON.parse(window.localStorage.getItem('hist'));
         // We havent entered history before, set defaults
         // TODO test and handle inital setup or defaults regarding user data
      
@@ -245,9 +245,56 @@ app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$loca
     }
   }, 100);
   $scope.$on('$destroy', deregister);
+
+  $scope.swipingLogicLeft = function(){
+    console.log("swipe Left");
+
+    if($ionicSideMenuDelegate.isOpen()) {
+        $ionicSideMenuDelegate.toggleLeft();
+        return;
+    }
+
+    if($state.is('content.sections')){
+        $state.go('profile');
+    }
+
+    if($state.is('profile')){
+      $state.go('binder');
+    }
+
+  }
+  $scope.swipingLogicRight = function(){
+    if($state.is('content.sections')){
+      $ionicSideMenuDelegate.toggleLeft();
+    }
+    if($state.is('profile')){
+      var last = $localstorage.getObject('lastSection');
+      if(!last || !last.folder || !last.file){
+        last = {
+          folder:contentOutline[0].folder,
+          file:contentOutline[0].sections[0].file
+        }
+      }
+      $state.go('content.sections', last)  
+    }
+    if($state.is('binder')){
+      $state.go('profile');
+    }
+    if($state.is('binder-ideas')||
+      $state.is('binder-calendar') ||
+      $state.is('binder-toDo') ||
+      $state.is('binder-asmntResults') ||
+      $state.is('binder-contacts') ||
+      $state.is('binder-jobApps') ||
+      $state.is('binder-individualAsmntResults')){
+      console.log("includes")
+       $state.go('binder');
+    }
+  }
+
 }]);
 
-app.controller('timelineCtrl', ['$scope', '$state', '$ionicScrollDelegate', function($scope, $state, $ionicScrollDelegate){
+app.controller('timelineCtrl', ['$scope', '$state', '$ionicScrollDelegate', '$localstorage', function($scope, $state, $ionicScrollDelegate, $localstorage){
       $scope.contentOutline = contentOutline;
 
       $scope.getSubsection = function(section){
@@ -266,9 +313,9 @@ app.controller('timelineCtrl', ['$scope', '$state', '$ionicScrollDelegate', func
           throw new Error("Missing required parameter for jumping into sections.")
         }
         console.log('Routing to content/'+params.folder +'/'+ params.file)
+        $localstorage.setObject('lastSection', params);
         $state.go('content.sections',params);
         $scope.setHistory();
-        console.log(params);
 
         var section = _.find(contentOutline, function(obj){
           return obj.folder == params.folder;
@@ -284,6 +331,10 @@ app.controller('timelineCtrl', ['$scope', '$state', '$ionicScrollDelegate', func
         
         $ionicScrollDelegate.scrollTop();
         $ionicScrollDelegate.resize();
+
+        
+
+
       };
 
 
@@ -294,7 +345,7 @@ app.controller('timelineCtrl', ['$scope', '$state', '$ionicScrollDelegate', func
       }
     }])
 
-app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate){
+app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate, $localstorage){
   var
   currentPosition,
   currentContent,
@@ -366,9 +417,11 @@ app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate){
   }
     $scope.goNext = function(){
     var next = nextSubSection();
+    $localstorage.setObject('lastSection', next);
     $ionicScrollDelegate.scrollTop();
     $state.go('content.sections', next)
     $ionicScrollDelegate.resize();
+    
  
     // $uiViewScroll($(".content-wrapper"));
   }
