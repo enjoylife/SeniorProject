@@ -1,11 +1,23 @@
 /* To-Do-List control */
-app.controller('ToDoCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage', 'toDoService', function($scope, $ionicPopup, $timeout, $localstorage, toDoService) {
+app.controller('ToDoCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage', 'toDoService', '$rootScope', function($scope, $ionicPopup, $timeout, $localstorage, toDoService, $rootScope) {
   
   /* Load from local storage */
   var load = $localstorage.getObject( 'toDoList' );
   if (Object.keys(load).length !== 0) {
     toDoService.loadList( load );
   }
+
+  //this variable will be used to keep track of ionic popups
+  $rootScope.pop = 0;
+
+  $rootScope.$on('$stateChangeStart', 
+  function(event, toState, toParams, fromState, fromParams){ 
+    console.log($rootScope.pop);
+    if($rootScope.pop){
+      event.preventDefault(); 
+    }
+      // transitionTo() promise will be rejected
+  })
   
   //Add to-do item
   $scope.addToDo = function() {
@@ -15,14 +27,19 @@ app.controller('ToDoCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
 	  end: '',
 	  id: toDoService.getNumberOf()
 	};
-  
+
+  	$rootScope.pop = 1;
     var myPopup = $ionicPopup.show({
       title: 'Enter your to-do item',
 	  templateUrl: 'templates/binder/binder-toDo-popup.html',
       subTitle: 'Remember to be organized and keep track what you need to do',
       scope: $scope,
       buttons: [
-      { text: 'Cancel' },
+      { text: 'Cancel',
+      	onTap: function(e){
+      		$rootScope.pop=0;
+      	}
+      },
       {
         text: '<b>Save</b>',
         type: 'button-positive',
@@ -49,6 +66,7 @@ app.controller('ToDoCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
 				  alertPopup.close();
 				});
 			} else {
+				$rootScope.pop=0;
 			    $scope.obj.end = d.toDateString();
 				toDoService.addToList($scope.obj);
 				$localstorage.setObject( 'toDoList', toDoService.output() );
@@ -72,6 +90,7 @@ app.controller('ToDoCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
   
   //Edit to-do
   $scope.editToDo = function(index) {
+  	$rootScope.pop=1;
 	var temp = toDoService.getItem(index);
 	$scope.obj = {
 		title: temp.title,
@@ -83,7 +102,11 @@ app.controller('ToDoCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
 	  templateUrl: 'templates/binder/binder-toDo-popup.html',
       scope: $scope,
       buttons: [
-      { text: 'Cancel' },
+      { text: 'Cancel',
+      	onTap: function(e){
+      		$rootScope.pop=0;
+      	}
+      },
       {
         text: '<b>Save</b>',
         type: 'button-positive',
@@ -112,6 +135,7 @@ app.controller('ToDoCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
 				  alertPopup.close();
 				});
 			} else {
+				$rootScope.pop=0;
 			    $scope.obj.end = d.toDateString();
 				//var obj = { title: $scope.edit.title, date: $scope.obj.end, id: index };
 				toDoService.editItem( $scope.obj, index );

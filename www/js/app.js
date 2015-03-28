@@ -224,7 +224,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 })
 
 //MAIN CONTROLLER
-app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$localstorage", "contactService", "$ionicPlatform", "$ionicPopup", "$ionicHistory", function($scope, $state, $ionicSideMenuDelegate, $localstorage, contactService, $ionicPlatform, $ionicPopup, $ionicHistory) {
+app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$localstorage", "contactService", "$ionicPlatform", "$ionicPopup", "$ionicHistory", "$rootScope", function($scope, $state, $ionicSideMenuDelegate, $localstorage, contactService, $ionicPlatform, $ionicPopup, $ionicHistory, $rootScope) {
   
   /* Get count of contacts for display */
   var load = $localstorage.getObject( 'contacts' );
@@ -246,6 +246,12 @@ app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$loca
   }, 100);
   $scope.$on('$destroy', deregister);
 
+  //always set pop to 0 after backbutton press
+  $ionicPlatform.onHardwareBackButton(function(e){
+    $rootScope.pop = 0;
+  })
+  
+  //swiping navigation
   $scope.swipingLogicLeft = function(){
     console.log("swipe Left");
 
