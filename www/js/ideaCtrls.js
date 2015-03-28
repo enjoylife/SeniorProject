@@ -1,55 +1,72 @@
 /* Idea list control */
-app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage', 'ideaService', function($scope, $ionicPopup, $timeout, $localstorage, ideaService) {
+app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage', 'ideaService', '$rootScope', function($scope, $ionicPopup, $timeout, $localstorage, ideaService, $rootScope) {
   var d = new Date();
   var count = ideaService.getNumberOf();
-  
   /* Load from local storage */
   var load = $localstorage.getObject( 'ideaList' );
   if (Object.keys(load).length !== 0) {
     ideaService.loadList( load );
   }
 
+  //this variable will be used to keep track of ionic popups
+  $rootScope.pop = 0;
+
+  $rootScope.$on('$stateChangeStart', 
+  function(event, toState, toParams, fromState, fromParams){ 
+    console.log($rootScope.pop);
+    if($rootScope.pop){
+      event.preventDefault(); 
+    }
+      // transitionTo() promise will be rejected
+  })
+
    //Add idea 
    $scope.addIdea = function() {
-	$scope.list = {}
+    $rootScope.pop = 1;
+	  $scope.list = {}
     var myPopup = $ionicPopup.show({
-      template: '<textarea rows="4" cols="50" ng-model="list.idea"></textarea>',
+      template: '<textarea autofocus="true" rows="4" cols="50" ng-model="list.idea"></textarea>',
       title: 'Enter your ideas or inspirations',
       subTitle: 'Remember this could trigger motivation',
       scope: $scope,
       buttons: [
-      { text: 'Cancel' },
-      {
-        text: '<b>Save</b>',
-        type: 'button-positive',
-		onTap: function(e) {
-		
-		  /* Empty input */
-		  if (!$scope.list.idea) {
-			e.preventDefault();
-			var alertPopup = $ionicPopup.alert({
-			  title: 'Input is empty',
-			  template: 'Please input an item'
-		    });
-			alertPopup.then(function(res) {
-			  alertPopup.close();
-			});
-		  } else {
-		    var obj = { title: $scope.list.idea, date: d.toDateString(), id: count+1 };  
-			ideaService.addToList(obj);
-			$localstorage.setObject( 'ideaList', ideaService.output() );
-			$scope.list.idea = '';
-		  }
-		}
-      }
-    ]
-    });
+        { text: 'Cancel',
+          onTap: function(e){
+            $rootScope.pop = 0;
+          }
+        },
+        {
+          text: '<b>Save</b>',
+          type: 'button-positive',
+  		    onTap: function(e) {
+      		  /* Empty input */
+      		  if (!$scope.list.idea) {
+      			e.preventDefault();
+      			var alertPopup = $ionicPopup.alert({
+      			  title: 'Input is empty',
+      			  template: 'Please input an item'
+      		    });
+      			alertPopup.then(function(res) {
+      			  alertPopup.close();
+      			});
+      		  } else {
+      		    var obj = { title: $scope.list.idea, date: d.toDateString(), id: count+1 };  
+      			ideaService.addToList(obj);
+      			$localstorage.setObject( 'ideaList', ideaService.output() );
+      			$scope.list.idea = '';
+            $rootScope.pop = 0;
+      		  }
+  		    }//end onTap
+        }//end save button object
+      ]//end button array
+    });//end myPopup
 
 
-  };
+  };//end addIdea()
   
   //Edit idea
   $scope.editIdea = function(index) {
+    $rootScope.pop = 1;
 	$scope.edit = {
 		idea: ideaService.getTitle(index)
 	};
@@ -58,7 +75,11 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
       title: 'Change of idea? That is fine',
       scope: $scope,
       buttons: [
-      { text: 'Cancel' },
+      { text: 'Cancel',
+          onTap: function(e){
+            $rootScope.pop = 0;
+          }
+      },
       {
         text: '<b>Save</b>',
         type: 'button-positive',
@@ -79,6 +100,7 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
 			var obj = { title: $scope.edit.idea, date: newDate.toDateString(), id: index };
 			ideaService.editItem( obj, index );
 			$localstorage.setObject( 'ideaList', ideaService.output() );
+      $rootScope.pop = 0;
 			return $scope.obj;
 		  }
 		}
