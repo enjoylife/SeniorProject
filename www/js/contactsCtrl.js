@@ -23,16 +23,33 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', '$l
 	  if (Object.keys(load).length !== 0) {
 		contactService.loadList( load );
 	  }
+
+	//this variable will be used to keep track of ionic popups
+	$rootScope.pop = 0;
+
+	$rootScope.$on('$stateChangeStart', 
+	function(event, toState, toParams, fromState, fromParams){ 
+	console.log($rootScope.pop);
+	if($rootScope.pop){
+	  event.preventDefault(); 
+	}
+	  // transitionTo() promise will be rejected
+	})
+
 	  
 	//command a popup to open when user wants to add a new contact
 	$scope.contactForm = function(){
+		$rootScope.pop = 1;
 		var newContact = $ionicPopup.show({
 			title: 'New Professional Contact',
 			templateUrl: 'templates/binder/binder-contact-popup.html', //create this template
 			scope: $scope,
 			buttons: [
 				{
-					text: 'Cancel'
+					text: 'Cancel',
+					onTap: function(e){
+						$rootScope.pop = 0;
+					}
 				},
 				{
 					text: 'Submit',
@@ -55,13 +72,17 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', '$l
 		$scope.contactObj.organizations[0].name = item.organizations[0].name;
 		$scope.contactObj.note = item.note;
 		
+		$rootScope.pop = 1;
 		var editContact = $ionicPopup.show({
 			title: 'Edit Contact',
 			templateUrl: 'templates/binder/binder-contact-popup.html',
 			scope: $scope,
 			buttons: [
 				{
-					text: 'Cancel'
+					text: 'Cancel',
+					onTap: function(e){
+						$rootScope.pop = 0;
+					}
 				},
 
 				{
@@ -71,6 +92,7 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', '$l
 						var editIndex = contactService.getContactsService().indexOf(tmp);
 						contactService.editContactsService( $scope.contactObj, index);
 						$localstorage.setObject( 'contacts', contactService.getContactsService() );
+						$rootScope.pop=0;
 
 						$scope.contactObj = {
 							displayName: '',
@@ -102,7 +124,7 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', '$l
 
 
 	$scope.addContact = function() {
-
+		$rootScope.pop=0;
 	
 		$cordovaContacts.save($scope.contactObj).then(function(result) {
 			console.log("CONTACT ADDED");
