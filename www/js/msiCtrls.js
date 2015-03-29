@@ -18,13 +18,14 @@ app.factory('scraper', function() {
   function output(){
     var out = [];
 
-    //remove dupes
-    for(i=0; i<values.length-1; i++){
-    	for(j=i+1; j<values.length; j++){
+    //removes dupes, keeps last chosen order
+    for(i=values.length-1; i>0; i--){
+    	for(j=i-1; j>=0; j--){
     		//if header is the same, then remove that object
     		if(values[i].h === values[j].h){    	
+    			i--;
     			values.splice(j, 1);
-    			j--;
+    			//console.log("after splice: "+values.length);
     		}
     	}
     }
@@ -60,7 +61,7 @@ app.factory('scraper', function() {
 
 
 //Communication controller
-app.controller('comsCtrl', ['$scope', '$ionicLoading', '$timeout', '$state', 'scraper', '$ionicScrollDelegate', 'asmntResultService', "$localstorage", function($scope, $ionicLoading, $timeout, $state, scraper, $ionicScrollDelegate, asmntResultService, $localstorage){
+app.controller('comsCtrl', ['$scope', '$ionicLoading', '$timeout', '$state', 'scraper', '$ionicScrollDelegate', 'asmntResultService', "$localstorage", '$ionicPopup',  function($scope, $ionicLoading, $timeout, $state, scraper, $ionicScrollDelegate, asmntResultService, $localstorage, $ionicPopup){
 	//array to hold result values
 	//$scope.results = [];	
 
@@ -190,6 +191,18 @@ app.controller('comsCtrl', ['$scope', '$ionicLoading', '$timeout', '$state', 'sc
 		//send results to asmnt results factory
 		asmntResultService.addAsmntResult($scope.results, 'MSI Results', datestring);
 		$localstorage.setObject( 'assessments', asmntResultService.getAsmntResult() );
+
+		$ionicPopup.alert({
+			title:'<strong><u>These results are important!</u></strong>',
+			template:'<p>A skill rating of 8 means you are highly skilled and highly motivated. A score of 7 means you are slightly lacking in motivation or skill, etc.</p>'+
+				'<p>Skills you rate below a 6 will not be considered.</p>'+
+				'<h4><b>Focus on your 8s!</b></h4>'
+
+				/*<p>Skills you rate below a 6 will not be considered.</p>
+				<h4><b>Focus on your 8s!</b></h4>*/
+		});
+		$state.go('binder-asmntResults');
+		//$scope.reset();
 	}		
 
 
