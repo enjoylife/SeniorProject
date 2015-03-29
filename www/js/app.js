@@ -16,13 +16,13 @@ app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope
            console.log("populateDefaults");
         } else {
             //contentOutline = hist;
-            //console.log(hist);
+            console.log('hist');
         }
       })()
 	$ionicPlatform.ready(function() {
        // TESTING and DEMO purposes!!
         populateDefaults(); // Always Populate Defaults
-        console.log("popuplateDefaults() fired.");
+        //console.log("populateDefaults() fired.");
      if(window.cordova && window.cordova.plugins.Keyboard) {
           window.cordova.plugins.Keyboard.disableScroll(true);
 
