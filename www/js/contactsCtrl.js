@@ -4,7 +4,7 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', '$l
 	$scope.contactObj = {
 		displayName: '',
 		phoneNumbers: [
-			new ContactField('main')
+			new ContactField()
 		],
 		emails: [
 			new ContactField()
@@ -97,7 +97,7 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', '$l
 						$scope.contactObj = {
 							displayName: '',
 							phoneNumbers: [
-								new ContactField('main')
+								new ContactField()
 							],
 							emails: [
 								new ContactField()
@@ -139,7 +139,7 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', '$l
 		$scope.contactObj = {
 			displayName: '',
 			phoneNumbers: [
-				new ContactField('main')
+				new ContactField()
 			],
 			emails: [
 				new ContactField()
