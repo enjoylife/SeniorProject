@@ -513,15 +513,4 @@ app.factory('$localstorage', ['$window', function($window) {
   }
 }]);
 
-/*document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady(){
-  document.addEventListener("backbutton", onBackButton, false);
-}
 
-function onBackButton(){
-  if($state.current.name == "profile"){
-    navigator.app.exitApp();
-  }else{
-    navigator.app.backHistory();
-  }
-}*/
