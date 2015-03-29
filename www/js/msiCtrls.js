@@ -78,9 +78,6 @@ app.controller('comsCtrl', ['$scope', '$ionicLoading', '$timeout', '$state', 'sc
 		}, 1500);
 	  };
 	
-	$scope.setScreen = function(){
-		$ionicScrollDelegate.scrollTop();
-	}
 
 	//Place the questions into a scope object and separates them into attributes of header and body
 	$scope.comQuestions = {
@@ -101,7 +98,7 @@ app.controller('comsCtrl', ['$scope', '$ionicLoading', '$timeout', '$state', 'sc
 
 	}
 
-	//collection of scope arrays of objects for each set of radio buttons
+	//radio buttons
 	$scope.buttons = [
 		{text: "1", value: 1},
 		{text: "2", value: 2},

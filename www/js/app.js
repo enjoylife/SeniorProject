@@ -15,13 +15,14 @@ app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope
            populateDefaults();
            console.log("populateDefaults");
         } else {
-            contentOutline = hist;
-            console.log("hist");
+            //contentOutline = hist;
+            console.log('hist');
         }
       })()
 	$ionicPlatform.ready(function() {
        // TESTING and DEMO purposes!!
         populateDefaults(); // Always Populate Defaults
+        console.log("popuplateDefaults() fired.");
      if(window.cordova && window.cordova.plugins.Keyboard) {
           window.cordova.plugins.Keyboard.disableScroll(true);
 
@@ -70,7 +71,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     abstract:true,
     url:'/content',
     templateUrl:'templates/content.html',
-    controller :'contentCtrl'
+    controller:'contentCtrl'
   })
 
   /**
@@ -136,8 +137,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
     controller: 'MainCtrl'
   })
 
-
-
   .state('selfAssess', {
     url: '/selfAssess',
     templateUrl: 'templates/SelfAssessment.html',
@@ -151,6 +150,19 @@ app.config(function($stateProvider, $urlRouterProvider) {
     controller:'holland'
   })
 
+  //Work Values & Priorities Assessment 
+  //(not accessible in prototype deliverable)
+  .state('workValues', {
+    url:'/workValues',
+    templateUrl:'templates/selfAsmnt/workValues.html',
+    controller:'MainCtrl'
+  })
+
+  .state('workValuesResults', {
+    url:'/workValuesResults',
+    templateUrl:'templates/selfAsmnt/workValuesResults.html',
+    controller:'MainCtrl'
+  })
 
 
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -166,56 +178,56 @@ app.config(function($stateProvider, $urlRouterProvider) {
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
   .state('msi_communication', {
-    url: 'timeline/selfAsmnt/msi/msi_communication',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_communication.html',
+    url: '/msi_communication',
+    templateUrl: 'templates/selfAsmnt/msi/msi_communication.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_marketing', {
-    url: 'timeline/selfAsmnt/msi/msi_marketing',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_marketing.html',
+    url: '/msi_marketing',
+    templateUrl: 'templates/selfAsmnt/msi/msi_marketing.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_qa', {
     url: '/msi_qa',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_qa.html',
+    templateUrl: 'templates/selfAsmnt/msi/msi_qa.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_analytics', {
     url: '/msi_analytics',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_analytics.html',
+    templateUrl: 'templates/selfAsmnt/msi/msi_analytics.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_technical', {
     url: '/msi_technical',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_technical.html',
+    templateUrl: 'templates/selfAsmnt/msi/msi_technical.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_innovative', {
     url: '/msi_innovative',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_innovative.html',
+    templateUrl: 'templates/selfAsmnt/msi/msi_innovative.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_teaching', {
     url: '/msi_teaching',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_teaching.html',
+    templateUrl: 'templates/selfAsmnt/msi/msi_teaching.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_leadership', {
     url: '/msi_leadership',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_leadership.html',
+    templateUrl: 'templates/selfAsmnt/msi/msi_leadership.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_results', {
     url: '/msi_results',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_results.html',
+    templateUrl: 'templates/selfAsmnt/msi/msi_results.html',
     controller: 'MainCtrl'
   })
 
@@ -224,7 +236,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 })
 
 //MAIN CONTROLLER
-app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$localstorage", "contactService", "$ionicPlatform", "$ionicPopup", "$ionicHistory", "$rootScope", function($scope, $state, $ionicSideMenuDelegate, $localstorage, contactService, $ionicPlatform, $ionicPopup, $ionicHistory, $rootScope) {
+app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$localstorage", "contactService", "$ionicPlatform", "$ionicPopup", "$ionicHistory", "$rootScope", "$ionicScrollDelegate", function($scope, $state, $ionicSideMenuDelegate, $localstorage, contactService, $ionicPlatform, $ionicPopup, $ionicHistory, $rootScope, $ionicScrollDelegate) {
   
   /* Get count of contacts for display */
   var load = $localstorage.getObject( 'contacts' );
@@ -250,6 +262,11 @@ app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$loca
   $ionicPlatform.onHardwareBackButton(function(e){
     $rootScope.pop = 0;
   })
+
+  //function to scroll top for each view
+  $scope.setScreen = function(){
+    $ionicScrollDelegate.scrollTop();
+  }  
   
   //swiping navigation
   $scope.swipingLogicLeft = function(){
@@ -339,8 +356,6 @@ app.controller('timelineCtrl', ['$scope', '$state', '$ionicScrollDelegate', '$lo
         $ionicScrollDelegate.resize();
 
         
-
-
       };
 
 
@@ -352,7 +367,7 @@ app.controller('timelineCtrl', ['$scope', '$state', '$ionicScrollDelegate', '$lo
     }])
 
 app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate, $localstorage){
-  var
+  var 
   currentPosition,
   currentContent,
   isComplete;
@@ -396,7 +411,7 @@ app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate, $loca
 
       var 
       isSecEnd = (secNum == sectionLen),
-      isSubEnd = (subNum == subsectionLen) ;
+      isSubEnd = (subNum == subsectionLen);
 
      // If end of all sections and subsections bail
     if(isSecEnd && isSubEnd){
@@ -466,7 +481,7 @@ function populateDefaults(){
 app.directive('timeLine',[function(){
   return {
     transclude: true,
-	templateUrl: 'templates/Timeline.html',
+	  templateUrl: 'templates/Timeline.html',
     controller: (function(){})
   }
 }])

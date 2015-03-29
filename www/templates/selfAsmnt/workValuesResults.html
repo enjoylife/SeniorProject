@@ -1,0 +1,16 @@
+<div ng-controller="workValuesCtrl" ng-init="getVals()">
+	<h3 align="center">Work Value Results</h3>
+	<!-- <table id="sortable" style="margin:auto;">
+		<tr ng-repeat="v in results track by $index">
+			<td>
+				v= {{ v }}
+			</td>
+		</tr>
+	</table> -->
+
+	<ul id="sortable" align="center">
+		<li ng-repeat="v in results track by $index">
+			v= {{ v }}
+		</li>
+	</ul>
+</div>
