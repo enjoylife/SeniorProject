@@ -94,6 +94,12 @@ app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup'
 
 		}
 
+		if(asmnt.title === 'Work Values & Priorities'){
+			$scope.toggle("showAsmnts", "showWorkValueResults");
+			$scope.header = asmnt.title + " taken " + asmnt.date;
+			$scope.resultObjects = asmnt.results;
+		}
+
 	}
 
 	$scope.toggle = function(one, two){

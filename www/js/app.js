@@ -16,7 +16,7 @@ app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope
            console.log("populateDefaults");
         } else {
             //contentOutline = hist;
-            console.log('hist');
+            //console.log(hist);
         }
       })()
 	$ionicPlatform.ready(function() {
@@ -27,6 +27,11 @@ app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope
           window.cordova.plugins.Keyboard.disableScroll(true);
 
       }
+
+      //will fire everytime localstorage is accessed
+      window.addEventListener('storage', function(e) {
+        console.debug(e);
+      }, false);
 
    $rootScope.$on('$viewContentLoaded', 
     function(event){ 
@@ -513,15 +518,9 @@ app.factory('$localstorage', ['$window', function($window) {
   }
 }]);
 
-/*document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady(){
-  document.addEventListener("backbutton", onBackButton, false);
-}
-
-function onBackButton(){
-  if($state.current.name == "profile"){
-    navigator.app.exitApp();
-  }else{
-    navigator.app.backHistory();
-  }
-}*/
+//filter which allows reverse layout of ng-repeat items
+app.filter('reverse', function(){
+  return function(items) {
+    return items.slice().reverse();
+  };
+});
