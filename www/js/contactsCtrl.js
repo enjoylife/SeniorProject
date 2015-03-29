@@ -1,6 +1,6 @@
 //binder contacts controller
 
-app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', '$localstorage', 'contactService', function($scope, $cordovaContacts, $ionicPopup, $localstorage, contactService) {
+app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', '$localstorage', '$rootScope', 'contactService', function($scope, $cordovaContacts, $ionicPopup, $localstorage, $rootScope, contactService) {
 	$scope.contactObj = {
 		displayName: '',
 		phoneNumbers: [
