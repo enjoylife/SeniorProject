@@ -4,7 +4,7 @@
 >
 		<h3 align="center" style="padding-top:20px; color:white;">Professional Contacts</h3>
 	
-		<table style="margin: auto; margin-bottom: 10px;" ng-repeat="contact in getContacts() track by $index">
+		<table style="margin: auto; margin-bottom: 10px;" ng-repeat="contact in getContacts() | reverse track by $index">
 			<tr>
 				<td><b>Name:</b> {{contact.displayName}}</td>
 			</tr>

@@ -6,7 +6,7 @@
 	<h3 align="center" style="padding-top:20px; color:white;">Applications Sent</h3>  
 
 	  <table class="jobApps" 
-	  	ng-repeat="item in getJobs() track by $index"
+	  	ng-repeat="item in getJobs() | reverse track by $index"
 	  >	
 		  <tr>
 		  	<td style="padding-bottom:10px;"><b>Company:</b></td> 

@@ -1,61 +1,81 @@
-app.controller('workValuesCtrl', ['$scope', 'workValueService', function($scope, workValueService){
-	//control for Work Values Assessment, contains values for buttons, and questions
-	//contained as properties of an object
+app.controller('workValuesCtrl', ['$scope', '$localstorage', 'workValueService', 'asmntResultService', '$ionicPopup', '$state', function($scope, $localstorage, workValueService, asmntResultService, $ionicPopup, $state){
+	//control for Work Values Assessment
 
-	//qualities of which to judge one's self.
-	//wq1h = work quality one head
-	//wq1b = work quality one body, etc
-	$scope.workQualities = {
-		wq1h: 'Creativity: ',
-		wq1b: 'A job in which I can develop new products, ideas or processes, or in which I can express myself.',
+	//array of work values as objects
+	$scope.workObjects = [
+		{
+			head:'Creativity: ',
+			body:'A job in which I can develop new products, ideas or processes, or in which I can express myself.',
+			value:null
+		},
+		{
+			head:'Challenge: ',
+			body:'A demanding job which requires that I solve difficult problems.',
+			value:null
+		},
+		{
+			head:'Variety: ',
+			body:'A job that allows me to perform many different tasks.',
+			value:null
+		},
+	]
 
-		wq2h:'Challenge: ',
-		wq2b:'A demanding job which requires that I solve difficult problems.',
-
-		wq3h:'Variety: ',
-		wq3b:'A job that allows me to perform many different tasks.',
-	}
-	
-
-	//object to contain all necessary placeholders
-	$scope.data = {
-		workQualityOne: null,
-		workQualityTwo: null,
-		workQualityThree: null,
-	}
-
-	$scope.output = function(){
-		console.log($scope.data.workQualityOne);
-	}
 
 	//array which will hold all initial input values from our user
 	var vals = [];
 
 	//function to send all values into an array to pass to factory
 	$scope.pushVals = function(){
-		for(var v in $scope.data){
-			/*console.log(v);
-			console.log($scope.data[v]);*/
-			if($scope.data[v] == 3){
-				vals.push($scope.data[v]);
+		for(i = 0; i < $scope.workObjects.length; i++){
+			if($scope.workObjects[i].value == 3){
+				vals.push($scope.workObjects[i]);
 			}
 		}
+
 
 		//send array to factory
 		workValueService.setArray(vals);
 		console.log(vals);
-		//vals = [];
+		vals = [];
 	}
 
 	$scope.getVals = function(){
 		$scope.results = workValueService.getArray();
-		//return $scope.results;
 	}
 
+	//sortable objects, thanks JQuery
 	$(function() {
     	$( "#sortable" ).sortable();
     	$( "#sortable" ).disableSelection();
   	});
+
+	$scope.getList = function(){
+		var listItems = [];
+	  	$("li").each(function(index) {
+	  		console.log($(this).text());
+	  		listItems.push($(this).text());
+	  	})
+
+
+	  	if(listItems.length > 0){
+		  	//create date object
+		  	d = new Date();
+			curday = d.getDate();
+			curmonth = d.getMonth();
+			curyear = d.getFullYear();
+			var datestring = curmonth + "/" + curday + "/" + curyear;
+			
+			//send results to asmnt results factory
+			asmntResultService.addAsmntResult(listItems, 'Work Values & Priorities', datestring);
+			$localstorage.setObject( 'assessments', asmntResultService.getAsmntResult() );
+			$state.go('binder-asmntResults');
+		}else{
+			$ionicPopup.alert({
+				title:'Uh-Oh!',
+				template:'You must choose some work priorities that are <u>Absolutely Required</u>!'
+			})
+		}
+  	}
 
 }]);
 

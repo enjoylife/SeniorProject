@@ -53,10 +53,10 @@ var contentOutline = [
 				file:'skills.html',
 				title:'Motivated Skills Inventory'
 			},
-			/*{
+			{
 				file:'values.html',
 				title:'Work Values and Priorities'
-			},*/
+			},
 			// {
 			// 	file:'knowledge.html',
 			// 	title : "Key Knowledge Areas"
