@@ -250,6 +250,17 @@ app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$loca
 	}
   $scope.count = contactService.getContactsService().length;
 
+  //disables verticle scrolling on the selected page
+  $rootScope.$on('$stateChangeSuccess', 
+  function(event, toState, toParams, fromState, fromParams){ 
+    
+    if($state.current.name=='profile'){
+      $ionicScrollDelegate.getScrollView().options.scrollingY = false;
+    }else{
+      $ionicScrollDelegate.getScrollView().options.scrollingY = true;         
+    }
+  })
+
   //Android hardware backbutton
   var deregister = $ionicPlatform.registerBackButtonAction(function(e) { 
     /*e.preventDefault();
