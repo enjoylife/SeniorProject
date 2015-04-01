@@ -13,9 +13,7 @@
 // JOB APPLICATION CONTROLLER
 // JOB APPLICATION CONTROLLER
 // JOB APPLICATION CONTROLLER
-app.controller('JobAppCtrl', ['$scope', '$ionicPopup', '$localstorage', 'jobAppService', function($scope, $ionicPopup, $localstorage, jobAppService){
-  //var $scope.date;
-
+app.controller('JobAppCtrl', ['$scope', '$ionicPopup', '$localstorage', 'jobAppService', '$rootScope', function($scope, $ionicPopup, $localstorage, jobAppService, $rootScope){
   $scope.obj = {
     date: '',
     company: '',
@@ -30,9 +28,21 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', '$localstorage', 'jobAppS
   if (Object.keys(load).length !== 0) {
 	jobAppService.loadList( load );
   }
+
+  //this variable will be used to keep track of ionic popups
+  $rootScope.pop = 0;
+
+  $rootScope.$on('$stateChangeStart', 
+  function(event, toState, toParams, fromState, fromParams){ 
+    if($rootScope.pop){
+      event.preventDefault(); 
+    }
+      // transitionTo() promise will be rejected
+  })
   
-  //command a popup window to be filled with job application data
+  //open a popup window to be filled with job application data
   $scope.jobForm = function(){
+    $rootScope.pop = 1;
     var newJob = $ionicPopup.show({
       title: 'New Job Application',
       templateUrl: 'templates/binder/binder-jobApps-popup.html',
@@ -40,7 +50,9 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', '$localstorage', 'jobAppS
       buttons: [
         {
           text:'Cancel',
-          
+          onTap: function(e){
+            $rootScope.pop = 0;
+          }
         },
         {
           text: 'Submit',
@@ -48,6 +60,7 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', '$localstorage', 'jobAppS
           onTap: function(e){
             //console.log("Hello");
             $scope.addRecord(e);
+
             //newJob.close();
           }
         }
@@ -69,7 +82,7 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', '$localstorage', 'jobAppS
     $scope.obj.notes=item.notes;
 
     //$scope.obj = item;
-
+    $rootScope.pop = 1;
     var editJob = $ionicPopup.show({
       title: 'Edit Job Application',
       templateUrl: 'templates/binder/binder-jobApps-popup.html',
@@ -77,6 +90,9 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', '$localstorage', 'jobAppS
       buttons: [
         {
           text:'Cancel',
+          onTap: function(e){
+            $rootScope.pop = 0;
+          }
         },
         {
           text: 'Update',
@@ -94,6 +110,7 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', '$localstorage', 'jobAppS
 				alertPopup.close();
 			});
 			} else {
+        $rootScope.pop = 0;
 				$scope.obj.date = d.toDateString();
 				var editIndex = jobAppService.getJobApp().indexOf(tmp);
 				console.log(editIndex);
@@ -135,6 +152,7 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', '$localstorage', 'jobAppS
 		alertPopup.close();
 	});
 	} else {
+    $rootScope.pop = 0;
 		$scope.obj.date = d.toDateString();
 		$scope.jobAppRecord = [];
 		var newJobApplication = $scope.obj;

@@ -14,10 +14,23 @@ app.factory('scraper', function() {
     values.push(val);
   }
 
-  //this loop will return the totals that are 6 or higher.
+  
   function output(){
     var out = [];
 
+    //removes dupes, keeps last chosen order
+    for(i=values.length-1; i>0; i--){
+    	for(j=i-1; j>=0; j--){
+    		//if header is the same, then remove that object
+    		if(values[i].h === values[j].h){    	
+    			i--;
+    			values.splice(j, 1);
+    			//console.log("after splice: "+values.length);
+    		}
+    	}
+    }
+
+    //this loop will return the totals that are 6 or higher.
     values.forEach( function(object){
       if(object.sum >= 6){
         out.push(object);
@@ -48,13 +61,24 @@ app.factory('scraper', function() {
 
 
 //Communication controller
-app.controller('comsCtrl', ['$scope', 'scraper', '$ionicScrollDelegate', 'asmntResultService', "$localstorage", function($scope, scraper, $ionicScrollDelegate, asmntResultService, $localstorage){
+app.controller('comsCtrl', ['$scope', '$ionicLoading', '$timeout', '$state', 'scraper', '$ionicScrollDelegate', 'asmntResultService', "$localstorage", '$ionicPopup',  function($scope, $ionicLoading, $timeout, $state, scraper, $ionicScrollDelegate, asmntResultService, $localstorage, $ionicPopup){
 	//array to hold result values
 	//$scope.results = [];	
 
-	$scope.setScreen = function(){
-		$ionicScrollDelegate.scrollTop();
-	}
+	$scope.show = function () {
+		return $ionicLoading.show({
+			content: 'Loading Calendar'
+		});
+	};
+
+	$scope.loadCalendar = function () {
+		var loading = $scope.show();
+		$timeout(function(){
+		  $state.go('binder-calendar');
+		  loading.hide();
+		}, 1500);
+	  };
+	
 
 	//Place the questions into a scope object and separates them into attributes of header and body
 	$scope.comQuestions = {
@@ -75,7 +99,7 @@ app.controller('comsCtrl', ['$scope', 'scraper', '$ionicScrollDelegate', 'asmntR
 
 	}
 
-	//collection of scope arrays of objects for each set of radio buttons
+	//radio buttons
 	$scope.buttons = [
 		{text: "1", value: 1},
 		{text: "2", value: 2},
@@ -142,7 +166,7 @@ app.controller('comsCtrl', ['$scope', 'scraper', '$ionicScrollDelegate', 'asmntR
 	}
 
 
-
+	//this function is called everytime a user begins a new msi assessment.
 	$scope.reset = function(){
 		console.log("inside reset() results = " + $scope.results);
 		scraper.resetVals();
@@ -152,6 +176,7 @@ app.controller('comsCtrl', ['$scope', 'scraper', '$ionicScrollDelegate', 'asmntR
 
 	$scope.getResults = function(){
 		//alert($scope.results);
+		//return results from the factory in descending order
 		$scope.results = scraper.output().sort(function(a, b){ return b.sum-a.sum });
 		//$scope.results.sort(function(a, b){ return(b-a) });
 		console.log("getResults() results = " + $scope.results);
@@ -166,6 +191,18 @@ app.controller('comsCtrl', ['$scope', 'scraper', '$ionicScrollDelegate', 'asmntR
 		//send results to asmnt results factory
 		asmntResultService.addAsmntResult($scope.results, 'MSI Results', datestring);
 		$localstorage.setObject( 'assessments', asmntResultService.getAsmntResult() );
+
+		$ionicPopup.alert({
+			title:'<strong><u>These results are important!</u></strong>',
+			template:'<p>A skill rating of 8 means you are highly skilled and highly motivated. A score of 7 means you are slightly lacking in motivation or skill, etc.</p>'+
+				'<p>Skills you rate below a 6 will not be considered.</p>'+
+				'<h4><b>Focus on your 8s!</b></h4>'
+
+				/*<p>Skills you rate below a 6 will not be considered.</p>
+				<h4><b>Focus on your 8s!</b></h4>*/
+		});
+		$state.go('binder-asmntResults');
+		//$scope.reset();
 	}		
 
 
@@ -350,7 +387,7 @@ app.controller('qaCtrl', ['$scope', 'scraper', function($scope, scraper){
 		
 		$scope.total($scope.qaQuestions.compspeedHead, $scope.qaQuestions.compspeedBody, $scope.data.compspeedSVal, $scope.data.compspeedMVal);
 		$scope.total($scope.qaQuestions.numcrunchHead, $scope.qaQuestions.numcrunchBody, $scope.data.numcrunchSVal, $scope.data.numcrunchMVal);
-		$scope.total($scope.qaQuestions.Head, $scope.qaQuestions.probsolvBody, $scope.data.probsolvSVal, $scope.data.probsolvMVal);
+		$scope.total($scope.qaQuestions.probsolvHead, $scope.qaQuestions.probsolvBody, $scope.data.probsolvSVal, $scope.data.probsolvMVal);
 		$scope.total($scope.qaQuestions.computerHead, $scope.qaQuestions.computerBody, $scope.data.computerSVal, $scope.data.computerMVal);
 
 		//Loop through the Totals array which now contains the questions and summed values
@@ -483,7 +520,7 @@ app.controller('techReasonCtrl', ['$scope', 'scraper', function($scope, scraper)
 
 	$scope.techReasonQuestions = {
 		mechanicalHead: "Mechanical Reasoning: ",
-		mechanicalBody: " Mechanical Reasoning: Able to understand the ways that hardware, machinery or tools operate and the relationships between mechanical operations.",
+		mechanicalBody: "Able to understand the ways that hardware, machinery or tools operate and the relationships between mechanical operations.",
 		spatialHead: "Spatial Reasoning: ",
 		spatialBody: " Possess excellent spatial reasoning, able to judge the relationship of objects in space. Able to judge shapes and sizes of objects and manipulate them digitally or mentally and analyze the effects.",
 		outdoorHead: "Outdoor Work: ",

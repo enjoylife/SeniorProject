@@ -1,0 +1,67 @@
+<div title="Work Values & Priorities" ng-init="setScreen()" ng-controller="workValuesCtrl">
+	<div align="center">
+		<h3 style="color: rgb(0, 0, 102); padding-top:4%;">
+			Work Values & Priorities
+		</h3>
+
+		<h4 style="color: rgb(0, 0, 102);"><strong>
+			What do you need to be satisfied with your work?<br>
+			Fill this out as if your life depended on it!
+		</strong></h4>
+		<hr>
+
+		<table style="font-size:20px; margin:auto;">
+			<tr>
+				<td>0&nbsp;&nbsp;=&nbsp;&nbsp;Unimportant</td> 
+			</tr>
+			<tr>
+				<td>1&nbsp;&nbsp;=&nbsp;&nbsp;Somewhat Important</td>
+			</tr>
+			<tr>
+				<td>2&nbsp;&nbsp;=&nbsp;&nbsp;Very Important</td>
+			</tr>
+			<tr>
+				<td>3&nbsp;&nbsp;=&nbsp;&nbsp;Absolutely Required</td>
+			</tr>
+		</table>
+		<hr>
+		<h4 style="color: rgb(0, 0, 102);"><strong>
+			Using the scale above, rate each item:<br>
+			How important it is to you for you to be satisfied with your work?
+		</strong></h4>
+		<hr>
+
+		<!-- Main Table -->
+		<table style="width:100%" ng-repeat="work in workObjects track by $index">
+			<tr>
+				<td colspan="4" style="font-size:20px; padding:10px;">
+					<strong>{{work.head}}</strong> {{work.body}}
+				</td>
+			</tr>			
+			<tr>
+				<td>
+					<ion-radio name="{{work.head}}" ng-value="0" ng-model="work.value">0</ion-radio>
+				</td>
+				<td>
+					<ion-radio name="{{work.head}}" ng-value="1" ng-model="work.value">1</ion-radio>
+				</td>
+				<td>
+					<ion-radio name="{{work.head}}" ng-value="2" ng-model="work.value">2</ion-radio>
+				</td>
+				<td>
+					<ion-radio name="{{work.head}}" ng-value="3" ng-model="work.value">3</ion-radio>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<hr>
+				</td>
+			</tr>
+		</table>
+
+
+		<button class="button" ng-click="pushVals()" ui-sref="workValuesResults">Rank your values
+		</button>
+
+	</div>
+</div>
