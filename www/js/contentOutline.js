@@ -30,19 +30,19 @@ var contentOutline = [
 	},
 
 	{
-		folder: 'careerbinder_text',
-		title: 'Staying Organized',
+		folder:'careerbinder_text',
+		title:'Staying Organized',
 		sections: [
 			{
-				file: 'sjs2-0.html',
-				title: 'Your Career Binder ... absolutely essential!'
+				file:'sjs2-0.html',
+				title:'Your Career Binder ... absolutely essential!'
 			},
 		]
 	},
 
 	{
 		folder:'assessment',
-		title: "Assessments",
+		title:"Assessments",
 
 		sections:[
 			{
@@ -51,12 +51,12 @@ var contentOutline = [
 			},
 			{
 				file:'skills.html',
-				title: 'Motivated Skills Inventory'
+				title:'Motivated Skills Inventory'
 			},
-			// {
-			// 	file:'values.html',
-			// 	title: 'Work Values and Priorities'
-			// },
+			{
+				file:'values.html',
+				title:'Work Values and Priorities'
+			},
 			// {
 			// 	file:'knowledge.html',
 			// 	title : "Key Knowledge Areas"

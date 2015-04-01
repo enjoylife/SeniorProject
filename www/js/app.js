@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('prototype', [ 'ionic', 'ngCordova','ionic.ion.headerShrink', 'ui.calendar', 'ui.bootstrap'])
 
-app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope) {
+app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope, $state, $ionicHistory) {
       (function getHistory(){
-        var hist = JSON.parse(localStorage.getItem('hist'));
+        var hist = JSON.parse(window.localStorage.getItem('hist'));
         // We havent entered history before, set defaults
         // TODO test and handle inital setup or defaults regarding user data
      
@@ -15,17 +15,23 @@ app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope
            populateDefaults();
            console.log("populateDefaults");
         } else {
-            contentOutline = hist;
-            console.log("hist");
+            //contentOutline = hist;
+            console.log('hist');
         }
       })()
 	$ionicPlatform.ready(function() {
        // TESTING and DEMO purposes!!
         populateDefaults(); // Always Populate Defaults
+        //console.log("populateDefaults() fired.");
      if(window.cordova && window.cordova.plugins.Keyboard) {
           window.cordova.plugins.Keyboard.disableScroll(true);
 
       }
+
+      //will fire everytime localstorage is accessed
+      window.addEventListener('storage', function(e) {
+        console.debug(e);
+      }, false);
 
    $rootScope.$on('$viewContentLoaded', 
     function(event){ 
@@ -34,12 +40,9 @@ app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope
         $ionicScrollDelegate.freezeScroll(false); 
         $ionicScrollDelegate.resize(); 
         console.log($ionicScrollDelegate.getScrollView().__contentHeight);
-      },1000)
+      },1500)
    });
 	});
-	
-	
-	//window.localStorage.clear();
 	
 	
 	/* Check app launch count */
@@ -54,12 +57,14 @@ app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope
 	 }
 });
 
+
 app.config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
   .state('profile', {
     url: '/profile',
     templateUrl: 'templates/profile.html',
+    controller: 'MainCtrl',
     //controller: 'profile'
   })
 
@@ -71,7 +76,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     abstract:true,
     url:'/content',
     templateUrl:'templates/content.html',
-    controller :'contentCtrl'
+    controller:'contentCtrl'
   })
 
   /**
@@ -128,15 +133,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('binder-asmntResults', {
     url: '/binder/asmntResults',
     templateUrl: 'templates/binder/binder-asmntResults.html',
-  
+    controller: 'MainCtrl'
   })
 
   .state('binder-individualAsmntResults', {
     url: '/binder/asmntResults/individualAsmntResults',
-    templateUrl: 'templates/binder/binder-individualAsmntResults.html'
+    templateUrl: 'templates/binder/binder-individualAsmntResults.html',
+    controller: 'MainCtrl'
   })
-
-
 
   .state('selfAssess', {
     url: '/selfAssess',
@@ -151,6 +155,19 @@ app.config(function($stateProvider, $urlRouterProvider) {
     controller:'holland'
   })
 
+  //Work Values & Priorities Assessment 
+  //(not accessible in prototype deliverable)
+  .state('workValues', {
+    url:'/workValues',
+    templateUrl:'templates/selfAsmnt/workValues.html',
+    controller:'MainCtrl'
+  })
+
+  .state('workValuesResults', {
+    url:'/workValuesResults',
+    templateUrl:'templates/selfAsmnt/workValuesResults.html',
+    controller:'MainCtrl'
+  })
 
 
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -166,56 +183,56 @@ app.config(function($stateProvider, $urlRouterProvider) {
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
   .state('msi_communication', {
-    url: 'timeline/selfAsmnt/msi/msi_communication',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_communication.html',
+    url: '/msi_communication',
+    templateUrl: 'templates/selfAsmnt/msi/msi_communication.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_marketing', {
     url: '/msi_marketing',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_marketing.html',
+    templateUrl: 'templates/selfAsmnt/msi/msi_marketing.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_qa', {
     url: '/msi_qa',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_qa.html',
+    templateUrl: 'templates/selfAsmnt/msi/msi_qa.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_analytics', {
     url: '/msi_analytics',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_analytics.html',
+    templateUrl: 'templates/selfAsmnt/msi/msi_analytics.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_technical', {
     url: '/msi_technical',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_technical.html',
+    templateUrl: 'templates/selfAsmnt/msi/msi_technical.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_innovative', {
     url: '/msi_innovative',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_innovative.html',
+    templateUrl: 'templates/selfAsmnt/msi/msi_innovative.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_teaching', {
     url: '/msi_teaching',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_teaching.html',
+    templateUrl: 'templates/selfAsmnt/msi/msi_teaching.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_leadership', {
     url: '/msi_leadership',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_leadership.html',
+    templateUrl: 'templates/selfAsmnt/msi/msi_leadership.html',
     controller: 'MainCtrl'
   })
 
   .state('msi_results', {
     url: '/msi_results',
-    templateUrl: 'templates/timeline/selfAsmnt/msi/msi_results.html',
+    templateUrl: 'templates/selfAsmnt/msi/msi_results.html',
     controller: 'MainCtrl'
   })
 
@@ -223,8 +240,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/profile');
 })
 
-
-app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $localstorage, contactService) {
+//MAIN CONTROLLER
+app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$localstorage", "contactService", "$ionicPlatform", "$ionicPopup", "$ionicHistory", "$rootScope", "$ionicScrollDelegate", function($scope, $state, $ionicSideMenuDelegate, $localstorage, contactService, $ionicPlatform, $ionicPopup, $ionicHistory, $rootScope, $ionicScrollDelegate) {
   
   /* Get count of contacts for display */
   var load = $localstorage.getObject( 'contacts' );
@@ -233,11 +250,105 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
 	}
   $scope.count = contactService.getContactsService().length;
 
-  
-  
-})
+  //complimentary function to track ng-repeat items in reverse
+  //subtract array.length-1 from index
+  //return absval() of the result
+  $scope.reverseIndex = function(ind, array){
+    var res = ind - (array.length-1);
+    return Math.abs(res);
+  }
 
-app.controller('timelineCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', function($scope, $state, $ionicSideMenuDelegate){
+
+  //disables verticle scrolling on the selected page
+  $rootScope.$on('$stateChangeSuccess', 
+  function(event, toState, toParams, fromState, fromParams){ 
+    
+    if($state.current.name=='profile'){
+      $ionicScrollDelegate.getScrollView().options.scrollingY = false;
+    }else{
+      $ionicScrollDelegate.getScrollView().options.scrollingY = true;         
+    }
+  })
+
+  $rootScope.$on('$stateChangeStart', 
+  function(event, toState, toParams, fromState, fromParams){ 
+    
+    $ionicScrollDelegate.scrollTop();
+  })
+
+  //Android hardware backbutton
+  var deregister = $ionicPlatform.registerBackButtonAction(function(e) { 
+    /*e.preventDefault();
+    e.stopPropagation();*/
+    if($state.current.name=="profile"){
+      navigator.app.exitApp();
+    }
+    else {
+      navigator.app.backHistory();
+    }
+  }, 100);
+  $scope.$on('$destroy', deregister);
+
+  //always set pop to 0 after backbutton press
+  $ionicPlatform.onHardwareBackButton(function(e){
+    $rootScope.pop = 0;
+  })
+
+  //function to scroll top for each view
+  $scope.setScreen = function(){
+    $ionicScrollDelegate.scrollTop();
+  }  
+  
+  //swiping navigation
+  $scope.swipingLogicLeft = function(){
+    console.log("swipe Left");
+
+    if($ionicSideMenuDelegate.isOpen()) {
+        $ionicSideMenuDelegate.toggleLeft();
+        return;
+    }
+
+    if($state.is('content.sections')){
+        $state.go('profile');
+    }
+
+    if($state.is('profile')){
+      $state.go('binder');
+    }
+
+  }
+  $scope.swipingLogicRight = function(){
+    if($state.is('content.sections')){
+      $ionicSideMenuDelegate.toggleLeft();
+    }
+    if($state.is('profile')){
+      var last = $localstorage.getObject('lastSection');
+      if(!last || !last.folder || !last.file){
+        last = {
+          folder:contentOutline[0].folder,
+          file:contentOutline[0].sections[0].file
+        }
+      }
+      $state.go('content.sections', last)  
+    }
+    if($state.is('binder')){
+      $state.go('profile');
+    }
+    if($state.is('binder-ideas')||
+      $state.is('binder-calendar') ||
+      $state.is('binder-toDo') ||
+      $state.is('binder-asmntResults') ||
+      $state.is('binder-contacts') ||
+      $state.is('binder-jobApps') ||
+      $state.is('binder-individualAsmntResults')){
+      console.log("includes")
+       $state.go('binder');
+    }
+  }
+
+}]);
+
+app.controller('timelineCtrl', ['$scope', '$state', '$ionicScrollDelegate', '$localstorage', function($scope, $state, $ionicScrollDelegate, $localstorage){
       $scope.contentOutline = contentOutline;
 
       $scope.getSubsection = function(section){
@@ -256,9 +367,9 @@ app.controller('timelineCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', fu
           throw new Error("Missing required parameter for jumping into sections.")
         }
         console.log('Routing to content/'+params.folder +'/'+ params.file)
+        $localstorage.setObject('lastSection', params);
         $state.go('content.sections',params);
         $scope.setHistory();
-        console.log(params);
 
         var section = _.find(contentOutline, function(obj){
           return obj.folder == params.folder;
@@ -272,7 +383,10 @@ app.controller('timelineCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', fu
 
         section.lastRead = subsection.lastRead = moment().startOf('minute').fromNow();
         
-       
+        $ionicScrollDelegate.scrollTop();
+        $ionicScrollDelegate.resize();
+
+        
       };
 
 
@@ -283,8 +397,8 @@ app.controller('timelineCtrl', ['$scope', '$state', '$ionicSideMenuDelegate', fu
       }
     }])
 
-app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate){
-  var
+app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate, $localstorage){
+  var 
   currentPosition,
   currentContent,
   isComplete;
@@ -328,7 +442,7 @@ app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate){
 
       var 
       isSecEnd = (secNum == sectionLen),
-      isSubEnd = (subNum == subsectionLen) ;
+      isSubEnd = (subNum == subsectionLen);
 
      // If end of all sections and subsections bail
     if(isSecEnd && isSubEnd){
@@ -355,9 +469,11 @@ app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate){
   }
     $scope.goNext = function(){
     var next = nextSubSection();
+    $localstorage.setObject('lastSection', next);
     $ionicScrollDelegate.scrollTop();
     $state.go('content.sections', next)
     $ionicScrollDelegate.resize();
+    
  
     // $uiViewScroll($(".content-wrapper"));
   }
@@ -396,7 +512,7 @@ function populateDefaults(){
 app.directive('timeLine',[function(){
   return {
     transclude: true,
-	templateUrl: 'templates/Timeline.html',
+	  templateUrl: 'templates/Timeline.html',
     controller: (function(){})
   }
 }])
@@ -427,3 +543,10 @@ app.factory('$localstorage', ['$window', function($window) {
     getObject: getObject
   }
 }]);
+
+//filter which allows reverse layout of ng-repeat items
+app.filter('reverse', function(){
+  return function(items) {
+    return items.slice().reverse();
+  };
+});

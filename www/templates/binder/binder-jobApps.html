@@ -6,7 +6,7 @@
 	<h3 align="center" style="padding-top:20px; color:white;">Applications Sent</h3>  
 
 	  <table class="jobApps" 
-	  	ng-repeat="item in getJobs() track by $index"
+	  	ng-repeat="item in getJobs() | reverse track by $index"
 	  >	
 		  <tr>
 		  	<td style="padding-bottom:10px;"><b>Company:</b></td> 
@@ -32,7 +32,7 @@
 		  	<td colspan="2">
 		  		<span style="float:right;">
 			  		<i class="icon ion-edit" style="padding-right:10px;" ng-click="editJobForm(item,$index)"></i>
-			  		<i class="icon ion-close" ng-click="removeJob($index)"></i>
+			  		<i class="icon ion-close" ng-click="removeJob(reverseIndex($index, getJobs()))"></i>
 		  		</span>
 		  	</td>
 		  </tr>

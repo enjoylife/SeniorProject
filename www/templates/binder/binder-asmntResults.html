@@ -1,5 +1,5 @@
 <ion-content ng-controller="asmntResultCtrl" ng-init="getResults();setScreen();"
-	style="background-color:#800000;"
+	style="background-color:#A34747;"
 >
 	<h3 align="center" style="padding-top:20px; color:white;">Assessment Results</h3>
 
@@ -7,17 +7,44 @@
 
 		<div class="asmntResults-row"
 			align="center"
-			ng-repeat="asmnt in asmntResults track by $index" 
+			ng-repeat="asmnt in asmntResults | reverse track by $index" 
 		>	
 
 			<span ng-click="showResults(asmnt, $index)" style="float:left;">{{asmnt.title}} - {{asmnt.date}}</span>			
 			<br><br>
 			<span>
-				<i class="icon ion-close" ng-click="delete($index)"></i>
+				<i class="icon ion-close" ng-click="delete(reverseIndex($index, asmntResults))"></i>
 			</span>
 		</div>
 
 	</div>
+
+	<!-- WORK VALUES & PRIORITIES -->
+	<div id="showWorkValueResults" hidden="true" style="padding:20px;">
+
+		<table style="margin:auto; background-color:white; border:15px solid white;">
+			<tr style="font-size:16px;">
+				<td style="width:10%;"><strong>Rank</strong></td>
+				<td align="center"><strong>Work Values & Priorities</strong></td>
+			</tr>
+
+			<tr style="font-size:15px;" ng-repeat="ro in resultObjects track by $index">
+				<td style="padding:10px;">
+					#{{$index + 1}}
+				</td>
+				<td>
+					{{ro}}
+				</td>
+			</tr>
+		</table>
+		<br>
+		<span style="float:left;">
+			<button class="button" ng-click="toggle('showWorkValueResults', 'showAsmnts')">
+				<i class="icon ion-chevron-left"></i>
+			</button>			
+		</span>	
+	</div>
+
 
 	<!-- MSI RESULTS -->
 	<div  id="showAsmntResults" hidden="true" style="padding:20px;">
