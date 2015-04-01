@@ -250,6 +250,15 @@ app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$loca
 	}
   $scope.count = contactService.getContactsService().length;
 
+  //complimentary function to track ng-repeat items in reverse
+  //subtract array.length-1 from index
+  //return absval() of the result
+  $scope.reverseIndex = function(ind, array){
+    var res = ind - (array.length-1);
+    return Math.abs(res);
+  }
+
+
   //disables verticle scrolling on the selected page
   $rootScope.$on('$stateChangeSuccess', 
   function(event, toState, toParams, fromState, fromParams){ 
@@ -259,6 +268,12 @@ app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$loca
     }else{
       $ionicScrollDelegate.getScrollView().options.scrollingY = true;         
     }
+  })
+
+  $rootScope.$on('$stateChangeStart', 
+  function(event, toState, toParams, fromState, fromParams){ 
+    
+    $ionicScrollDelegate.scrollTop();
   })
 
   //Android hardware backbutton

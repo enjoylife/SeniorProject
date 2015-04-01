@@ -1,7 +1,7 @@
 <ion-content class="toDo-folder" ng-controller="ToDoCtrl">
 	<h3 align="center" style="padding-top:20px; color:white;">To-Do List</h3>
 	<ion-list>
-	   <ion-item class="item-icon-right" ng-repeat="list in output() track by $index">
+	   <ion-item class="item-icon-right" ng-repeat="list in output() | reverse track by $index">
             <div class="item-checkbox">
                 <label class="checkbox circle">
                     <input type="checkbox"
@@ -15,8 +15,8 @@
 				</div>
             </div>
             <i class="icon ion-ios-arrow-left"></i>
-            <ion-option-button class="button button-icon ion-edit" ng-click="editToDo($index)"></ion-option-button>
-            <ion-option-button class="button button-icon ion-close-round" ng-click="removeItem($index)"></ion-option-button>
+            <ion-option-button class="button button-icon ion-edit" ng-click="editToDo(reverseIndex($index, output()))"></ion-option-button>
+            <ion-option-button class="button button-icon ion-close-round" ng-click="removeItem(reverseIndex($index, output()))"></ion-option-button>
         </ion-item>
     </ion-list>
 	
