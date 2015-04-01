@@ -32,7 +32,7 @@
 		  	<td colspan="2">
 		  		<span style="float:right;">
 			  		<i class="icon ion-edit" style="padding-right:10px;" ng-click="editJobForm(item,$index)"></i>
-			  		<i class="icon ion-close" ng-click="removeJob($index)"></i>
+			  		<i class="icon ion-close" ng-click="removeJob(reverseIndex($index, getJobs()))"></i>
 		  		</span>
 		  	</td>
 		  </tr>

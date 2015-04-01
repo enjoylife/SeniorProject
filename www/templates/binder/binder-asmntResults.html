@@ -13,7 +13,7 @@
 			<span ng-click="showResults(asmnt, $index)" style="float:left;">{{asmnt.title}} - {{asmnt.date}}</span>			
 			<br><br>
 			<span>
-				<i class="icon ion-close" ng-click="delete($index)"></i>
+				<i class="icon ion-close" ng-click="delete(reverseIndex($index, asmntResults))"></i>
 			</span>
 		</div>
 

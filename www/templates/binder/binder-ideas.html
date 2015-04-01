@@ -5,8 +5,8 @@
 	    <div class="header">
           <div class="idea-date">{{ ideas.date }}</div>
 		  <div class="idea-edit">
-		    <a class="button button-icon ion-edit" ng-click="editIdea($index)"></a>
-		    <a class="button button-icon ion-close-round" ng-click="removeIdea($index)"></a>			
+		    <a class="button button-icon ion-edit" ng-click="editIdea(reverseIndex($index, output()))"></a>
+		    <a class="button button-icon ion-close-round" ng-click="removeIdea(reverseIndex($index, output()))"></a>			
 		  </div>
 		</div>
 		<div class="idea-content">
