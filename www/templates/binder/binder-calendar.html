@@ -3,6 +3,9 @@
 	<link href="lib/bootstrap-css/css/bootstrap.min.css" rel="stylesheet">
     <link href="lib/fullcalendar/dist/fullcalendar.css" rel="stylesheet">
 	<link href="lib/fullcalendar/dist/jquery-ui.theme.css" rel="stylesheet">
+	<div class="alert alert-info calAlert" ng-show="loading">
+		Loading
+	</div>
 	<div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
 		<h4>{{alertMessage}}</h4>
 	</div>
