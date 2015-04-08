@@ -1,2 +1,30 @@
 <!-- TODO Build This out and style -->
 <!-- TODO Highlight current section and sub section -->
+<ion-content ng-controller="timelineCtrl">
+    <div  class="time-line-section" ng-repeat="content in contentOutline">
+        <div class="header">
+            <!-- <div class="circle"></div> -->
+            <h1> {{content.title}}</h1>
+            <div class="details">
+                <h3>Completed:</h3>
+                <span>{{content.numComplete || 0}} / {{content.sections.length}}</span>
+            </div>
+            <div class="details">
+                <h3>Last Read:</h3>
+                <span>{{ content.lastRead || "unread"}}</span>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="content" ng-class="{'complete':section.complete}" ng-repeat="section in content.sections track by $index" >
+
+            <div class="object"  menu-close on-tap="jumpToSection({folder:content.folder,file:section.file})" >
+                <div class="date">
+                    {{$index}}
+                </div>
+                <div class="context" >
+                    {{section.title}}
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>
