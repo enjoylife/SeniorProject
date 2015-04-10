@@ -538,7 +538,12 @@ section.lead-in h3{
   overflow: hidden;
   padding-top: 20px;
 }
-
+.content.complete .context{
+    color:rgb(29,130,99) !important;
+}
+.content.complete .date {
+    background-color: rgb(29,130,99) !important;
+}
 .content .object {
   width: 100%;
 }
@@ -573,6 +578,10 @@ section.lead-in h3{
   margin: 10px 0 10px 0px;
   padding-top: 10px;
   line-height: 1.5em;
+}
+
+.button-complete {
+    background-color:rgb(29,130,99);
 }
 
 /* Calendar */
