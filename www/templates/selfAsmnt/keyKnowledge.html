@@ -1,0 +1,97 @@
+<div title="Key Knowledge Areas" ng-init="setScreen()" ng-controller="asmntInputCtrl">
+	<div align="center">
+		<h3 style="color: rgb(0, 0, 102); padding-top:4%;">
+			Knowledge Inventory
+		</h3>
+		<h4 style="color: rgb(0, 0, 102);">
+			Fill in the blanks
+		</h4>
+
+		<!-- First section -->
+		<hr>
+		<div id="firstSection">
+			<p><span style="color: rgb(0, 0, 102); font-weight:bold;">Knowledge that I have acquired through formal education:</span>  (Examples: creative writing, critical thinking, city planning, marketing fundamentals, public finance, programming, motivation theory, psychology, foundation design, environmental policy, technical writing)</p>
+		
+				<div id="first">
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+				</div>
+		
+				<p>
+					<button ng-click="addTextInput('#first');">
+						Add Text Area
+					</button>
+				</p>
+		</div>
+
+		<hr>
+		<!-- Second Section -->
+		<div id="secondSection">
+			<p><span style="color: rgb(0, 0, 102); font-weight:bold;">Knowledge that I have acquired through work experience:</span>  (Examples: writing memos, working independently and in teams, time management and project organization, and technical experience)</p>
+		
+				<div id="second">
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+				</div>
+		
+				<p>
+					<button ng-click="addTextInput('#second');">
+						Add Text Area
+					</button>
+				</p>
+		</div>
+		<hr>
+
+		<!-- Second Section -->
+		<div id="thirdSection">
+			<p><span style="color: rgb(0, 0, 102); font-weight:bold;">Knowledge that I have acquired through professional associations, hobbies, sports, family, clubs, life experience, etc.:</span> (Examples: Automotive repair, audio/video installation, computer graphics, animation, team work, woodworking, music, meeting planning, golf, baseball, building construction)</p>
+		
+				<div id="third">
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+				</div>
+		
+				<p>
+					<button ng-click="addTextInput('#third');">
+						Add Text Area
+					</button>
+				</p>
+		</div>
+		<hr>
+		<p style="color: rgb(0, 0, 102);"><strong>On the next page, you are going to rank order your knowledge areas.</strong></p>
+		<button ng-click="pushVals();" ui-sref="keyKnowledgeResults">
+			Rank your knowledge areas
+		</button>
+		<p>&nbsp;</p>
+	</div>
+</div>

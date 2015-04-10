@@ -1,7 +1,10 @@
 <ion-content ng-controller="asmntResultCtrl" ng-init="getResults();setScreen();"
-	style="background-color:#A34747;"
->
-	<h3 align="center" style="padding-top:20px; color:white;">Assessment Results</h3>
+	style="background-color:#999999;"
+>	
+	<h3 align="center" style="padding-top:20px; color:white;">
+		Assessment Results
+	</h3>
+
 
 	<div id="showAsmnts" style="padding:15px;">
 
@@ -19,6 +22,35 @@
 
 	</div>
 
+	<!-- Key Knowledge Areas -->
+	<div id="showKeyKnowledgeResults" hidden="true" style="padding:20px;">
+
+		<table style="margin:auto; background-color:white; border:15px solid white;">
+			<tr style="font-size:16px;">
+				<td style="width:10%;"><strong>Rank</strong></td>
+				<td align="center"><strong>Key Knowledge Areas</strong></td>
+			</tr>
+
+			<tr style="font-size:15px;" ng-repeat="ro in resultObjects track by $index">
+				<td style="padding:10px;">
+					#{{$index + 1}}
+				</td>
+				<td style="padding:10px;" align="center">
+					{{ro}}
+				</td>
+			</tr>
+		</table>
+		<br>
+		<span style="float:left;">
+			<button class="button" ng-click="toggle('showKeyKnowledgeResults', 'showAsmnts')">
+				<i class="icon ion-chevron-left"></i>
+			</button>			
+		</span>	
+	</div>
+
+
+
+
 	<!-- WORK VALUES & PRIORITIES -->
 	<div id="showWorkValueResults" hidden="true" style="padding:20px;">
 
@@ -32,7 +64,7 @@
 				<td style="padding:10px;">
 					#{{$index + 1}}
 				</td>
-				<td>
+				<td style="padding:10px;" align="center">
 					{{ro}}
 				</td>
 			</tr>
@@ -101,4 +133,21 @@
 			</button>			
 		</span>		
 	</div>
+
 </ion-content>
+
+<!-- A button with a drop-up list to access any assessment -->
+<div id="showMenu" align="center">
+Assessments &nbsp;|&nbsp;<i class="icon ion-arrow-up-b"></i>
+</div>
+<!-- Assessment Links Menu -->
+<div id="asmntMenu" hidden="true">
+	<span ui-sref="msi_communication">Motivated Skills Inventory</span>
+	<hr>
+	<span ui-sref="content.sections({'folder':'assessment', 'file':'personality.html'})">Career Personality</span>
+	<hr>
+	<span ui-sref="workValues">Work Values & Priorities</span>
+	<hr>
+	<span ui-sref="keyKnowledge">Key Knowledge Areas</span>
+	<hr>
+</div>

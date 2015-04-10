@@ -57,10 +57,10 @@ var contentOutline = [
 				file:'values.html',
 				title:'Work Values and Priorities'
 			},
-			// {
-			// 	file:'knowledge.html',
-			// 	title : "Key Knowledge Areas"
-			// },
+			{
+				file:'knowledge.html',
+			 	title : "Key Knowledge Areas"
+			},
 			// {
 			// 	file:'interests.html',
 			// 	title: "Life Interests and Passions"

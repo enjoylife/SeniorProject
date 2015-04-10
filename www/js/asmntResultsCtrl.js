@@ -45,7 +45,7 @@ app.factory('asmntResultService', [ '$localstorage', function($localstorage){
 
 
 //assessment results controller
-app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup', '$localstorage', '$ionicScrollDelegate', function($scope, asmntResultService, $ionicPopup, $localstorage, $ionicScrollDelegate){
+app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup', '$localstorage', '$ionicScrollDelegate', '$state', '$ionicScrollDelegate', '$rootScope', function($scope, asmntResultService, $ionicPopup, $localstorage, $ionicScrollDelegate, $state, $ionicScrollDelegate, $rootScope){
 	$scope.setScreen = function(){
 		$ionicScrollDelegate.scrollTop();
 	}
@@ -96,12 +96,17 @@ app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup'
 
 		if(asmnt.title === 'Work Values & Priorities'){
 			$scope.toggle("showAsmnts", "showWorkValueResults");
-			$scope.header = asmnt.title + " taken " + asmnt.date;
+			$scope.resultObjects = asmnt.results;
+		}
+
+		if(asmnt.title === 'Key Knowledge Areas'){
+			$scope.toggle("showAsmnts", "showKeyKnowledgeResults");
 			$scope.resultObjects = asmnt.results;
 		}
 
 	}
 
+	//toggles between assessment headers and their individual results
 	$scope.toggle = function(one, two){
 		document.getElementById(one).style.display = "none";
 		document.getElementById(two).style.display = "block";	
@@ -123,5 +128,21 @@ app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup'
 	   });
 
 	}
+
+	//function to show assessment list using jQuery slideUp()
+	$("#showMenu").click(function(){
+		$("#asmntMenu").slideToggle();
+	});
+
+	//code to change color of the links on click/tap
+	$("#asmntMenu span").click(function(){
+		$(this).css({"color":"#00CCFF"});
+	});
+
+/*	$scope.viewHolland = function(){
+		console.log("viewHolland()");
+		$rootScope.holland = true;
+		$state.go('content.sections', {'folder':'assessment', 'file':'personality.html'});
+	}*/
 
 }]);

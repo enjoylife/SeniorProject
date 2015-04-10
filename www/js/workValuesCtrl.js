@@ -129,6 +129,8 @@ app.controller('workValuesCtrl', ['$scope', '$localstorage', 'workValueService',
 		vals = [];
 	}
 
+
+	//get values from factory for results page
 	$scope.getVals = function(){
 		$scope.results = workValueService.getArray();
 	}
@@ -139,7 +141,9 @@ app.controller('workValuesCtrl', ['$scope', '$localstorage', 'workValueService',
     	$( "#sortable" ).disableSelection();
   	});
 
-	$scope.getList = function(){
+
+	//user commit
+	$scope.saveList = function(){
 		var listItems = [];
 	  	$("li").each(function(index) {
 	  		console.log($(this).text());
