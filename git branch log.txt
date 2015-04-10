@@ -1,0 +1,55 @@
+Last login: Sat Mar 21 14:47:28 on ttys000
+matt:~/Programming/SeniorProject$ git log --graph --oneline --decorate --date=relative --all
+* e14f153 (origin/adamsBranchFromMaster) Custom Popup
+*   acaad2a Merge remote-tracking branch 'origin/master' into adamsBranchFromMaster
+|\  
+| * cfe9231 (HEAD, origin/master, origin/Prototype-Deliverable, origin/HEAD, master, Prototype-Deliverable) Arrow for to-do
+| * 1a497ab Plugins android
+* | b227a39 .png pic added of landing page
+|/  
+* 957dac9 fix v2
+* e4b970a auto populate config
+* fdd1e8b force portrait
+* 97f8c04 fix brandons phone
+* ff4c0cd turn off bouncing when scrolling
+* 9e6aa85 fix scroll
+*   b04163d Merge remote-tracking branch 'origin/adamsBranchFromMaster'
+|\  
+| * c85a31e Added Landing Page
+* | 0cc1b6b fix breaking timeline
+* | 3aecfc3 last read and icon active higlights
+* | 4e240de updated transitions, timeline, and icons
+* | 47a933f fix menu close
+* | b40fd7b removed duplicated timeline template
+* | a9698e8 updated ionic
+|/  
+* 6d583d8 sjs8-0 file didn't take in last commit for some reason...
+*   225307d edit job search strategy content
+|\  
+| * 95cde8c job search strategy content edits
+* | 2a154ac Reordering chapter 9 and 10
+* | a38ce6e Attempt styling of To-Do's and contacts
+* | 3eb01c6 Add chapter 9 content
+* | d041510 Added Chapter 10 Content
+|/  
+* 069f371 some changes to plugins...
+* e6db5e4 added content
+* f8b19a9 Fix android plugin
+*   bca7f11 Merge branch 'master' of https://github.com/enjoylife/SeniorProject
+|\  
+| * 1f77308 added photo upload to user profile
+* |   3eefb3d Merge remote-tracking branch 'origin/adamsBranchFromMaster'
+|\ \  
+| |/  
+|/|   
+| * f7b9173 holland code results show up in career binder
+* |   213b7b4 Merge remote-tracking branch 'origin/adamsBranchFromMaster'
+|\ \  
+| |/  
+| * cd35c31 Added msi asmnt to Timeline
+| *   99ae0bf merge from master
+| |\  
+| * | bb4d8e3 early restructure of jobAppRecords css
+* | | e9fb86e Calendar add event and bootstrap timepicker
+| |/  
+:

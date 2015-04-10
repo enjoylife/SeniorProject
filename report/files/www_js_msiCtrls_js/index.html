@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - www/js/msiCtrls.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>www/js/msiCtrls.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">64.56</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">810</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">33.79</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">7.05</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">//THIS FILE HOLDS THE CONTROLLERS FOR EACH SECTION OF QUESTIONS
+//IN THE MOTIVATED SKILLS ASSESSMENT AND THE SCRAPER FACTORY
+
+//service to collect user input values from surveys
+app.factory(&#039;scraper&#039;, function() {
+  //blank array to hold all values
+  var values = [];
+
+  function loadlist(load){
+	values = load;
+  }  
+
+  function addTotal(val){
+    values.push(val);
+  }
+
+  //this loop will return the totals that are 6 or higher.
+  function output(){
+    var out = [];
+
+    values.forEach( function(object){
+      if(object.sum &gt;= 6){
+        out.push(object);
+      }
+    });
+    //values = [];
+    return out;
+  }
+
+  function resetVals(){
+  	values = [];
+  }
+
+  function GetMaxVal(){
+    return Math.max.apply(Math, values);
+  }
+
+  return {
+  	loadlist: loadlist,
+    addTotal: addTotal,
+    GetMaxVal: GetMaxVal,
+    output: output,
+    resetVals: resetVals
+  };
+
+});
+
+
+
+//Communication controller
+app.controller(&#039;comsCtrl&#039;, [&#039;$scope&#039;, &#039;scraper&#039;, &#039;$ionicScrollDelegate&#039;, &#039;asmntResultService&#039;, &quot;$localstorage&quot;, function($scope, scraper, $ionicScrollDelegate, asmntResultService, $localstorage){
+	//array to hold result values
+	//$scope.results = [];	
+
+	$scope.setScreen = function(){
+		$ionicScrollDelegate.scrollTop();
+	}
+
+	//Place the questions into a scope object and separates them into attributes of header and body
+	$scope.comQuestions = {
+		writingHead: &quot;Writing: &quot;,
+		writingBody: &quot; Possess good to excellent skills. Able to create business or technical documents, correspondence, and other effective written communications. Enjoy creative writing.&quot;,
+		speakingHead: &quot;Speaking: &quot;,
+		speakingBody: &quot; Comfortable speaking in meetings and communicating complex information in an easily understandable form to individuals at various levels.&quot;,
+		presentationHead: &quot;Presentation: &quot;,
+		presentationBody: &quot; Skilled at giving presentations to large or small groups. Able to develop effective visual aids for presentations.&quot;,
+		persuasiveHead: &quot;Persuasive: &quot;,
+		persuasiveBody: &quot; Comfortable using persuasive skills to convince others as to a particular course of action.&quot;,
+		saleHead: &quot;Selling: &quot;,
+		saleBody: &quot; Skilled at convincing others to buy a product or service.&quot;,
+		dramaHead: &quot;Dramatics: &quot;,
+		dramaBody: &quot; Enjoy delivering information, ideas or stories dramatically.&quot;,
+		negotiatingHead: &quot;Negotiating: &quot;,
+		negotiatingBody: &quot; Capable of bargaining with others to reach a desired agreement.&quot;
+
+	}
+
+	//collection of scope arrays of objects for each set of radio buttons
+	$scope.buttons = [
+		{text: &quot;1&quot;, value: 1},
+		{text: &quot;2&quot;, value: 2},
+		{text: &quot;3&quot;, value: 3},
+		{text: &quot;4&quot;, value: 4}
+	];
+
+	//contains necessary placeholders
+	$scope.data = { 
+		//array to hold all totals
+		comsTotals: [],
+
+		//values to store user input
+		writingSVal: 0, 
+		writingMVal: 0,
+		speakingSVal: 0,
+		speakingMVal: 0,
+		presentationSVal: 0,
+		presentationMVal: 0,
+		persuasiveSVal: 0,
+		persuasiveMVal: 0,
+		saleSVal: 0,
+		saleMVal: 0,
+		dramaSVal: 0,
+		dramaMVal: 0,
+		negotiatingSVal: 0,
+		negotiatingMVal: 0,
+	};
+
+	//the function that will be called to carry over questions and sum values
+	$scope.total = function(head, body, s, m){
+			t= {
+				h: head,
+				b: body,
+				sum: s+m
+			}
+			$scope.data.comsTotals.push(t);
+	}
+
+
+	$scope.commitVals = function(){
+		//call the total function for each set of questions and add them to
+		//the total for the communication section which is done individually within each function
+		$scope.total($scope.comQuestions.writingHead, $scope.comQuestions.writingBody, $scope.data.writingSVal, $scope.data.writingMVal);
+		$scope.total($scope.comQuestions.speakingHead, $scope.comQuestions.speakingBody, $scope.data.speakingSVal, $scope.data.speakingMVal);
+		$scope.total($scope.comQuestions.presentationHead, $scope.comQuestions.presentationBody, $scope.data.presentationSVal, $scope.data.presentationMVal);
+		$scope.total($scope.comQuestions.persuasiveHead, $scope.comQuestions.persuasiveBody, $scope.data.persuasiveSVal, $scope.data.persuasiveMVal);
+		$scope.total($scope.comQuestions.saleHead, $scope.comQuestions.saleBody, $scope.data.saleSVal, $scope.data.saleMVal);
+		$scope.total($scope.comQuestions.dramaHead, $scope.comQuestions.dramaBody, $scope.data.dramaSVal, $scope.data.dramaMVal);
+		$scope.total($scope.comQuestions.negotiatingHead, $scope.comQuestions.negotiatingBody, $scope.data.negotiatingSVal, $scope.data.negotiatingMVal);
+
+		//Loop through the Totals array which now contains the questions and summed values
+		//for each question and send them to the scraper service using a service function 
+		//called addTotal
+		$scope.data.comsTotals.forEach( function(arrayItem){
+			console.log(&quot;inside forEach&quot;);
+			scraper.addTotal(arrayItem);
+			//alert(&#039;Array values added to scraper&#039;);
+
+		});
+
+		$scope.data.comsTotals = [];
+
+	}
+
+
+
+	$scope.reset = function(){
+		console.log(&quot;inside reset() results = &quot; + $scope.results);
+		scraper.resetVals();
+		$scope.results = [];
+		console.log(&quot;After reset() results = &quot; + $scope.results);
+	}
+
+	$scope.getResults = function(){
+		//alert($scope.results);
+		$scope.results = scraper.output().sort(function(a, b){ return b.sum-a.sum });
+		//$scope.results.sort(function(a, b){ return(b-a) });
+		console.log(&quot;getResults() results = &quot; + $scope.results);
+		$ionicScrollDelegate.scrollTop();
+
+		d = new Date();
+		curday = d.getDate();
+		curmonth = d.getMonth();
+		curyear = d.getFullYear();
+		var datestring = curmonth + &quot;/&quot; + curday + &quot;/&quot; + curyear;
+		
+		//send results to asmnt results factory
+		asmntResultService.addAsmntResult($scope.results, &#039;MSI Results&#039;, datestring);
+		$localstorage.setObject( &#039;assessments&#039;, asmntResultService.getAsmntResult() );
+	}		
+
+
+	$scope.maximumval = function(){
+		return scraper.GetMaxVal();
+	}
+
+}]);
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+//			Marketing Controller
+//			Marketing Controller
+//			Marketing Controller
+
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+app.controller(&#039;marketCtrl&#039;, [&#039;$scope&#039;, &#039;scraper&#039;, function($scope, scraper){
+	//Place the questions into a scope object and separates them into attributes of head and body
+	$scope.marketQuestions = {
+		socialHead: &quot;Social Ease: &quot;,
+		socialBody: &quot; Effective in social situations; comfortable meeting new people and establish rapport easily.&quot;,
+		PRHead: &quot;Public Relations: &quot;,
+		PRBody: &quot; Interact effectively on a continual basis with customers requiring information, service or help.&quot;,
+		custservHead: &quot;Customer/User Service: &quot;,
+		custservBody: &quot; Skilled at listening carefully to customer needs and complaints. Able to identify, trouble shoot and resolve problems to customer &#039;s satisfaction. Skilled at defusing customer anger or frustration; able to create a positive experience for the customer.&quot;,
+		marketsalesHead: &quot;Marketing &amp; Sales: &quot;,
+		marketsalesBody: &quot; Skilled at identifying customer needs and preferences and making appropriate product or service recommendations.&quot;,
+		profHead: &quot;Professional Image: &quot;,
+		profBody: &quot; Able to present a good professional appearance. Able to represent an organization effectively in a positive light. Enjoy dressing appropriately for professional situations. Project a solid professional image.&quot;,
+		improvementHead: &quot;Performance Improvement: &quot;,
+		improvementBody: &quot; Able to deal effectively with objective criticism or feedback and improve performance. Able to identify areas of deficiency to improve performance. Able to defuse problems and resolve complaints with positive action.&quot;
+	}
+
+
+	//radio buttons
+	$scope.buttons = [
+		{text: &quot;1&quot;, value: 1},
+		{text: &quot;2&quot;, value: 2},
+		{text: &quot;3&quot;, value: 3},
+		{text: &quot;4&quot;, value: 4}
+	];
+
+
+
+	//holds all user input values
+	$scope.data = { 
+		marketTotals: [],
+
+		socialSVal: 0, 
+		socialMVal: 0,
+		PRSVal: 0, 
+		PRMVal: 0,
+		custservSVal: 0, 
+		custservMVal: 0,
+		marketsalesSVal: 0, 
+		marketsalesMVal: 0,
+		profSVal: 0, 
+		profMVal: 0,
+		improvementSVal: 0, 
+		improvementMVal: 0,
+
+	};
+
+	$scope.total = function(head, body, s, m){
+		t= {
+			h: head,
+			b: body,
+			sum: s+m
+		}
+		$scope.data.marketTotals.push(t);
+	}
+
+
+
+	$scope.commitVals = function(){
+		//call the total function for each set of questions and add them to
+		//the total for the communication section which is done individually within each function
+		
+		$scope.total($scope.marketQuestions.socialHead, $scope.marketQuestions.socialBody, $scope.data.socialSVal, $scope.data.socialMVal);
+		$scope.total($scope.marketQuestions.PRHead, $scope.marketQuestions.PRBody, $scope.data.PRSVal, $scope.data.PRMVal);
+		$scope.total($scope.marketQuestions.custservHead, $scope.marketQuestions.custservBody, $scope.data.custservSVal, $scope.data.custservMVal);
+		$scope.total($scope.marketQuestions.marketsalesHead, $scope.marketQuestions.marketsalesBody, $scope.data.marketsalesSVal, $scope.data.marketsalesMVal);
+		$scope.total($scope.marketQuestions.profHead, $scope.marketQuestions.profBody, $scope.data.profSVal, $scope.data.profMVal);
+		$scope.total($scope.marketQuestions.improvementHead, $scope.marketQuestions.improvementBody, $scope.data.improvementSVal, $scope.data.improvementMVal);
+
+		//Loop through the Totals array which now contains the questions and summed values
+		//for each question and send them to the scraper service using a service function 
+		//called addTotal
+		$scope.data.marketTotals.forEach( function(arrayItem){
+			
+			scraper.addTotal(arrayItem);
+			//alert(&#039;Array values added to scraper&#039;);
+
+		});
+
+		$scope.data.marketTotals = [];
+	}
+
+}]);
+
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+//			Quantitative Analysis Controller
+//			Quantitative Analysis Controller
+//			Quantitative Analysis Controller
+
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+app.controller(&#039;qaCtrl&#039;, [&#039;$scope&#039;, &#039;scraper&#039;, function($scope, scraper){
+	
+
+	$scope.qaQuestions = {
+		compspeedHead: &quot;Computational Speed: &quot;,
+		compspeedBody: &quot; Able to process, compute or manipulate numerical data rapidly and accurately with or without the aid of a calculator or computing device.&quot;,
+		numcrunchHead: &quot;Work With Numerical Data: &quot;,
+		numcrunchBody: &quot; Skilled at dealing with and manipulating large amounts of quantitative data. Able to compile, interpret, and present complex data.&quot;,
+		probsolvHead: &quot;Solve Quantitative Problems: &quot;,
+		probsolvBody: &quot; Able to analyze numerical data using complex equations and methods to arrive at a satisfactory solution. Able to recommend course of action based on quantitative analysis.&quot;,
+		computerHead: &quot;Computer Skills: &quot;,
+		computerBody: &quot; Able to analyze customer hardware or software needs or problems. Skilled at writing software specifications and developing computer software programs or software systems in order to automate processes for maximum efficiency and data collection. Able to identify hardware solutions based on careful analysis.&quot;
+	};
+
+	//collection of scope arrays of objects for each set of radio buttons
+	$scope.buttons = [
+		{text: &quot;1&quot;, value: 1},
+		{text: &quot;2&quot;, value: 2},
+		{text: &quot;3&quot;, value: 3},
+		{text: &quot;4&quot;, value: 4}
+	];
+
+
+	//
+	$scope.qaTotals = [];
+
+	//the object which contains most of the important chunks of data
+	$scope.data = { 
+		qaTotals: [],
+
+		compspeedSVal: 0, 
+		compspeedMVal: 0,
+		numcrunchSVal: 0, 
+		numcrunchMVal: 0,
+		probsolvSVal: 0, 
+		probsolvMVal: 0,
+		computerSVal: 0, 
+		computerMVal: 0,
+	};
+
+	$scope.total = function(head, body, s, m){
+		t= {
+			h: head,
+			b: body,
+			sum: s+m
+		}
+		$scope.data.qaTotals.push(t);
+	}
+
+
+	$scope.commitVals = function(){
+		//call the total function for each set of questions and add them to
+		//the total for the communication section which is done individually within each function
+		
+		$scope.total($scope.qaQuestions.compspeedHead, $scope.qaQuestions.compspeedBody, $scope.data.compspeedSVal, $scope.data.compspeedMVal);
+		$scope.total($scope.qaQuestions.numcrunchHead, $scope.qaQuestions.numcrunchBody, $scope.data.numcrunchSVal, $scope.data.numcrunchMVal);
+		$scope.total($scope.qaQuestions.Head, $scope.qaQuestions.probsolvBody, $scope.data.probsolvSVal, $scope.data.probsolvMVal);
+		$scope.total($scope.qaQuestions.computerHead, $scope.qaQuestions.computerBody, $scope.data.computerSVal, $scope.data.computerMVal);
+
+		//Loop through the Totals array which now contains the questions and summed values
+		//for each question and send them to the scraper service using a service function 
+		//called addTotal
+		$scope.data.qaTotals.forEach( function(arrayItem){
+			
+			scraper.addTotal(arrayItem);
+			//alert(&#039;Array values added to scraper&#039;);
+
+		});
+
+		$scope.data.qaTotals = [];
+	};
+
+}]);
+
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+//			Analytics Controller
+//			Analytics Controller
+//			Analytics Controller
+
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+app.controller(&#039;analyticsCtrl&#039;, [&#039;$scope&#039;, &#039;scraper&#039;, function($scope, scraper){
+	
+
+	$scope.analyticsQuestions = {
+		scienceHead: &quot;Scientific Curiosity: &quot;,
+		scienceBody: &quot;  Significant interest in scientific phenomena. Motivated to explore, research, pursue and develop new technologies and innovations.&quot;,
+		researchHead: &quot;Research: &quot;,
+		researchBody: &quot;  Able to gather information, in a systematic way, for a particular field of knowledge, verifying facts or principles.&quot;,
+		techworkHead: &quot;Technical Work: &quot;,
+		techworkBody: &quot;  Able to understand and use engineering, or industrial principles, tools and equipment to improve processes, services or products.&quot;,		
+	};
+
+
+	//collection of scope arrays of objects for each set of radio buttons
+	$scope.buttons = [
+		{text: &quot;1&quot;, value: 1},
+		{text: &quot;2&quot;, value: 2},
+		{text: &quot;3&quot;, value: 3},
+		{text: &quot;4&quot;, value: 4}
+	];
+
+
+	$scope.analyticsTotals = [];
+
+
+	//the object which contains most of the important chunks of data
+	$scope.data = { 
+		analyticsTotals: [],
+
+		scienceSVal: 0, 
+		scienceMVal: 0,
+		researchSVal: 0, 
+		researchMVal: 0,
+		techworkSVal: 0, 
+		techworkMVal: 0,
+	};
+
+	$scope.total = function(head, body, s, m){
+		t= {
+			h: head,
+			b: body,
+			sum: s+m
+		}
+		$scope.data.analyticsTotals.push(t);
+	}
+
+
+	$scope.commitVals = function(){
+		//call the total function for each set of questions and add them to
+		//the total for the communication section which is done individually within each function
+		
+		$scope.total($scope.analyticsQuestions.scienceHead, $scope.analyticsQuestions.scienceBody, $scope.data.scienceSVal, $scope.data.scienceMVal);
+		$scope.total($scope.analyticsQuestions.researchHead, $scope.analyticsQuestions.researchBody, $scope.data.researchSVal, $scope.data.researchMVal);
+		$scope.total($scope.analyticsQuestions.techworkHead, $scope.analyticsQuestions.techworkBody,  $scope.data.techworkSVal, $scope.data.techworkMVal);
+
+		//Loop through the Totals array which now contains the questions and summed values
+		//for each question and send them to the scraper service using a service function 
+		//called addTotal
+		$scope.data.analyticsTotals.forEach( function(arrayItem){
+			
+			scraper.addTotal(arrayItem);
+			//alert(&#039;Array values added to scraper&#039;);
+
+		});
+
+		$scope.data.analyticsTotals = [];
+	};
+
+
+}]);
+
+
+
+
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+//			Technical Reasoning Controller
+//			Technical Reasoning Controller
+//			Technical Reasoning Controller
+
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+app.controller(&#039;techReasonCtrl&#039;, [&#039;$scope&#039;, &#039;scraper&#039;, function($scope, scraper){
+	
+
+	$scope.techReasonQuestions = {
+		mechanicalHead: &quot;Mechanical Reasoning: &quot;,
+		mechanicalBody: &quot; Mechanical Reasoning: Able to understand the ways that hardware, machinery or tools operate and the relationships between mechanical operations.&quot;,
+		spatialHead: &quot;Spatial Reasoning: &quot;,
+		spatialBody: &quot; Possess excellent spatial reasoning, able to judge the relationship of objects in space. Able to judge shapes and sizes of objects and manipulate them digitally or mentally and analyze the effects.&quot;,
+		outdoorHead: &quot;Outdoor Work: &quot;,
+		outdoorBody: &quot; Enjoy working outdoors on construction, environmental or landscape projects, to manage operations or to gather technical information or environmental data.&quot;,
+		tspbHead: &quot;Troubleshooting and Problem Solving: &quot;,
+		tspbBody: &quot; Skilled with analyzing mechanical, electrical, software or hardware problems and coming up with effective solutions.&quot;
+	};
+
+	//collection of scope arrays of objects for each set of radio buttons
+	$scope.buttons = [
+		{text: &quot;1&quot;, value: 1},
+		{text: &quot;2&quot;, value: 2},
+		{text: &quot;3&quot;, value: 3},
+		{text: &quot;4&quot;, value: 4}
+	];
+
+	//the object which contains most of the important chunks of data
+	$scope.data = { 
+		techReasonTotals: [],
+
+		mechanicalSVal: 0, 
+		mechanicalMVal: 0,
+		spatialSVal: 0, 
+		spatialMVal: 0,
+		outdoorSVal: 0, 
+		outdoorMVal: 0,
+		tspbSVal: 0, 
+		tspbMVal: 0,
+	};
+
+	$scope.total = function(head, body, s, m){
+		t= {
+			h: head,
+			b: body,
+			sum: s+m
+		}
+		$scope.data.techReasonTotals.push(t);
+	}	
+
+
+	$scope.commitVals = function(){
+		//call the total function for each set of questions and add them to
+		//the total for the communication section which is done individually within each function
+		
+		$scope.total($scope.techReasonQuestions.mechanicalHead, $scope.techReasonQuestions.mechanicalBody, $scope.data.mechanicalSVal, $scope.data.mechanicalMVal);
+		$scope.total($scope.techReasonQuestions.spatialHead, $scope.techReasonQuestions.spatialBody, $scope.data.spatialSVal, $scope.data.spatialMVal);
+		$scope.total($scope.techReasonQuestions.outdoorHead, $scope.techReasonQuestions.outdoorBody, $scope.data.outdoorSVal, $scope.data.outdoorMVal);
+		$scope.total($scope.techReasonQuestions.tspbHead, $scope.techReasonQuestions.tspbBody, $scope.data.tspbSVal, $scope.data.tspbMVal);
+
+		//Loop through the Totals array which now contains the questions and summed values
+		//for each question and send them to the scraper service using a service function 
+		//called addTotal
+		$scope.data.techReasonTotals.forEach( function(arrayItem){
+			
+			scraper.addTotal(arrayItem);
+			//alert(&#039;Array values added to scraper&#039;);
+
+		});
+
+		$scope.data.techReasonTotals = [];
+	};
+
+}]);
+
+
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+//			Innovation Controller
+//			Innovation Controller
+//			Innovation Controller
+
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+app.controller(&#039;innovationCtrl&#039;, [&#039;$scope&#039;, &#039;scraper&#039;, function($scope, scraper){
+	
+
+	$scope.innovationQuestions = {
+		artHead: &quot;Artistic: &quot;,
+		artBody: &quot; Possess excellent artistic abilities. Able to create drawings, paintings or stories using imagination. Able to use color and shapes to create visually pleasing images in one or many forms including computer images or in more traditional media. Able to create new ideas and forms with various physical objects.&quot;,
+		creativeHead: &quot;Creative or Imaginative with Ideas: &quot;,
+		creativeBody: &quot; Using imagination, able to create new ideas, projects, or programs. Able to conceive existing elements in new ways.&quot;,
+	}; 
+
+	//collection of scope arrays of objects for each set of radio buttons
+	$scope.buttons = [
+		{text: &quot;1&quot;, value: 1},
+		{text: &quot;2&quot;, value: 2},
+		{text: &quot;3&quot;, value: 3},
+		{text: &quot;4&quot;, value: 4}
+	];
+
+
+	//the object which contains most of the important chunks of data
+	$scope.data = { 
+		innovationTotals: [],
+
+		artSVal: 0, 
+		artMVal: 0,
+		creativeSVal: 0, 
+		creativeMVal: 0,
+
+	};
+
+
+	$scope.total = function(head, body, s, m){
+		t= {
+			h: head,
+			b: body,
+			sum: s+m
+		}
+		$scope.data.innovationTotals.push(t);
+	}
+
+
+	$scope.commitVals = function(){
+		//call the total function for each set of questions and add them to
+		//the total for the communication section which is done individually within each function
+		
+		$scope.total($scope.innovationQuestions.artHead, $scope.innovationQuestions.artBody, $scope.data.artSVal, $scope.data.artMVal);
+		$scope.total($scope.innovationQuestions.creativeHead, $scope.innovationQuestions.creativeBody, $scope.data.creativeSVal, $scope.data.creativeMVal);
+
+		//Loop through the Totals array which now contains the questions and summed values
+		//for each question and send them to the scraper service using a service function 
+		//called addTotal
+		$scope.data.innovationTotals.forEach( function(arrayItem){
+			
+			scraper.addTotal(arrayItem);
+			//alert(&#039;Array values added to scraper&#039;);
+
+		});
+
+		$scope.data.innovationTotals = [];
+	};
+
+}]);
+
+
+
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+//			Teaching Controller
+//			Teaching Controller
+//			Teaching Controller
+
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+app.controller(&#039;teachingCtrl&#039;, [&#039;$scope&#039;, &#039;scraper&#039;, function($scope, scraper){
+	
+
+	$scope.teachingQuestions = {
+		teachingHead: &quot;Teaching: &quot;,
+		teachingBody: &quot; Able to explain complex ideas, concepts, or principles in an easily understandable fashion. Able to provide knowledge or insight to individuals or groups.&quot;,
+		coachingHead: &quot;Coaching: &quot;,
+		coachingBody: &quot; Able to assist an individual on improving his or her performance in a specific subject or skill area.&quot;,
+		counselingHead: &quot;Counseling: &quot;,
+		counselingBody: &quot; Able to listen and sort out details and information and give advice or counsel, while engaging in a helping/supportive relationship with an individual who is experiencing distress.&quot;,
+	}; 
+
+	//collection of scope arrays of objects for each set of radio buttons
+	$scope.buttons = [
+		{text: &quot;1&quot;, value: 1},
+		{text: &quot;2&quot;, value: 2},
+		{text: &quot;3&quot;, value: 3},
+		{text: &quot;4&quot;, value: 4}
+	];
+
+
+	//the object which contains most of the important chunks of data
+	$scope.data = { 
+		teachingTotals: [],
+
+		teachingSVal: 0, 
+		teachingMVal: 0,
+		coachingSVal: 0, 
+		coachingMVal: 0,
+		counselingSVal: 0, 
+		counselingMVal: 0,
+	};
+
+	$scope.total = function(head, body, s, m){
+		t= {
+			h: head,
+			b: body,
+			sum: s+m
+		}
+		$scope.data.teachingTotals.push(t);
+	}	
+
+	$scope.commitVals = function(){
+		//call the total function for each set of questions and add them to
+		//the total for the communication section which is done individually within each function
+		
+		$scope.total($scope.teachingQuestions.teachingHead, $scope.teachingQuestions.teachingBody, $scope.data.teachingSVal, $scope.data.teachingMVal);
+		$scope.total($scope.teachingQuestions.coachingHead, $scope.teachingQuestions.coachingBody, $scope.data.coachingSVal, $scope.data.coachingMVal);
+		$scope.total($scope.teachingQuestions.counselingHead, $scope.teachingQuestions.counselingBody, $scope.data.counselingSVal, $scope.data.counselingMVal);
+
+
+		//Loop through the Totals array which now contains the questions and summed values
+		//for each question and send them to the scraper service using a service function 
+		//called addTotal
+		$scope.data.teachingTotals.forEach( function(arrayItem){
+			
+			scraper.addTotal(arrayItem);
+			//alert(&#039;Array values added to scraper&#039;);
+
+		});
+
+		$scope.data.teachingTotals = [];
+	};
+
+}]);
+
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+//			Leadership Controller
+//			Leadership Controller
+//			Leadership Controller
+
+
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+app.controller(&#039;leadershipCtrl&#039;, [&#039;$scope&#039;, &#039;scraper&#039;, function($scope, scraper){
+	
+
+	$scope.leadershipQuestions = {
+		mgmtHead: &quot;Management and Supervision: &quot;,
+		mgmtBody: &quot; Management and Supervision: Skilled at effectively overseeing, managing or directing the work of others. Able to motivate individuals to perform at their peak level. Able to lead teams, and manage resources effectively. Skilled at managing projects, establishing time lines, meeting deadlines, and delivering high quality products and services. Able to maintain a positive working environment, empowering employees to produce a high quality product or service. Comfortable working with individuals at all levels of authority.&quot;,
+		planningHead: &quot;Planning: &quot;,
+		planningBody: &quot; Able to plan and develop a program, project or set of ideas through organized and systematic preparation and arrangement of tasks, activities and schedules. Able to coordinate people and resources to put a plan into effect and meet specific deadlines.&quot;,
+		organizationHead: &quot;Organization: &quot;,
+		organizationBody: &quot; Arranging people, data or objects in a systematic fashion to allow for the effective use of time and resources. Organizing information to allow for easy access.&quot;,
+		detailmgmtHead: &quot;Detail Management: &quot;,
+		detailmgmtBody: &quot; Able to work with a great variety and/or volume of information without losing track of any items in the total situation. Comfortable managing small detail oriented tasks that are part of the larger project.&quot;,
+		decisionHead: &quot;Decision Making: &quot;,
+		decisionBody: &quot; Comfortable making judgments or reaching conclusions about matters which require specific action. Able to accept the responsibility for and the consequences of such actions.&quot;,
+	}; 
+
+	//collection of scope arrays of objects for each set of radio buttons
+	$scope.buttons = [
+		{text: &quot;1&quot;, value: 1},
+		{text: &quot;2&quot;, value: 2},
+		{text: &quot;3&quot;, value: 3},
+		{text: &quot;4&quot;, value: 4}
+	];
+
+	//the object which contains most of the important chunks of data
+	$scope.data = { 
+		leadershipTotals: [],
+
+		mgmtSVal: 0, 
+		mgmtMVal: 0,
+		planningSVal: 0, 
+		planningMVal: 0,
+		organizationSVal: 0, 
+		organizationMVal: 0,
+		detailmgmtSVal: 0, 
+		detailmgmtMVal: 0,
+		decisionSVal: 0, 
+		decisionMVal: 0,
+	};
+
+	$scope.total = function(head, body, s, m){
+		t= {
+			h: head,
+			b: body,
+			sum: s+m
+		}
+		$scope.data.leadershipTotals.push(t);
+	}	
+
+
+
+	$scope.commitVals = function(){
+		//call the total function for each set of questions and add them to
+		//the total for the communication section which is done individually within each function
+		
+		$scope.total($scope.leadershipQuestions.mgmtHead, $scope.leadershipQuestions.mgmtBody, $scope.data.mgmtSVal, $scope.data.mgmtMVal);
+		$scope.total($scope.leadershipQuestions.planningHead, $scope.leadershipQuestions.planningBody, $scope.data.planningSVal, $scope.data.planningMVal);
+		$scope.total($scope.leadershipQuestions.organizationHead, $scope.leadershipQuestions.organizationBody, $scope.data.organizationSVal, $scope.data.organizationMVal);
+		$scope.total($scope.leadershipQuestions.detailmgmtHead, $scope.leadershipQuestions.detailmgmtBody, $scope.data.detailmgmtSVal, $scope.data.detailmgmtMVal);
+		$scope.total($scope.leadershipQuestions.decisionHead, $scope.leadershipQuestions.decisionBody, $scope.data.decisionSVal, $scope.data.decisionMVal);
+
+		//Loop through the Totals array which now contains the questions and summed values
+		//for each question and send them to the scraper service using a service function 
+		//called addTotal
+		$scope.data.leadershipTotals.forEach( function(arrayItem){
+			
+			scraper.addTotal(arrayItem);
+			//alert(&#039;Array values added to scraper&#039;);
+
+		});
+
+		$scope.data.leadershipTotals = [];
+	};
+
+}]);</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>
