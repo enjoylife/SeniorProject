@@ -1,40 +1,40 @@
-/**
- * Created by matt on 4/7/15.
- */
-app.controller('timelineCtrl', ['$scope', '$state', '$ionicScrollDelegate', '$localstorage', function($scope, $state, $ionicScrollDelegate, $localstorage){
-    $scope.contentOutline = contentOutline;
+app.controller('timelineCtrl',function($scope, $state, $ionicScrollDelegate, $localstorage, DataStore){
+    $scope.timeline = DataStore.getTimeline();
 
-    $scope.getSubsection = function(section){
+    console.log($scope.timeline);
 
-        return contentOutline[section].sectionOrder;
+    $scope.getSubsections = function(section){
+
+        return $scope.timeline[section].sectionOrder;
     }
 
     $scope.getTitle = function(section, subsection){
 
-        return contentOutline[section][subsection].title;
+        return $scope.timeline[section][subsection].title;
     }
 
     $scope.jumpToSection = function(params){
 
+        // Keep our sanity by proactivaly checking for erros in the templates
         if(!('file' in params && 'folder' in params)){
             throw new Error("Missing required parameter for jumping into sections.")
         }
+
         console.log('Routing to content/'+params.folder +'/'+ params.file)
-        $localstorage.setObject('lastSection', params);
+
+        // Remember where we last jumped around to
+        DataStore.setGlobalLast(params);
+
+        // Go to the html page
         $state.go('content.sections',params);
-        $scope.setHistory();
 
-        var section = _.find(contentOutline, function(obj){
-            return obj.folder == params.folder;
-        })
-
-
-
-        var subsection = _.find(section.sections, function(obj){
-            return obj.file == params.file;
-        })
+        var section = DataStore.getSection(params);
+        var subsection = DataStore.getSubsection(params);
 
         section.lastRead = subsection.lastRead = moment().startOf('minute').fromNow();
+
+        // Finally update
+        DataStore.setTimeline($scope.timeline);
 
         $ionicScrollDelegate.scrollTop();
         $ionicScrollDelegate.resize();
@@ -42,10 +42,4 @@ app.controller('timelineCtrl', ['$scope', '$state', '$ionicScrollDelegate', '$lo
 
     };
 
-
-
-    $scope.setHistory = function(){
-
-        localStorage.setItem('hist', JSON.stringify(contentOutline));
-    }
-}])
+})
