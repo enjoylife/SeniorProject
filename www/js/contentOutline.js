@@ -1,6 +1,6 @@
 // Main properties of objects must correspond with sub-folders inside the template folder
 // Strings defined in section order per those main objects define files within those sub-folders.
-var contentOutline = [
+var defaultBook = [
 
 	// Each section needs:
 	// title, leadIn, sectionOrder and a number of objects defining the subsections

@@ -87,8 +87,8 @@ app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$loca
             var last = $localstorage.getObject('lastSection');
             if(!last || !last.folder || !last.file){
                 last = {
-                    folder:contentOutline[0].folder,
-                    file:contentOutline[0].sections[0].file
+                    folder:book[0].folder,
+                    file:book[0].sections[0].file
                 }
             }
             $state.go('content.sections', last)
@@ -107,5 +107,20 @@ app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$loca
             $state.go('binder');
         }
     }
+
+    $scope.getSecAndSub = function(timeline, params){
+
+            var section = _.find(timeline, function(obj){
+                return obj.folder == params.folder;
+            })
+            if(!section) throw new Error("Could not find Section");
+
+            var subsection = _.find(section.sections, function(obj){
+                return obj.file == params.file;
+            })
+            if(!subsection) throw new Error("Could not find Subsection");
+            
+            return {'section': section,'subsection':subsection}
+        };
 
 }]);
