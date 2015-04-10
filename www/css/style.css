@@ -374,8 +374,8 @@ background-color:rgb(35,128,99);
 #showMenu {
   position:fixed; 
   width:150px;
-  bottom:2%;
-  right:5%;
+  bottom:1%;
+  right:2%;
   background-color:#333333;
   color:white;
   padding:10px;
@@ -385,8 +385,8 @@ background-color:rgb(35,128,99);
 #asmntMenu {
   position:fixed;
   width:150px;
-  bottom:8%;
-  right:5%;
+  bottom:6%;
+  right:2%;
   background-color:#333333;
   color:white;
   padding:10px;
