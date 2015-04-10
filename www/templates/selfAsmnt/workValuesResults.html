@@ -1,4 +1,4 @@
-<div ng-controller="workValuesCtrl" ng-init="getVals()" align="center">
+<div ng-controller="workValuesCtrl" ng-init="getVals(); setScreen();" align="center">
 	<h3 style="color:rgb(0, 0, 102); padding-top:4%;">Here are your absolutely required work priorities.</h3>
 
 	<h3 style="color:rgb(0, 102, 0);"> Now, drag them to put them in a final rank order</h3>
@@ -23,6 +23,6 @@
 		</tr>
 	</table>
 
-	<button class="button button-block" ng-click="getList()">Confirm your Work Values & Priorities
+	<button class="button button-block" ng-click="saveList()">Confirm your Work Values & Priorities
 	</button>
 </div>

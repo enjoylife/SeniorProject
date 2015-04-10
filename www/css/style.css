@@ -370,6 +370,31 @@ background-color:rgb(35,128,99);
   padding:10px;
 }
 
+/* CSS for asmnt list menu */
+#showMenu {
+  position:fixed; 
+  width:150px;
+  bottom:2%;
+  right:5%;
+  background-color:#333333;
+  color:white;
+  padding:10px;
+  border-radius:10px;
+}
+
+#asmntMenu {
+  position:fixed;
+  width:150px;
+  bottom:8%;
+  right:5%;
+  background-color:#333333;
+  color:white;
+  padding:10px;
+  padding-bottom:5px;
+  border-top-left-radius:10px;
+  border-top-right-radius:10px;
+}
+
 /* Ideas */
 
 .ideas-folder {
@@ -635,3 +660,4 @@ section.lead-in h3{
   opacity: 0;
 
 }
+

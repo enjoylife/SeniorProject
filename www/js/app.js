@@ -20,6 +20,7 @@ app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope
         }
       })()
 	$ionicPlatform.ready(function() {
+
        // TESTING and DEMO purposes!!
         populateDefaults(); // Always Populate Defaults
         //console.log("populateDefaults() fired.");
@@ -156,7 +157,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
   //Work Values & Priorities Assessment 
-  //(not accessible in prototype deliverable)
   .state('workValues', {
     url:'/workValues',
     templateUrl:'templates/selfAsmnt/workValues.html',
@@ -166,6 +166,19 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('workValuesResults', {
     url:'/workValuesResults',
     templateUrl:'templates/selfAsmnt/workValuesResults.html',
+    controller:'MainCtrl'
+  })
+
+  //Key Knowledge Areas Assessment
+  .state('keyKnowledge', {
+    url:'/keyKnowledge',
+    templateUrl:'templates/selfAsmnt/keyKnowledge.html',
+    controller:'MainCtrl'
+  })
+
+  .state('keyKnowledgeResults', {
+    url:'/keyKnowledgeResults',
+    templateUrl:'templates/selfAsmnt/keyKnowledgeResults.html',
     controller:'MainCtrl'
   })
 
@@ -251,7 +264,7 @@ app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$loca
   $scope.count = contactService.getContactsService().length;
 
   //complimentary function to track ng-repeat items in reverse
-  //subtract array.length-1 from index
+  //subtract array.length-1 from index &
   //return absval() of the result
   $scope.reverseIndex = function(ind, array){
     var res = ind - (array.length-1);
@@ -259,7 +272,8 @@ app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$loca
   }
 
 
-  //disables verticle scrolling on the selected page
+  //disables verticle scrolling on the selected page 
+  //and always scrolls to top of state
   $rootScope.$on('$stateChangeSuccess', 
   function(event, toState, toParams, fromState, fromParams){ 
     
@@ -268,12 +282,16 @@ app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$loca
     }else{
       $ionicScrollDelegate.getScrollView().options.scrollingY = true;         
     }
-  })
-
-  $rootScope.$on('$stateChangeStart', 
-  function(event, toState, toParams, fromState, fromParams){ 
     
-    $ionicScrollDelegate.scrollTop();
+    //scrollBottom() if navigating to holland assessment
+    //from career binder
+    if(fromState.name == 'binder-asmntResults' && toParams.file == 'personality.html'){// && $state.is('career.sections', {'folder':'assessment', 'file':'personality.html'}) == true){
+      //event.preventDefault();
+      $ionicScrollDelegate.scrollBottom();
+    }else{
+      $ionicScrollDelegate.scrollTop();
+    }
+
   })
 
   //Android hardware backbutton
@@ -295,9 +313,9 @@ app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$loca
   })
 
   //function to scroll top for each view
-  $scope.setScreen = function(){
+  /*$scope.setScreen = function(){
     $ionicScrollDelegate.scrollTop();
-  }  
+  } */ 
   
   //swiping navigation
   $scope.swipingLogicLeft = function(){
@@ -329,7 +347,8 @@ app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$loca
           file:contentOutline[0].sections[0].file
         }
       }
-      $state.go('content.sections', last)  
+      $state.go('content.sections', last)
+      console.log(last);  
     }
     if($state.is('binder')){
       $state.go('profile');
