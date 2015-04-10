@@ -5,7 +5,7 @@
 
 app.service('DataStore', function(){
 
-  this.timelineCache = null;
+  this.timelineCache =   JSON.parse(window.localStorage.getItem('timeline'));
 
      this.setObject = function(key, value) {
         window.localStorage.setItem(key, JSON.stringify(value));
