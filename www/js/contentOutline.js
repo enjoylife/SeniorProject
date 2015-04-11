@@ -61,10 +61,10 @@ var defaultBook = [
 				file:'knowledge.html',
 			 	title : "Key Knowledge Areas"
 			},
-			// {
-			// 	file:'interests.html',
-			// 	title: "Life Interests and Passions"
-			// },
+			{
+			 	file:'interests.html',
+			 	title: "Life Interests and Passions"
+			},
 			// {
 			// 	file: 'environment.html',
 			// 	title: "Your Ideal Life/Work Environment"
