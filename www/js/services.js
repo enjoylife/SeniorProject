@@ -13,7 +13,7 @@ app.service('DataStore', function(){
 
       if(!ver){
         // Not found, remove all old stuff and start anew
-        localStorage.clear();
+        window.localStorage.clear();
         this.setObject('version', 1);
 
       } else {
