@@ -97,7 +97,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
   //Work Values & Priorities Assessment 
-  //(not accessible in prototype deliverable)
   .state('workValues', {
     url:'/workValues',
     templateUrl:'templates/selfAsmnt/workValues.html',
@@ -120,6 +119,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('keyKnowledgeResults', {
     url:'/keyKnowledgeResults',
     templateUrl:'templates/selfAsmnt/keyKnowledgeResults.html',
+    controller:'MainCtrl'
+  })
+
+  //Life Interests Assessment
+  .state('lifeInterests', {
+    url:'/lifeInterests',
+    templateUrl:'',
     controller:'MainCtrl'
   })
 
