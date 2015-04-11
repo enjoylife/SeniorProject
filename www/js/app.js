@@ -1,7 +1,6 @@
 /**
  * Angular's way of encapsulation.
  * Only export and to be used by almost every other component in our app
->>>>>>> origin/master
 
  */
 var app = angular.module('prototype', [ 'ionic', 'ngCordova', 'ui.calendar', 'ui.bootstrap', 'ui.router']);
