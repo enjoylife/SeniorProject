@@ -584,13 +584,14 @@ section.lead-in h3{
 
 .content .object .context {
   float: left;
-  color: white;
+  color: hsl(0, 100%, 100%);
   width: 160px;
   min-height: 40px;
   margin: 1px 0 0px -15px;
-  padding-left:20px;
-  padding-top: 10px;
+  padding-left: 30px;
+  padding-top: 3px;
   line-height: 1.5em;
+  padding-bottom: 20px;
 }
 
 .content.complete .object .context{
