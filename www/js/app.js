@@ -33,6 +33,7 @@ app.run(function($ionicPlatform, $ionicScrollDelegate, $rootScope, $ionicHistory
     /**
      * Logic for first time users vs existing users goes here
      */
+    DataStore.getVersion();
     if(DataStore.getUsage()){
         console.log("Existing User")
     } else {
