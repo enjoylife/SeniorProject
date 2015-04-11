@@ -50,7 +50,15 @@ app.service('DataStore', function(){
     }
 
     this.getGlobalLast = function(){
-      this.getObject('globalLast');
+      var last = this.getObject('globalLast');
+
+      if(!last || !last.folder || !last.file){
+                last = {
+                    folder:this.timelineCache[0].folder,
+                    file:this.timelineCache[0].sections[0].file
+                }
+            }
+      return last;
     }
 
     this.getSection = function(params){
