@@ -46,10 +46,15 @@ app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$loca
 
     //Android hardware backbutton
     var deregister = $ionicPlatform.registerBackButtonAction(function(e) {
-        /*e.preventDefault();
-         e.stopPropagation();*/
+         //app close at profile
         if($state.current.name=="profile"){
             navigator.app.exitApp();
+        }//prevent users from going back into assessments after completion
+        else if($state.current.name=="binder-asmntResults"){
+            $state.go("binder");
+        }
+        else if($state.current.name=="binder"){
+            $state.go("profile");
         }
         else {
             navigator.app.backHistory();
