@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">69.96</p>
+      <p class="stat">75.36</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">424</p>
+      <p class="stat">39</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">30.82</p>
+      <p class="stat">7.65</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">2.97</p>
+      <p class="stat">0.23</p>
     </div>
   </div>
 </div>
@@ -89,435 +89,50 @@
 
 <div class="container">
   <div class="row">
-    <textarea id="file-source" class="col-md-12">// Ionic Starter App
+    <textarea id="file-source" class="col-md-12">/**
+ * Angular&#039;s way of encapsulation.
+ * Only export and to be used by almost every other component in our app
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// &#039;starter&#039; is the name of this angular module example (also set in a &lt;body&gt; attribute in index.html)
-// the 2nd parameter is an array of &#039;requires&#039;
-var app = angular.module(&#039;prototype&#039;, [ &#039;ionic&#039;, &#039;ngCordova&#039;,&#039;ionic.ion.headerShrink&#039;, &#039;ui.calendar&#039;, &#039;ui.bootstrap&#039;])
+ */
+var app = angular.module(&#039;prototype&#039;, [ &#039;ionic&#039;, &#039;ngCordova&#039;, &#039;ui.calendar&#039;, &#039;ui.bootstrap&#039;, &#039;ui.router&#039;]);
 
-app.run(function($ionicPlatform, $localstorage, $ionicScrollDelegate, $rootScope) {
-      (function getHistory(){
-        var hist = JSON.parse(localStorage.getItem(&#039;hist&#039;));
-        // We havent entered history before, set defaults
-        // TODO test and handle inital setup or defaults regarding user data
-     
-        if(hist == null){
-           populateDefaults();
-           console.log(&quot;populateDefaults&quot;);
-        } else {
-            contentOutline = hist;
-            console.log(&quot;hist&quot;);
-        }
-      })()
-	$ionicPlatform.ready(function() {
-       // TESTING and DEMO purposes!!
-        populateDefaults(); // Always Populate Defaults
-     if(window.cordova &amp;&amp; window.cordova.plugins.Keyboard) {
-          window.cordova.plugins.Keyboard.disableScroll(true);
-
-      }
-
-   $rootScope.$on(&#039;$viewContentLoaded&#039;, 
-    function(event){ 
-      $ionicScrollDelegate.freezeScroll(true); 
-      window.setTimeout(function(){
-        $ionicScrollDelegate.freezeScroll(false); 
-        $ionicScrollDelegate.resize(); 
-        console.log($ionicScrollDelegate.getScrollView().__contentHeight);
-      },1000)
-   });
-	});
-	
-	
-	//window.localStorage.clear();
-	
-	
-	/* Check app launch count */
-	var appLaunchCount = window.localStorage.getItem(&#039;launchCount&#039;);
-	if(appLaunchCount){
-	   //If it exists then it is not the first time app launched
-	   console.log(&quot;NOT first time&quot;);
-	}else{
-	  //First time launch. Set the local storage item
-	  window.localStorage.setItem(&#039;launchCount&#039;,1);
-	  console.log(&quot;FIRST TIME USER&quot;);
-	 }
-});
-
-app.config(function($stateProvider, $urlRouterProvider) {
-
-  $stateProvider
-  .state(&#039;profile&#039;, {
-    url: &#039;/profile&#039;,
-    templateUrl: &#039;templates/profile.html&#039;,
-    //controller: &#039;profile&#039;
-  })
-
-  /**
-   * content is the top level view, cant be actually rendered,
-   * only is used to create a wrapper around all section content
-   */
-  .state(&#039;content&#039;, {
-    abstract:true,
-    url:&#039;/content&#039;,
-    templateUrl:&#039;templates/content.html&#039;,
-    controller :&#039;contentCtrl&#039;
-  })
-
-  /**
-   * content.sections are dynamically generated routes which render into
-   * the ui-view in the content.html template
-   */
-  .state(&#039;content.sections&#039;, {
-    url: &#039;/:folder/:file&#039;,
-    templateUrl: function($stateParams){
-      console.log($stateParams);
-      return &#039;templates/sections/&#039; + $stateParams.folder +&#039;/&#039;   + $stateParams.file;
-    },
-  })
-
-  .state(&#039;binder&#039;, {
-      url: &#039;/binder&#039;,
-      templateUrl: &#039;templates/binder/binder.html&#039;,
-      controller: &#039;MainCtrl&#039;
-  })
-
-
-  // Old State are below
-  // TODO: Remove and consolidate them into sub states of main three
-  .state(&#039;binder-calendar&#039;, {
-      url: &#039;/binder/calendar&#039;,
-      templateUrl: &#039;templates/binder/binder-calendar.html&#039;,
-      controller: &#039;MainCtrl&#039;
-  })
-
-  .state(&#039;binder-toDo&#039;, {
-      url: &#039;/binder/toDo&#039;,
-      templateUrl: &#039;templates/binder/binder-toDo.html&#039;,
-      controller: &#039;MainCtrl&#039;
-  })
-
-  .state(&#039;binder-ideas&#039;, {
-      url: &#039;/binder/ideas&#039;,
-      templateUrl: &#039;templates/binder/binder-ideas.html&#039;,
-      controller: &#039;MainCtrl&#039;
-  })
-
-  .state(&#039;binder-jobApps&#039;, {
-      url: &#039;/binder/jobApps&#039;,
-      templateUrl: &#039;templates/binder/binder-jobApps.html&#039;,
-      controller: &#039;MainCtrl&#039;
-  })
-
-  .state(&#039;binder-contacts&#039;, {
-    url: &#039;/binder/contacts&#039;,
-    templateUrl: &#039;templates/binder/binder-contacts.html&#039;,
-    controller: &#039;MainCtrl&#039;
-  })
-
-  .state(&#039;binder-asmntResults&#039;, {
-    url: &#039;/binder/asmntResults&#039;,
-    templateUrl: &#039;templates/binder/binder-asmntResults.html&#039;,
-  
-  })
-
-  .state(&#039;binder-individualAsmntResults&#039;, {
-    url: &#039;/binder/asmntResults/individualAsmntResults&#039;,
-    templateUrl: &#039;templates/binder/binder-individualAsmntResults.html&#039;
-  })
-
-
-
-  .state(&#039;selfAssess&#039;, {
-    url: &#039;/selfAssess&#039;,
-    templateUrl: &#039;templates/SelfAssessment.html&#039;,
-    controller: &#039;MainCtrl&#039;
-  })
-
-// Holland Assessment
-  .state(&#039;content.sections.hollandAssess&#039;, {
-    // url:&#039;/holland&#039;,
-    templateUrl: &#039;templates/holland/info.html&#039;,
-    controller:&#039;holland&#039;
-  })
-
-
-
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-            
-      //MSI PARTIALS
-
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-  .state(&#039;msi_communication&#039;, {
-    url: &#039;timeline/selfAsmnt/msi/msi_communication&#039;,
-    templateUrl: &#039;templates/timeline/selfAsmnt/msi/msi_communication.html&#039;,
-    controller: &#039;MainCtrl&#039;
-  })
-
-  .state(&#039;msi_marketing&#039;, {
-    url: &#039;/msi_marketing&#039;,
-    templateUrl: &#039;templates/timeline/selfAsmnt/msi/msi_marketing.html&#039;,
-    controller: &#039;MainCtrl&#039;
-  })
-
-  .state(&#039;msi_qa&#039;, {
-    url: &#039;/msi_qa&#039;,
-    templateUrl: &#039;templates/timeline/selfAsmnt/msi/msi_qa.html&#039;,
-    controller: &#039;MainCtrl&#039;
-  })
-
-  .state(&#039;msi_analytics&#039;, {
-    url: &#039;/msi_analytics&#039;,
-    templateUrl: &#039;templates/timeline/selfAsmnt/msi/msi_analytics.html&#039;,
-    controller: &#039;MainCtrl&#039;
-  })
-
-  .state(&#039;msi_technical&#039;, {
-    url: &#039;/msi_technical&#039;,
-    templateUrl: &#039;templates/timeline/selfAsmnt/msi/msi_technical.html&#039;,
-    controller: &#039;MainCtrl&#039;
-  })
-
-  .state(&#039;msi_innovative&#039;, {
-    url: &#039;/msi_innovative&#039;,
-    templateUrl: &#039;templates/timeline/selfAsmnt/msi/msi_innovative.html&#039;,
-    controller: &#039;MainCtrl&#039;
-  })
-
-  .state(&#039;msi_teaching&#039;, {
-    url: &#039;/msi_teaching&#039;,
-    templateUrl: &#039;templates/timeline/selfAsmnt/msi/msi_teaching.html&#039;,
-    controller: &#039;MainCtrl&#039;
-  })
-
-  .state(&#039;msi_leadership&#039;, {
-    url: &#039;/msi_leadership&#039;,
-    templateUrl: &#039;templates/timeline/selfAsmnt/msi/msi_leadership.html&#039;,
-    controller: &#039;MainCtrl&#039;
-  })
-
-  .state(&#039;msi_results&#039;, {
-    url: &#039;/msi_results&#039;,
-    templateUrl: &#039;templates/timeline/selfAsmnt/msi/msi_results.html&#039;,
-    controller: &#039;MainCtrl&#039;
-  })
-
-
-  $urlRouterProvider.otherwise(&#039;/profile&#039;);
-})
-
-
-app.controller(&#039;MainCtrl&#039;, function($scope, $state, $ionicSideMenuDelegate, $localstorage, contactService) {
-  
-  /* Get count of contacts for display */
-  var load = $localstorage.getObject( &#039;contacts&#039; );
-	if (Object.keys(load).length !== 0) {
-		contactService.loadList( load );
-	}
-  $scope.count = contactService.getContactsService().length;
-
-  
-  
-})
-
-app.controller(&#039;timelineCtrl&#039;, [&#039;$scope&#039;, &#039;$state&#039;, &#039;$ionicSideMenuDelegate&#039;, function($scope, $state, $ionicSideMenuDelegate){
-      $scope.contentOutline = contentOutline;
-
-      $scope.getSubsection = function(section){
-
-        return contentOutline[section].sectionOrder;
-      }
-
-      $scope.getTitle = function(section, subsection){
-
-        return contentOutline[section][subsection].title;
-      }
-
-      $scope.jumpToSection = function(params){
-
-        if(!(&#039;file&#039; in params &amp;&amp; &#039;folder&#039; in params)){
-          throw new Error(&quot;Missing required parameter for jumping into sections.&quot;)
-        }
-        console.log(&#039;Routing to content/&#039;+params.folder +&#039;/&#039;+ params.file)
-        $state.go(&#039;content.sections&#039;,params);
-        $scope.setHistory();
-        console.log(params);
-
-        var section = _.find(contentOutline, function(obj){
-          return obj.folder == params.folder;
-        })
-
-
-
-        var subsection = _.find(section.sections, function(obj){
-          return obj.file == params.file;
-        })
-
-        section.lastRead = subsection.lastRead = moment().startOf(&#039;minute&#039;).fromNow();
-        
-       
-      };
-
-
-
-      $scope.setHistory = function(){
-
-        localStorage.setItem(&#039;hist&#039;, JSON.stringify(contentOutline));
-      }
-    }])
-
-app.controller(&#039;contentCtrl&#039;,function($scope, $state,$ionicScrollDelegate){
-  var
-  currentPosition,
-  currentContent,
-  isComplete;
-
-
-  $scope.leadIn = function(){
-    var section = _.find(contentOutline, function(obj){
-
-      return obj.folder == $state.params.folder;
-    })
-
-     var subsection = _.find(section.sections, function(obj){
-      return obj.file == $state.params.file;
-    })
-
-    return subsection.title;
-  }
-
-
-
-  // Returns null if no more sections and subections
-  // otherwise it will return an obejct with the next section and subsection for the router
-  var nextSubSection = function(){
-
-    // Total number of folders of content
-    var sectionLen    = contentOutline.length -1;
-
-    // Which folder are we in
-    var secNum = _.findIndex(contentOutline, function(obj){
-      return obj.folder == $state.params.folder;
-    })
-    var section = contentOutline[secNum];
-
-    // Total number of subsections
-    var subsectionLen = section.sections.length - 1;
-
-    // Which file are we in
-    var subNum = _.findIndex(section.sections, function(obj){
-      return obj.file == $state.params.file;
-    })
-
-      var 
-      isSecEnd = (secNum == sectionLen),
-      isSubEnd = (subNum == subsectionLen) ;
-
-     // If end of all sections and subsections bail
-    if(isSecEnd &amp;&amp; isSubEnd){
-      return null;
-    }
-
-    // More subsections show next subsection, stay on this section
-    if(!isSubEnd) {
-      return {
-        folder: $state.params.folder,
-        file: section.sections[subNum+1].file
-      }
-    }
-    // Final condition...
-    var nextSec = contentOutline[secNum+1];
-    return {
-      folder:nextSec.folder,
-      // First subsection
-      file:nextSec.sections[0].file
-    }
-
-    // If we reached here some logic went wrong...
-    throw new Error(&quot;Bad Logic in nextSubSection&quot;)
-  }
-    $scope.goNext = function(){
-    var next = nextSubSection();
-    $ionicScrollDelegate.scrollTop();
-    $state.go(&#039;content.sections&#039;, next)
-    $ionicScrollDelegate.resize();
- 
-    // $uiViewScroll($(&quot;.content-wrapper&quot;));
-  }
-
-})
-
-
-
-
-// Helper to create inital required data
-// using the contentOutline object as a seed
-function populateDefaults(){
-  // Iterate over each major section
-  contentOutline.map(function(section){
-    if(!(&#039;title&#039; in section)){
-      throw new Error(&quot;Missing Title for section&quot;);
-    }
-    // Iterate over each minor subsection
-    section[&#039;numComplete&#039;] = 0;
-    section[&#039;lastRead&#039;] = null;
-    if(!(&#039;sections&#039; in section)){ 
-      throw new Error(&quot;Missing sections array&quot;)}
-    section.sections.map(function(sub){
-      // create the required objects for handling reading state
-      sub[&#039;complete&#039;] = false;
-      sub[&#039;lastRead&#039;] = null;
-      sub[&#039;lastLocation&#039;] = 0;
-    })
-  }) // end maps
-  return contentOutline;
-}
 
 /**
- * Simple TimeLine to direct the content page to sections of book
+ * TODO: is $ionicHistory needed here?
  */
-app.directive(&#039;timeLine&#039;,[function(){
-  return {
-    transclude: true,
-	templateUrl: &#039;templates/Timeline.html&#039;,
-    controller: (function(){})
-  }
-}])
+app.run(function($ionicPlatform, $ionicScrollDelegate, $rootScope, $ionicHistory, DataStore) {
 
-//Used for storing objects and converting to and from JSON
-app.factory(&#039;$localstorage&#039;, [&#039;$window&#039;, function($window) {
-  
-  function set(key, value) {
-      $window.localStorage[key] = value;
-  }
-  
-  function get(key, defaultValue) {
-      return $window.localStorage[key] || defaultValue;
-  }
-  
-  function setObject(key, value) {
-      $window.localStorage[key] = JSON.stringify(value);
-  }
-  
-  function getObject(key) {
-      return JSON.parse($window.localStorage[key] || &#039;{}&#039;);
-  }
-  
-  return {
-    set: set,
-    get: get,
-    setObject: setObject,
-    getObject: getObject
-  }
-}]);</textarea>
+    $ionicPlatform.ready(function() {
+
+        if(window.cordova &amp;&amp;  window.cordova.plugins.Keyboard) {
+            window.cordova.plugins.Keyboard.disableScroll(true);
+        }
+
+        // TODO: Does this fix scrolling behavior
+        $rootScope.$on(&#039;$viewContentLoaded&#039;,
+            function(){
+                $ionicScrollDelegate.freezeScroll(true);
+                window.setTimeout(function(){
+                    $ionicScrollDelegate.freezeScroll(false);
+                    $ionicScrollDelegate.resize();
+                    console.log($ionicScrollDelegate.getScrollView().__contentHeight);
+                },1500)
+            });
+    });
+
+    /**
+     * Logic for first time users vs existing users goes here
+     */
+    DataStore.getVersion();
+    if(DataStore.getUsage()){
+        console.log(&quot;Existing User&quot;)
+    } else {
+        console.log(&quot;New User&quot;);
+        // Give user a fresh state to begin with
+        DataStore.initTimeline();
+    }
+    DataStore.incUsage();
+});</textarea>
   </div>
 </div>
 
