@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - www/js/services.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>www/js/services.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">78.59</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">202</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">25.31</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.32</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * Created by matt on 4/6/15.
+ */
+
+
+app.service(&#039;DataStore&#039;, function(){
+
+    this.timelineCache =  JSON.parse(window.localStorage.getItem(&#039;timeline&#039;));
+
+    this.getVersion = function(){
+      var ver = this.getObject(&#039;version&#039;);
+
+
+      if(!ver){
+        // Not found, remove all old stuff and start anew
+        window.localStorage.clear();
+        this.setObject(&#039;version&#039;, 1);
+
+      } else {
+        // Bring populate this version
+        this.version = this.getObject(&#039;version&#039;);
+      }
+    }
+
+     this.setObject = function(key, value) {
+        window.localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    this.getObject = function(key) {
+        return JSON.parse(window.localStorage.getItem(key));
+    }
+
+    /**
+     * Methods related to the book content and timeline state
+     */
+    this.setTimeline  = function() {
+        this.setObject(&#039;timeline&#039;, this.timelineCache);
+    }
+
+    this.clearTimeline  = function(){
+        this.setObject(&#039;timeline&#039;,null);
+    }
+
+    this.getTimeline  = function() {
+        return this.timelineCache;
+    }
+
+    this.setGlobalLast = function(params){
+      this.setObject(&#039;globalLast&#039;,params)
+    }
+
+    this.getGlobalLast = function(){
+      var last = this.getObject(&#039;globalLast&#039;);
+
+      if(!last || !last.folder || !last.file){
+                last = {
+                    folder:this.timelineCache[0].folder,
+                    file:this.timelineCache[0].sections[0].file
+                }
+            }
+      return last;
+    }
+
+    this.getSection = function(params){
+      return _.find(this.getTimeline(), function(obj){
+            return obj.folder == params.folder;
+        })
+    }
+
+    this.getSubsection = function(params){
+      var sec = this.getSection(params);
+      return _.find(sec.sections, function(obj){
+            return obj.file == params.file;
+        })
+    }
+
+    /**
+     * Methods for recording the users usage and opening of our app
+     */
+
+    this.incUsage  = function() {
+        var usage =  this.getObject((&#039;usage&#039;));
+        if(!usage){
+          usage = {timesLaunched:1, lastLaunched:moment()}
+        } else{
+          usage.timesLaunched++;
+          usage.lastLaunched = moment();
+        }
+        this.setObject(&#039;usage&#039;, usage);
+    }
+
+    this.getUsage  = function() {
+        return this.getObject(&#039;usage&#039;);
+    }
+
+
+    /**
+     * Helper to create initial required data using the book object as a seed
+     */
+    this.initTimeline = function() {
+        // Remove old book Book
+        this.clearTimeline();
+       
+        var newBook = defaultBook;
+
+        newBook.map(function (chapters) {
+
+            // each chapter
+            chapters[&#039;numComplete&#039;] = 0;
+            chapters[&#039;lastRead&#039;] = null;
+
+            // Iterate over each minor subsection
+            chapters.sections.map(function (sub) {
+
+                sub[&#039;complete&#039;] = false;
+                sub[&#039;lastRead&#039;] = null;
+                sub[&#039;lastLocation&#039;] = 0;
+
+            })
+        });
+
+        // Set new book
+        this.timelineCache = newBook;
+        this.setTimeline();
+    }
+});
+
+// For visual debuging in console
+window.addEventListener(&#039;storage&#039;, function(e) {
+    console.log(&quot;K: &quot;,e.key, &quot; V: &quot;, e.newValue);
+}, false);
+
+
+//filter which allows reverse layout of ng-repeat items
+app.filter(&#039;reverse&#039;, function(){
+    return function(items) {
+        return items.slice().reverse();
+    };
+});
+
+
+//Used for storing objects and converting to and from JSON
+// TODO: Remove
+app.factory(&#039;$localstorage&#039;, [&#039;$window&#039;, function($window) {
+  
+  function set(key, value) {
+      $window.localStorage[key] = value;
+  }
+  
+  function get(key, defaultValue) {
+      return $window.localStorage[key] || defaultValue;
+  }
+  
+  function setObject(key, value) {
+      $window.localStorage[key] = JSON.stringify(value);
+  }
+  
+  function getObject(key) {
+      return JSON.parse($window.localStorage[key] || &#039;{}&#039;);
+  }
+  
+  return {
+    set: set,
+    get: get,
+    setObject: setObject,
+    getObject: getObject
+  }
+}]);
+
+app.service(&#039;contactService&#039;, function() {
+    var contactsArray = [];
+
+    function loadList(load) {
+        contactsArray = load;
+    }
+
+    //add contact
+    function addContactService(contact) {
+        contactsArray.push(contact);
+    }
+
+    function getContactsService(){
+        return contactsArray;
+    }
+
+    function editContactsService( item, index ){
+        removeContactsService( index );
+        contactsArray.splice( index, 0, item );
+    }
+
+    function removeContactsService( index ) {
+        contactsArray.splice(index, 1);
+    }
+
+    function getContactIndex( index ) {
+        return contactsArray[index];
+    }
+
+    return {
+        loadList: loadList,
+        addContactService: addContactService,
+        getContactsService: getContactsService,
+        editContactsService: editContactsService,
+        removeContactsService: removeContactsService
+    }
+
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>
