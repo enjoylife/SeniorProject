@@ -162,6 +162,10 @@ app.controller('workValuesCtrl', ['$scope', '$localstorage', 'workValueService',
 			//send results to asmnt results factory
 			asmntResultService.addAsmntResult(listItems, 'Work Values & Priorities', datestring);
 			$localstorage.setObject( 'assessments', asmntResultService.getAsmntResult() );
+			//clear controller array
+			listItems = [];
+			//clear factory array
+			workValueService.setArray(listItems);
 			$state.go('binder-asmntResults');
 		}else{
 			$ionicPopup.alert({

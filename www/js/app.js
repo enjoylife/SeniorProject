@@ -34,7 +34,8 @@ app.run(function($ionicPlatform, $ionicScrollDelegate, $rootScope, $ionicHistory
      */
     DataStore.getVersion();
     if(DataStore.getUsage()){
-        console.log("Existing User")
+        console.log("Existing User");
+        //DataStore.initTimeline();
     } else {
         console.log("New User");
         // Give user a fresh state to begin with

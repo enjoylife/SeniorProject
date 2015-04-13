@@ -104,6 +104,11 @@ app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup'
 			$scope.resultObjects = asmnt.results;
 		}
 
+		if(asmnt.title === 'Life Interests & Passions'){
+			$scope.toggle("showAsmnts", "showLifeInterestsResults");
+			$scope.resultObjects = asmnt.results;
+		}
+
 	}
 
 	//toggles between assessment headers and their individual results
