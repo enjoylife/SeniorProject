@@ -27,6 +27,10 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
   function(event, toState, toParams, fromState, fromParams){ 
     
     if($state.current.name=='profile'){
+      window.setInterval(function(){
+        $("#leftArrow").fadeToggle('slow');
+        $("#rightArrow").fadeToggle('slow');
+      }, 1000);
       $ionicScrollDelegate.getScrollView().options.scrollingY = false;
     }else{
       $ionicScrollDelegate.getScrollView().options.scrollingY = true;         
@@ -115,17 +119,30 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
 
     $scope.getSecAndSub = function(timeline, params){
 
-            var section = _.find(timeline, function(obj){
-                return obj.folder == params.folder;
-            })
-            if(!section) throw new Error("Could not find Section");
+        var section = _.find(timeline, function(obj){
+            return obj.folder == params.folder;
+        })
+        if(!section) throw new Error("Could not find Section");
 
-            var subsection = _.find(section.sections, function(obj){
-                return obj.file == params.file;
-            })
-            if(!subsection) throw new Error("Could not find Subsection");
-            
-            return {'section': section,'subsection':subsection}
-        };
+        var subsection = _.find(section.sections, function(obj){
+            return obj.file == params.file;
+        })
+        if(!subsection) throw new Error("Could not find Subsection");
+        
+        return {'section': section,'subsection':subsection}
+    };
+
+    //code to verify if user wants to navigate to seriousjobseeker.com 
+    $scope.verifyNav = function(){
+        $ionicPopup.confirm({
+            title:'You are leaving the app to go to www.SeriousJobSeeker.com',
+            //template:'You must input at least one value.'
+        })
+        .then(function(res){
+            if(res){
+                window.open("http://www.seriousjobseeker.com/", "_blank");
+            }else{}
+        })
+    }
 
 });

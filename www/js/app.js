@@ -19,14 +19,15 @@ app.run(function($ionicPlatform, $ionicScrollDelegate, $rootScope, $ionicHistory
 
         // TODO: Does this fix scrolling behavior
         $rootScope.$on('$viewContentLoaded',
-            function(){
-                $ionicScrollDelegate.freezeScroll(true);
-                window.setTimeout(function(){
-                    $ionicScrollDelegate.freezeScroll(false);
-                    $ionicScrollDelegate.resize();
-                    console.log($ionicScrollDelegate.getScrollView().__contentHeight);
-                },1500)
-            });
+        function(){
+            $ionicScrollDelegate.freezeScroll(true);
+            window.setTimeout(function(){
+                $ionicScrollDelegate.freezeScroll(false);
+                $ionicScrollDelegate.resize();
+                console.log($ionicScrollDelegate.getScrollView().__contentHeight);
+            },1500)
+        });
+
     });
 
     /**
