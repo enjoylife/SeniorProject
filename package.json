@@ -24,6 +24,7 @@
     "org.apache.cordova.device",
     "com.plugin.datepicker",
     "org.apache.cordova.contacts",
-    "https://github.com/katzer/cordova-plugin-local-notifications"
+    "https://github.com/katzer/cordova-plugin-local-notifications",
+    "https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git"
   ]
 }
