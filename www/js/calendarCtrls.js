@@ -69,6 +69,16 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
 				endMin = $scope.event.timeEnd.getMinutes();
 				//var endDate = moment({ y: year, M: month, d: day, h: endHour, m: endMin, s: 0, ms:0 });
 				var endDate = new Date( year, month, day, endHour, endMin, 0, 0 )
+
+				//automatically add 15minute interval to event in order to view 
+				//in day agenda if times are equal
+				if(endDate.getTime() === startDate.getTime()){
+					//console.log("SAME DATES");
+					endMin += 15;
+					endDate = new Date( year, month, day, endHour, endMin, 0, 0 ); 
+					//console.log("endDate modified");
+				}
+
 				$scope.obj.end = endDate;
 				
 				if ( $scope.obj.start === null || $scope.obj.end === null) {
