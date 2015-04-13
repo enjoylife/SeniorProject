@@ -5,7 +5,22 @@
 
 app.service('DataStore', function(){
 
-  this.timelineCache =   JSON.parse(window.localStorage.getItem('timeline'));
+    this.timelineCache =  JSON.parse(window.localStorage.getItem('timeline'));
+
+    this.getVersion = function(){
+      var ver = this.getObject('version');
+
+
+      if(!ver){
+        // Not found, remove all old stuff and start anew
+        window.localStorage.clear();
+        this.setObject('version', 1);
+
+      } else {
+        // Bring populate this version
+        this.version = this.getObject('version');
+      }
+    }
 
      this.setObject = function(key, value) {
         window.localStorage.setItem(key, JSON.stringify(value));
@@ -35,7 +50,15 @@ app.service('DataStore', function(){
     }
 
     this.getGlobalLast = function(){
-      this.getObject('globalLast');
+      var last = this.getObject('globalLast');
+
+      if(!last || !last.folder || !last.file){
+                last = {
+                    folder:this.timelineCache[0].folder,
+                    file:this.timelineCache[0].sections[0].file
+                }
+            }
+      return last;
     }
 
     this.getSection = function(params){
@@ -77,7 +100,7 @@ app.service('DataStore', function(){
     this.initTimeline = function() {
         // Remove old book Book
         this.clearTimeline();
-
+       
         var newBook = defaultBook;
 
         newBook.map(function (chapters) {

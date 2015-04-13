@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">73.59</p>
+      <p class="stat">72.76</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">120</p>
+      <p class="stat">147</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">20.38</p>
+      <p class="stat">19.78</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.72</p>
+      <p class="stat">0.92</p>
     </div>
   </div>
 </div>
@@ -136,7 +136,7 @@ app.factory(&#039;asmntResultService&#039;, [ &#039;$localstorage&#039;, functio
 
 
 //assessment results controller
-app.controller(&#039;asmntResultCtrl&#039;, [&#039;$scope&#039;, &#039;asmntResultService&#039;, &#039;$ionicPopup&#039;, &#039;$localstorage&#039;, &#039;$ionicScrollDelegate&#039;, function($scope, asmntResultService, $ionicPopup, $localstorage, $ionicScrollDelegate){
+app.controller(&#039;asmntResultCtrl&#039;, [&#039;$scope&#039;, &#039;asmntResultService&#039;, &#039;$ionicPopup&#039;, &#039;$localstorage&#039;, &#039;$ionicScrollDelegate&#039;, &#039;$state&#039;, &#039;$ionicScrollDelegate&#039;, &#039;$rootScope&#039;, function($scope, asmntResultService, $ionicPopup, $localstorage, $ionicScrollDelegate, $state, $ionicScrollDelegate, $rootScope){
 	$scope.setScreen = function(){
 		$ionicScrollDelegate.scrollTop();
 	}
@@ -185,8 +185,19 @@ app.controller(&#039;asmntResultCtrl&#039;, [&#039;$scope&#039;, &#039;asmntResu
 
 		}
 
+		if(asmnt.title === &#039;Work Values &amp; Priorities&#039;){
+			$scope.toggle(&quot;showAsmnts&quot;, &quot;showWorkValueResults&quot;);
+			$scope.resultObjects = asmnt.results;
+		}
+
+		if(asmnt.title === &#039;Key Knowledge Areas&#039;){
+			$scope.toggle(&quot;showAsmnts&quot;, &quot;showKeyKnowledgeResults&quot;);
+			$scope.resultObjects = asmnt.results;
+		}
+
 	}
 
+	//toggles between assessment headers and their individual results
 	$scope.toggle = function(one, two){
 		document.getElementById(one).style.display = &quot;none&quot;;
 		document.getElementById(two).style.display = &quot;block&quot;;	
@@ -208,6 +219,22 @@ app.controller(&#039;asmntResultCtrl&#039;, [&#039;$scope&#039;, &#039;asmntResu
 	   });
 
 	}
+
+	//function to show assessment list using jQuery slideUp()
+	$(&quot;#showMenu&quot;).click(function(){
+		$(&quot;#asmntMenu&quot;).slideToggle();
+	});
+
+	//code to change color of the links on click/tap
+	$(&quot;#asmntMenu span&quot;).click(function(){
+		$(this).css({&quot;color&quot;:&quot;#00CCFF&quot;});
+	});
+
+/*	$scope.viewHolland = function(){
+		console.log(&quot;viewHolland()&quot;);
+		$rootScope.holland = true;
+		$state.go(&#039;content.sections&#039;, {&#039;folder&#039;:&#039;assessment&#039;, &#039;file&#039;:&#039;personality.html&#039;});
+	}*/
 
 }]);</textarea>
   </div>

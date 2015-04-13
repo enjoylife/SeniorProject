@@ -1,5 +1,6 @@
-app.controller('timelineCtrl',function($scope, $state, $ionicScrollDelegate, $localstorage, DataStore){
+app.controller('timelineCtrl',function($scope, $state, $ionicScrollDelegate, $ionicSideMenuDelegate, $localstorage, DataStore){
     $scope.timeline = DataStore.getTimeline();
+     // $ionicSideMenuDelegate.toggleLeft();
 
     console.log($scope.timeline);
 

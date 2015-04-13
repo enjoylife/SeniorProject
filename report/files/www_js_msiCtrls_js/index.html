@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">64.56</p>
+      <p class="stat">64.52</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">810</p>
+      <p class="stat">847</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">33.79</p>
+      <p class="stat">41.60</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">7.05</p>
+      <p class="stat">7.46</p>
     </div>
   </div>
 </div>
@@ -105,10 +105,23 @@ app.factory(&#039;scraper&#039;, function() {
     values.push(val);
   }
 
-  //this loop will return the totals that are 6 or higher.
+  
   function output(){
     var out = [];
 
+    //removes dupes, keeps last chosen order
+    for(i=values.length-1; i&gt;0; i--){
+    	for(j=i-1; j&gt;=0; j--){
+    		//if header is the same, then remove that object
+    		if(values[i].h === values[j].h){    	
+    			i--;
+    			values.splice(j, 1);
+    			//console.log(&quot;after splice: &quot;+values.length);
+    		}
+    	}
+    }
+
+    //this loop will return the totals that are 6 or higher.
     values.forEach( function(object){
       if(object.sum &gt;= 6){
         out.push(object);
@@ -139,13 +152,24 @@ app.factory(&#039;scraper&#039;, function() {
 
 
 //Communication controller
-app.controller(&#039;comsCtrl&#039;, [&#039;$scope&#039;, &#039;scraper&#039;, &#039;$ionicScrollDelegate&#039;, &#039;asmntResultService&#039;, &quot;$localstorage&quot;, function($scope, scraper, $ionicScrollDelegate, asmntResultService, $localstorage){
+app.controller(&#039;comsCtrl&#039;, [&#039;$scope&#039;, &#039;$ionicLoading&#039;, &#039;$timeout&#039;, &#039;$state&#039;, &#039;scraper&#039;, &#039;$ionicScrollDelegate&#039;, &#039;asmntResultService&#039;, &quot;$localstorage&quot;, &#039;$ionicPopup&#039;,  function($scope, $ionicLoading, $timeout, $state, scraper, $ionicScrollDelegate, asmntResultService, $localstorage, $ionicPopup){
 	//array to hold result values
 	//$scope.results = [];	
 
-	$scope.setScreen = function(){
-		$ionicScrollDelegate.scrollTop();
-	}
+	$scope.show = function () {
+		return $ionicLoading.show({
+			content: &#039;Loading Calendar&#039;
+		});
+	};
+
+	$scope.loadCalendar = function () {
+		var loading = $scope.show();
+		$timeout(function(){
+		  $state.go(&#039;binder-calendar&#039;);
+		  loading.hide();
+		}, 1500);
+	  };
+	
 
 	//Place the questions into a scope object and separates them into attributes of header and body
 	$scope.comQuestions = {
@@ -166,7 +190,7 @@ app.controller(&#039;comsCtrl&#039;, [&#039;$scope&#039;, &#039;scraper&#039;, &
 
 	}
 
-	//collection of scope arrays of objects for each set of radio buttons
+	//radio buttons
 	$scope.buttons = [
 		{text: &quot;1&quot;, value: 1},
 		{text: &quot;2&quot;, value: 2},
@@ -233,7 +257,7 @@ app.controller(&#039;comsCtrl&#039;, [&#039;$scope&#039;, &#039;scraper&#039;, &
 	}
 
 
-
+	//this function is called everytime a user begins a new msi assessment.
 	$scope.reset = function(){
 		console.log(&quot;inside reset() results = &quot; + $scope.results);
 		scraper.resetVals();
@@ -243,6 +267,7 @@ app.controller(&#039;comsCtrl&#039;, [&#039;$scope&#039;, &#039;scraper&#039;, &
 
 	$scope.getResults = function(){
 		//alert($scope.results);
+		//return results from the factory in descending order
 		$scope.results = scraper.output().sort(function(a, b){ return b.sum-a.sum });
 		//$scope.results.sort(function(a, b){ return(b-a) });
 		console.log(&quot;getResults() results = &quot; + $scope.results);
@@ -257,6 +282,18 @@ app.controller(&#039;comsCtrl&#039;, [&#039;$scope&#039;, &#039;scraper&#039;, &
 		//send results to asmnt results factory
 		asmntResultService.addAsmntResult($scope.results, &#039;MSI Results&#039;, datestring);
 		$localstorage.setObject( &#039;assessments&#039;, asmntResultService.getAsmntResult() );
+
+		$ionicPopup.alert({
+			title:&#039;&lt;strong&gt;&lt;u&gt;These results are important!&lt;/u&gt;&lt;/strong&gt;&#039;,
+			template:&#039;&lt;p&gt;A skill rating of 8 means you are highly skilled and highly motivated. A score of 7 means you are slightly lacking in motivation or skill, etc.&lt;/p&gt;&#039;+
+				&#039;&lt;p&gt;Skills you rate below a 6 will not be considered.&lt;/p&gt;&#039;+
+				&#039;&lt;h4&gt;&lt;b&gt;Focus on your 8s!&lt;/b&gt;&lt;/h4&gt;&#039;
+
+				/*&lt;p&gt;Skills you rate below a 6 will not be considered.&lt;/p&gt;
+				&lt;h4&gt;&lt;b&gt;Focus on your 8s!&lt;/b&gt;&lt;/h4&gt;*/
+		});
+		$state.go(&#039;binder-asmntResults&#039;);
+		//$scope.reset();
 	}		
 
 
@@ -441,7 +478,7 @@ app.controller(&#039;qaCtrl&#039;, [&#039;$scope&#039;, &#039;scraper&#039;, fun
 		
 		$scope.total($scope.qaQuestions.compspeedHead, $scope.qaQuestions.compspeedBody, $scope.data.compspeedSVal, $scope.data.compspeedMVal);
 		$scope.total($scope.qaQuestions.numcrunchHead, $scope.qaQuestions.numcrunchBody, $scope.data.numcrunchSVal, $scope.data.numcrunchMVal);
-		$scope.total($scope.qaQuestions.Head, $scope.qaQuestions.probsolvBody, $scope.data.probsolvSVal, $scope.data.probsolvMVal);
+		$scope.total($scope.qaQuestions.probsolvHead, $scope.qaQuestions.probsolvBody, $scope.data.probsolvSVal, $scope.data.probsolvMVal);
 		$scope.total($scope.qaQuestions.computerHead, $scope.qaQuestions.computerBody, $scope.data.computerSVal, $scope.data.computerMVal);
 
 		//Loop through the Totals array which now contains the questions and summed values
@@ -574,7 +611,7 @@ app.controller(&#039;techReasonCtrl&#039;, [&#039;$scope&#039;, &#039;scraper&#0
 
 	$scope.techReasonQuestions = {
 		mechanicalHead: &quot;Mechanical Reasoning: &quot;,
-		mechanicalBody: &quot; Mechanical Reasoning: Able to understand the ways that hardware, machinery or tools operate and the relationships between mechanical operations.&quot;,
+		mechanicalBody: &quot;Able to understand the ways that hardware, machinery or tools operate and the relationships between mechanical operations.&quot;,
 		spatialHead: &quot;Spatial Reasoning: &quot;,
 		spatialBody: &quot; Possess excellent spatial reasoning, able to judge the relationship of objects in space. Able to judge shapes and sizes of objects and manipulate them digitally or mentally and analyze the effects.&quot;,
 		outdoorHead: &quot;Outdoor Work: &quot;,
