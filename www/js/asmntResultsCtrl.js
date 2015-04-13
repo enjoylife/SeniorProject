@@ -46,17 +46,12 @@ app.factory('asmntResultService', [ '$localstorage', function($localstorage){
 
 //assessment results controller
 app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup', '$localstorage', '$ionicScrollDelegate', '$state', '$ionicScrollDelegate', '$rootScope', function($scope, asmntResultService, $ionicPopup, $localstorage, $ionicScrollDelegate, $state, $ionicScrollDelegate, $rootScope){
-	$scope.setScreen = function(){
-		$ionicScrollDelegate.scrollTop();
-	}
-
 
     /* Load from local storage */
     var load = $localstorage.getObject( 'assessments' );
     if (Object.keys(load).length !== 0) {
 		asmntResultService.loadList( load );
     }	
-
 
 	
 	$scope.addResults = function(asmnt, title, date){
@@ -67,7 +62,23 @@ app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup'
 
 	$scope.getResults = function(){
 		//get asmnt results from factory
-		$scope.asmntResults = asmntResultService.getAsmntResult();
+		if(asmntResultService.getAsmntResult() == 0){
+			$("#nullMessage").show();
+			return asmntResultService.getAsmntResult();
+		}else{
+			$("#nullMessage").hide();
+			return asmntResultService.getAsmntResult();
+		}
+
+		/*$scope.asmntResults = asmntResultService.getAsmntResult();
+
+		//if no results, display null message
+		if($scope.asmntResults.length == 0){
+			$("#nullMessage").show();
+		}else{
+			
+		}*/
+
 	}
 
 	//showResults will check the asmnt.title and show display the corresponding assessment
@@ -127,6 +138,7 @@ app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup'
 		 if(res) {
 		   asmntResultService.deleteAsmnt( index );
 		   $localstorage.setObject( 'assessments', asmntResultService.getAsmntResult() );
+		   //$scope.getResults();
 		 } else {
 		   
 		 }

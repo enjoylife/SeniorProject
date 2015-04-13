@@ -1,32 +1,33 @@
 <ion-content title="Job Applications/Resumes Sent" 
 			ng-controller="JobAppCtrl"
-			style="background-color:#C0C0C0;"
+			style="background-color:#999999;"
 > 
 
 	<h3 align="center" style="padding-top:20px; color:white;">Applications Sent</h3>  
 
 	  <table class="jobApps" 
 	  	ng-repeat="item in getJobs() | reverse track by $index"
+	  	style="font-size:16px; color:#333333;"
 	  >	
 		  <tr>
 		  	<td style="padding-bottom:10px;"><b>Company:</b></td> 
-		  	<td style="padding-bottom:10px;">{{item.company}}</td>
+		  	<td class="rightcell">{{item.company}}</td>
 		  </tr>
 		  <tr>
 		  	<td style="padding-bottom:10px;"><b>Job Title:</b></td>
-		  	<td style="padding-bottom:10px;">{{item.jobTitle}}</td>
+		  	<td class="rightcell">{{item.jobTitle}}</td>
 		  </tr>
 		  <tr>
 		  	<td style="padding-bottom:10px;"><b>Description:</b></td>
-		  	<td style="padding-bottom:10px;">{{item.posDesc}}</td>
+		  	<td class="rightcell">{{item.posDesc}}</td>
 		  </tr>
 		  <tr>
 		  	<td style="padding-bottom:10px;"><b>Notes:</b></td>
-		  	<td style="padding-bottom:10px;">{{item.notes}}</td>
+		  	<td class="rightcell">{{item.notes}}</td>
 		  </tr>
 		  <tr>
 		  	<td style="padding-bottom:10px;"><b>Date applied:</b></td>
-		  	<td style="padding-bottom:10px;">{{item.date}}</td>
+		  	<td class="rightcell">{{item.date}}</td>
 		  </tr>
 		  <tr>	
 		  	<td colspan="2">

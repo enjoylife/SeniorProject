@@ -1,4 +1,4 @@
-<ion-content ng-controller="asmntResultCtrl" ng-init="getResults();setScreen();"
+<ion-content ng-controller="asmntResultCtrl" ng-init="getResults();"
 	style="background-color:#999999;"
 >	
 	<h3 align="center" style="padding-top:20px; color:white;">
@@ -10,13 +10,13 @@
 
 		<div class="asmntResults-row"
 			align="center"
-			ng-repeat="asmnt in asmntResults | reverse track by $index" 
+			ng-repeat="asmnt in getResults() | reverse track by $index" 
 		>	
 
 			<span ng-click="showResults(asmnt, $index)" style="float:left;">{{asmnt.title}} - {{asmnt.date}}</span>			
 			<br><br>
 			<span>
-				<i class="icon ion-close" ng-click="delete(reverseIndex($index, asmntResults))"></i>
+				<i class="icon ion-close" ng-click="delete(reverseIndex($index, getResults()))"></i>
 			</span>
 		</div>
 
@@ -181,4 +181,17 @@ Assessments &nbsp;|&nbsp;<i class="icon ion-arrow-up-b"></i>
 	<hr>
 	<span ui-sref="lifeInterests">Life Interests & Passions</span>
 	<hr>
+</div>
+
+<!-- Message displayed if no results are present -->
+<div id="nullMessage" 
+		style="font-size:25px;
+		font-family:'Montserrat';
+		color:white;
+		position:fixed;
+		top:40%;"
+>
+	<p align="center">
+		No Assessments Present...
+	</p>
 </div>
