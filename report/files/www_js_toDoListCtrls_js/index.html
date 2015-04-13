@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">70.54</p>
+      <p class="stat">70.80</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">223</p>
+      <p class="stat">247</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">30.33</p>
+      <p class="stat">30.52</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">1.57</p>
+      <p class="stat">1.77</p>
     </div>
   </div>
 </div>
@@ -90,13 +90,25 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">/* To-Do-List control */
-app.controller(&#039;ToDoCtrl&#039;, [&#039;$scope&#039;, &#039;$ionicPopup&#039;, &#039;$timeout&#039;, &#039;$localstorage&#039;, &#039;toDoService&#039;, function($scope, $ionicPopup, $timeout, $localstorage, toDoService) {
+app.controller(&#039;ToDoCtrl&#039;, [&#039;$scope&#039;, &#039;$ionicPopup&#039;, &#039;$timeout&#039;, &#039;$localstorage&#039;, &#039;toDoService&#039;, &#039;$rootScope&#039;, function($scope, $ionicPopup, $timeout, $localstorage, toDoService, $rootScope) {
   
   /* Load from local storage */
   var load = $localstorage.getObject( &#039;toDoList&#039; );
   if (Object.keys(load).length !== 0) {
     toDoService.loadList( load );
   }
+
+  //this variable will be used to keep track of ionic popups
+  $rootScope.pop = 0;
+
+  $rootScope.$on(&#039;$stateChangeStart&#039;, 
+  function(event, toState, toParams, fromState, fromParams){ 
+    console.log($rootScope.pop);
+    if($rootScope.pop){
+      event.preventDefault(); 
+    }
+      // transitionTo() promise will be rejected
+  })
   
   //Add to-do item
   $scope.addToDo = function() {
@@ -106,14 +118,19 @@ app.controller(&#039;ToDoCtrl&#039;, [&#039;$scope&#039;, &#039;$ionicPopup&#039
 	  end: &#039;&#039;,
 	  id: toDoService.getNumberOf()
 	};
-  
+
+  	$rootScope.pop = 1;
     var myPopup = $ionicPopup.show({
       title: &#039;Enter your to-do item&#039;,
 	  templateUrl: &#039;templates/binder/binder-toDo-popup.html&#039;,
       subTitle: &#039;Remember to be organized and keep track what you need to do&#039;,
       scope: $scope,
       buttons: [
-      { text: &#039;Cancel&#039; },
+      { text: &#039;Cancel&#039;,
+      	onTap: function(e){
+      		$rootScope.pop=0;
+      	}
+      },
       {
         text: &#039;&lt;b&gt;Save&lt;/b&gt;&#039;,
         type: &#039;button-positive&#039;,
@@ -140,6 +157,7 @@ app.controller(&#039;ToDoCtrl&#039;, [&#039;$scope&#039;, &#039;$ionicPopup&#039
 				  alertPopup.close();
 				});
 			} else {
+				$rootScope.pop=0;
 			    $scope.obj.end = d.toDateString();
 				toDoService.addToList($scope.obj);
 				$localstorage.setObject( &#039;toDoList&#039;, toDoService.output() );
@@ -163,6 +181,7 @@ app.controller(&#039;ToDoCtrl&#039;, [&#039;$scope&#039;, &#039;$ionicPopup&#039
   
   //Edit to-do
   $scope.editToDo = function(index) {
+  	$rootScope.pop=1;
 	var temp = toDoService.getItem(index);
 	$scope.obj = {
 		title: temp.title,
@@ -174,7 +193,11 @@ app.controller(&#039;ToDoCtrl&#039;, [&#039;$scope&#039;, &#039;$ionicPopup&#039
 	  templateUrl: &#039;templates/binder/binder-toDo-popup.html&#039;,
       scope: $scope,
       buttons: [
-      { text: &#039;Cancel&#039; },
+      { text: &#039;Cancel&#039;,
+      	onTap: function(e){
+      		$rootScope.pop=0;
+      	}
+      },
       {
         text: &#039;&lt;b&gt;Save&lt;/b&gt;&#039;,
         type: &#039;button-positive&#039;,
@@ -203,6 +226,7 @@ app.controller(&#039;ToDoCtrl&#039;, [&#039;$scope&#039;, &#039;$ionicPopup&#039
 				  alertPopup.close();
 				});
 			} else {
+				$rootScope.pop=0;
 			    $scope.obj.end = d.toDateString();
 				//var obj = { title: $scope.edit.title, date: $scope.obj.end, id: index };
 				toDoService.editItem( $scope.obj, index );

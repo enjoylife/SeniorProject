@@ -1,7 +1,6 @@
 /**
  * Angular's way of encapsulation.
  * Only export and to be used by almost every other component in our app
->>>>>>> origin/master
 
  */
 var app = angular.module('prototype', [ 'ionic', 'ngCordova', 'ui.calendar', 'ui.bootstrap', 'ui.router']);
@@ -33,6 +32,7 @@ app.run(function($ionicPlatform, $ionicScrollDelegate, $rootScope, $ionicHistory
     /**
      * Logic for first time users vs existing users goes here
      */
+    DataStore.getVersion();
     if(DataStore.getUsage()){
         console.log("Existing User")
     } else {

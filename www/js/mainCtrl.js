@@ -3,7 +3,7 @@
  */
 
 //MAIN CONTROLLER
-app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$localstorage", "contactService", "$ionicPlatform", "$ionicPopup", "$ionicHistory", "$rootScope", "$ionicScrollDelegate", function($scope, $state, $ionicSideMenuDelegate, $localstorage, contactService, $ionicPlatform, $ionicPopup, $ionicHistory, $rootScope, $ionicScrollDelegate) {
+app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $localstorage, contactService, $ionicPlatform, $ionicPopup, $ionicHistory, $rootScope, $ionicScrollDelegate,DataStore) {
 
     /* Get count of contacts for display */
     var load = $localstorage.getObject( 'contacts' );
@@ -95,13 +95,7 @@ app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$loca
             $ionicSideMenuDelegate.toggleLeft();
         }
         if($state.is('profile')){
-            var last = $localstorage.getObject('lastSection');
-            if(!last || !last.folder || !last.file){
-                last = {
-                    folder:book[0].folder,
-                    file:book[0].sections[0].file
-                }
-            }
+            var last = DataStore.getGlobalLast();
             $state.go('content.sections', last)
         }
         if($state.is('binder')){
@@ -134,4 +128,4 @@ app.controller('MainCtrl', ["$scope", "$state", "$ionicSideMenuDelegate", "$loca
             return {'section': section,'subsection':subsection}
         };
 
-}]);
+});

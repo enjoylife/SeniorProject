@@ -12,6 +12,18 @@ app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate, $loca
         return DataStore.getSubsection($state.params).title;
     }
 
+    $scope.leadNum = function(){
+        var book = DataStore.getTimeline();
+
+        // Which folder are we in
+        var section =  DataStore.getSection($state.params);
+        var secNum = _.findIndex(book,section);
+
+        // Which file are we in
+        var subNum = _.findIndex(section.sections,{'file':$state.params.file});
+        return (secNum+1) + "." + (subNum);
+    }
+
 
     // Returns null if no more sections and subections
     // otherwise it will return an obejct with the next section and subsection for the router

@@ -5,6 +5,7 @@
   "watchPatterns": [
   "www/js/*.js",
   "www/index.html",
-  "www/templates/**/*.html"
+  "www/templates/**/*.html",
+  "www/css/*.css"
   ]
 }

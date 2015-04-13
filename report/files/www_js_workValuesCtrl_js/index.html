@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - www/js/workValuesCtrl.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>www/js/workValuesCtrl.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">60.97</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">193</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">23.22</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.15</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">app.controller(&#039;workValuesCtrl&#039;, [&#039;$scope&#039;, &#039;$localstorage&#039;, &#039;workValueService&#039;, &#039;asmntResultService&#039;, &#039;$ionicPopup&#039;, &#039;$state&#039;, function($scope, $localstorage, workValueService, asmntResultService, $ionicPopup, $state){
+	//control for Work Values Assessment
+
+	//array of work values as objects
+	$scope.workObjects = [
+		{
+			head:&#039;Creativity: &#039;,
+			body:&#039;A job in which I can develop new products, ideas or processes, or in which I can express myself.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Challenge: &#039;,
+			body:&#039;A demanding job which requires that I solve difficult problems.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Variety: &#039;,
+			body:&#039;A job that allows me to perform many different tasks.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Flexibility: &#039;,
+			body:&#039;A job that allows me to set my own schedule and change my working style as I wish.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Learning: &#039;,
+			body:&#039;A job in which I can learn and enhance my skills and abilities.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Intensity: &#039;,
+			body:&#039;A job that requires much time and attention, sustained effort and intense concentration.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Consistency: &#039;,
+			body:&#039;A job in which my duties are clearly defined and my responsibilities are stable and predictable.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Independence: &#039;,
+			body:&#039;A job in which I can do things my own way and make my own decisions.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Teamwork: &#039;,
+			body:&#039;A job in which I can work closely with a number of other individuals.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Leadership: &#039;,
+			body:&#039;A job in which I can lead, supervise and influence others.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Job Security: &#039;,
+			body:&#039;A job that I know I will be able to keep as long as I want.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Stability: &#039;,
+			body:&#039;A job with a solid, stable, established and predictable organization.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Financial Security: &#039;,
+			body:&#039;A job that provides adequately for my needs, allowing me to live comfortably.&#039;,
+			value:null
+		},
+		{
+			head:&#039;High Paying: &#039;,
+			body:&#039;A job in which I can earn a good deal of money.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Financial Growth: &#039;,
+			body:&#039;A job that allows for continuing salary growth and opportunity.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Career Growth: &#039;,
+			body:&#039;A job that promises advancement, opportunity and increasing responsibility.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Prestige: &#039;,
+			body:&#039;A job that is important and for which others might look up to me.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Support: &#039;,
+			body:&#039;A job working for someone I admire and respect and to whose success I can contribute.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Respect: &#039;,
+			body:&#039;A job in which my work is recognized and applauded and where I feel valued as a person.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Public Service: &#039;,
+			body:&#039;A job in which allows me to make the world a better or safer place to live.&#039;,
+			value:null
+		},
+		{
+			head:&#039;Helping People: &#039;,
+			body:&#039;A job in which I can help people improve their lives.&#039;,
+			value:null
+		}
+	]
+
+
+	//array which will hold all initial input values from our user
+	var vals = [];
+
+	//function to send all values into an array to pass to factory
+	$scope.pushVals = function(){
+		for(i = 0; i &lt; $scope.workObjects.length; i++){
+			if($scope.workObjects[i].value == 3){
+				vals.push($scope.workObjects[i]);
+			}
+		}
+
+
+		//send array to factory
+		workValueService.setArray(vals);
+		console.log(vals);
+		vals = [];
+	}
+
+
+	//get values from factory for results page
+	$scope.getVals = function(){
+		$scope.results = workValueService.getArray();
+	}
+
+	//sortable objects, thanks JQuery
+	$(function() {
+    	$( &quot;#sortable&quot; ).sortable();
+    	$( &quot;#sortable&quot; ).disableSelection();
+  	});
+
+
+	//user commit
+	$scope.saveList = function(){
+		var listItems = [];
+	  	$(&quot;li&quot;).each(function(index) {
+	  		console.log($(this).text());
+	  		listItems.push($(this).text());
+	  	})
+
+
+	  	if(listItems.length &gt; 0){
+		  	//create date object
+		  	d = new Date();
+			curday = d.getDate();
+			curmonth = d.getMonth();
+			curyear = d.getFullYear();
+			var datestring = curmonth + &quot;/&quot; + curday + &quot;/&quot; + curyear;
+			
+			//send results to asmnt results factory
+			asmntResultService.addAsmntResult(listItems, &#039;Work Values &amp; Priorities&#039;, datestring);
+			$localstorage.setObject( &#039;assessments&#039;, asmntResultService.getAsmntResult() );
+			$state.go(&#039;binder-asmntResults&#039;);
+		}else{
+			$ionicPopup.alert({
+				title:&#039;Uh-Oh!&#039;,
+				template:&#039;You must choose some work priorities that are &lt;u&gt;Absolutely Required&lt;/u&gt;!&#039;
+			})
+		}
+  	}
+
+}]);
+
+
+//workValue factory
+app.factory(&#039;workValueService&#039;, function(){
+	var array = [];
+
+	function setArray(arr){
+		array = arr;
+	}
+	function getArray(){
+		return array;
+	}
+
+	return{
+		setArray: setArray,
+		getArray: getArray,
+	}
+
+})</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

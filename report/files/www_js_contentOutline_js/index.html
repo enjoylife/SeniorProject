@@ -44,7 +44,7 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">41.00</p>
+      <p class="stat">40.35</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">6.21</p>
+      <p class="stat">6.22</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.59</p>
+      <p class="stat">0.63</p>
     </div>
   </div>
 </div>
@@ -91,7 +91,7 @@
   <div class="row">
     <textarea id="file-source" class="col-md-12">// Main properties of objects must correspond with sub-folders inside the template folder
 // Strings defined in section order per those main objects define files within those sub-folders.
-var contentOutline = [
+var defaultBook = [
 
 	// Each section needs:
 	// title, leadIn, sectionOrder and a number of objects defining the subsections
@@ -121,19 +121,19 @@ var contentOutline = [
 	},
 
 	{
-		folder: &#039;careerbinder_text&#039;,
-		title: &#039;Staying Organized&#039;,
+		folder:&#039;careerbinder_text&#039;,
+		title:&#039;Staying Organized&#039;,
 		sections: [
 			{
-				file: &#039;sjs2-0.html&#039;,
-				title: &#039;Your Career Binder ... absolutely essential!&#039;
+				file:&#039;sjs2-0.html&#039;,
+				title:&#039;Your Career Binder ... absolutely essential!&#039;
 			},
 		]
 	},
 
 	{
 		folder:&#039;assessment&#039;,
-		title: &quot;Assessments&quot;,
+		title:&quot;Assessments&quot;,
 
 		sections:[
 			{
@@ -142,16 +142,16 @@ var contentOutline = [
 			},
 			{
 				file:&#039;skills.html&#039;,
-				title: &#039;Motivated Skills Inventory&#039;
+				title:&#039;Motivated Skills Inventory&#039;
 			},
-			// {
-			// 	file:&#039;values.html&#039;,
-			// 	title: &#039;Work Values and Priorities&#039;
-			// },
-			// {
-			// 	file:&#039;knowledge.html&#039;,
-			// 	title : &quot;Key Knowledge Areas&quot;
-			// },
+			{
+				file:&#039;values.html&#039;,
+				title:&#039;Work Values and Priorities&#039;
+			},
+			{
+				file:&#039;knowledge.html&#039;,
+			 	title : &quot;Key Knowledge Areas&quot;
+			},
 			// {
 			// 	file:&#039;interests.html&#039;,
 			// 	title: &quot;Life Interests and Passions&quot;
