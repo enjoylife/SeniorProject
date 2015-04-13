@@ -3,7 +3,7 @@
 
 app.controller('asmntInputCtrl', ['$scope', '$localstorage', 'workValueService', 'asmntResultService', '$ionicPopup', '$state', function($scope, $localstorage, workValueService, asmntResultService, $ionicPopup, $state){
 	//function that will be called when a user is ready to rank their areas
-	$scope.pushVals = function(){
+	$scope.pushVals = function(goToStateName){
 		var inventory = [];
 
 		//grab the non-empty text boxes and put them in our array
@@ -19,6 +19,12 @@ app.controller('asmntInputCtrl', ['$scope', '$localstorage', 'workValueService',
 	  		workValueService.setArray(inventory);
 			console.log(inventory);
 			inventory = [];
+			$state.go(goToStateName);
+		}else{
+			$ionicPopup.alert({
+				title:'Uh-Oh!',
+				template:'You must input at least one value.'
+			})
 		}
 	}
 
@@ -44,7 +50,7 @@ app.controller('asmntInputCtrl', ['$scope', '$localstorage', 'workValueService',
   	});
 
 	//user commit
-	$scope.saveList = function(){
+	$scope.saveList = function(assessment){
 		var listItems = [];
 	  	$("li").each(function(index) {
 	  		console.log($(this).text());
@@ -61,13 +67,15 @@ app.controller('asmntInputCtrl', ['$scope', '$localstorage', 'workValueService',
 			var datestring = curmonth + "/" + curday + "/" + curyear;
 			
 			//send results to asmnt results factory
-			asmntResultService.addAsmntResult(listItems, 'Key Knowledge Areas', datestring);
+			asmntResultService.addAsmntResult(listItems, assessment, datestring);
 			$localstorage.setObject( 'assessments', asmntResultService.getAsmntResult() );
+			listItems = [];
+			workValueService.setArray(listItems);
 			$state.go('binder-asmntResults');
 		}else{
 			$ionicPopup.alert({
 				title:'Uh-Oh!',
-				template:'You must choose some work priorities that are <u>Absolutely Required</u>!'
+				template:'You must choose at least one value.'
 			})
 		}
   	}

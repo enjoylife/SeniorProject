@@ -125,10 +125,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
   //Life Interests Assessment
   .state('lifeInterests', {
     url:'/lifeInterests',
-    templateUrl:'',
+    templateUrl:'templates/selfAsmnt/lifeInterests.html',
     controller:'MainCtrl'
   })
 
+  .state('lifeInterestsResults', {
+    url:'/lifeInterestsResults',
+    templateUrl:'templates/selfAsmnt/lifeInterestsResults.html',
+    controller:'MainCtrl'
+  })
 
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

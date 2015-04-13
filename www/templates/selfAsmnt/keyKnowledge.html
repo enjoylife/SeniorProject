@@ -28,7 +28,7 @@
 				</div>
 		
 				<p>
-					<button ng-click="addTextInput('#first');">
+					<button class="button" ng-click="addTextInput('#first');">
 						Add Text Area
 					</button>
 				</p>
@@ -55,7 +55,7 @@
 				</div>
 		
 				<p>
-					<button ng-click="addTextInput('#second');">
+					<button class="button" ng-click="addTextInput('#second');">
 						Add Text Area
 					</button>
 				</p>
@@ -82,16 +82,15 @@
 				</div>
 		
 				<p>
-					<button ng-click="addTextInput('#third');">
+					<button class="button" ng-click="addTextInput('#third');">
 						Add Text Area
 					</button>
 				</p>
 		</div>
 		<hr>
 		<p style="color: rgb(0, 0, 102);"><strong>On the next page, you are going to rank order your knowledge areas.</strong></p>
-		<button ng-click="pushVals();" ui-sref="keyKnowledgeResults">
+		<button class="button" ng-click="pushVals('keyKnowledgeResults');">
 			Rank your knowledge areas
 		</button>
-		<p>&nbsp;</p>
 	</div>
 </div>

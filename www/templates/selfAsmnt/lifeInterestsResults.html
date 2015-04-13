@@ -1,14 +1,14 @@
 <!-- Spits out results in a sortable list to be ranked before being committed by the user -->
 
 <div ng-controller="asmntInputCtrl" ng-init="getVals()" align="center">
-	<h3 style="color:rgb(0, 0, 102); padding-top:4%;">These are the knowledge areas you described.</h3>
+	<h3 style="color:rgb(0, 0, 102); padding-top:4%;">These are the interests and passions you described.</h3>
 
 	<h3 style="color:rgb(0, 102, 0);"> Now, drag them to put them in a final rank order</h3>
 
 	<table style="margin:auto;">
 		<tr style="color:rgb(0, 0, 102); font-size:20px; font-weight:bold;">
 			<td style="padding:10px; width:10%;">Rank</td>
-			<td align="center">Areas of Knowledge and Expertise</td>
+			<td align="center">Areas of Interest and Passion</td>
 		</tr>
 
 		<tr>
@@ -25,6 +25,6 @@
 		</tr>
 	</table>
 
-	<button class="button button-block" ng-click="saveList('Key Knowledge Areas')">Confirm your Key Knowledge Areas
+	<button class="button button-block" ng-click="saveList('Life Interests & Passions')">Confirm your Life Interests and Passions
 	</button>
 </div>
