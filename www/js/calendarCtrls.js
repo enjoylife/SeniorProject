@@ -19,8 +19,8 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
 	  
 	  //Save time
 	  $scope.event = {
-		timeStart: new Date(),
-		timeEnd: new Date()
+		timeStart: new Date( year, month, day, 0, 0, 0, 0 ),
+		timeEnd: new Date( year, month, day, 0, 0, 0 , 0 )
 	  }
 		
 	  //Used for hiding buttons
@@ -117,10 +117,9 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
 
 				   };   
 				   
-				   $scope.event = {
-						timeStart: new Date(),
-						timeEnd: new Date()
-				   }
+				   $scope.event.timeStart = new Date( year, month, day, 0, 0, 0 , 0 );
+				   $scope.event.timeEnd = new Date( year, month, day, 0, 0, 0 , 0 );
+				   
 			   			   
 			  }
 			}
@@ -167,7 +166,7 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
 	  if (view == 'agendaDay')
 	  {
 		$scope.isDay = true;
-		uiCalendarConfig.calendars['myCalendar1'].fullCalendar('option','contentHeight', 1050);
+		uiCalendarConfig.calendars['myCalendar1'].fullCalendar('option','contentHeight', 2138);
 		uiCalendarConfig.calendars[calendar].fullCalendar('changeView',view);
 	  }else{
 		$scope.isDay = false;
@@ -226,6 +225,7 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
         editable: true,
 		timezone: 'local',
 		ignoreTimezone: false,
+		slotDuration: '00:15:00',
 		scrollTime: '00:00:00',       
 		allDaySlot: false,
         header:{
@@ -259,7 +259,7 @@ app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCa
 	
     /* event sources array*/
     $scope.eventSources = [];
-	    
+	
 }]);
 
 app.factory('calendarService', ['$localstorage', function($localstorage) {
