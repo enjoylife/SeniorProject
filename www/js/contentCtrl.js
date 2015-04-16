@@ -82,7 +82,7 @@ app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate, $loca
         $state.go('content.sections', next)
 
         $ionicScrollDelegate.resize();
-
+        
     }
 
     $scope.markDone = function(){
@@ -97,6 +97,15 @@ app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate, $loca
         // Finally update
         DataStore.setTimeline();
         $scope.goNext();
+        var ding = new Media("lib/ding.mp3",
+            function(){
+                // ignore
+            },
+            function(err){
+                console.log("Error ding",err)
+            })
+        ding.play()
+
     }
 
 
