@@ -1,0 +1,21 @@
+/* Calendar */
+.row.calendar button {
+  border:none;
+  color:white;
+  width: 100%;
+  height: 100%;
+}
+
+.row.calendar button .full-width{
+  width:100%;
+  height: 100%;
+  display:block; 
+}
+
+.calendar {
+  background-color: black;
+}
+
+.calendar h2 {
+  color: white;
+}

@@ -1,0 +1,52 @@
+
+.header-bar {
+  background-color: #2b2b2b;
+  border:none;
+  height:55px;
+  background-image:none;
+
+}
+
+
+.header-bar h1.title {
+  color:white;
+  font-weight: 300;
+}
+.header-bar button {
+  color:white;
+}
+
+button[ui-sref-active="active"].active:before {
+   color: #989898;
+   opacity: 1 !important;
+
+}
+
+
+i.icon.header {
+  color: white;
+  pointer-events:none;
+}
+i.icon.highlight {
+  color:grey;
+}
+
+.i24 {
+  font-size: 24px;
+}
+
+.i48 {
+  font-size: 48px;
+}
+
+#timeline-icon:before {
+    font-size: 50px;
+}
+
+#gear-icon {
+     background-image: url(GearsIcon.svg);
+     background-size: 100% 100%;
+  background-repeat: no-repeat;
+  padding-right: 35px;
+
+}
