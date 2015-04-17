@@ -76,6 +76,14 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
         $ionicScrollDelegate.scrollTop();
     }
 
+    $scope.goToProfile = function(){
+        $ionicScrollDelegate.scrollTop();
+            setTimeout(function(){
+                $state.go('profile');
+            }, 50);
+    }
+
+
     //swiping navigation
     $scope.swipingLogicLeft = function(){
         console.log("swipe Left");
@@ -86,7 +94,7 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
         }
 
         if($state.is('content.sections')){
-            $state.go('profile');
+            $scope.goToProfile();
         }
 
         if($state.is('profile')){

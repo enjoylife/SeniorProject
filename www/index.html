@@ -47,10 +47,13 @@
         <button id="timeline-icon" alt="content" menu-toggle 
             class="button button-icon ion-navicon i48" ></button>
       </div>
-      <h1 class="title">Serious Job Seeker</h1>
+      <h1 class="title" align="center">Serious Job Seeker</h1>
       <div class="buttons">
-        <!-- <button alt="profile" ui-sref="profile" class="button button-icon ion-person i48"        ui-sref-active="active"></button> -->
-        <button alt="binder" id="gear-icon" ui-sref="binder" style="background-image: url(css/GearsIcon.svg);" class="button button-icon  i48" ui-sref-active="active"></button>
+       
+        <button alt="profile" ng-click="goToProfile()" class="button button-icon ion-person i48"        ui-sref-active="active"></button>
+
+         <button alt="binder" id="gear-icon" ui-sref="binder" style="background-image: url(css/GearsIcon.svg);" class="button button-icon  i48" ui-sref-active="active"></button>
+       
       </div>
     </ion-header-bar>
 <!--     <ion-content header-shrink> -->
