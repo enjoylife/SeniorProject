@@ -1,0 +1,44 @@
+/* Ideas */
+
+.ideas-folder {
+  background-color: rgb(233,182,74);
+  font-family: Montserrat;
+}
+
+.idea-card {
+  padding-left:30px;
+  padding-right: 30px;
+  margin-top:20px;
+  margin-bottom:20px;
+}
+
+.idea-card .header {
+ 
+  background-color: rgb(201,151,45);
+  color:white;
+  height:50px;
+}
+.idea-date {
+   float:left;
+  line-height: 50px;
+  padding-left: 10px;
+  text-align: left;
+}
+
+.idea-edit {
+  float:right;
+}
+
+.idea-content {
+  background-color: white;
+  padding: 30px;
+font-family: 'Open Sans';
+  font-weight: 300;
+}
+.ideas-folder a.idea-add {
+  color:white;
+}
+
+.idea-card .header .idea-edit a {
+  color:white;
+}

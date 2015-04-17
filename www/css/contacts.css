@@ -1,0 +1,10 @@
+/* Contacts */
+
+.contacts-folder {
+  background-color: rgb(192,192,192);
+  font-family: Montserrat;
+}
+
+.contacts-folder a.contacts-add {
+  color: white;
+}

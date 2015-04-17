@@ -9,9 +9,9 @@ var sh = require('shelljs');
 
 var paths = {
   sass: ['./scss/**/*.scss'],
-  js:['www/js/*.js']
+  js:['www/js/*.js'],
+  css:['www/css/*.css', 'www/css/*.scss', '!www/css/style.css']
 };
-
 
 
 gulp.task('sass', function(done) {
@@ -26,6 +26,14 @@ gulp.task('sass', function(done) {
     .on('end', done);
 });
 
+gulp.task('css',function(){
+  gulp.src(paths.css)
+    .pipe(sass({errLogToConsole: true}))
+    .pipe(concat('style.css'))
+    .pipe(gulp.dest('www/css/'))
+
+  })
+
 gulp.task('js', function(done){
   gulp.src('www/js/*.js')
   .pipe(concat('all.js'))
@@ -37,6 +45,7 @@ gulp.task('default', function(){
   gulp.start('js');
   //gulp.watch(paths.sass, ['sass']);
   gulp.watch(paths.js,['js']);
+  gulp.watch(paths.css,['css']);
 });
 
 gulp.task('install', ['git-check'], function() {
