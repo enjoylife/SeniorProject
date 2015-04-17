@@ -39,6 +39,14 @@
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Media\"><param name=\"android-package\" value=\"org.apache.cordova.media.AudioHandler\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -92,7 +100,7 @@
                     "/*": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-                            "count": 1
+                            "count": 3
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.READ_CONTACTS\" />",
@@ -104,6 +112,18 @@
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
                             "count": 1
                         }
                     ]
@@ -135,11 +155,17 @@
         },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.prototype.gearhead"
+        },
+        "org.apache.cordova.media": {
+            "PACKAGE_NAME": "com.prototype.gearhead"
         }
     },
     "dependent_plugins": {
         "org.apache.cordova.device": {
             "PACKAGE_NAME": "com.ionicframework.prototype611949"
+        },
+        "org.apache.cordova.file": {
+            "PACKAGE_NAME": "com.prototype.gearhead"
         }
     }
 }
