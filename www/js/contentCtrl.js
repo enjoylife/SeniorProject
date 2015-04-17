@@ -97,7 +97,8 @@ app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate, $loca
         // Finally update
         DataStore.setTimeline();
         $scope.goNext();
-        var ding = new Media("lib/ding.mp3",
+        try{
+             var ding = new Media("lib/ding.mp3",
             function(){
                 // ignore
             },
@@ -105,6 +106,11 @@ app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate, $loca
                 console.log("Error ding",err)
             })
         ding.play()
+        } catch(e){
+            console.log(e);
+            document.querySelector("#ding").play()
+        }
+       
 
     }
 
