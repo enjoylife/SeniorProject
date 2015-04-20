@@ -24,7 +24,7 @@ app.run(function($ionicPlatform, $ionicScrollDelegate, $rootScope, $ionicHistory
             window.setTimeout(function(){
                 $ionicScrollDelegate.freezeScroll(false);
                 $ionicScrollDelegate.resize();
-                console.log($ionicScrollDelegate.getScrollView().__contentHeight);
+                // console.log($ionicScrollDelegate.getScrollView().__contentHeight);
             },1500)
         });
 
