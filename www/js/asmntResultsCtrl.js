@@ -119,6 +119,12 @@ app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup'
 			$scope.toggle("showAsmnts", "showLifeInterestsResults");
 			$scope.resultObjects = asmnt.results;
 		}
+		
+		if(asmnt.title === 'Goal Setting'){
+			$scope.toggle("showAsmnts", "showGoalResults");
+			$scope.resultObjects = asmnt.results;
+			console.log($scope.resultObjects);
+		}
 
 	}
 
