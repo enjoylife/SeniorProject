@@ -134,6 +134,25 @@ app.config(function($stateProvider, $urlRouterProvider) {
     templateUrl:'templates/selfAsmnt/lifeInterestsResults.html',
     controller:'MainCtrl'
   })
+  
+  //Goal Setting And Time Management Assessment
+  .state('goalSetting', {
+    url:'/goalSetting',
+    templateUrl:'templates/selfAsmnt/goalSetting.html',
+    controller:'MainCtrl'
+  })
+  
+  .state('goalSettingPriority', {
+    url:'/goalSettingPriority',
+    templateUrl:'templates/selfAsmnt/goalSettingPriority.html',
+    controller:'MainCtrl'
+  })
+
+  .state('goalSettingResults', {
+    url:'/goalSettingResults',
+    templateUrl:'templates/selfAsmnt/goalSettingResults.html',
+    controller:'MainCtrl'
+  })
 
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

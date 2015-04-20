@@ -1,0 +1,94 @@
+<div title="Goal Setting & Time Management Exercise" ng-init="setScreen()" ng-controller="asmntInputCtrl">
+	<div align="center">
+		<h3 style="color: rgb(0, 0, 102); padding-top:4%;">
+			Goal Setting and Time Management Exercise
+		</h3>
+		<h4 style="color: rgb(0, 0, 102);">
+			Fill in the blanks
+		</h4>
+
+		<!-- First section -->
+		<hr>
+		<div id="firstSection">
+			<p><span style="color: rgb(0, 0, 102); font-weight:bold;">List your long-term goals. What would you like to accomplish in the next seven to ten years?:</span>  (Examples: Buying a house, getting a M.S or Ph.D., getting married, having a family, moving into management)</p>
+		
+				<div id="first">
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+				</div>
+		
+				<p>
+					<button class="button" ng-click="addTextInput('#first');">
+						Add Text Area
+					</button>
+				</p>
+		</div>
+
+		<hr>
+		<!-- Second Section -->
+		<div id="secondSection">
+			<p><span style="color: rgb(0, 0, 102); font-weight:bold;"> List your short-term goals. What would you like to accomplish in the next three to five years?</span>  (Example: getting a job, starting a career, getting a car that runs) </p>
+				<div id="second">
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+				</div>
+		
+				<p>
+					<button class="button" ng-click="addTextInput('#second');">
+						Add Text Area
+					</button>
+				</p>
+		</div>
+		<hr>
+		<!-- Third Section -->
+		<div id="thirdSection">
+			<p><span style="color: rgb(0, 0, 102); font-weight:bold;"> List your immediate goals. What would you like to accomplish in the next in the next few days, weeks or months,  in the next six months or before the year ends?
+				<div id="third">
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+					<input type="text"
+						style="border:1px solid black;"
+					>
+					<br>
+				</div>
+		
+				<p>
+					<button class="button" ng-click="addTextInput('#second');">
+						Add Text Area
+					</button>
+				</p>
+		</div>
+		<hr>
+
+		<p style="color: rgb(0, 0, 102);"><strong>On the next page, you are going to set your priorities across all of your goals, listing first those, which are most important.</strong></p>
+		<button class="button" ng-click="pushVals('goalSettingPriority');">
+			Prioritize your goals
+		</button>
+	</div>
+</div>

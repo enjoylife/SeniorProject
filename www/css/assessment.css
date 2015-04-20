@@ -49,3 +49,21 @@
   border-top-right-radius:10px;
   z-index:2;
 }
+
+/* CSS for Goal Setting Assessment */
+
+.connectedSortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    float: center;
+    margin-left: px;
+    background: #fff;
+    padding: 5px;
+    width: 143px;
+}
+
+.i-center {
+  margin: auto;
+  max-width: 200px;
+}
