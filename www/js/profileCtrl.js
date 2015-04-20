@@ -9,7 +9,12 @@ function loadUser(){
 
 
 
-app.controller('profile',function($scope, $localstorage, $ionicPopup){
+app.controller('profileCtrl',function($scope, DataStore, $state, $localstorage, $ionicPopup){
+
+  $scope.buttonLeft = function(){
+    var last = DataStore.getGlobalLast();
+    $state.go('content.sections', last)
+  }
 
   //introPopup function. This function will be called if the localstorage launchCount value is 0
   //which will signify first time users.
