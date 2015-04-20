@@ -4,31 +4,39 @@
 >
 		<h3 align="center" style="padding-top:20px; color:white;">Professional Contacts</h3>
 	
-		<table style="margin: auto; margin-bottom: 10px;" ng-repeat="contact in getContacts() | reverse track by $index">
+		<table class="jobApps" ng-repeat="contact in getContacts() | reverse track by $index">
 			<tr>
-				<td><b>Name:</b> {{contact.displayName}}</td>
+				<td class="leftcell"><b>Name:</b></td>
+				<td class="rightcell">{{contact.displayName}}</td>
 			</tr>
 
 			<tr>
-				<td><b>Phone Number:</b> {{contact.phoneNumbers[0].value}}</td>
+				<td class="leftcell"><b>Phone Number:</b></td>
+				<td class="rightcell">{{contact.phoneNumbers[0].value}}</td>
 			</tr>
 
 			<tr>
-				<td><b>Email:</b> {{contact.emails[0].value}}</td>
+				<td class="leftcell"><b>Email:</b></td>
+				<td class="rightcell">{{contact.emails[0].value}}</td>
 			</tr>
 
 			<tr>
-				<td><b>Organization:</b> {{contact.organizations[0].name}}</td>
+				<td class="leftcell"><b>Organization:</b></td>
+				<td class="rightcell">{{contact.organizations[0].name}}</td>
 			</tr>
 
 			<tr>
-				<td><b>Note:</b> {{contact.note}}</td>
+				<td class="leftcell"><b>Note:</b></td>
+				<td class="rightcell">{{contact.note}}</td>
 			</tr>						
 
-		  <tr align="center">	
-		  	<td class="button button-clear button-balanced" ng-click="editContactForm(reverseIndex($index, getContacts()))">Edit</td>
-		  
-		  	<td class="button button-clear button-assertive" ng-click="removeContact(reverseIndex($index, getContacts()))">Delete</td>
+		  <tr>	
+		  	<td colspan="2">
+		  		<span style="float:right;">
+			  		<i class="icon ion-edit" style="padding-right:10px;" ng-click="editContactForm(contact, reverseIndex($index, getContacts()))"></i>
+			  		<i class="icon ion-close" ng-click="removeContact(reverseIndex($index, getContacts()))"></i>
+		  		</span>
+		  	</td>
 		  </tr>			
 		</table>
 
