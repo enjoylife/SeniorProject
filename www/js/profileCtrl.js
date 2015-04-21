@@ -9,16 +9,46 @@ function loadUser(){
 
 
 
-app.controller('profileCtrl',function($scope, DataStore, $state, $localstorage, $ionicPopup){
+app.controller('profileCtrl',function($scope, DataStore, $state, $ionicModal,$ionicSlideBoxDelegate){
 
   $scope.buttonLeft = function(){
     var last = DataStore.getGlobalLast();
     $state.go('content.sections', last)
   }
 
+  $scope.slideChanged = function(index){
+    // On Last slide
+    if($ionicSlideBoxDelegate.currentIndex()+1 ==$ionicSlideBoxDelegate.slidesCount()){
+      $scope.closeModal()
+    }
+  }
+
+  if(DataStore.shouldIntroBeShown()){
+    console.log("Showing intro modal");
+    $ionicModal.fromTemplateUrl('templates/introModal.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.modal = modal;
+      modal.show()
+
+    });
+
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.modal.remove();
+    });
+  }
+  
+
+
+
   //introPopup function. This function will be called if the localstorage launchCount value is 0
   //which will signify first time users.
-  var load = localStorage.getItem('launchCount');
+  // var load = localStorage.getItem('launchCount');
   //var load = $localstorage.get( 'isChecked' );
 
 //POPUP CODE 

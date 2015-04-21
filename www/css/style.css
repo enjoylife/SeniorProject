@@ -414,6 +414,58 @@ span.input-label.has-input {
 .list input {
   font-family: Montserrat; }
 
+#introModalParent {
+  display: -webkit-flex;
+  /* Safari */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; }
+
+#introModal {
+  /*position: inherit;*/
+  height: 100%;
+  top: 0%;
+  width: 100%;
+  left: 0%;
+  min-height: 0;
+  background-color: #04402e; }
+
+#centerLogo {
+  max-width: 50%;
+  margin: auto;
+  margin-top: 0px;
+  margin-bottom: 0px; }
+
+#introModal ion-slide.slider-slide img {
+  width: 50%; }
+
+#introModal .slider {
+  height: 100%; }
+
+#introModal ion-slide {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-flex-direction: column;
+  flex-direction: column; }
+
+#introModal ion-slide h1 {
+  text-align: center;
+  margin: 10px;
+  color: white;
+  font-family: Montserrat; }
+
+#introModal ion-slide p {
+  text-align: center;
+  margin: 10px;
+  color: white;
+  font-family: Montserrat; }
+
 /* TimeLine Styles */
 section.lead-in {
   font-family: 'Montserrat', sans-serif;

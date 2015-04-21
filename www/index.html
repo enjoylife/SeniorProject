@@ -66,6 +66,9 @@
 
     <!-- Left menu -->
     <ion-side-menu side="left">
+    <ion-header-bar class="header-bar">
+    <h1 class="title" align="center">Time Line Content</h1>
+    </ion-header-bar>
       <!-- <time-line></time-line> -->
       <ion-content ng-controller="timelineCtrl">
     <div  class="time-line-section" ng-repeat="content in timeline" ng-init="sectionIndex = $index">
