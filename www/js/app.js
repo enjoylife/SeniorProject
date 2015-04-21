@@ -33,14 +33,17 @@ app.run(function($ionicPlatform, $ionicScrollDelegate, $rootScope, $ionicHistory
     /**
      * Logic for first time users vs existing users goes here
      */
-    DataStore.getVersion();
+    
     if(DataStore.getUsage()){
         console.log("Existing User");
-        //DataStore.initTimeline();
+        console.log("Running version: ", DataStore.getVersion())
     } else {
         console.log("New User");
+        // remove all old stuff and start anew
+        window.localStorage.clear();
         // Give user a fresh state to begin with
         DataStore.initTimeline();
+        
     }
     DataStore.incUsage();
 });

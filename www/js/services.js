@@ -6,20 +6,21 @@
 app.service('DataStore', function(){
 
     this.timelineCache =  JSON.parse(window.localStorage.getItem('timeline'));
+    this.version = 2;
 
     this.getVersion = function(){
-      var ver = this.getObject('version');
+      return this.getObject('version');
+    }
 
+    this.shouldIntroBeShown = function(){
 
-      if(!ver){
-        // Not found, remove all old stuff and start anew
-        window.localStorage.clear();
-        this.setObject('version', 1);
-
-      } else {
-        // Bring populate this version
-        this.version = this.getObject('version');
+      // User has an old version, show intro
+      if(this.getVersion() < this.version){
+        //Can update version safely at this point
+        this.setObject('version', this.version);
+        return true;
       }
+      return false;
     }
 
      this.setObject = function(key, value) {
