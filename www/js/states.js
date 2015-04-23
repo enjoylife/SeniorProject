@@ -135,6 +135,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
     controller:'MainCtrl'
   })
   
+  //Life & Work Enviornment Assessment
+  .state('lifeWorkEnvironment', {
+    url:'/lifeWorkEnvironment',
+    templateUrl:'templates/selfAsmnt/lifeWorkEnvironment.html',
+    controller:'MainCtrl'
+  })
+  
   //Goal Setting And Time Management Assessment
   .state('goalSetting', {
     url:'/goalSetting',

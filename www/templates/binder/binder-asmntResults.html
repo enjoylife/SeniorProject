@@ -53,6 +53,75 @@
 		</span>	
 	</div>
 	
+	<!-- Life & Work Environment -->
+	<div id="showLifeAndWorkEnvironmentResults" hidden="true" style="padding:20px;">
+		
+		<table style="margin:auto; background-color:white; border:15px solid white;">
+		  <tr style="font-size:15px;" ng-repeat-start="ro in resultObjects track by $index">
+			
+		  </tr>
+		  
+		  <tr style="font-size:15px;">
+			<td style="padding:10px;">
+				<strong>Things you must have:</strong>
+			</td>
+		  </tr>
+		  <tr style="font-size:15px;" ng-repeat="yes in ro.location_yes track by $index">
+			<td style="padding:10px;">{{yes}}</td>
+		  </tr>
+		  <tr style="font-size:15px;">
+			<td style="padding:10px;">
+				<strong>Things you can't stand:</strong>
+			</td>
+		  </tr>
+		  <tr style="font-size:15px;" ng-repeat="no in ro.location_no track by $index">
+			<td style="padding:10px;">{{no}}</td>
+		  </tr>
+		  
+		  <tr style="font-size:15px;">
+			<td style="padding:10px;">
+				<strong>People you want to be with:</strong>
+			</td>
+		  </tr>
+		  <tr style="font-size:15px;" ng-repeat="yes in ro.people_yes track by $index">
+			<td style="padding:10px;">{{yes}}</td>
+		  </tr>
+		  <tr style="font-size:15px;">
+			<td style="padding:10px;">
+				<strong>People you can't stand</strong>
+			</td>
+		  </tr>
+		  <tr style="font-size:15px;" ng-repeat="no in ro.people_no track by $index">
+			<td style="padding:10px;">{{no}}</td>
+		  </tr>
+		  
+		  <tr style="font-size:15px;">
+			<td style="padding:10px;">
+				<strong>Things you must have:</strong>
+			</td>
+		  </tr>
+		  <tr style="font-size:15px;" ng-repeat="yes in ro.work_yes track by $index">
+			<td style="padding:10px;">{{yes}}</td>
+		  </tr>
+		  <tr style="font-size:15px;">
+			<td style="padding:10px;">
+				<strong>Things you don't need</strong>
+			</td>
+		  </tr>
+		  <tr style="font-size:15px;" ng-repeat="no in ro.work_no track by $index">
+			<td style="padding:10px;">{{no}}</td>
+		  </tr>
+		  
+		  <tr ng-repeat-end></tr>
+		</table>
+
+		<span style="float:left;">
+			<button class="button" ng-click="toggle('showLifeAndWorkEnvironmentResults', 'showAsmnts')">
+				<i class="icon ion-chevron-left"></i>
+			</button>			
+		</span>	
+	</div>
+	
 	<!-- Life Interests & Passions -->
 	<div id="showLifeInterestsResults" hidden="true" style="padding:20px;">
 
@@ -63,9 +132,6 @@
 			</tr>
 
 			<tr style="font-size:15px;" ng-repeat="ro in resultObjects track by $index">
-				<td style="padding:10px;">
-					#{{$index + 1}}
-				</td>
 				<td style="padding:10px;" align="center">
 					{{ro}}
 				</td>
@@ -211,6 +277,8 @@ Assessments &nbsp;|&nbsp;<i class="icon ion-arrow-up-b"></i>
 	<span ui-sref="keyKnowledge">Key Knowledge Areas</span>
 	<hr>
 	<span ui-sref="lifeInterests">Life Interests & Passions</span>
+	<hr>
+	<span ui-sref="lifeWorkEnvironment">Life & Work Environment</span>
 	<hr>
 	<span ui-sref="goalSetting">Goal Setting</span>
 	<hr>
