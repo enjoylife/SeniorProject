@@ -118,6 +118,7 @@ app.controller('asmntInputCtrl', ['$scope', '$localstorage', 'workValueService',
 		}
   	}
 	
+	// Save Goal Setting Assessment
 	$scope.saveGoals = function(assessment){
 		var listItems = [];
 		for (i = 1; i <= 3; i++) {
@@ -145,6 +146,76 @@ app.controller('asmntInputCtrl', ['$scope', '$localstorage', 'workValueService',
 				}
 			}
 		}
+		console.log(listItems);
+		console.log(listItems.length);
+
+	  	if(listItems.length > 0){
+		  	//create date object
+		  	d = new Date();
+			curday = d.getDate();
+			curmonth = d.getMonth();
+			curyear = d.getFullYear();
+			var datestring = curmonth + "/" + curday + "/" + curyear;
+			
+			//send results to asmnt results factory
+			asmntResultService.addAsmntResult(listItems, assessment, datestring);
+			$localstorage.setObject( 'assessments', asmntResultService.getAsmntResult() );
+			listItems = [];
+			workValueService.setArray(listItems);
+			$state.go('binder-asmntResults');
+		}else{
+			$ionicPopup.alert({
+				title:'Uh-Oh!',
+				template:'You must choose at least one value.'
+			})
+		}
+  	}
+	
+	// Save assessment Life & Work Environment
+	$scope.saveLifeWork = function(assessment){
+		var listItems = [];
+		var obj = {
+				'location_yes': [],
+				'location_no': [],
+				'people_yes': [],
+				'people_no': [],
+				'work_yes': [],
+				'work_no': []
+		};
+		for (i = 1; i <= 3; i++) {
+			for (j = 1; j <= 5; j++) {
+				if (i == 1) {
+					var yes = document.getElementById('location_yes'+j).value;
+					var no = document.getElementById('location_no'+j).value;
+					if(yes !== ""){
+						obj.location_yes.push(yes);
+					}
+					if(no !== ""){
+						obj.location_no.push(no);
+					}
+				} else if ( i == 2) {
+					var yes = document.getElementById('people_yes'+j).value;
+					var no = document.getElementById('people_no'+j).value;
+					if(yes !== ""){
+						obj.people_yes.push(yes);
+					}
+					if(no !== ""){
+						obj.people_no.push(no);
+					}
+				} else if ( i == 3) {
+					var yes = document.getElementById('work_yes'+j).value;
+					var no = document.getElementById('work_no'+j).value;
+					if(yes !== ""){
+						obj.work_yes.push(yes);
+					}
+					if(no !== ""){
+						obj.work_no.push(no);
+					}
+				}
+				
+			}
+		}
+		listItems.push(obj);
 		console.log(listItems);
 		console.log(listItems.length);
 
