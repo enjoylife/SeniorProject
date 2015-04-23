@@ -8,3 +8,6 @@ www/js/dist/all.js
 .idea/
 
 www/js/dist/all.js
+www/css/style.css
+
+hooks/
