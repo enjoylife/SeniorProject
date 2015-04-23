@@ -127,3 +127,11 @@ ion-side-menu-content.frosted {
   color: white;
   font-family: Montserrat;
 }
+
+.tutorial-button {
+    background: none;
+  border: hsl(0, 100%, 100%);
+  border-width: 1px;
+  border-style: solid;
+  color: hsl(0, 100%, 100%);
+}
