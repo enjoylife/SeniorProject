@@ -11,11 +11,21 @@ function loadUser(){
 
 app.controller('profileCtrl',function($scope, DataStore, $state, $ionicModal,$ionicSlideBoxDelegate){
 
+  // Take a user to the last read sectoin
   $scope.buttonLeft = function(){
     var last = DataStore.getGlobalLast();
     $state.go('content.sections', last)
   }
 
+
+ // Load up the tutorial template
+ $ionicModal.fromTemplateUrl('templates/introModal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+   // Used as a callback to close on last page of tutorial
   $scope.slideChanged = function(index){
     // On Last slide
     if($ionicSlideBoxDelegate.currentIndex()+1 ==$ionicSlideBoxDelegate.slidesCount()){
@@ -23,27 +33,20 @@ app.controller('profileCtrl',function($scope, DataStore, $state, $ionicModal,$io
     }
   }
 
+ $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+
+  // Determine on load of user profile, aka on inital app load,
+  // if the intro model should be shown
   if(DataStore.shouldIntroBeShown()){
-    console.log("Showing intro modal");
-    $ionicModal.fromTemplateUrl('templates/introModal.html', {
-      scope: $scope
-    }).then(function(modal) {
-      $scope.modal = modal;
-      modal.show()
-
-    });
-
-    $scope.closeModal = function() {
-      $scope.modal.hide();
-    };
-
-    //Cleanup the modal when we're done with it!
-    $scope.$on('$destroy', function() {
-      $scope.modal.remove();
-    });
+    $scope.modal.show();
   }
-  
-
 
 
   //introPopup function. This function will be called if the localstorage launchCount value is 0
