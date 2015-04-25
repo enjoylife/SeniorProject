@@ -43,6 +43,7 @@ gulp.task('js', function(done){
 
 gulp.task('default', function(){
   gulp.start('js');
+  gulp.start('css');
   //gulp.watch(paths.sass, ['sass']);
   gulp.watch(paths.js,['js']);
   gulp.watch(paths.css,['css']);
