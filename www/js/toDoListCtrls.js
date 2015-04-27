@@ -25,6 +25,7 @@ app.controller('ToDoCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
 	$scope.obj = {
 	  title: '',
 	  end: '',
+	  done: false,
 	  id: toDoService.getNumberOf()
 	};
 
@@ -95,6 +96,7 @@ app.controller('ToDoCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
 	$scope.obj = {
 		title: temp.title,
 		end: temp.end,
+		done: temp.done,
 		id: temp.id
 	};
     var myPopup = $ionicPopup.show({
@@ -173,8 +175,17 @@ app.controller('ToDoCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
    });
  };
  
- $scope.removeAll = function() {
+ /* Remove all items marked as done */
+ $scope.removeAll = function () {
 	toDoService.removeAll();
+	
+ }
+ 
+ $scope.fadeOut = function(index) {
+	console.log(toDoService.getItem(index).done)
+	$( "#"+index ).fadeOut( 1500 );
+	$localstorage.setObject( 'toDoList', toDoService.output() );
+	
  }
   
   $scope.output = function () {
