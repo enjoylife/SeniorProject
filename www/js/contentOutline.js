@@ -65,14 +65,14 @@ var defaultBook = [
 			 	file:'interests.html',
 			 	title: "Life Interests and Passions"
 			},
-			// {
-			// 	file: 'environment.html',
-			// 	title: "Your Ideal Life/Work Environment"
-			// },
-			// {
-			// 	file:'goals.html',
-			// 	title: 'Your Goals and Priorities'
-			// }
+			{
+			 	file: 'environment.html',
+			 	title: "Your Ideal Life/Work Environment"
+			},
+			{
+			 	file:'goals.html',
+			 	title: 'Your Goals and Priorities'
+			}
 		],
 	},
 
