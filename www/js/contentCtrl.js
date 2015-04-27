@@ -1,7 +1,7 @@
 /**
  * Created by matt on 4/7/15.
  */
-app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate, $localstorage, DataStore){
+app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate, $localstorage, $rootScope, DataStore){
     var
         currentPosition,
         currentContent,
@@ -92,10 +92,12 @@ app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate, $loca
         if(!subsection.complete){
             subsection.complete = true;
             section.numComplete++;
+            $rootScope.sectionsComplete = section.numComplete;
         }
         section.lastRead = subsection.lastRead = moment().startOf('minute').fromNow();
         // Finally update
         DataStore.setTimeline();
+        console.log("DataStore getTimeline = " + DataStore.getTimeline());
         $scope.goNext();
         try{
              var ding = new Media("lib/ding.mp3",

@@ -26,7 +26,10 @@ app.controller('JobAppCtrl', ['$scope', '$ionicPopup', '$localstorage', 'jobAppS
   /* Load from local storage */
   var load = $localstorage.getObject( 'jobRecords' );
   if (Object.keys(load).length !== 0) {
-	jobAppService.loadList( load );
+	  jobAppService.loadList( load );
+    $rootScope.totalApplications = jobAppService.getNumberOf();
+  }else{
+    $rootScope.totalApplications = 0;
   }
 
   //this variable will be used to keep track of ionic popups
@@ -234,11 +237,16 @@ app.factory('jobAppService', function(){
 	array.splice(index, 1);
   }
 
+  function getNumberOf(){
+    return array.length;
+  }
+
   return{
 	loadList: loadList,
     addJobApp: addJobApp,
     getJobApp: getJobApp,
     editJobApp: editJobApp,
-	removeJobApp: removeJobApp
+	  removeJobApp: removeJobApp,
+    getNumberOf: getNumberOf,
   }
 });
