@@ -22,6 +22,9 @@ app.controller('contactsCtrl', ['$scope', '$cordovaContacts', '$ionicPopup', '$l
 	  var load = $localstorage.getObject( 'contacts' );
 	  if (Object.keys(load).length !== 0) {
 		contactService.loadList( load );
+		$rootScope.totalContacts = contactService.getNumberOf();
+	  }else{
+	  	$rootScope.totalContacts = 0;
 	  }
 
 	//this variable will be used to keep track of ionic popups

@@ -5,6 +5,9 @@ app.controller('ToDoCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
   var load = $localstorage.getObject( 'toDoList' );
   if (Object.keys(load).length !== 0) {
     toDoService.loadList( load );
+    $rootScope.totalTodos = toDoService.getNumberOf();
+  }else{
+  	$rootScope.totalTodos = 0;
   }
 
   //this variable will be used to keep track of ionic popups

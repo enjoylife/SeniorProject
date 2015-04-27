@@ -2,6 +2,12 @@
 app.config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
+  .state('stats', {
+    url:'/stats',
+    templateUrl:'templates/stats.html',
+    controller:'MainCtrl',
+  })
+
   .state('profile', {
     url: '/profile',
     templateUrl: 'templates/profile.html',
