@@ -1,4 +1,4 @@
-app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCalendar', '$localstorage', 'uiCalendarConfig', 'calendarService', 'toDoService', function CalendarCtrl($scope, $compile, $ionicPopup, $cordovaCalendar, $localstorage, uiCalendarConfig, calendarService, toDoService) {
+app.controller('CalendarCtrl', ['$scope', '$compile', '$ionicPopup', '$cordovaCalendar', '$localstorage', 'uiCalendarConfig', 'calendarService', 'toDoService', '$rootScope', function CalendarCtrl($scope, $compile, $ionicPopup, $cordovaCalendar, $localstorage, uiCalendarConfig, calendarService, toDoService, $rootScope) {
 	  //Global variables to be updated
 	  var date = new Date();
 	  var year = date.getFullYear();

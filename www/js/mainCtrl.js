@@ -153,4 +153,39 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
         })
     }
 
+    $scope.data = {};
+    var oldCareer;
+    window.onload = function(){
+        var loadCareer = $localstorage.getObject('DesiredCareer');
+        console.log(Object.keys(loadCareer));
+        if(Object.keys(loadCareer).length != 0){
+            $scope.data.desiredCareer = loadCareer;
+            //console.log("desiredCareer = " + desiredCareer.keys);
+        }else{
+            $scope.data.desiredCareer = 'Enter Future Career';
+        }
+    }();
+
+    $scope.changeCareer = function(hide, show){
+        oldCareer = $scope.data.desiredCareer;
+        $("#out").hide();
+        $("#in").show();
+        console.log($scope.data.desiredCareer);
+    }
+
+    $scope.save = function(){
+        console.log('desired career is '+ $scope.data.desiredCareer);
+        //$scope.$apply();
+        $localstorage.setObject( 'DesiredCareer' , $scope.data.desiredCareer );       
+        $("#in").hide();
+        $("#out").show();
+        console.log($scope.data.desiredCareer);
+    }
+
+    $scope.cancel = function(){
+        $scope.data.desiredCareer = oldCareer;
+        $("#in").hide();
+        $("#out").show();
+    }
+
 });

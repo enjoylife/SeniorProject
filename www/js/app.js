@@ -9,10 +9,10 @@ var app = angular.module('prototype', [ 'ionic', 'ngCordova', 'ui.calendar', 'ui
 /**
  * TODO: is $ionicHistory needed here?
  */
-app.run(function($ionicPlatform, $ionicScrollDelegate, $rootScope, $ionicHistory, DataStore) {
+app.run(function($ionicPlatform, $ionicScrollDelegate, $rootScope, $ionicHistory, $localstorage, DataStore) {
 
     $ionicPlatform.ready(function() {
-
+        //$localstorage.setObject('DesiredCareer', []);
         if(window.cordova &&  window.cordova.plugins.Keyboard) {
             window.cordova.plugins.Keyboard.disableScroll(true);
         }
@@ -26,8 +26,7 @@ app.run(function($ionicPlatform, $ionicScrollDelegate, $rootScope, $ionicHistory
                 $ionicScrollDelegate.resize();
                 // console.log($ionicScrollDelegate.getScrollView().__contentHeight);
             },1500)
-        });
-
+        });        
     });
 
     /**
