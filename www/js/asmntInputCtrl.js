@@ -32,6 +32,7 @@ app.controller('asmntInputCtrl', ['$scope', '$localstorage', 'workValueService',
 	$scope.pushGoalsHigh = function(goToStateName){
 		var inventory = [];
 		
+		/* Get only High Priority Goals */
 		$("#sortableGoalsHigh li").each(function(index){
 			inventory.push($(this).text());
 		})
@@ -46,7 +47,7 @@ app.controller('asmntInputCtrl', ['$scope', '$localstorage', 'workValueService',
 		}else{
 			$ionicPopup.alert({
 				title:'Uh-Oh!',
-				template:'You must have at least one value'
+				template:'You must have at least 1 High Priority goal'
 			})
 		}
 	}
@@ -121,35 +122,64 @@ app.controller('asmntInputCtrl', ['$scope', '$localstorage', 'workValueService',
 	// Save Goal Setting Assessment
 	$scope.saveGoals = function(assessment){
 		var listItems = [];
-		for (i = 1; i <= 3; i++) {
+		var check = true;
+		for (i = 0; i < $scope.results.length; i++) {
 			var goals = {
 				'goal': '',
 				'steps': [],
 				'times': []
 			};
-			goals.goal = $scope.results[i-1];
+			goals.goal = $scope.results[i];
 			for (j = 1; j <= 5; j++) {
 				var step = document.getElementById('g'+i+'_step'+j).value;
 				var time = document.getElementById('g'+i+'_time'+j).value;
-				if(step !== ""){
+				
+				/* Validation Checking to make sure each step and time are associated with each other */
+				if( (step !== "" && time == "") ){
+					i = $scope.results.length;
+					j = 6;
+					check = false;
+					$ionicPopup.alert({
+						title:'Uh-Oh!',
+						template:'Please add a time to your step'
+					})
+				} else if ( (step == "" && time !== "") ){
+					i = $scope.results.length;
+					j = 6;
+					check = false;
+					$ionicPopup.alert({
+						title:'Uh-Oh!',
+						template:'Please add a step to your time'
+					})
+				}
+				
+				/* Push into array if not empty */
+				if ( step !== "" ){
 					goals.steps.push(step);
 				}
-				if(time !== ""){
+				if ( time !== "" ) {
 					goals.times.push(time);
 				}
+				
 				if(j == 5) {
-					console.log(goals.goal);
-					console.log(goals.steps);
-					console.log(goals.times);
-					console.log(goals);
-					listItems.push(goals);
+				
+					/* Validation checking to make sure at least 1 step for each goal */
+					if ( (goals.steps.length > 0) && (goals.times.length > 0) ) {
+						listItems.push(goals);
+					} else {
+						i = $scope.results.length;
+						$ionicPopup.alert({
+							title:'Uh-Oh!',
+							template:'Please add steps and time to all of your goals'
+						})
+					}
 				}
 			}
 		}
 		console.log(listItems);
 		console.log(listItems.length);
 
-	  	if(listItems.length > 0){
+	  	if(listItems.length == $scope.results.length ){
 		  	//create date object
 		  	d = new Date();
 			curday = d.getDate();
@@ -163,12 +193,7 @@ app.controller('asmntInputCtrl', ['$scope', '$localstorage', 'workValueService',
 			listItems = [];
 			workValueService.setArray(listItems);
 			$state.go('binder-asmntResults');
-		}else{
-			$ionicPopup.alert({
-				title:'Uh-Oh!',
-				template:'You must choose at least one value.'
-			})
-		}
+		} 
   	}
 	
 	// Save assessment Life & Work Environment
@@ -215,9 +240,14 @@ app.controller('asmntInputCtrl', ['$scope', '$localstorage', 'workValueService',
 				
 			}
 		}
-		listItems.push(obj);
-		console.log(listItems);
-		console.log(listItems.length);
+		
+		/* Validation check for at least one input */
+		if (obj.location_yes.length > 0 || obj.location_no.length > 0 ||
+			obj.people_yes.length > 0 || obj.people_no.length > 0 ||
+			obj.work_yes.length > 0 || obj.work_no.length > 0) {
+			
+			listItems.push(obj);
+		}
 
 	  	if(listItems.length > 0){
 		  	//create date object
@@ -236,7 +266,7 @@ app.controller('asmntInputCtrl', ['$scope', '$localstorage', 'workValueService',
 		}else{
 			$ionicPopup.alert({
 				title:'Uh-Oh!',
-				template:'You must choose at least one value.'
+				template:'You must input at least one value'
 			})
 		}
   	}

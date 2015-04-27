@@ -1,21 +1,21 @@
 <div ng-controller="asmntInputCtrl" ng-init="getVals()">
-	<h3 style="color:rgb(0, 0, 102); padding-top:4%;" align="center">Now list the steps to achieve your high priority goals</h3>
+	<h3 style="color:rgb(0, 0, 102); padding-top:4%;" align="center">Your medium or low priority goals are not urgent. Time to focus on your high priority goals. Now list the steps and estimated time to achieve your high priority goals</h3>
 	<div class="container" style="margin: auto;">
-	<div id="firstGoal" align="center">
+	<div id="firstGoal" align="center" ng-repeat-start="v in results track by $index">
 		<div id="first">
-			<p style="color:rgb(0, 0, 102); font-size:20px; font-weight:bold;">Goal #1{{results[0]}}</p>
+			<p style="color:rgb(0, 0, 102); font-size:20px; font-weight:bold;">Goal # {{$index+1}} {{v}}</p>
 			
 			<div class="row" align="center">
 				<div class="i-center">
 					<div class="col-md-12 column col-centered">
-					Step 1: &emsp;<input type="text" id="g1_step1"
+					Step 1: &emsp;<input type="text" id="{{ 'g' + $index + '_step1'}}"
 						style="border:1px solid black;"
 					> &emsp; &emsp;
 					</div>
 				</div>
 				<div class="i-center">
 					<div class="col-md-12 column col-centered">
-					Time Required: &emsp;<input type="text" id="g1_time1"
+					Time Required: &emsp;<input type="text" id="{{ 'g' + $index + '_time1'}}"
 						style="border:1px solid black;"
 					>
 					</div>
@@ -26,14 +26,14 @@
 			<div class="row" align="center">
 				<div class="i-center">
 					<div class="col-md-12 column col-centered">
-					Step 2: &emsp;<input type="text" id="g1_step2"
+					Step 2: &emsp;<input type="text" id="{{ 'g' + $index + '_step2'}}"
 						style="border:1px solid black;"
 					> &emsp; &emsp;
 					</div>
 				</div>
 				<div class="i-center">
 					<div class="col-md-12 column col-centered">
-					Time Required: &emsp;<input type="text" id="g1_time2"
+					Time Required: &emsp;<input type="text" id="{{ 'g' + $index + '_time2'}}"
 						style="border:1px solid black;"
 					>
 					</div>
@@ -44,14 +44,14 @@
 			<div class="row" align="center">
 				<div class="i-center">
 					<div class="col-md-12 column col-centered">
-					Step 3: &emsp;<input type="text" id="g1_step3"
+					Step 3: &emsp;<input type="text" id="{{ 'g' + $index + '_step3'}}"
 						style="border:1px solid black;"
 					> &emsp; &emsp;
 					</div>
 				</div>
 				<div class="i-center">
 					<div class="col-md-12 column col-centered">
-					Time Required: &emsp;<input type="text" id="g1_time3"
+					Time Required: &emsp;<input type="text" id="{{ 'g' + $index + '_time3'}}"
 						style="border:1px solid black;"
 					>
 					</div>
@@ -62,14 +62,14 @@
 			<div class="row" align="center">
 				<div class="i-center">
 					<div class="col-md-12 column col-centered">
-					Step 4: &emsp;<input type="text" id="g1_step4"
+					Step 4: &emsp;<input type="text" id="{{ 'g' + $index + '_step4'}}"
 						style="border:1px solid black;"
 					> &emsp; &emsp;
 					</div>
 				</div>
 				<div class="i-center">
 					<div class="col-md-12 column col-centered">
-					Time Required: &emsp;<input type="text" id="g1_time4"
+					Time Required: &emsp;<input type="text" id="{{ 'g' + $index + '_time4'}}"
 						style="border:1px solid black;"
 					>
 					</div>
@@ -80,14 +80,14 @@
 			<div class="row" align="center">
 				<div class="i-center">
 					<div class="col-md-12 column col-centered">
-					Step 5: &emsp;<input type="text" id="g1_step5"
+					Step 5: &emsp;<input type="text" id="{{ 'g' + $index + '_step5'}}"
 						style="border:1px solid black;"
 					> &emsp; &emsp;
 					</div>
 				</div>
 				<div class="i-center">
 					<div class="col-md-12 column col-centered">
-					Time Required: &emsp;<input type="text" id="g1_time5"
+					Time Required: &emsp;<input type="text" id="{{ 'g' + $index + '_time5'}}"
 						style="border:1px solid black;"
 					>
 					</div>
@@ -98,198 +98,8 @@
 			</div>
 			<br><br>
 		</div>
+		<div ng-repeat-end=""></div>
 	
-	<div id="secondGoal" align="center">
-		<div id="second">
-			<p style="color:rgb(0, 0, 102); font-size:20px; font-weight:bold;">Goal #2{{results[1]}}</p>
-			<div class="row" align="center">
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Step 1: &emsp;<input type="text" id="g2_step1"
-						style="border:1px solid black;"
-					> &emsp; &emsp;
-					</div>
-				</div>
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Time Required: &emsp;<input type="text" id="g2_time1"
-						style="border:1px solid black;"
-					>
-					</div>
-				</div>
-			
-			</div>
-			
-			<div class="row" align="center">
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Step 2: &emsp;<input type="text" id="g2_step2"
-						style="border:1px solid black;"
-					> &emsp; &emsp;
-					</div>
-				</div>
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Time Required: &emsp;<input type="text" id="g2_time2"
-						style="border:1px solid black;"
-					>
-					</div>
-				</div>
-			
-			</div>
-
-			<div class="row" align="center">
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Step 3: &emsp;<input type="text" id="g2_step3"
-						style="border:1px solid black;"
-					> &emsp; &emsp;
-					</div>
-				</div>
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Time Required: &emsp;<input type="text" id="g2_time3"
-						style="border:1px solid black;"
-					>
-					</div>
-				</div>
-			
-			</div>
-		
-			<div class="row" align="center">
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Step 4: &emsp;<input type="text" id="g2_step4"
-						style="border:1px solid black;"
-					> &emsp; &emsp;
-					</div>
-				</div>
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Time Required: &emsp;<input type="text" id="g2_time4"
-						style="border:1px solid black;"
-					>
-					</div>
-				</div>
-			
-			</div>
-			
-			<div class="row" align="center">
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Step 5: &emsp;<input type="text" id="g2_step5"
-						style="border:1px solid black;"
-					> &emsp; &emsp;
-					</div>
-				</div>
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Time Required: &emsp;<input type="text" id="g2_time5"
-						style="border:1px solid black;"
-					>
-					</div>
-				</div>
-			
-			</div>
-			<br><br>
-		</div>
-	
-	<div id="thirdGoal" align="center">
-		<div id="third">
-			<p style="color:rgb(0, 0, 102); font-size:20px; font-weight:bold;">Goal #3{{results[2]}}</p>
-			<div class="row" align="center">
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Step 1: &emsp;<input type="text" id="g3_step1"
-						style="border:1px solid black;"
-					> &emsp; &emsp;
-					</div>
-				</div>
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Time Required: &emsp;<input type="text" id="g3_time1"
-						style="border:1px solid black;"
-					>
-					</div>
-				</div>
-			
-			</div>
-			
-			<div class="row" align="center">
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Step 2: &emsp;<input type="text" id="g3_step2"
-						style="border:1px solid black;"
-					> &emsp; &emsp;
-					</div>
-				</div>
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Time Required: &emsp;<input type="text" id="g3_time2"
-						style="border:1px solid black;"
-					>
-					</div>
-				</div>
-			
-			</div>
-
-			<div class="row" align="center">
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Step 3: &emsp;<input type="text" id="g3_step3"
-						style="border:1px solid black;"
-					> &emsp; &emsp;
-					</div>
-				</div>
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Time Required: &emsp;<input type="text" id="g3_time3"
-						style="border:1px solid black;"
-					>
-					</div>
-				</div>
-			
-			</div>
-		
-			<div class="row" align="center">
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Step 4: &emsp;<input type="text" id="g3_step4"
-						style="border:1px solid black;"
-					> &emsp; &emsp;
-					</div>
-				</div>
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Time Required: &emsp;<input type="text" id="g3_time4"
-						style="border:1px solid black;"
-					>
-					</div>
-				</div>
-			
-			</div>
-			
-			<div class="row" align="center">
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Step 5: &emsp;<input type="text" id="g3_step5"
-						style="border:1px solid black;"
-					> &emsp; &emsp;
-					</div>
-				</div>
-				<div class="i-center">
-					<div class="col-md-12 column col-centered">
-					Time Required: &emsp;<input type="text" id="g3_time5"
-						style="border:1px solid black;"
-					>
-					</div>
-				</div>
-			
-			</div>
-			<br>
-		</div>
-		
-	</div>
 
 		<div class="col-md-12 column col-centered">
 			<button class="button button-block" ng-click="saveGoals('Goal Setting')">Confirm your goals

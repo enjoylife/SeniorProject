@@ -57,10 +57,9 @@
     margin: 0;
     padding: 0;
     float: center;
-    margin-left: px;
+    margin-right: 0px;
     background: #fff;
     padding: 5px;
-    width: 143px;
 }
 
 .i-center {
