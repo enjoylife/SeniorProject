@@ -34,11 +34,16 @@ app.factory('asmntResultService', [ '$localstorage', function($localstorage){
 		asmntResults.splice(index, 1);
 	}
 
+	function getNumberOf(){
+		return asmntResults.length;
+	}
+
 	return {
 		loadList: loadList,
 		addAsmntResult: addAsmntResult,
 		getAsmntResult: getAsmntResult,
 		deleteAsmnt: deleteAsmnt,
+		getNumberOf: getNumberOf,
 	}
 
 }]);
@@ -51,7 +56,10 @@ app.controller('asmntResultCtrl', ['$scope', 'asmntResultService', '$ionicPopup'
     var load = $localstorage.getObject( 'assessments' );
     if (Object.keys(load).length !== 0) {
 		asmntResultService.loadList( load );
-    }	
+		$rootScope.totalAssessments = asmntResultService.getNumberOf();
+    }else{
+    	$rootScope.totalAssessments = 0;
+    }
 
 	
 	$scope.addResults = function(asmnt, title, date){

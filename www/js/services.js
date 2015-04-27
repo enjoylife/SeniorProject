@@ -197,12 +197,17 @@ app.service('contactService', function() {
         return contactsArray[index];
     }
 
+    function getNumberOf(){
+      return contactsArray.length;
+    }
+
     return {
         loadList: loadList,
         addContactService: addContactService,
         getContactsService: getContactsService,
         editContactsService: editContactsService,
-        removeContactsService: removeContactsService
+        removeContactsService: removeContactsService,
+        getNumberOf: getNumberOf,
     }
 
 });

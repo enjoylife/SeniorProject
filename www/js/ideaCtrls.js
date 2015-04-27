@@ -6,6 +6,9 @@ app.controller('IdeaCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
   var load = $localstorage.getObject( 'ideaList' );
   if (Object.keys(load).length !== 0) {
     ideaService.loadList( load );
+    $rootScope.totalIdeas = ideaService.getNumberOf();
+  }else{
+    $rootScope.totalIdeas = 0;
   }
 
   //this variable will be used to keep track of ionic popups

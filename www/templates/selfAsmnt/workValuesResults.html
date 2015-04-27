@@ -4,7 +4,7 @@
 	<h3 style="color:rgb(0, 102, 0);"> Now, drag them to put them in a final rank order</h3>
 
 	<table style="margin:auto;">
-		<tr style="color:rgb(0, 0, 102); color:rgb(0, 0, 102); font-size:20px; font-weight:bold;">
+		<tr style="color:rgb(0, 0, 102); font-size:20px; font-weight:bold;">
 			<td style="padding:10px; width:10%;">Rank</td>
 			<td align="center">Work Values & Priorities</td>
 		</tr>
@@ -13,10 +13,8 @@
 			<td style="padding:10px; color:rgb(0, 0, 102); font-size:20px; font-weight:bold;">1<br>2<br>3<br>.<br>.<br>.</td>
 			<td>
 				<ul id="sortable" align="center">
-					<li style="margin:13px;" ng-repeat="v in results track by $index">
-						<span style="border:1px solid black;">
-							<strong>{{ v.head }}</strong>{{ v.body }}
-						</span>
+					<li style="margin:13px; border:1px solid black;" ng-repeat="v in results track by $index">
+						<strong>{{ v.head }}</strong>{{ v.body }}
 					</li>
 				</ul>	
 			</td>

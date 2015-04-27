@@ -1,0 +1,104 @@
+<ion-content style="font-family:'Montserrat'; background-color:black;">
+	<h4 align="center" style="padding-top:4%; color:white;">Job Seeker Statistics</h4>
+	<div>
+		<table style="width:97%; margin:auto;">
+			<tr>
+				<td>
+					<h4 style="color:white;">Desired Career: </h4>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h3 ng-click="changeCareer();" id='out' style="color:white;">{{data.desiredCareer}}</h3>
+
+					<div id='in' hidden='true'>
+						<table>
+							<tr>
+								<td>
+									<input type='text' ng-model='data.desiredCareer'>
+								</td>
+								<td>
+									<i class="button-icon balanced ion-checkmark" ng-click="save()"
+									style="font-size:26px;
+										padding-left:10px;
+										padding-right:10px;"></i>
+								</td>
+								<td>
+									<i class="button-icon assertive ion-close" ng-click="cancel()"
+									style="font-size:26px;
+										padding-left:10px;
+										padding-right:10px;"></i>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<hr>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+
+	<div class="list card" style="background-color:black;">
+		<h4 style="color:white;">Career Binder Numbers:</h4>
+		<!-- Ideas -->
+		<span class="item"
+			style="background-color:rgb(35,128,99);"
+			ng-controller="IdeaCtrl"
+		>
+			<img src="css/SJS-ideas-icon.svg" alt=""
+				style="width:25%; height:25%;"
+				align="left">
+
+			<h3 style="font-size:20px; color:white; padding-top:9%;">{{totalIdeas}} ideas added</h3>
+		</span>
+
+		<!-- To-Dos -->
+		<span class="item"
+			style="background-color:rgb(4,63,46);"
+			ng-controller="ToDoCtrl"
+		>
+			<img src="css/SJS-to-do-icon.svg" alt=""
+				style="width:25%; height:25%;"
+				align="left">
+
+			<h3 style="font-size:20px; color:white; padding-top:9%;">{{totalTodos}} total to-do's</h3>
+		</span>
+
+		<!-- Assessments -->
+		<span class="item"
+			style="background-color:rgb(84,140,122);"
+			ng-controller="asmntResultCtrl"
+		>
+			<img src="css/SJS-assessments-icon.svg" alt=""
+				style="width:25%; height:25%;"
+				align="left">
+				
+			<h3 style="font-size:20px; color:white; padding-top:9%;">{{totalAssessments}}  assessment results</h3>
+		</span>
+
+		<!-- Applications -->
+		<span class="item"
+			style="background-color:rgb(29,130,99);"
+			ng-controller="JobAppCtrl"
+		>
+			<img src="css/SJS-applications-sent-icon.svg" alt=""
+				style="width:25%; height:25%;"
+				align="left">
+				
+			<h3 style="font-size:20px; color:white; padding-top:9%;">{{totalApplications}}  applications sent</h3>
+		</span>
+		
+		<!-- Contacts -->
+		<span class="item"
+			style="background-color:rgb(72,193,153);"
+			ng-controller="contactsCtrl"
+		>
+			<img src="css/SJS-contacts-icon.svg" alt=""
+				style="width:25%; height:25%;"
+				align="left">
+				
+			<h3 style="font-size:20px; color:white; padding-top:9%;">{{totalContacts}}  professional contacts</h3>
+		</span>
+	</div>
+</ion-content>
