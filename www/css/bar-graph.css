@@ -1,0 +1,98 @@
+.vert-graph-header {
+	
+	-ms-transform:rotate(-90deg);
+	-webki-transform:rotate(-90deg);
+	transform:rotate(-90deg);
+	color:white;
+	position:fixed;
+	/*padding-left:;*/
+	top:48%;
+	left:-15%;
+	display:block;
+}
+
+.vert-100 {
+	/*-ms-transform:rotate(-90deg);
+	-webki-transform:rotate(-90deg);
+	transform:rotate(-90deg);*/
+	color:white;
+	/*padding-left:15px;*/
+	position:fixed;
+	top:31%;
+	left:11%;
+	display:block;
+}
+
+.vert-50 {
+	color:white;
+	/*padding-top:150px;
+	padding-left:15px;*/
+	position:fixed;
+	top:45%;
+	left:13%;
+	display:block;
+}
+
+.vert-0 {
+	color:white;
+	position:fixed;
+	top:60%;
+	left:15%;
+	display:block;
+}
+
+
+.x-axis-one {
+	color:white;
+	font-size:12px;
+	position:fixed;
+	top:63%;
+	left:29%;
+	display:block;
+}
+
+.x-axis-two {
+	color:white;
+	font-size:12px;
+	position:fixed;
+	top:63%;
+	left:37%;
+	display:block;
+}
+
+.x-axis-three {
+	color:white;
+	font-size:12px;
+	position:fixed;
+	top:63%;
+	left:45%;
+	display:block;
+}
+
+
+.x-axis-four {
+	color:white;
+	font-size:12px;
+	position:fixed;
+	top:63%;
+	left:53%;
+	display:block;
+}
+
+.x-axis-five {
+	position:fixed;
+	color:white;
+	font-size:12px;
+	top:63%;
+	left:62%;
+	display:block;
+}
+
+.x-axis-six {
+	position:fixed;
+	color:white;
+	font-size:12px;
+	top:63%;
+	left:70%;
+	display:block;
+}

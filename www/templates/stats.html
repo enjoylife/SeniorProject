@@ -38,7 +38,44 @@
 		</table>
 	</div>
 
+	<!-- BAR GRAPH -->
+	<div style="width:97%;" ng-controller="BarGraphCtrl">
+		<h4 style="color:white; padding-left:2%;">Book Progression:</h4>
 
+
+		<!-- <span class="vert-graph-header">Percent Complete</span> -->
+		
+		<table>
+			<tr>
+				<td>
+					<span class="vert-100">100%</span>
+					<span class="vert-50">50%</span>
+					<span class="vert-0">0%</span>
+				</td>
+				<td style="width:75%">
+					<canvas id="barGraph" width:"250" height="300" style="border:1px solid white; width:70%;" ></canvas>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<span class="x-axis-one"> 1 </span>
+					<span class="x-axis-two"> 2 </span>
+					<span class="x-axis-three"> 3 </span>
+					<span class="x-axis-four"> 4 </span>
+					<span class="x-axis-five"> 5 </span>
+					<span class="x-axis-six"> 6 </span>
+				</td>
+			</tr>
+
+		</table>
+
+		<br><br>
+		<hr>
+	</div>
+
+
+
+	<!-- CAREER BINDER STATS -->
 	<div class="list card" style="background-color:black;">
 		<h4 style="color:white;">Career Binder Numbers:</h4>
 		<!-- Ideas -->
