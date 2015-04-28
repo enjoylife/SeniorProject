@@ -79,7 +79,11 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
     $scope.goToProfile = function(){
         $ionicScrollDelegate.scrollTop();
             setTimeout(function(){
-                $state.go('profile');
+                if($state.current.name==='profile'){
+                    $state.go('stats');
+                }else{
+                    $state.go('profile');
+                }
             }, 50);
     }
 
@@ -154,29 +158,27 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
     }
 
     $scope.data = {};
-    var oldCareer;
-    window.onload = function(){
-        var loadCareer = $localstorage.getObject('DesiredCareer');
-        console.log(Object.keys(loadCareer));
-        if(Object.keys(loadCareer).length != 0){
-            $scope.data.desiredCareer = loadCareer;
-            //console.log("desiredCareer = " + desiredCareer.keys);
-        }else{
-            $scope.data.desiredCareer = 'Enter Future Career';
-        }
-    }();
+    var oldCareer = "";
+    var loadCareer = $localstorage.get('DesiredCareer');
 
-    $scope.changeCareer = function(hide, show){
+    //console.log("load Career is " + loadCareer);
+    if(loadCareer){
+        $scope.data.desiredCareer = loadCareer;
+    }else{
+        //$scope.data = {};
+        $scope.data.desiredCareer = 'Enter Future Career';
+    }
+
+    $scope.changeCareer = function(){
         oldCareer = $scope.data.desiredCareer;
         $("#out").hide();
         $("#in").show();
-        console.log($scope.data.desiredCareer);
     }
 
     $scope.save = function(){
         console.log('desired career is '+ $scope.data.desiredCareer);
-        //$scope.$apply();
-        $localstorage.setObject( 'DesiredCareer' , $scope.data.desiredCareer );       
+        var newCareer = $scope.data.desiredCareer;
+        $localstorage.set( 'DesiredCareer' , newCareer );       
         $("#in").hide();
         $("#out").show();
         console.log($scope.data.desiredCareer);
