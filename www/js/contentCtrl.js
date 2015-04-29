@@ -105,11 +105,12 @@ app.controller('contentCtrl',function($scope, $state,$ionicScrollDelegate, $loca
                 // ignore
             },
             function(err){
-                console.log("Error ding",err)
+                console.log("Error Media library ding",err)
             })
-        ding.play()
+        console.log("Media audio")
+        ding.play({ playAudioWhenScreenIsLocked : false })
         } catch(e){
-            console.log(e);
+           console.log("HTML5 audio")
             document.querySelector("#ding").play()
         }
        
