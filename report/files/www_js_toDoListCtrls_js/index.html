@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">70.80</p>
+      <p class="stat">70.49</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">247</p>
+      <p class="stat">261</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">30.52</p>
+      <p class="stat">33.11</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">1.77</p>
+      <p class="stat">1.92</p>
     </div>
   </div>
 </div>
@@ -96,6 +96,9 @@ app.controller(&#039;ToDoCtrl&#039;, [&#039;$scope&#039;, &#039;$ionicPopup&#039
   var load = $localstorage.getObject( &#039;toDoList&#039; );
   if (Object.keys(load).length !== 0) {
     toDoService.loadList( load );
+    $rootScope.totalTodos = toDoService.getNumberOf();
+  }else{
+  	$rootScope.totalTodos = 0;
   }
 
   //this variable will be used to keep track of ionic popups
@@ -116,6 +119,7 @@ app.controller(&#039;ToDoCtrl&#039;, [&#039;$scope&#039;, &#039;$ionicPopup&#039
 	$scope.obj = {
 	  title: &#039;&#039;,
 	  end: &#039;&#039;,
+	  done: false,
 	  id: toDoService.getNumberOf()
 	};
 
@@ -186,6 +190,7 @@ app.controller(&#039;ToDoCtrl&#039;, [&#039;$scope&#039;, &#039;$ionicPopup&#039
 	$scope.obj = {
 		title: temp.title,
 		end: temp.end,
+		done: temp.done,
 		id: temp.id
 	};
     var myPopup = $ionicPopup.show({
@@ -264,8 +269,17 @@ app.controller(&#039;ToDoCtrl&#039;, [&#039;$scope&#039;, &#039;$ionicPopup&#039
    });
  };
  
- $scope.removeAll = function() {
+ /* Remove all items marked as done */
+ $scope.removeAll = function () {
 	toDoService.removeAll();
+	
+ }
+ 
+ $scope.fadeOut = function(index) {
+	console.log(toDoService.getItem(index).done)
+	$( &quot;#&quot;+index ).fadeOut( 1500 );
+	$localstorage.setObject( &#039;toDoList&#039;, toDoService.output() );
+	
  }
   
   $scope.output = function () {

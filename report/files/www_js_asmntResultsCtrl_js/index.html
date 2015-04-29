@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">72.76</p>
+      <p class="stat">69.35</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">147</p>
+      <p class="stat">183</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">19.78</p>
+      <p class="stat">23.13</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.92</p>
+      <p class="stat">1.17</p>
     </div>
   </div>
 </div>
@@ -125,11 +125,16 @@ app.factory(&#039;asmntResultService&#039;, [ &#039;$localstorage&#039;, functio
 		asmntResults.splice(index, 1);
 	}
 
+	function getNumberOf(){
+		return asmntResults.length;
+	}
+
 	return {
 		loadList: loadList,
 		addAsmntResult: addAsmntResult,
 		getAsmntResult: getAsmntResult,
 		deleteAsmnt: deleteAsmnt,
+		getNumberOf: getNumberOf,
 	}
 
 }]);
@@ -137,17 +142,15 @@ app.factory(&#039;asmntResultService&#039;, [ &#039;$localstorage&#039;, functio
 
 //assessment results controller
 app.controller(&#039;asmntResultCtrl&#039;, [&#039;$scope&#039;, &#039;asmntResultService&#039;, &#039;$ionicPopup&#039;, &#039;$localstorage&#039;, &#039;$ionicScrollDelegate&#039;, &#039;$state&#039;, &#039;$ionicScrollDelegate&#039;, &#039;$rootScope&#039;, function($scope, asmntResultService, $ionicPopup, $localstorage, $ionicScrollDelegate, $state, $ionicScrollDelegate, $rootScope){
-	$scope.setScreen = function(){
-		$ionicScrollDelegate.scrollTop();
-	}
-
 
     /* Load from local storage */
     var load = $localstorage.getObject( &#039;assessments&#039; );
     if (Object.keys(load).length !== 0) {
 		asmntResultService.loadList( load );
-    }	
-
+		$rootScope.totalAssessments = asmntResultService.getNumberOf();
+    }else{
+    	$rootScope.totalAssessments = 0;
+    }
 
 	
 	$scope.addResults = function(asmnt, title, date){
@@ -158,7 +161,23 @@ app.controller(&#039;asmntResultCtrl&#039;, [&#039;$scope&#039;, &#039;asmntResu
 
 	$scope.getResults = function(){
 		//get asmnt results from factory
-		$scope.asmntResults = asmntResultService.getAsmntResult();
+		if(asmntResultService.getAsmntResult() == 0){
+			$(&quot;#nullMessage&quot;).show();
+			return asmntResultService.getAsmntResult();
+		}else{
+			$(&quot;#nullMessage&quot;).hide();
+			return asmntResultService.getAsmntResult();
+		}
+
+		/*$scope.asmntResults = asmntResultService.getAsmntResult();
+
+		//if no results, display null message
+		if($scope.asmntResults.length == 0){
+			$(&quot;#nullMessage&quot;).show();
+		}else{
+			
+		}*/
+
 	}
 
 	//showResults will check the asmnt.title and show display the corresponding assessment
@@ -195,6 +214,22 @@ app.controller(&#039;asmntResultCtrl&#039;, [&#039;$scope&#039;, &#039;asmntResu
 			$scope.resultObjects = asmnt.results;
 		}
 
+		if(asmnt.title === &#039;Life Interests &amp; Passions&#039;){
+			$scope.toggle(&quot;showAsmnts&quot;, &quot;showLifeInterestsResults&quot;);
+			$scope.resultObjects = asmnt.results;
+		}
+		
+		if(asmnt.title === &#039;Life &amp; Work Environment&#039;){
+			$scope.toggle(&quot;showAsmnts&quot;, &quot;showLifeAndWorkEnvironmentResults&quot;);
+			$scope.resultObjects = asmnt.results;
+			console.log($scope.resultObjects);
+		}
+		
+		if(asmnt.title === &#039;Goal Setting&#039;){
+			$scope.toggle(&quot;showAsmnts&quot;, &quot;showGoalResults&quot;);
+			$scope.resultObjects = asmnt.results;
+		}
+
 	}
 
 	//toggles between assessment headers and their individual results
@@ -213,6 +248,7 @@ app.controller(&#039;asmntResultCtrl&#039;, [&#039;$scope&#039;, &#039;asmntResu
 		 if(res) {
 		   asmntResultService.deleteAsmnt( index );
 		   $localstorage.setObject( &#039;assessments&#039;, asmntResultService.getAsmntResult() );
+		   //$scope.getResults();
 		 } else {
 		   
 		 }

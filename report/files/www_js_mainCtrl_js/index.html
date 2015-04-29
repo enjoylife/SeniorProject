@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">70.25</p>
+      <p class="stat">70.13</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">121</p>
+      <p class="stat">188</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">20.20</p>
+      <p class="stat">25.81</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.93</p>
+      <p class="stat">1.60</p>
     </div>
   </div>
 </div>
@@ -118,6 +118,10 @@ app.controller(&#039;MainCtrl&#039;, function($scope, $state, $ionicSideMenuDele
   function(event, toState, toParams, fromState, fromParams){ 
     
     if($state.current.name==&#039;profile&#039;){
+      window.setInterval(function(){
+        $(&quot;#leftArrow&quot;).fadeToggle(&#039;slow&#039;);
+        $(&quot;#rightArrow&quot;).fadeToggle(&#039;slow&#039;);
+      }, 1000);
       $ionicScrollDelegate.getScrollView().options.scrollingY = false;
     }else{
       $ionicScrollDelegate.getScrollView().options.scrollingY = true;         
@@ -137,10 +141,15 @@ app.controller(&#039;MainCtrl&#039;, function($scope, $state, $ionicSideMenuDele
 
     //Android hardware backbutton
     var deregister = $ionicPlatform.registerBackButtonAction(function(e) {
-        /*e.preventDefault();
-         e.stopPropagation();*/
+         //app close at profile
         if($state.current.name==&quot;profile&quot;){
             navigator.app.exitApp();
+        }//prevent users from going back into assessments after completion
+        else if($state.current.name==&quot;binder-asmntResults&quot;){
+            $state.go(&quot;binder&quot;);
+        }
+        else if($state.current.name==&quot;binder&quot;){
+            $state.go(&quot;profile&quot;);
         }
         else {
             navigator.app.backHistory();
@@ -158,6 +167,18 @@ app.controller(&#039;MainCtrl&#039;, function($scope, $state, $ionicSideMenuDele
         $ionicScrollDelegate.scrollTop();
     }
 
+    $scope.goToProfile = function(){
+        $ionicScrollDelegate.scrollTop();
+            setTimeout(function(){
+                if($state.current.name===&#039;profile&#039;){
+                    $state.go(&#039;stats&#039;);
+                }else{
+                    $state.go(&#039;profile&#039;);
+                }
+            }, 50);
+    }
+
+
     //swiping navigation
     $scope.swipingLogicLeft = function(){
         console.log(&quot;swipe Left&quot;);
@@ -168,7 +189,7 @@ app.controller(&#039;MainCtrl&#039;, function($scope, $state, $ionicSideMenuDele
         }
 
         if($state.is(&#039;content.sections&#039;)){
-            $state.go(&#039;profile&#039;);
+            $scope.goToProfile();
         }
 
         if($state.is(&#039;profile&#039;)){
@@ -201,18 +222,64 @@ app.controller(&#039;MainCtrl&#039;, function($scope, $state, $ionicSideMenuDele
 
     $scope.getSecAndSub = function(timeline, params){
 
-            var section = _.find(timeline, function(obj){
-                return obj.folder == params.folder;
-            })
-            if(!section) throw new Error(&quot;Could not find Section&quot;);
+        var section = _.find(timeline, function(obj){
+            return obj.folder == params.folder;
+        })
+        if(!section) throw new Error(&quot;Could not find Section&quot;);
 
-            var subsection = _.find(section.sections, function(obj){
-                return obj.file == params.file;
-            })
-            if(!subsection) throw new Error(&quot;Could not find Subsection&quot;);
-            
-            return {&#039;section&#039;: section,&#039;subsection&#039;:subsection}
-        };
+        var subsection = _.find(section.sections, function(obj){
+            return obj.file == params.file;
+        })
+        if(!subsection) throw new Error(&quot;Could not find Subsection&quot;);
+        
+        return {&#039;section&#039;: section,&#039;subsection&#039;:subsection}
+    };
+
+    //code to verify if user wants to navigate to seriousjobseeker.com 
+    $scope.verifyNav = function(){
+        $ionicPopup.confirm({
+            title:&#039;You are leaving the app to go to www.SeriousJobSeeker.com&#039;,
+            //template:&#039;You must input at least one value.&#039;
+        })
+        .then(function(res){
+            if(res){
+                window.open(&quot;http://www.seriousjobseeker.com/&quot;, &quot;_blank&quot;);
+            }else{}
+        })
+    }
+
+    $scope.data = {};
+    var oldCareer = &quot;&quot;;
+    var loadCareer = $localstorage.get(&#039;DesiredCareer&#039;);
+
+    //console.log(&quot;load Career is &quot; + loadCareer);
+    if(loadCareer){
+        $scope.data.desiredCareer = loadCareer;
+    }else{
+        //$scope.data = {};
+        $scope.data.desiredCareer = &#039;Enter Future Career&#039;;
+    }
+
+    $scope.changeCareer = function(){
+        oldCareer = $scope.data.desiredCareer;
+        $(&quot;#out&quot;).hide();
+        $(&quot;#in&quot;).show();
+    }
+
+    $scope.save = function(){
+        console.log(&#039;desired career is &#039;+ $scope.data.desiredCareer);
+        var newCareer = $scope.data.desiredCareer;
+        $localstorage.set( &#039;DesiredCareer&#039; , newCareer );       
+        $(&quot;#in&quot;).hide();
+        $(&quot;#out&quot;).show();
+        console.log($scope.data.desiredCareer);
+    }
+
+    $scope.cancel = function(){
+        $scope.data.desiredCareer = oldCareer;
+        $(&quot;#in&quot;).hide();
+        $(&quot;#out&quot;).show();
+    }
 
 });</textarea>
   </div>

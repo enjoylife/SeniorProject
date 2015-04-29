@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">46.78</p>
+      <p class="stat">44.00</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">194</p>
+      <p class="stat">237</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">8.96</p>
+      <p class="stat">9.24</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.94</p>
+      <p class="stat">1.22</p>
     </div>
   </div>
 </div>
@@ -92,6 +92,12 @@
     <textarea id="file-source" class="col-md-12">app.config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
+  .state(&#039;stats&#039;, {
+    url:&#039;/stats&#039;,
+    templateUrl:&#039;templates/stats.html&#039;,
+    controller:&#039;MainCtrl&#039;,
+  })
+
   .state(&#039;profile&#039;, {
     url: &#039;/profile&#039;,
     templateUrl: &#039;templates/profile.html&#039;,
@@ -187,7 +193,6 @@
   })
 
   //Work Values &amp; Priorities Assessment 
-  //(not accessible in prototype deliverable)
   .state(&#039;workValues&#039;, {
     url:&#039;/workValues&#039;,
     templateUrl:&#039;templates/selfAsmnt/workValues.html&#039;,
@@ -213,6 +218,44 @@
     controller:&#039;MainCtrl&#039;
   })
 
+  //Life Interests Assessment
+  .state(&#039;lifeInterests&#039;, {
+    url:&#039;/lifeInterests&#039;,
+    templateUrl:&#039;templates/selfAsmnt/lifeInterests.html&#039;,
+    controller:&#039;MainCtrl&#039;
+  })
+
+  .state(&#039;lifeInterestsResults&#039;, {
+    url:&#039;/lifeInterestsResults&#039;,
+    templateUrl:&#039;templates/selfAsmnt/lifeInterestsResults.html&#039;,
+    controller:&#039;MainCtrl&#039;
+  })
+  
+  //Life &amp; Work Enviornment Assessment
+  .state(&#039;lifeWorkEnvironment&#039;, {
+    url:&#039;/lifeWorkEnvironment&#039;,
+    templateUrl:&#039;templates/selfAsmnt/lifeWorkEnvironment.html&#039;,
+    controller:&#039;MainCtrl&#039;
+  })
+  
+  //Goal Setting And Time Management Assessment
+  .state(&#039;goalSetting&#039;, {
+    url:&#039;/goalSetting&#039;,
+    templateUrl:&#039;templates/selfAsmnt/goalSetting.html&#039;,
+    controller:&#039;MainCtrl&#039;
+  })
+  
+  .state(&#039;goalSettingPriority&#039;, {
+    url:&#039;/goalSettingPriority&#039;,
+    templateUrl:&#039;templates/selfAsmnt/goalSettingPriority.html&#039;,
+    controller:&#039;MainCtrl&#039;
+  })
+
+  .state(&#039;goalSettingResults&#039;, {
+    url:&#039;/goalSettingResults&#039;,
+    templateUrl:&#039;templates/selfAsmnt/goalSettingResults.html&#039;,
+    controller:&#039;MainCtrl&#039;
+  })
 
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
