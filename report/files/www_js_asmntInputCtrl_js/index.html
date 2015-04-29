@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">72.36</p>
+      <p class="stat">57.39</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">72</p>
+      <p class="stat">271</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">14.10</p>
+      <p class="stat">46.04</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.53</p>
+      <p class="stat">2.57</p>
     </div>
   </div>
 </div>
@@ -93,7 +93,7 @@
 
 app.controller(&#039;asmntInputCtrl&#039;, [&#039;$scope&#039;, &#039;$localstorage&#039;, &#039;workValueService&#039;, &#039;asmntResultService&#039;, &#039;$ionicPopup&#039;, &#039;$state&#039;, function($scope, $localstorage, workValueService, asmntResultService, $ionicPopup, $state){
 	//function that will be called when a user is ready to rank their areas
-	$scope.pushVals = function(){
+	$scope.pushVals = function(goToStateName){
 		var inventory = [];
 
 		//grab the non-empty text boxes and put them in our array
@@ -109,6 +109,36 @@ app.controller(&#039;asmntInputCtrl&#039;, [&#039;$scope&#039;, &#039;$localstor
 	  		workValueService.setArray(inventory);
 			console.log(inventory);
 			inventory = [];
+			$state.go(goToStateName);
+		}else{
+			$ionicPopup.alert({
+				title:&#039;Uh-Oh!&#039;,
+				template:&#039;You must input at least one value.&#039;
+			})
+		}
+	}
+	
+	//function that will be called when a user is finish ranking their goals
+	$scope.pushGoalsHigh = function(goToStateName){
+		var inventory = [];
+		
+		/* Get only High Priority Goals */
+		$(&quot;#sortableGoalsHigh li&quot;).each(function(index){
+			inventory.push($(this).text());
+		})
+		
+
+		//send our array to our factory
+		if(inventory.length &gt; 0){
+	  		workValueService.setArray(inventory);
+			console.log(inventory);
+			inventory = [];
+			$state.go(goToStateName);
+		}else{
+			$ionicPopup.alert({
+				title:&#039;Uh-Oh!&#039;,
+				template:&#039;You must have at least 1 High Priority goal&#039;
+			})
 		}
 	}
 
@@ -129,12 +159,27 @@ app.controller(&#039;asmntInputCtrl&#039;, [&#039;$scope&#039;, &#039;$localstor
 
 	//sortable objects, thanks JQuery
 	$(function() {
-    	$( &quot;#sortable&quot; ).sortable();
+		$( &quot;#sortable&quot; ).sortable();
     	$( &quot;#sortable&quot; ).disableSelection();
+		$( &quot;#sortableGoals&quot; ).sortable({
+			connectWith: &quot;.connectedSortable&quot;
+		});
+		$( &quot;#sortableGoalsHigh, #sortableGoalsMed, #sortableGoalsLow&quot; ).sortable({
+			connectWith: &quot;.connectedSortable&quot;,
+			receive: function(event, ui) {
+
+				if ($(this).children().length &gt; 3) {
+
+					$(ui.sender).sortable(&#039;cancel&#039;);
+				}
+			}
+		});
+		$( &quot;#sortableGoals, #sortableGoalsHigh, #sortableGoalsMed, #sortableGoalsLow&quot; ).disableSelection();
+		
   	});
 
 	//user commit
-	$scope.saveList = function(){
+	$scope.saveList = function(assessment){
 		var listItems = [];
 	  	$(&quot;li&quot;).each(function(index) {
 	  		console.log($(this).text());
@@ -151,13 +196,167 @@ app.controller(&#039;asmntInputCtrl&#039;, [&#039;$scope&#039;, &#039;$localstor
 			var datestring = curmonth + &quot;/&quot; + curday + &quot;/&quot; + curyear;
 			
 			//send results to asmnt results factory
-			asmntResultService.addAsmntResult(listItems, &#039;Key Knowledge Areas&#039;, datestring);
+			asmntResultService.addAsmntResult(listItems, assessment, datestring);
 			$localstorage.setObject( &#039;assessments&#039;, asmntResultService.getAsmntResult() );
+			listItems = [];
+			workValueService.setArray(listItems);
 			$state.go(&#039;binder-asmntResults&#039;);
 		}else{
 			$ionicPopup.alert({
 				title:&#039;Uh-Oh!&#039;,
-				template:&#039;You must choose some work priorities that are &lt;u&gt;Absolutely Required&lt;/u&gt;!&#039;
+				template:&#039;You must choose at least one value.&#039;
+			})
+		}
+  	}
+	
+	// Save Goal Setting Assessment
+	$scope.saveGoals = function(assessment){
+		var listItems = [];
+		var check = true;
+		for (i = 0; i &lt; $scope.results.length; i++) {
+			var goals = {
+				&#039;goal&#039;: &#039;&#039;,
+				&#039;steps&#039;: [],
+				&#039;times&#039;: []
+			};
+			goals.goal = $scope.results[i];
+			for (j = 1; j &lt;= 5; j++) {
+				var step = document.getElementById(&#039;g&#039;+i+&#039;_step&#039;+j).value;
+				var time = document.getElementById(&#039;g&#039;+i+&#039;_time&#039;+j).value;
+				
+				/* Validation Checking to make sure each step and time are associated with each other */
+				if( (step !== &quot;&quot; &amp;&amp; time == &quot;&quot;) ){
+					i = $scope.results.length;
+					j = 6;
+					check = false;
+					$ionicPopup.alert({
+						title:&#039;Uh-Oh!&#039;,
+						template:&#039;Please add a time to your step&#039;
+					})
+				} else if ( (step == &quot;&quot; &amp;&amp; time !== &quot;&quot;) ){
+					i = $scope.results.length;
+					j = 6;
+					check = false;
+					$ionicPopup.alert({
+						title:&#039;Uh-Oh!&#039;,
+						template:&#039;Please add a step to your time&#039;
+					})
+				}
+				
+				/* Push into array if not empty */
+				if ( step !== &quot;&quot; ){
+					goals.steps.push(step);
+				}
+				if ( time !== &quot;&quot; ) {
+					goals.times.push(time);
+				}
+				
+				if(j == 5) {
+				
+					/* Validation checking to make sure at least 1 step for each goal */
+					if ( (goals.steps.length &gt; 0) &amp;&amp; (goals.times.length &gt; 0) ) {
+						listItems.push(goals);
+					} else {
+						i = $scope.results.length;
+						$ionicPopup.alert({
+							title:&#039;Uh-Oh!&#039;,
+							template:&#039;Please add steps and time to all of your goals&#039;
+						})
+					}
+				}
+			}
+		}
+		console.log(listItems);
+		console.log(listItems.length);
+
+	  	if(listItems.length == $scope.results.length ){
+		  	//create date object
+		  	d = new Date();
+			curday = d.getDate();
+			curmonth = d.getMonth();
+			curyear = d.getFullYear();
+			var datestring = curmonth + &quot;/&quot; + curday + &quot;/&quot; + curyear;
+			
+			//send results to asmnt results factory
+			asmntResultService.addAsmntResult(listItems, assessment, datestring);
+			$localstorage.setObject( &#039;assessments&#039;, asmntResultService.getAsmntResult() );
+			listItems = [];
+			workValueService.setArray(listItems);
+			$state.go(&#039;binder-asmntResults&#039;);
+		} 
+  	}
+	
+	// Save assessment Life &amp; Work Environment
+	$scope.saveLifeWork = function(assessment){
+		var listItems = [];
+		var obj = {
+				&#039;location_yes&#039;: [],
+				&#039;location_no&#039;: [],
+				&#039;people_yes&#039;: [],
+				&#039;people_no&#039;: [],
+				&#039;work_yes&#039;: [],
+				&#039;work_no&#039;: []
+		};
+		for (i = 1; i &lt;= 3; i++) {
+			for (j = 1; j &lt;= 5; j++) {
+				if (i == 1) {
+					var yes = document.getElementById(&#039;location_yes&#039;+j).value;
+					var no = document.getElementById(&#039;location_no&#039;+j).value;
+					if(yes !== &quot;&quot;){
+						obj.location_yes.push(yes);
+					}
+					if(no !== &quot;&quot;){
+						obj.location_no.push(no);
+					}
+				} else if ( i == 2) {
+					var yes = document.getElementById(&#039;people_yes&#039;+j).value;
+					var no = document.getElementById(&#039;people_no&#039;+j).value;
+					if(yes !== &quot;&quot;){
+						obj.people_yes.push(yes);
+					}
+					if(no !== &quot;&quot;){
+						obj.people_no.push(no);
+					}
+				} else if ( i == 3) {
+					var yes = document.getElementById(&#039;work_yes&#039;+j).value;
+					var no = document.getElementById(&#039;work_no&#039;+j).value;
+					if(yes !== &quot;&quot;){
+						obj.work_yes.push(yes);
+					}
+					if(no !== &quot;&quot;){
+						obj.work_no.push(no);
+					}
+				}
+				
+			}
+		}
+		
+		/* Validation check for at least one input */
+		if (obj.location_yes.length &gt; 0 || obj.location_no.length &gt; 0 ||
+			obj.people_yes.length &gt; 0 || obj.people_no.length &gt; 0 ||
+			obj.work_yes.length &gt; 0 || obj.work_no.length &gt; 0) {
+			
+			listItems.push(obj);
+		}
+
+	  	if(listItems.length &gt; 0){
+		  	//create date object
+		  	d = new Date();
+			curday = d.getDate();
+			curmonth = d.getMonth();
+			curyear = d.getFullYear();
+			var datestring = curmonth + &quot;/&quot; + curday + &quot;/&quot; + curyear;
+			
+			//send results to asmnt results factory
+			asmntResultService.addAsmntResult(listItems, assessment, datestring);
+			$localstorage.setObject( &#039;assessments&#039;, asmntResultService.getAsmntResult() );
+			listItems = [];
+			workValueService.setArray(listItems);
+			$state.go(&#039;binder-asmntResults&#039;);
+		}else{
+			$ionicPopup.alert({
+				title:&#039;Uh-Oh!&#039;,
+				template:&#039;You must input at least one value&#039;
 			})
 		}
   	}

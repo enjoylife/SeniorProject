@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">68.00</p>
+      <p class="stat">67.35</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">306</p>
+      <p class="stat">316</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">30.63</p>
+      <p class="stat">33.73</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">2.70</p>
+      <p class="stat">2.87</p>
     </div>
   </div>
 </div>
@@ -89,7 +89,7 @@
 
 <div class="container">
   <div class="row">
-    <textarea id="file-source" class="col-md-12">app.controller(&#039;CalendarCtrl&#039;, [&#039;$scope&#039;, &#039;$compile&#039;, &#039;$ionicPopup&#039;, &#039;$cordovaCalendar&#039;, &#039;$localstorage&#039;, &#039;uiCalendarConfig&#039;, &#039;calendarService&#039;, &#039;toDoService&#039;, function CalendarCtrl($scope, $compile, $ionicPopup, $cordovaCalendar, $localstorage, uiCalendarConfig, calendarService, toDoService) {
+    <textarea id="file-source" class="col-md-12">app.controller(&#039;CalendarCtrl&#039;, [&#039;$scope&#039;, &#039;$compile&#039;, &#039;$ionicPopup&#039;, &#039;$cordovaCalendar&#039;, &#039;$localstorage&#039;, &#039;uiCalendarConfig&#039;, &#039;calendarService&#039;, &#039;toDoService&#039;, &#039;$rootScope&#039;, function CalendarCtrl($scope, $compile, $ionicPopup, $cordovaCalendar, $localstorage, uiCalendarConfig, calendarService, toDoService, $rootScope) {
 	  //Global variables to be updated
 	  var date = new Date();
 	  var year = date.getFullYear();
@@ -110,8 +110,8 @@
 	  
 	  //Save time
 	  $scope.event = {
-		timeStart: new Date(),
-		timeEnd: new Date()
+		timeStart: new Date( year, month, day, 0, 0, 0, 0 ),
+		timeEnd: new Date( year, month, day, 0, 0, 0 , 0 )
 	  }
 		
 	  //Used for hiding buttons
@@ -160,6 +160,16 @@
 				endMin = $scope.event.timeEnd.getMinutes();
 				//var endDate = moment({ y: year, M: month, d: day, h: endHour, m: endMin, s: 0, ms:0 });
 				var endDate = new Date( year, month, day, endHour, endMin, 0, 0 )
+
+				//automatically add 15minute interval to event in order to view 
+				//in day agenda if times are equal
+				if(endDate.getTime() === startDate.getTime()){
+					//console.log(&quot;SAME DATES&quot;);
+					endMin += 15;
+					endDate = new Date( year, month, day, endHour, endMin, 0, 0 ); 
+					//console.log(&quot;endDate modified&quot;);
+				}
+
 				$scope.obj.end = endDate;
 				
 				if ( $scope.obj.start === null || $scope.obj.end === null) {
@@ -208,10 +218,9 @@
 
 				   };   
 				   
-				   $scope.event = {
-						timeStart: new Date(),
-						timeEnd: new Date()
-				   }
+				   $scope.event.timeStart = new Date( year, month, day, 0, 0, 0 , 0 );
+				   $scope.event.timeEnd = new Date( year, month, day, 0, 0, 0 , 0 );
+				   
 			   			   
 			  }
 			}
@@ -258,7 +267,7 @@
 	  if (view == &#039;agendaDay&#039;)
 	  {
 		$scope.isDay = true;
-		uiCalendarConfig.calendars[&#039;myCalendar1&#039;].fullCalendar(&#039;option&#039;,&#039;contentHeight&#039;, 1050);
+		uiCalendarConfig.calendars[&#039;myCalendar1&#039;].fullCalendar(&#039;option&#039;,&#039;contentHeight&#039;, 2138);
 		uiCalendarConfig.calendars[calendar].fullCalendar(&#039;changeView&#039;,view);
 	  }else{
 		$scope.isDay = false;
@@ -317,6 +326,7 @@
         editable: true,
 		timezone: &#039;local&#039;,
 		ignoreTimezone: false,
+		slotDuration: &#039;00:15:00&#039;,
 		scrollTime: &#039;00:00:00&#039;,       
 		allDaySlot: false,
         header:{
@@ -350,7 +360,7 @@
 	
     /* event sources array*/
     $scope.eventSources = [];
-	    
+	
 }]);
 
 app.factory(&#039;calendarService&#039;, [&#039;$localstorage&#039;, function($localstorage) {
