@@ -310,7 +310,9 @@
                         bPlayAudioWhenScreenIsLocked = [playAudioWhenScreenIsLocked boolValue];
                     }
 
-                     NSString* sessionCategory = bPlayAudioWhenScreenIsLocked ? AVAudioSessionCategoryPlayback : AVAudioSessionCategorySoloAmbient;
+                    // NSString* sessionCategory = bPlayAudioWhenScreenIsLocked ? AVAudioSessionCategoryPlayback : AVAudioSessionCategorySoloAmbient;
+                     NSString* sessionCategory = AVAudioSessionCategoryAmbient;
+
                     
                     [self.avSession setCategory:sessionCategory error:&err];
                     if (![self.avSession setActive:YES error:&err]) {
