@@ -11,8 +11,8 @@ $scope.index =  $scope.isComplete = 0;
 
 $scope.nextPair = function(personality){
   $scope.index++; personalities[personality]++
-  console.log(personalities);
-  if($scope.index == $scope.pairs.length){ //if user is finished with asmnt...
+  //if user is finished with asmnt...
+  if($scope.index == $scope.pairs.length){ 
     $scope.isComplete = true;
     $scope.results = {
       labels: Object.keys(personalities),
@@ -28,6 +28,13 @@ $scope.nextPair = function(personality){
         }
       ]
     }
+    String.prototype.capitalizeFirstLetter = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+ }
+    // Creates the outside links for top personality
+    ordPersonalities = _.pairs(personalities).sort(function(a,b){ return b[1] - a[1]});
+
+    document.getElementById('best-personality').setAttribute('onClick',"window.open('http://www.onetonline.org/explore/interests/" + ordPersonalities[0][0].capitalizeFirstLetter() + "')")
 
     //code to send career personality asmnt results to career binder asmnt results
     d = new Date();
