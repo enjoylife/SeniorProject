@@ -50,6 +50,9 @@ span.input-label.has-input{
 .list .item {
     background-color: white;
     margin-bottom: 20px;
+    border: none;
+    padding: 0px;
+    margin: 0px;
 }
 .list input {
   font-family: Montserrat;
@@ -134,4 +137,10 @@ ion-side-menu-content.frosted {
   border-width: 1px;
   border-style: solid;
   color: hsl(0, 100%, 100%);
+}
+
+.swipe-icon {
+  color: hsl(0, 100%, 100%);
+  position: absolute;
+
 }
