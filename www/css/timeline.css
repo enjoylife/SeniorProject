@@ -127,7 +127,7 @@ section.lead-in h3.number{
     /*color:rgb(29,130,99) !important;*/
 }
 .content.complete .bubble {
-    background-color: rgb(15,62,48) !important;
+ background-color:rgb(84,140,122) !important;
 }
 .content .object {
   width: 100%;
@@ -169,7 +169,7 @@ section.lead-in h3.number{
 }
 
 .content.complete .object .context{
-    border-left: solid rgb(15,62,48);
+    border-left: solid rgb(84,140,122);
   border-width: 0 3px;
 }
 
