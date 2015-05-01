@@ -17,6 +17,10 @@ app.controller('profileCtrl',function($scope, DataStore, $state, $ionicModal,$io
     $state.go('content.sections', last)
   }
 
+  $scope.buttonRight = function(){
+    $state.go('binder');
+  }
+
 
  // Load up the tutorial template
  $ionicModal.fromTemplateUrl('templates/introModal.html', {
