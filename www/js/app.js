@@ -3,7 +3,7 @@
  * Only export and to be used by almost every other component in our app
 
  */
-var app = angular.module('prototype', [ 'ionic', 'ngCordova', 'ui.calendar', 'ui.bootstrap', 'ui.router']);
+var app = angular.module('prototype', [ 'ionic', 'ngCordova', 'ngAnimate', 'ui.calendar', 'ui.bootstrap', 'ui.router']);
 
 
 /**
