@@ -184,11 +184,12 @@ app.controller('ToDoCtrl', ['$scope', '$ionicPopup', '$timeout', '$localstorage'
 	
  }
  
- $scope.fadeOut = function(index) {
-	console.log(toDoService.getItem(index).done)
-	$( "#"+index ).fadeOut( 1500 );
+ /* When item is finished */
+ $scope.finished = function(index) {
+	$timeout(function() {
+	toDoService.removeItem(index);
 	$localstorage.setObject( 'toDoList', toDoService.output() );
-	
+	}, 1000);
  }
   
   $scope.output = function () {
