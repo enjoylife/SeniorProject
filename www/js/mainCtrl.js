@@ -164,9 +164,6 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
     //console.log("load Career is " + loadCareer);
     if(loadCareer){
         $scope.data.desiredCareer = loadCareer;
-    }else{
-        //$scope.data = {};
-        $scope.data.desiredCareer = 'Enter Future Career';
     }
 
     $scope.changeCareer = function(){
