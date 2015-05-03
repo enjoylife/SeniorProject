@@ -16,6 +16,7 @@
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="BackupWebStorage" value="none"/>
+  <preference name="Fullscreen" value="true"/>
   <platform name="android">
     <icon src="icons/Android/ldpi.png" density="ldpi"/>
     <icon src="icons/Android/mdpi.png" density="mdpi"/>
