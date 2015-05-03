@@ -17,5 +17,49 @@
             "type": "registry",
             "id": "org.apache.cordova.file"
         }
+    },
+    "com.ionic.keyboard": {
+        "source": {
+            "type": "local",
+            "path": "C:\\Users\\dks95_000\\.plugman\\cache\\com.ionic.keyboard\\1.0.4\\package"
+        }
+    },
+    "com.plugin.datepicker": {
+        "source": {
+            "type": "git",
+            "url": "http://github.com/VitaliiBlagodir/cordova-plugin-datepicker",
+            "subdir": "."
+        }
+    },
+    "nl.x-services.plugins.calendar": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin.git",
+            "subdir": "."
+        }
+    },
+    "org.apache.cordova.camera": {
+        "source": {
+            "type": "local",
+            "path": "C:\\Users\\dks95_000\\.plugman\\cache\\org.apache.cordova.camera\\0.3.5\\package"
+        }
+    },
+    "org.apache.cordova.console": {
+        "source": {
+            "type": "local",
+            "path": "C:\\Users\\dks95_000\\.plugman\\cache\\org.apache.cordova.console\\0.2.13\\package"
+        }
+    },
+    "org.apache.cordova.contacts": {
+        "source": {
+            "type": "local",
+            "path": "C:\\Users\\dks95_000\\.plugman\\cache\\org.apache.cordova.contacts\\0.2.16\\package"
+        }
+    },
+    "org.apache.cordova.device": {
+        "source": {
+            "type": "local",
+            "path": "C:\\Users\\dks95_000\\.plugman\\cache\\org.apache.cordova.device\\0.3.0\\package"
+        }
     }
 }
