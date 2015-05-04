@@ -19,12 +19,12 @@ $scope.nextPair = function(personality){
       datasets: [
         {
           data: Object.keys(personalities).map(function(key){return personalities[key] / 5}),
-          fillColor: "rgba(220,220,220,0.2)",
-          strokeColor: "rgba(220,220,220,1)",
-          pointColor: "rgba(220,220,220,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)"
+          fillColor: "rgba(15, 62, 48,0.2)",
+          strokeColor: "rgba(15, 62, 48,1)",
+          pointColor: "rgba(15, 62, 48,1)",
+          pointStrokeColor: "#111",
+          pointHighlightFill: "#111",
+          pointHighlightStroke: "rgba(15, 62, 48,1)"
         }
       ]
     }
@@ -70,7 +70,23 @@ $scope.nextPair = function(personality){
         if(value){
           console.log(scope.results);
           var ctx = document.getElementById("radar-chart").getContext("2d")
-          var myRadarChart = new Chart(ctx).Radar(scope.results);
+          var myRadarChart = new Chart(ctx).Radar(scope.results,{ 
+            pointLabelFontSize : 18,
+            //String - Point label font colour  
+            pointLabelFontColor : "black",
+            scaleLineWidth:1,
+            //String - Colour of the scale line 
+            scaleLineColor : "#111",
+            //Number - Scale label font size in pixels  
+            scaleFontSize : 7,
+            //Boolean - Whether to animate the chart
+            animation : true,
+
+            //Number - Number of animation steps
+            animationSteps : 60,
+            //String - Animation easing effect
+            animationEasing : "easeOutQuart",
+            });
         }
       })
     }
