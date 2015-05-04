@@ -11,13 +11,13 @@
   font-family: 'Tinos',sans-serif;
   font-size: 18px;
   vertical-align: baseline;
-  line-height: 1.6em
+  line-height: 1.6em;
+  padding-top:10px;
 }
 .content-wrapper ul {
   font-family: 'Tinos',sans-serif;
 font-size: 18px;
-margin: 10px;
-margin-left:30px;
+margin-left:15px;
 list-style: circle;
 }
 .content-wrapper ul li {
@@ -50,4 +50,11 @@ div.next-section button{
 
 .done {
   text-decoration: line-through;
+}
+
+.small-icons {
+  width: 40px;
+  background: hsl(0, 0%, 0%);
+  float: left;
+  margin-right: 5px;
 }

@@ -4,7 +4,7 @@
   border:none;
   height:55px;
   background-image:none;
-
+  padding-top:10px;
 }
 
 
@@ -12,6 +12,7 @@
   font-family: Montserrat;
   color:white;
   font-weight: 300;
+  padding-top: 10px;
 }
 .header-bar button {
   color:white;
@@ -46,8 +47,9 @@ i.icon.highlight {
 
 #gear-icon {
      background-image: url(GearsIcon.svg);
-     background-size: 100% 100%;
+     background-size: 80% 80%;
   background-repeat: no-repeat;
   padding-right: 35px;
+  margin-top:10px;
 
 }

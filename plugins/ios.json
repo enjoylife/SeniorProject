@@ -21,10 +21,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"LocalNotification\"><param name=\"ios-package\" onload=\"true\" value=\"APPLocalNotification\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Calendar\"><param name=\"ios-package\" value=\"Calendar\" /></feature>",
                             "count": 1
                         },
@@ -130,9 +126,6 @@
             "PACKAGE_NAME": "com.ionicframework.prototype611949"
         },
         "com.plugin.datepicker": {
-            "PACKAGE_NAME": "com.ionicframework.prototype611949"
-        },
-        "de.appplant.cordova.plugin.local-notification": {
             "PACKAGE_NAME": "com.ionicframework.prototype611949"
         },
         "nl.x-services.plugins.calendar": {
