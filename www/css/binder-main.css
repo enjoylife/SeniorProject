@@ -6,6 +6,7 @@ Binder
 .row.binder {
   padding:0px;
   height:34%;
+  min-height: 170px;
   -webkit-flex:1;
       -ms-flex:1;
           flex:1;
@@ -19,8 +20,8 @@ text-align: center;
 
 .binder img {
   width: 100%;
-  height:100%;
-  max-width: 200px;
+  height: 90%;
+  /* max-width: 200px; */
   padding: 0px 25px 0px 25px;
 }
 .binder button {
@@ -31,7 +32,7 @@ text-align: center;
 }
 
 .binder span {
-   font-size: 20px;
+   font-size: 14px;
    display: block;
    text-align: center;
      font-family: Montserrat;
