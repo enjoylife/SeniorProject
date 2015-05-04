@@ -105,14 +105,35 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
             $state.go('binder');
         }
 
+        if($state.is('binder') ||
+            $state.is('binder-ideas')||
+            $state.is('binder-calendar') ||
+            $state.is('binder-toDo') ||
+            $state.is('binder-asmntResults') ||
+            $state.is('binder-contacts') ||
+            $state.is('binder-jobApps') ||
+            $state.is('binder-individualAsmntResults')){
+            console.log("includes")
+            $state.go('stats');
+        }
+
+        if($state.is('stats')){
+            var last = DataStore.getGlobalLast();
+            $state.go('content.sections', last);
+        }
+
     }
     $scope.swipingLogicRight = function(){
         if($state.is('content.sections')){
-            $ionicSideMenuDelegate.toggleLeft();
+            //$ionicSideMenuDelegate.toggleLeft();
+            $state.go('stats');
+        }
+        if($state.is('stats')){
+            $state.go('binder');
         }
         if($state.is('profile')){
             var last = DataStore.getGlobalLast();
-            $state.go('content.sections', last)
+            $state.go('content.sections', last);
         }
         if($state.is('binder')){
             $state.go('profile');
