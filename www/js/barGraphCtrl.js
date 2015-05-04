@@ -1,5 +1,5 @@
 app.controller('BarGraphCtrl', function($scope, DataStore){
-    var maxHeight = 280;
+    var maxHeight = 290;
     var x = 10;
     var myColor = "green";
     var heightArray = [];
