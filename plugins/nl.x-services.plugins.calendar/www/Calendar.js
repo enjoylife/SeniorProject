@@ -50,7 +50,9 @@ Calendar.prototype.getCalendarOptions = function () {
     secondReminderMinutes: null,
     recurrence: null, // options are: 'daily', 'weekly', 'monthly', 'yearly'
     recurrenceEndDate: null,
-    calendarName: null
+    calendarName: null,
+    calendarId: null,
+    url: null
   };
 };
 
@@ -83,7 +85,7 @@ Calendar.prototype.createEventWithOptions = function (title, location, notes, st
     "startTime": startDate instanceof Date ? startDate.getTime() : null,
     "endTime": endDate instanceof Date ? endDate.getTime() : null,
     "options": mergedOptions
-  }])
+  }]);
 };
 
 Calendar.prototype.createEvent = function (title, location, notes, startDate, endDate, successCallback, errorCallback) {
@@ -91,13 +93,27 @@ Calendar.prototype.createEvent = function (title, location, notes, startDate, en
 };
 
 Calendar.prototype.createEventInteractively = function (title, location, notes, startDate, endDate, successCallback, errorCallback) {
+  Calendar.prototype.createEventInteractivelyWithOptions(title, location, notes, startDate, endDate, {}, successCallback, errorCallback);
+};
+
+Calendar.prototype.createEventInteractivelyWithOptions = function (title, location, notes, startDate, endDate, options, successCallback, errorCallback) {
+  // merge passed options with defaults
+  var mergedOptions = Calendar.prototype.getCalendarOptions();
+  for (var val in options) {
+    if (options.hasOwnProperty(val)) {
+      mergedOptions[val] = options[val];
+    }
+  }
+  if (options.recurrenceEndDate != null) {
+    mergedOptions.recurrenceEndTime = options.recurrenceEndDate.getTime();
+  }
   cordova.exec(successCallback, errorCallback, "Calendar", "createEventInteractively", [{
     "title": title,
     "location": location,
     "notes": notes,
     "startTime": startDate instanceof Date ? startDate.getTime() : null,
     "endTime": endDate instanceof Date ? endDate.getTime() : null,
-    "options": Calendar.prototype.getCalendarOptions()
+    "options": mergedOptions
   }])
 };
 

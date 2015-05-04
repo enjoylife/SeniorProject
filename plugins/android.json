@@ -45,7 +45,6 @@
             },
             "AndroidManifest.xml": {
                 "parents": {
-                    "/manifest/application": [],
                     "/manifest": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.READ_CALENDAR\" />",
@@ -97,7 +96,7 @@
         "com.plugin.datepicker": {
             "PACKAGE_NAME": "com.prototype.gearhead"
         },
-        "cordova-plugin-inappbrowser": {
+        "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "com.prototype.gearhead"
         },
         "nl.x-services.plugins.calendar": {

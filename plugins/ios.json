@@ -17,7 +17,7 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
                             "count": 1
                         },
                         {
@@ -53,6 +53,12 @@
             },
             "framework": {
                 "parents": {
+                    "CoreGraphics.framework": [
+                        {
+                            "xml": "false",
+                            "count": 4
+                        }
+                    ],
                     "EventKit.framework": [
                         {
                             "xml": "false",
@@ -75,12 +81,6 @@
                         {
                             "xml": "false",
                             "count": 1
-                        }
-                    ],
-                    "CoreGraphics.framework": [
-                        {
-                            "xml": "false",
-                            "count": 3
                         }
                     ],
                     "AssetsLibrary.framework": [
@@ -123,33 +123,32 @@
     },
     "installed_plugins": {
         "com.ionic.keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.prototype611949"
+            "PACKAGE_NAME": "com.prototype.gearhead"
         },
         "com.plugin.datepicker": {
-            "PACKAGE_NAME": "com.ionicframework.prototype611949"
+            "PACKAGE_NAME": "com.prototype.gearhead"
+        },
+        "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "com.prototype.gearhead"
         },
         "nl.x-services.plugins.calendar": {
-            "PACKAGE_NAME": "com.ionicframework.prototype611949"
+            "PACKAGE_NAME": "com.prototype.gearhead"
         },
         "org.apache.cordova.camera": {
-            "PACKAGE_NAME": "com.ionicframework.prototype611949"
+            "PACKAGE_NAME": "com.prototype.gearhead"
         },
         "org.apache.cordova.console": {
-            "PACKAGE_NAME": "com.ionicframework.prototype611949"
+            "PACKAGE_NAME": "com.prototype.gearhead"
         },
         "org.apache.cordova.contacts": {
-            "PACKAGE_NAME": "com.ionicframework.prototype611949"
+            "PACKAGE_NAME": "com.prototype.gearhead"
+        },
+        "org.apache.cordova.file": {
+            "PACKAGE_NAME": "com.prototype.gearhead"
         },
         "org.apache.cordova.media": {
             "PACKAGE_NAME": "com.prototype.gearhead"
         }
     },
-    "dependent_plugins": {
-        "org.apache.cordova.device": {
-            "PACKAGE_NAME": "com.ionicframework.prototype611949"
-        },
-        "org.apache.cordova.file": {
-            "PACKAGE_NAME": "com.prototype.gearhead"
-        }
-    }
+    "dependent_plugins": {}
 }
