@@ -31,9 +31,12 @@ app.controller('profileCtrl',function($scope, DataStore, $state, $ionicModal,$io
 
    // Used as a callback to close on last page of tutorial
   $scope.slideChanged = function(index){
+    console.log($ionicSlideBoxDelegate.slidesCount());
     // On Last slide
     if($ionicSlideBoxDelegate.currentIndex()+1 ==$ionicSlideBoxDelegate.slidesCount()){
       $scope.closeModal()
+      // Reset to the first slide so subsequent tutorial views start from the begining
+      $ionicSlideBoxDelegate.slide(0);
     }
   }
 
