@@ -32,9 +32,10 @@ $scope.nextPair = function(personality){
     return this.charAt(0).toUpperCase() + this.slice(1);
  }
     // Creates the outside links for top personality
-    ordPersonalities = _.pairs(personalities).sort(function(a,b){ return b[1] - a[1]});
+    $scope.ordPersonalities = _.pairs(personalities).sort(function(a,b){ return b[1] - a[1]});
 
     document.getElementById('best-personality').setAttribute('onClick',"window.open('http://www.onetonline.org/explore/interests/" + ordPersonalities[0][0].capitalizeFirstLetter() + "')")
+
 
     //code to send career personality asmnt results to career binder asmnt results
     d = new Date();
@@ -48,6 +49,11 @@ $scope.nextPair = function(personality){
 
   } 
 };
+
+$scope.oNet = function(){
+
+  window.open('http://www.onetonline.org/explore/interests/' + $scope.ordPersonalities[0][0].capitalizeFirstLetter(),'_system');
+}
 
 }])
 

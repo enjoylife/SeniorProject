@@ -173,7 +173,7 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
         })
         .then(function(res){
             if(res){
-                window.open("http://www.seriousjobseeker.com/", "_blank");
+                window.open("http://www.seriousjobseeker.com/", "_system");
             }else{}
         })
     }

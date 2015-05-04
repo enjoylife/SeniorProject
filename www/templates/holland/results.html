@@ -1,6 +1,6 @@
 <div  ng-show="isComplete">
 	<div class="row">
-		<button id="best-personality" class="personality button button-full button-positive">Explore your Personality and matching occupations on O*Net</button>
+		<button id="best-personality" class="personality button button-full button-positive" on-tap="{{oNet()}}">Explore your Personality and matching occupations on O*Net</button>
 		</div>
 	<div class="row">
 		<canvas width="{{screen.width}}" id="radar-chart"></canvas>		
