@@ -11,8 +11,8 @@
 		<hr>
 		<div id="firstSection">
 			<p><span style="color: rgb(0, 0, 102); font-weight:bold;">List your long-term goals. What would you like to accomplish in the next seven to ten years?:</span>  (Examples: Buying a house, getting a M.S or Ph.D., getting married, having a family, moving into management)</p>
-		
-				<div id="first" class="col col-33 col-offset-33">
+			<div class="row">
+				<div id="first" class="col col-50">
 					<input type="text"
 						style="border:1px solid black;"
 					>
@@ -26,7 +26,8 @@
 					>
 					<br>
 				</div>
-		
+				
+			</div>
 				<p>
 					<button class="button" ng-click="addTextInput('#first');">
 						Add Text Area
@@ -38,7 +39,8 @@
 		<!-- Second Section -->
 		<div id="secondSection">
 			<p><span style="color: rgb(0, 0, 102); font-weight:bold;"> List your short-term goals. What would you like to accomplish in the next three to five years?</span>  (Example: getting a job, starting a career, getting a car that runs) </p>
-				<div id="second" class="col col-33 col-offset-33">
+			<div class="row">
+				<div id="second" class="col col-50">
 					<input type="text"
 						style="border:1px solid black;"
 					>
@@ -52,7 +54,7 @@
 					>
 					<br>
 				</div>
-		
+			</div>
 				<p>
 					<button class="button" ng-click="addTextInput('#second');">
 						Add Text Area
@@ -63,7 +65,8 @@
 		<!-- Third Section -->
 		<div id="thirdSection">
 			<p><span style="color: rgb(0, 0, 102); font-weight:bold;"> List your immediate goals. What would you like to accomplish in the next in the next few days, weeks or months,  in the next six months or before the year ends?
-				<div id="third" class="col col-33 col-offset-33">
+			<div class="row">
+				<div id="third" class="col col-50">
 					<input type="text"
 						style="border:1px solid black;"
 					>
@@ -77,9 +80,10 @@
 					>
 					<br>
 				</div>
+			</div>
 		
 				<p>
-					<button class="button" ng-click="addTextInput('#second');">
+					<button class="button" ng-click="addTextInput('#third');">
 						Add Text Area
 					</button>
 				</p>
