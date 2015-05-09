@@ -26,7 +26,7 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
   $rootScope.$on('$stateChangeSuccess', 
   function(event, toState, toParams, fromState, fromParams){ 
     
-    if($state.current.name=='profile'){
+    /*if($state.current.name=='profile'){
       window.setInterval(function(){
         $("#leftArrow").fadeToggle('slow');
         $("#rightArrow").fadeToggle('slow');
@@ -34,7 +34,7 @@ app.controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate, $loc
       $ionicScrollDelegate.getScrollView().options.scrollingY = false;
     }else{
       $ionicScrollDelegate.getScrollView().options.scrollingY = true;         
-    }
+    }*/
     
     //scrollBottom() if navigating to holland assessment
     //from career binder
