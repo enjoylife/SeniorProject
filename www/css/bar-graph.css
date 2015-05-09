@@ -51,30 +51,27 @@
 .x-axis-one {
 	color:white;
 	font-size:12px;
-	position:fixed;
+	/*position:fixed;*/
 	padding-top:0px;
-	left:24%;
-	display:block;
+	padding-left:32%;
 	z-index:-1;
 }
 
 .x-axis-two {
 	color:white;
 	font-size:12px;
-	position:fixed;
+	/*position:fixed;*/
 	/*top:63%;*/
-	left:34%;
-	display:block;
+	padding-left:9%;
 	z-index:-1;
 }
 
 .x-axis-three {
 	color:white;
 	font-size:12px;
-	position:fixed;
+	padding-left:9%;
+	/*position:fixed;*/
 	/*top:63%;*/
-	left:44%;
-	display:block;
 	z-index:-1;
 }
 
@@ -82,29 +79,24 @@
 .x-axis-four {
 	color:white;
 	font-size:12px;
-	position:fixed;
+	padding-left:9%;
+	/*position:fixed;*/
 	/*top:63%;*/
-	left:53%;
-	display:block;
 	z-index:-1;
 }
 
 .x-axis-five {
-	position:fixed;
 	color:white;
 	font-size:12px;
 	/*top:63%;*/
-	left:62%;
-	display:block;
+	padding-left:9%;
 	z-index:-1;
 }
 
 .x-axis-six {
-	position:fixed;
 	color:white;
 	font-size:12px;
 	/*top:63%;*/
-	left:72%;
-	display:block;
+	padding-left:9%;
 	z-index:-1;
 }
