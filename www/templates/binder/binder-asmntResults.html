@@ -28,18 +28,26 @@
 		<table style="margin:auto; background-color:white; border:15px solid white;">
 		  <tr style="font-size:15px;" ng-repeat-start="ro in resultObjects track by $index">
 			<td style="padding:10px;">
-				<strong>High Priority Goal # {{$index+1}} {{ro.goal}}</strong>
+				<strong>High Priority Goal # {{$index+1}}</strong>
 			</td>
 		  </tr>
 		  
 		  <tr style="font-size:15px;">
 			<td style="padding:10px;">
-				<strong>Steps</strong>
+				<strong>{{ro.goal}}</strong>
+			</td>
+		  </tr>
+		  
+		  <tr style="font-size:15px;">
+			<td style="padding:10px;">
+				<strong>Steps:</strong>
+			</td>
+			<td style="padding:10px;">
+				<strong>Time:</strong>
 			</td>
 		  </tr>
 		  <tr style="font-size:15px;" ng-repeat="step in ro.steps track by $index">
 			<td style="padding:10px;">{{step}}</td>
-			<td style="padding:10px;"><strong>Time Required: </strong></td>
 			<td style="padding:10px;">{{ro.times[$index]}}
 		  </tr>
 		  

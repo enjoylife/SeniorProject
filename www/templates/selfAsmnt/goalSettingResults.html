@@ -2,80 +2,46 @@
 	<h3 style="color:rgb(0, 0, 102); padding-top:4%;" align="center">Your medium or low priority goals are not urgent. Time to focus on your high priority goals. Now list the steps and estimated time to achieve your high priority goals</h3>
 	<div class="container" style="margin: auto;">
 	<div id="firstGoal" align="center" ng-repeat-start="v in results track by $index">
-		<div id="first">
 			<p style="color:rgb(0, 0, 102); font-size:20px; font-weight:bold;">Goal # {{$index+1}} {{v}}</p>
 			
 			<div class="row" style="text-align:center">
-				<div style="margin:auto;" class="col col-center">
-					Step 1: &emsp;<input type="text" id="{{ 'g' + $index + '_step1'}}"
+				<div style="margin:auto;" class="col col-center" id="steps">
+					Steps: &emsp;<input type="text" id="{{ 'g' + $index + '_step1'}}"
+						style="border:1px solid black;"
+					> &emsp; &emsp;
+					&emsp;<input type="text" id="{{ 'g' + $index + '_step2'}}"
+						style="border:1px solid black;"
+					> &emsp; &emsp;
+					&emsp;<input type="text" id="{{ 'g' + $index + '_step3'}}"
+						style="border:1px solid black;"
+					> &emsp; &emsp;
+					&emsp;<input type="text" id="{{ 'g' + $index + '_step4'}}"
+						style="border:1px solid black;"
+					> &emsp; &emsp;
+					&emsp;<input type="text" id="{{ 'g' + $index + '_step5'}}"
 						style="border:1px solid black;"
 					> &emsp; &emsp;
 				</div>
-				<div style="margin:auto;" class="col col-center">
+				<div style="margin:auto;" class="col col-center" id="time">
 					Time Required: &emsp;<input type="text" id="{{ 'g' + $index + '_time1'}}"
 						style="border:1px solid black;"
-					>
-				</div>
-			
-			</div>
-			
-			<div class="row" style="text-align:center">
-				<div style="margin:auto;" class="col col-center">
-					Step 2: &emsp;<input type="text" id="{{ 'g' + $index + '_step2'}}"
+					> &emsp; &emsp;
+					&emsp;<input type="text" id="{{ 'g' + $index + '_time2'}}"
 						style="border:1px solid black;"
 					> &emsp; &emsp;
-				</div>
-				<div style="margin:auto;" class="col col-center">
-					Time Required: &emsp;<input type="text" id="{{ 'g' + $index + '_time2'}}"
-						style="border:1px solid black;"
-					>
-				</div>
-			
-			</div>
-
-			<div class="row" style="text-align:center">
-				<div style="margin:auto;" class="col col-center">
-					Step 3: &emsp;<input type="text" id="{{ 'g' + $index + '_step3'}}"
+					&emsp;<input type="text" id="{{ 'g' + $index + '_time3'}}"
 						style="border:1px solid black;"
 					> &emsp; &emsp;
-				</div>
-				<div style="margin:auto;" class="col col-center">
-					Time Required: &emsp;<input type="text" id="{{ 'g' + $index + '_time3'}}"
+					&emsp;<input type="text" id="{{ 'g' + $index + '_time4'}}"
 						style="border:1px solid black;"
-					>
+					> &emsp; &emsp;
+					&emsp;<input type="text" id="{{ 'g' + $index + '_time5'}}"
+						style="border:1px solid black;"
+					> &emsp; &emsp;
 				</div>
 			
 			</div>
 		
-			<div class="row" style="text-align:center">
-				<div style="margin:auto;" class="col col-center">
-					Step 4: &emsp;<input type="text" id="{{ 'g' + $index + '_step4'}}"
-						style="border:1px solid black;"
-					> &emsp; &emsp;
-				</div>
-				<div style="margin:auto;" class="col col-center">
-					Time Required: &emsp;<input type="text" id="{{ 'g' + $index + '_time4'}}"
-						style="border:1px solid black;"
-					>
-				</div>
-			
-			</div>
-			
-			<div class="row" style="text-align:center">
-				<div style="margin:auto;" class="col col-center">
-					Step 5: &emsp;<input type="text" id="{{ 'g' + $index + '_step5'}}"
-						style="border:1px solid black;"
-					> &emsp; &emsp;
-				</div>
-				<div style="margin:auto;" class="col col-center">
-					Time Required: &emsp;<input type="text" id="{{ 'g' + $index + '_time5'}}"
-						style="border:1px solid black;"
-					>
-				</div>
-			
-			</div>
-			
-			</div>
 			<br><br>
 		</div>
 		<div ng-repeat-end=""></div>

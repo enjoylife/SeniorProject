@@ -3,7 +3,7 @@
 <div ng-controller="asmntInputCtrl" ng-init="getVals()">
 
 	<h3 style="color: rgb(0, 0, 102); padding-top:4%;" align="center">
-		Prioritize and rank your goals by dragging and dropping them to the right
+		Prioritize and rank your goals by dragging and dropping them to box area on the right. Focus on high priority goals
 	</h3>
 	<div class="row">
 
@@ -19,7 +19,7 @@
 				<tr>
 					<td align="center">
 						<ul id="sortableGoals" class="connectedSortable" align="center">
-							<li style="margin:13px; padding:5px; border:1px solid black;" ng-repeat="v in results track by $index">
+							<li ng-repeat="v in results track by $index">
 								{{ v }}
 							</li>
 						</ul>	

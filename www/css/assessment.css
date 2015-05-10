@@ -57,11 +57,21 @@
 }
 
 .connectedSortable {
+
+}
+
+#sortableGoals, #sortableGoalsHigh, #sortableGoalsMed, #sortableGoalsLow{
+    border: 1px solid #eee;
+    min-height: 20px;
     list-style-type: none;
     margin: 0;
     padding: 0;
     float: center;
     margin-right: 0px;
-    background: #fff;
+}
+
+#sortableGoals li, #sortableGoalsHigh li, #sortableGoalsMed li, #sortableGoalsLow li{
+    border:1px solid black;
+	margin: 1px;
     padding: 5px;
 }
