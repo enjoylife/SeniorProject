@@ -17,6 +17,7 @@
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="BackupWebStorage" value="none"/>
   <preference name="Fullscreen" value="true"/>
+  <preference name="target-device" value="handset"/>
   <platform name="android">
     <icon src="icons/Android/ldpi.png" density="ldpi"/>
     <icon src="icons/Android/mdpi.png" density="mdpi"/>
