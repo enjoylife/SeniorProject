@@ -1,0 +1,56 @@
+{
+    "com.ionic.keyboard": {
+        "source": {
+            "type": "registry",
+            "id": "com.ionic.keyboard"
+        }
+    },
+    "com.plugin.datepicker": {
+        "source": {
+            "type": "registry",
+            "id": "com.plugin.datepicker"
+        }
+    },
+    "nl.x-services.plugins.calendar": {
+        "source": {
+            "type": "registry",
+            "id": "nl.x-services.plugins.calendar"
+        }
+    },
+    "org.apache.cordova.camera": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.camera"
+        }
+    },
+    "org.apache.cordova.console": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.console"
+        }
+    },
+    "org.apache.cordova.contacts": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.contacts"
+        }
+    },
+    "org.apache.cordova.file": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.file"
+        }
+    },
+    "org.apache.cordova.inappbrowser": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.inappbrowser"
+        }
+    },
+    "org.apache.cordova.media": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.media"
+        }
+    }
+}
